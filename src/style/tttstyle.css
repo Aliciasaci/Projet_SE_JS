@@ -1,0 +1,122 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box; 
+    font-family: 'Raleway', sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: rgb(41,34,156);
+    background: radial-gradient(circle, rgba(41,34,156,1) 0%, rgba(255,41,251,1) 35%, rgba(0,212,255,1) 100%);
+}
+
+html {
+    font-size: 16px;
+}
+
+.wrapper {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    margin: 3em auto;
+    overflow: auto;
+}
+
+.container {
+    width: 70vmin;
+    height: 70vmin;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2vmin;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.button-option {
+    height: 22vmin;
+    width: 22vmin;
+    font-size: 14vmin;
+    color: rgb(193, 245, 255);
+}
+
+.button-option:hover {
+    background: rgba(255, 255, 255, 0.50);
+}
+
+.gamebtn {
+    display: flex;
+}
+
+.btn-wrapper {
+    margin: 0.5rem auto;
+}
+
+.op {
+    font-size: large;
+    padding: 1em;
+    border-radius: 8px;
+    background-color: white;
+    color: rgba(41,34,156,1);
+    border: 1px solid transparent;
+    position: relative;
+    margin: .5em auto;
+    display: flex;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.op:hover {
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid white;
+    background: rgba(255, 255, 255, 0.3);
+
+}
+
+.popup {
+    background: radial-gradient(circle, rgba(41,34,156,1) 0%, rgba(255,41,251,1) 35%, rgba(0,212,255,1) 100%);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    z-index: 2;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1em;
+    font-size: 12vmin;
+}
+
+#play-again {
+    padding: 0.5em 1em;
+    font-size: 0.6em;
+    border-radius: 8px;
+    background-color: white;
+    color: rgba(41,34,156,1);
+    border: none;
+
+}
+
+#message {
+    color: white;
+    text-align: center;
+    font-size: 1em;
+}
+
+.popup.hide {
+    display: none;
+}
+
+/* GLASSMORPHISM PROPERTIES */
+
+.glass {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3.7px);
+    -webkit-backdrop-filter: blur(3.7px);
+    border: 1px solid rgba(255, 255, 255, 0.47);
+}
