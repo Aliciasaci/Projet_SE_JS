@@ -14,6 +14,12 @@
 <body>
     <h1></h1>
     <div class="wrapper">
+        <div class="score-wrapper">
+            <div class="score" id="scoreX"></div>
+            <div class="score" id="scoreTie"></div>
+            <div class="score" id="scoreO"></div>
+            
+        </div>
         <div class="container">
             <button class="button-option glass" id="1"></button>
             <button class="button-option glass" id="2"></button>
@@ -30,14 +36,13 @@
                 <button class="button op" id="validate">Confirmer</button>
                 <button class="button op" id="cancel">Annuler</button>
             </div>
-            
             <button class="button op" id="reset">Recommencer</button>
         </div>
 
     </div>
 
     <div class="popup hide">
-        <p id="message">Sample Message</p>
+        <p id="message"></p>
         <button class="button" id="play-again">Rejouer</button>
     </div>
 

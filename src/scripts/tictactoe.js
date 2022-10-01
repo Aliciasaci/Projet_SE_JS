@@ -5,6 +5,10 @@ let restartBtn = document.getElementById("reset");
 let cancelBtn = document.getElementById("cancel");
 let msgRef = document.getElementById("message");
 let validateBtn = document.getElementById("validate");
+let scoreRef = document.getElementById("score");
+let scoreXRef = document.getElementById("scoreX");
+let scoreORef = document.getElementById("scoreO");
+let scoreTieRef = document.getElementById("scoreTie");
 
 //player is either X (true) or O (false)
 let player = true;
@@ -12,8 +16,11 @@ let player = true;
 //array to keep track of player moves
 let moves = [];
 
-//winning player
-let winner = null;
+let scoreboard = {
+    player: 0,
+    computer: 0,
+    tie: 0
+};
 
 //array to keep track of winning combinations
 let winningCombos = [
@@ -30,82 +37,26 @@ let winningCombos = [
 //display X or O on the board when a player clicks on a square and save the move
 function play(e) {
     let move = player ? "X" : "O";
-    if (moves.length >= 1){
+    if (moves.length >= 1) {
         if (e.target.innerHTML === "" && moves[moves.length - 1][0] !== move) {
             let square = e.target;
             let id = square.id;
-            console.log({moves});
             moves.push([move, id]);
-            checkWin();
             square.innerHTML = move;
         }
     } else {
-        if (e.target.innerHTML === "") {
-            let square = e.target;
-            let id = square.id;
-            console.log({moves});
-            moves.push([move, id]);
-            checkWin();
-            square.innerHTML = move;
-        }
-    }
-
-    
-}
-
-//validate move
-function validateMove() {
-    !player ? player = true : player = false;
-}
-
-
-//automatically play for the computer
-function computerPlay() {
-    let move = "O";
-    let id = Math.floor(Math.random() * 9) + 1;
-    let square = document.getElementById(id);
-    if (square.innerHTML === "") {
+        let square = e.target;
+        let id = square.id;
         moves.push([move, id]);
         square.innerHTML = move;
-        checkWin();
-    } else {
-        computerPlay();
-    }
+    }  
 }
 
-//check if a player has won
-function checkWin() {
-    let playerMoves = moves.filter(move => move[0] === "X");
-    let computerMoves = moves.filter(move => move[0] === "O");
-    let playerMovesIds = playerMoves.map(move => move[1]);
-    let computerMovesIds = computerMoves.map(move => move[1]);
-    let playerWin = winningCombos.filter(combo => {
-        return combo.every(id => playerMovesIds.includes(id));
-    });
-    let computerWin = winningCombos.filter(combo => {
-        return combo.every(id => computerMovesIds.includes(id));
-    });
-    if (playerWin.length > 0) {
-        winner = "Player";
-        displayWinner();
-    } else if (computerWin.length > 0) {
-        winner = "Computer";
-        displayWinner();
-    } else if (moves.length === 9) {
-        winner = "Tie";
-        displayWinner();
-    }
-}
-
-
-//cancel one move
-function cancelMove() {
+const cancelMove = () => {
     if (moves.length > 0) {
         let lastMove = moves.pop();
         let lastMoveIndex = lastMove[1];
         let square = document.getElementById(lastMoveIndex);
-        console.log({lastMove});
-        console.log({lastMoveIndex});
         square.innerHTML = "";
     }
 }
@@ -118,21 +69,117 @@ function togglePlayCancel(e) {
     }
 }
 
+//validate move
+const validateMove = () => {
+    !player ? player = true : player = false;
+}
 
-//add event listener to each square
-function eventListerners() {
-    btnRef.forEach(function (btn) {
-        btn.addEventListener("click", togglePlayCancel);
-    });
 
-    cancelBtn.addEventListener("click", cancelMove);
+//automatically play for the computer *TODO*
+const computerPlay = () => {
+    let move = player ? "X" : "O";
+    let id = Math.floor(Math.random() * 9) + 1;
+    let square = document.getElementById(id);
 
-    validateBtn.addEventListener("click", validateMove);
-
-    if (player === false) {
+    if (square.innerHTML === "") {
+        moves.push([move, id]);
+        square.innerHTML = move;
+        validateMove();
+    } else {
         computerPlay();
     }
 }
 
-eventListerners();
+const showPopup = () => {
+    popupRef.classList.remove("hide");
+};
 
+const winFunc = (letter) => {
+    showPopup();
+    if (letter === "X") {
+        msgRef.innerHTML = "&#x1F3C6; <br> 'X' gagne !";
+    } else {
+        msgRef.innerHTML = "&#x1F3C6; <br> 'O' gagne !";
+    }
+};
+
+const tieFunc = () => {
+    showPopup();
+    msgRef.innerHTML = "&#x1F975; <br> Match nul !";
+};
+
+const winChecker = () => {
+    for (let i of winningCombos) {
+        let [el1, el2, el3] = [
+            btnRef[i[0]].innerText, 
+            btnRef[i[1]].innerText, 
+            btnRef[i[2]].innerText
+        ];
+
+        if (el1 === el2 && el2 === el3 && (el1 !== "")) {
+            //phone vibration
+            window.navigator.vibrate(1000);
+            if (el1 === "X") {
+                scoreboard.player++;
+            } else if (el1 === "O") {
+                scoreboard.computer++;
+            }
+            winFunc(el1);
+        }
+    }
+}
+
+const hidePopup = () => {
+    btnRef.forEach(btn => {
+        btn.innerText = "";
+    });
+    popupRef.classList.add("hide");
+};
+
+//add event listener to each square
+btnRef.forEach(function (btn) {
+    btn.addEventListener("click", (event) => {
+        togglePlayCancel(event);
+        if (moves.length === 9) {
+            scoreboard.tie++;
+            tieFunc();
+        }
+        winChecker();
+    });
+});
+
+cancelBtn.addEventListener("click", cancelMove);
+
+validateBtn.addEventListener("click", validateMove);
+
+newGameButton.addEventListener("click", () => {
+    hidePopup();
+    moves = [];
+    player = true;
+});
+
+restartBtn.addEventListener("click", () => {
+    hidePopup();
+    moves = [];
+    player = true;
+});
+
+//save score in local storage
+window.addEventListener("beforeunload", () => {
+    localStorage.setItem("scoreboard", JSON.stringify(scoreboard));
+});
+
+//get score from local storage
+window.addEventListener("load", () => {
+    let score = JSON.parse(localStorage.getItem("scoreboard"));
+    if (score) {
+        scoreboard = score;
+    }
+});
+
+//display score
+window.setInterval(() => {
+    scoreXRef.innerText = `X : ${scoreboard.player}`;
+    scoreORef.innerHTML = `O : ${scoreboard.computer}`;
+    scoreTieRef.innerHTML = `Tie : ${scoreboard.tie}`;
+}, 100);

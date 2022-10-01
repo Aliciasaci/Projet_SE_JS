@@ -9,6 +9,7 @@ body {
     height: 100vh;
     background: rgb(41,34,156);
     background: radial-gradient(circle, rgba(41,34,156,1) 0%, rgba(255,41,251,1) 35%, rgba(0,212,255,1) 100%);
+    overflow: hidden;
 }
 
 html {
@@ -20,16 +21,16 @@ html {
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
-    margin: 3em auto;
-    overflow: auto;
 }
 
 .container {
-    width: 70vmin;
-    height: 70vmin;
+    width: 60vmin;
+    height: 60vmin;
     display: flex;
     flex-wrap: wrap;
-    gap: 2vmin;
+    gap: 1.5vmin;
+    margin: auto;
+    margin-top: 1.5vmin;
 }
 
 button:hover {
@@ -37,8 +38,8 @@ button:hover {
 }
 
 .button-option {
-    height: 22vmin;
-    width: 22vmin;
+    height: 19vmin;
+    width: 19vmin;
     font-size: 14vmin;
     color: rgb(193, 245, 255);
 }
@@ -52,11 +53,10 @@ button:hover {
 }
 
 .btn-wrapper {
-    margin: 0.5rem auto;
 }
 
 .op {
-    font-size: large;
+    font-size: 3vmin;
     padding: 1em;
     border-radius: 8px;
     background-color: white;
@@ -69,7 +69,6 @@ button:hover {
 }
 
 .op:hover {
-    cursor: pointer;
     background-color: transparent;
     border: 1px solid white;
     background: rgba(255, 255, 255, 0.3);
@@ -119,4 +118,41 @@ button:hover {
     backdrop-filter: blur(3.7px);
     -webkit-backdrop-filter: blur(3.7px);
     border: 1px solid rgba(255, 255, 255, 0.47);
+}
+
+.darkglass {
+    background: rgba(28, 21, 37, 0.2);
+    border: 1px solid rgba(28, 21, 37, 0.29);
+}
+
+.darkbtn {
+    background-color: #0A0027;
+    color: white;
+}
+
+.darkbtn:hover {
+    background-color: transparent;
+    background: rgba(28, 21, 37, 0.2);
+    border: 1px solid rgba(28, 21, 37, 0.29);
+}
+
+.score-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.score {
+    color: white;
+    font-size: 5vmin;
+    text-align: center;
+    padding: 1.75vh;
+    border-radius: 8px;
+    background-color: #0A0027;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+#scoreTie {
+    background-color: white;
+    color: #0A0027;
 }
