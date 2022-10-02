@@ -11,7 +11,7 @@ let scoreORef = document.getElementById("scoreO");
 let scoreTieRef = document.getElementById("scoreTie");
 
 //player is either X (true) or O (false)
-let player = true;
+let player = null;
 
 //array to keep track of player moves
 let moves = [];
@@ -155,13 +155,15 @@ validateBtn.addEventListener("click", validateMove);
 newGameButton.addEventListener("click", () => {
     hidePopup();
     moves = [];
-    player = true;
+    generateChoice();
+    if (player === null) {
+        alert("Choisissez X ou O");
+    }
 });
 
 restartBtn.addEventListener("click", () => {
     hidePopup();
     moves = [];
-    player = true;
 });
 
 //save score in local storage
@@ -171,15 +173,41 @@ window.addEventListener("beforeunload", () => {
 
 //get score from local storage
 window.addEventListener("load", () => {
+    generateChoice();
     let score = JSON.parse(localStorage.getItem("scoreboard"));
     if (score) {
         scoreboard = score;
     }
 });
 
-//display score
 window.setInterval(() => {
     scoreXRef.innerText = `X : ${scoreboard.player}`;
     scoreORef.innerHTML = `O : ${scoreboard.computer}`;
     scoreTieRef.innerHTML = `Tie : ${scoreboard.tie}`;
 }, 100);
+
+const generateChoice = () => {
+    msgRef.innerHTML = `
+        <p>Choisissez X ou O</p>
+        <div class="choice">
+            <button class="op" id="choiceX">X</button>
+            <button class="op" id="choiceO">O</button>
+        </div>
+    `;
+
+    showPopup();
+
+    let choiceX = document.getElementById("choiceX");
+    let choiceO = document.getElementById("choiceO");
+
+    choiceX.addEventListener("click", () => {
+        player = true;
+        hidePopup();
+    });
+
+    choiceO.addEventListener("click", () => {
+        player = false;
+        hidePopup();
+    });
+
+}

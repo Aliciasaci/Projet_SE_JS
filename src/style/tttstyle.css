@@ -52,9 +52,6 @@ button:hover {
     display: flex;
 }
 
-.btn-wrapper {
-}
-
 .op {
     font-size: 3vmin;
     padding: 1em;
@@ -66,6 +63,18 @@ button:hover {
     margin: .5em auto;
     display: flex;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.choice {
+    display: flex;
+    padding: .5em;
+}
+
+.choice .op {
+    padding: .3em 1.2em;
+    font-size: 14vmin;
+    margin: auto .5em;
+    justify-content: center;
 }
 
 .op:hover {
@@ -107,6 +116,25 @@ button:hover {
 
 .popup.hide {
     display: none;
+    animation: fadeOut 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 /* GLASSMORPHISM PROPERTIES */
