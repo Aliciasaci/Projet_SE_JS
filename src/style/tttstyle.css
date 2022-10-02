@@ -8,7 +8,8 @@
 body {
     height: 100vh;
     background: rgb(41,34,156);
-    background: radial-gradient(circle, rgba(41,34,156,1) 0%, rgba(255,41,251,1) 35%, rgba(0,212,255,1) 100%);
+    background: url(../assets/1647142.jpg) no-repeat center center;
+    background-size: cover;
     overflow: hidden;
 }
 
@@ -41,7 +42,7 @@ button:hover {
     height: 19vmin;
     width: 19vmin;
     font-size: 14vmin;
-    color: rgb(193, 245, 255);
+    color: #12043d;
 }
 
 .button-option:hover {
@@ -85,7 +86,8 @@ button:hover {
 }
 
 .popup {
-    background: radial-gradient(circle, rgba(41,34,156,1) 0%, rgba(255,41,251,1) 35%, rgba(0,212,255,1) 100%);
+    background: url(../assets/1647142.jpg) no-repeat center center;
+    background-size: cover;
     height: 100%;
     width: 100%;
     position: absolute;
@@ -143,8 +145,8 @@ button:hover {
     background: rgba(255, 255, 255, 0.3);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(3.7px);
-    -webkit-backdrop-filter: blur(3.7px);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.47);
 }
 
