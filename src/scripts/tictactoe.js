@@ -92,6 +92,7 @@ const computerPlay = () => {
 
 const showPopup = () => {
     popupRef.classList.remove("hide");
+    newGameButton.innerText = "Rejouer";
 };
 
 const winFunc = (letter) => {
@@ -143,8 +144,9 @@ btnRef.forEach(function (btn) {
         if (moves.length === 9) {
             scoreboard.tie++;
             tieFunc();
+        } else {
+            winChecker();
         }
-        winChecker();
     });
 });
 
@@ -196,6 +198,8 @@ const generateChoice = () => {
     `;
 
     showPopup();
+
+    newGameButton.innerText = "Jouer";
 
     let choiceX = document.getElementById("choiceX");
     let choiceO = document.getElementById("choiceO");
