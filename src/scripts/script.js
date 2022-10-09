@@ -6,7 +6,7 @@ if (switchModeBtn) {
         if (nbClickMode % 2 == 0) { //dark mode
             document.body.style.backgroundImage = "url('../src/assets/dark_mode.jpg')";
             switchModeBtn.style.filter = "invert(100%)";
-        } else {        //white mode
+        } else {        //light mode
             document.body.style.backgroundImage = "url('../src/assets/light_background_3.jpg')";
             switchModeBtn.style.filter = "invert(0%)";
         }
