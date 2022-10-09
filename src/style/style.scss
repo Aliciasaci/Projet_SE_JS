@@ -1,3 +1,77 @@
 body {
-    background-color: beige;
+    background-image: url('../assets/light_background_3.jpg');
+    display: block;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+
+    header {
+        #switch-mode-btn {
+            width: 2.5rem;
+            right: 2.5rem;
+            top: 4rem;
+            position: absolute;
+            img {
+                width: 100%;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        nav {
+            position: relative;
+            display: flex;
+            justify-content: end;
+            ul {
+                width: 20%;
+                display: flex;
+                justify-content: space-around;
+                margin: 0;
+                list-style: none;
+                align-items: center;
+                padding: 0.5rem 0;
+                li {
+                    flex-basis: 6%;
+                    color: #ffffff;
+
+                    img {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    main {
+        #app_list {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            width: 45rem;
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            li {
+                flex-basis: 18%;
+                img {
+                    width: 100%;
+                    border-radius: 10px;
+
+                    &:hover {
+                        filter: brightness(120%);
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+
+    .glass_effect {
+        background: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.47);
+    }
 }
