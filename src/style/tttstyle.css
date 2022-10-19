@@ -8,7 +8,7 @@
 body {
     height: 100vh;
     background: rgb(41,34,156);
-    background: url(../assets/1647142.jpg) no-repeat center center;
+    background: url(../assets/light_background_3.jpg) no-repeat center center;
     background-size: cover;
     overflow: hidden;
 }
@@ -86,7 +86,7 @@ button:hover {
 }
 
 .popup {
-    background: url(../assets/1647142.jpg) no-repeat center center;
+    background: url(../assets/light_background_3.jpg) no-repeat center center;
     background-size: cover;
     height: 100%;
     width: 100%;
