@@ -28,11 +28,11 @@
         <div class="wrapper">
             <div class="card">
                 <div class="tab">
-                    <button class="tab-links" onclick="clock(event, 'tab-clock')" id="defaultTab"><i class="fa fa-regular fa-clock"></i> Horloge</button>
-                    <button class="tab-links" onclick="clock(event, 'tab-timer')"><i class="fa fa-solid fa-hourglass-end"></i> Chronomètre</button> 
+                    <button class="tab-links" onclick="clock(event, 'tabClock')" id="defaultTab"><i class="fa fa-regular fa-clock"></i> Horloge</button>
+                    <button class="tab-links" style="float:right;" onclick="clock(event, 'tabTimer')"><i class="fa fa-solid fa-hourglass-end"></i> Chronomètre</button> 
                 </div>
-                <div id="tab-clock" class="tab-content">
-                    <div class="clock">
+                <div id="tabClock" class="tab-content">
+                    <div class="analog-clock">
                         <div class="line">
                             <div class="sub sub-one"></div>
                             <div class="sub sub-two"></div>
@@ -45,10 +45,12 @@
                                 <div id="timeRef" class="time-ref"></div>
                             </div>
                         </div>
-
+                    </div>
+                    <div id="digitalClock" class="digital-clock">
+                        <p>Test</p>
                     </div>
                 </div>
-                <div id="tab-timer" class="tab-content">
+                <div id="tabTimer" class="tab-content">
                     <p>Test timer</p>
                 </div>
             </div>

@@ -42,7 +42,8 @@
 
 .card {
     max-width: 500px;
-    height: 300px;
+    /* width: 600px; */
+    height: 400px;
     padding: 35px;
     display: flex;
     flex-direction: column;
@@ -54,7 +55,7 @@
     backdrop-filter: blur(5px);
 }
 
-.clock {
+.analog-clock {
     width: 10rem;
     height: 10rem;
     position: relative;
@@ -188,6 +189,29 @@
     position: absolute;
     left: 40%;
     top: 70%;
+}
+
+.digital-clock {
+    font-size: 40px;
+    letter-spacing: 7px;
+    width: 5rem;
+    height: 5rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    /* color: #282828;
+    text-shadow: 0 0 3px #FF0000; */
+    color: #fff;
+    text-shadow:
+        0 0 7px #fff,
+        0 0 10px #fff,
+        0 0 21px #fff,
+        0 0 42px #bc13fe,
+        0 0 82px #bc13fe,
+        0 0 92px #bc13fe,
+        0 0 102px #bc13fe,
+        0 0 151px #bc13fe;
 }
 
 
