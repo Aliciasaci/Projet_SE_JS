@@ -1,7 +1,9 @@
 body {
-  background-image: url("../assets/light_background_3.jpg");
+  background: url(../assets/light_background_3.jpg) no-repeat center center;
+  height: 100vh;
+  background-size: cover;
+  overflow: hidden;
   display: block;
-  background-repeat: no-repeat;
   margin: 0;
   padding: 0;
 }

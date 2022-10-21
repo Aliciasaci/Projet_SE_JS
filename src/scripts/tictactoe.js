@@ -38,6 +38,37 @@
     `;
 }*/
 
+let darkMode = false;
+
+const switchModeBtn = document.querySelector("#switch-mode-btn");
+
+if (switchModeBtn) {
+    switchModeBtn.addEventListener('click', function () {
+        if (!darkMode) { //dark mode
+
+            document.body.style.backgroundImage = "url('../src/assets/dark_mode.jpg')";
+            switchModeBtn.style.filter = "invert(100%)";
+
+            btnRef.forEach(btn => {
+                btn.style.filter = "invert(100%)";
+            });
+            document.querySelector(".score-wrapper").style.filter = "invert(100%)";
+            darkMode = true;
+
+        } else {        //white mode
+
+            document.body.style.backgroundImage = "url('../src/assets/light_background_3.jpg')";
+            switchModeBtn.style.filter = "invert(0%)";
+
+            btnRef.forEach(btn => {
+                btn.style.filter = "invert(0%)";
+            });
+            document.querySelector(".score-wrapper").style.filter = "invert(0%)";
+            darkMode = false;
+        }
+    });
+}
+
 
     let btnRef = document.querySelectorAll(".button-option");
     let popupRef = document.querySelector(".popup");
@@ -49,9 +80,12 @@
     let scoreXRef = document.getElementById("scoreX");
     let scoreORef = document.getElementById("scoreO");
     let scoreTieRef = document.getElementById("scoreTie");
+    let wrapperRef = document.querySelector(".wrapper");
 
     //player is either X (true) or O (false)
     let player = null;
+    let computer = !player;
+    let playerTurn = true;
 
     //array to keep track of player moves
     let moves = [];
@@ -74,8 +108,11 @@
         [2, 4, 6]
     ];
 
+    let winner = null;
+
     //display X or O on the board when a player clicks on a square and save the move
     function play(e) {
+        if (playerTurn) {
         let move = player ? "X" : "O";
         if (moves.length >= 1) {
             if (e.target.innerHTML === "" && moves[moves.length - 1][0] !== move) {
@@ -90,6 +127,7 @@
             moves.push([move, id]);
             square.innerHTML = move;
         }  
+    }
     }
 
     const cancelMove = () => {
@@ -111,28 +149,36 @@
 
     //validate move
     const validateMove = () => {
-        !player ? player = true : player = false;
+        //!player ? player = true : player = false;
+        playerTurn = !playerTurn;
     }
 
 
     //automatically play for the computer *TODO*
     const computerPlay = () => {
-        let move = player ? "X" : "O";
-        let id = Math.floor(Math.random() * 9) + 1;
-        let square = document.getElementById(id);
-
+        if (!playerTurn) {
+        let move = computer ? "O" : "X";
+        let random = Math.floor(Math.random() * 9);
+        let square = document.getElementById(random);
         if (square.innerHTML === "") {
-            moves.push([move, id]);
             square.innerHTML = move;
-            validateMove();
+            moves.push([move, random]);
         } else {
             computerPlay();
         }
     }
+        playerTurn = !playerTurn;
+
+    }
+
+
 
     const showPopup = () => {
         popupRef.classList.remove("hide");
+        popupRef.background = "filter: blur(5px)";
+        wrapperRef.style = "display: none";
         newGameButton.innerText = "Rejouer";
+        newGameButton.style.display = "block";
     };
 
     const winFunc = (letter) => {
@@ -162,8 +208,10 @@
                 window.navigator.vibrate(1000);
                 if (el1 === "X") {
                     scoreboard.player++;
+                    winner = "X";
                 } else if (el1 === "O") {
                     scoreboard.computer++;
+                    winner = "O";
                 }
                 winFunc(el1);
             }
@@ -175,6 +223,7 @@
             btn.innerText = "";
         });
         popupRef.classList.add("hide");
+        wrapperRef.style = "display: block";
     };
 
     //add event listener to each square
@@ -183,6 +232,7 @@
             togglePlayCancel(event);
             if (moves.length === 9) {
                 scoreboard.tie++;
+                winner = "tie";
                 tieFunc();
             } else {
                 winChecker();
@@ -239,19 +289,27 @@
     
         showPopup();
     
-        newGameButton.innerText = "Jouer";
+        newGameButton.style = "display: none;";
     
         let choiceX = document.getElementById("choiceX");
         let choiceO = document.getElementById("choiceO");
     
         choiceX.addEventListener("click", () => {
             player = true;
+            computer = false;
             hidePopup();
         });
     
         choiceO.addEventListener("click", () => {
             player = false;
+            computer = true;
             hidePopup();
         });
     
-    }  
+    }
+
+    if (player !== null) {
+        while (winner === null) {
+            computerPlay();
+        }
+    }
