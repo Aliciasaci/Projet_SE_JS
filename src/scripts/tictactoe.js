@@ -50,9 +50,9 @@ if (switchModeBtn) {
             switchModeBtn.style.filter = "invert(100%)";
 
             btnRef.forEach(btn => {
-                btn.style.filter = "invert(100%)";
+                btn.classList.add("darkglass");
             });
-            document.querySelector(".score-wrapper").style.filter = "invert(100%)";
+            //document.querySelector(".score-wrapper").style.filter = "invert(100%)";
             darkMode = true;
 
         } else {        //white mode
@@ -61,9 +61,9 @@ if (switchModeBtn) {
             switchModeBtn.style.filter = "invert(0%)";
 
             btnRef.forEach(btn => {
-                btn.style.filter = "invert(0%)";
+                btn.classList.remove("darkglass");
             });
-            document.querySelector(".score-wrapper").style.filter = "invert(0%)";
+            //document.querySelector(".score-wrapper").style.filter = "invert(0%)";
             darkMode = false;
         }
     });
@@ -84,7 +84,7 @@ if (switchModeBtn) {
 
     //player is either X (true) or O (false)
     let player = null;
-    let computer = !player;
+    let computer = null;
     let playerTurn = true;
 
     //array to keep track of player moves
@@ -132,10 +132,12 @@ if (switchModeBtn) {
 
     const cancelMove = () => {
         if (moves.length > 0) {
+            if (playerTurn) {
             let lastMove = moves.pop();
             let lastMoveIndex = lastMove[1];
             let square = document.getElementById(lastMoveIndex);
             square.innerHTML = "";
+            }
         }
     }
 
@@ -149,26 +151,27 @@ if (switchModeBtn) {
 
     //validate move
     const validateMove = () => {
-        //!player ? player = true : player = false;
         playerTurn = !playerTurn;
-    }
-
-
-    //automatically play for the computer *TODO*
-    const computerPlay = () => {
         if (!playerTurn) {
-        let move = computer ? "O" : "X";
-        let random = Math.floor(Math.random() * 9);
-        let square = document.getElementById(random);
-        if (square.innerHTML === "") {
-            square.innerHTML = move;
-            moves.push([move, random]);
-        } else {
             computerPlay();
         }
     }
-        playerTurn = !playerTurn;
 
+
+    //automatically play for the computer
+    const computerPlay = () => {
+        if (!playerTurn) {
+            let move = computer ? "X" : "O";
+            let random = Math.floor(Math.random() * 9);
+            let square = document.getElementById(random);
+            if (square.innerHTML === "") {
+                square.innerHTML = move;
+                moves.push([move, random]);
+                validateMove();
+            } else {
+                computerPlay();
+            }
+        }
     }
 
 
@@ -306,10 +309,4 @@ if (switchModeBtn) {
             hidePopup();
         });
     
-    }
-
-    if (player !== null) {
-        while (winner === null) {
-            computerPlay();
-        }
     }

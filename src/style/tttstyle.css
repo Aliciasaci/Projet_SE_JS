@@ -68,7 +68,7 @@ html {
 
 .container {
     width: 45vmin;
-    height: 45min;
+    height: 45vmin;
     display: flex;
     flex-wrap: wrap;
     gap: 1.5vmin;
@@ -192,8 +192,13 @@ button:hover {
 }
 
 .darkglass {
-    background: rgba(28, 21, 37, 0.2);
-    border: 1px solid rgba(28, 21, 37, 0.29);
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.493);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.438);
+}
+
+.darkglass:hover {
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .darkbtn {
