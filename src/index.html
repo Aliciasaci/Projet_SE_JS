@@ -6,13 +6,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/style.css" />
+    <script src="https://kit.fontawesome.com/6ef2e0941a.js" crossorigin="anonymous"></script>
     <title>SE JAVASCRIPT</title>
 </head>
 
 <body>
     <header>
-        <nav class="glass_effect">
-            <ul>
+        <nav class="menu glass_effect">
+            <ul id="left-menu-btns">
+                <li id="calculator-icon-small" >
+                    <img src="../src/assets/calculator.svg"/>
+                 </li>
+                 <li>
+                    <img src="../src/assets/clock.svg" />
+                </li>
+                <li>
+                    <img src="../src/assets/noughts-and-crosses.svg" />
+                </li>
+                <li>
+                    <img src="../src/assets/params.svg" />
+                </li>
+            </ul>
+            <ul id="right-menu-btns">
                 <li><img src="../src/assets/icons/vibration.svg" /></li>
                 <li><img src="../src/assets/icons/signal.svg" /></li>
                 <li><img src="../src/assets/icons/battery.svg" /></li>
@@ -21,12 +36,55 @@
             </ul>
         </nav>
         <span id="switch-mode-btn"><img src="../src/assets/icons/day-and-night.svg"/></span>
+        <a href="../Sujet.pdf">Sujet</a>
     </header>
     <main>
         <ul id="app_list">
-            <li>
-                <img src="../src/assets/calculator.svg" class="app_svg"/>
+            <li id="calculator-icon" >
+               <img src="../src/assets/calculator.svg"/>
             </li>
+               <section class="window">
+                <div class="window-upper-btns">
+                    <span><i class="fa-solid fa-minus"></i></span>
+                    <span><i class="fa-regular fa-square"></i></span>
+                    <span><i class="fa-solid fa-xmark"></i></span>
+                </div>
+                <table id="calculator">
+                    <tr class="result">
+                        <td colspan="4" class="glass_effect"> <input id="result-input" type="text" value="0"/></td>
+                    </tr>
+                    <tr class="keys">
+                        <td> <input type="button" value="C" id="btn-refresh" /> </td>
+                        <td> <input type="button" value="MR" id="btn-mr"/> </td>
+                        <td> <input type="button" value="MC" id="btn-mc"> </td>
+                        <td> <input type="button" value="+/-" /> </td>
+                    </tr>
+                    <tr  class="keys">
+                        <td> <input type="button" value="1" /> </td>
+                        <td> <input type="button" value="2" /> </td>
+                        <td> <input type="button" value="3" /> </td>
+                        <td> <input type="button" value="+" id="btn-add"/> </td>
+                    </tr>
+                    <tr  class="keys">
+                        <td> <input type="button" value="4" /> </td>
+                        <td> <input type="button" value="5" /> </td>
+                        <td> <input type="button" value="6" /> </td>
+                        <td> <input type="button" value="-" id="btn-substract"/> </td>
+                    </tr>
+                    <tr  class="keys">
+                        <td> <input type="button" value="7" /> </td>
+                        <td> <input type="button" value="8" /> </td>
+                        <td> <input type="button" value="9" /> </td>
+                        <td> <input type="button" value="*" id="btn-multiply"/> </td>
+                    </tr>
+                    <tr  class="keys">
+                        <td> <input type="button" value="." id="btn-comma"/> </td>
+                        <td> <input type="button" value="0" /> </td>
+                        <td> <input type="button" value="=" id="btn-equal"/> </td>
+                        <td> <input type="button" value="/" id="btn-division"/> </td>
+                    </tr>
+                </table>
+            </section>
             <li>
                 <img src="../src/assets/clock.svg" />
             </li>
