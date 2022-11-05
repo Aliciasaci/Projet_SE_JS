@@ -28,32 +28,13 @@ resultInput.value = 0;
 // if page fully loaded
 window.addEventListener('load', () => {
 
-    //* backgound code
-    if (switchModeBtn) {
-        let nbClickMode = 0;
-        switchModeBtn.addEventListener('click', function () {
-            if (nbClickMode % 2 == 0) { //dark mode
-                document.body.style.backgroundImage = "url('../src/assets/dark_mode.jpg')";
-                switchModeBtn.style.filter = "invert(100%)";
-            } else {        //light mode
-                document.body.style.backgroundImage = "url('../src/assets/light_background_3.jpg')";
-                switchModeBtn.style.filter = "invert(0%)";
-            }
-            nbClickMode++
-        });
+    //* at load, check the cookie variable to set the theme
+    const themeCookie = getCookie("theme");
+    if (themeCookie[1] == undefined || themeCookie == "light") {
+        setTheme("light"); //par défaut, c'est à light
+    } else if (themeCookie[1] == "dark") {
+        setTheme("dark");
     }
-
-    //*at click on calculator, display modal
-    calculatorIcon.addEventListener('click', function () {
-        calculatorBody.style.display = "block";
-        backgroundWindow.style.display = "block";
-    });
-
-    //* at click on params, display 
-    paramsIcon.addEventListener('click', function () {
-        paramsBody.style.display = "block";
-        backgroundWindow.style.display = "block";
-    });
 
     //* calculator code
     //*at click on element
@@ -127,6 +108,17 @@ window.addEventListener('load', () => {
         })
     }
 
+    //*at click on calculator, display modal
+    calculatorIcon.addEventListener('click', function () {
+        calculatorBody.style.display = "block";
+        backgroundWindow.style.display = "block";
+    });
+
+    //* at click on params, display 
+    paramsIcon.addEventListener('click', function () {
+        paramsBody.style.display = "block";
+        backgroundWindow.style.display = "block";
+    });
 
     //* refresh button
     if (refreshBtn) {
@@ -141,23 +133,36 @@ window.addEventListener('load', () => {
         });
     }
 
+    //* switch theme btn
+    if (switchModeBtn) {
+        let nbClickMode = 0;
+        switchModeBtn.addEventListener('click', function () {
+            if (nbClickMode % 2 == 0) {
+                setTheme("dark");
+            } else {
+                setTheme("light");
+            }
+            nbClickMode++
+        });
+    }
+
     //* close window and app at clic on x
     if (closeWindowButton) {
         closeWindowButton.addEventListener('click', function () {
-           
-                backgroundWindow.style.display = "none";
 
-                if(calculatorBody.style.display == "block"){
-                    if (confirm("êtes-vous sûre de vouloir fermer la fenêtre?")) {
+            backgroundWindow.style.display = "none";
+
+            if (calculatorBody.style.display == "block") {
+                if (confirm("êtes-vous sûre de vouloir fermer la fenêtre?")) {
                     calculatorIconSmall.style.display = "none";
                     calculatorBody.style.display = "none";
-                    }
                 }
+            }
 
-                if(paramsBody.style.display == "block"){
-                    paramsBody.style.display = "none";
-                    paramsIconSmall.style.display = "none";
-                }
+            if (paramsBody.style.display == "block") {
+                paramsBody.style.display = "none";
+                paramsIconSmall.style.display = "none";
+            }
         });
     }
 
@@ -167,12 +172,12 @@ window.addEventListener('load', () => {
 
             backgroundWindow.style.display = "none";
 
-            if(calculatorBody.style.display == "block"){
+            if (calculatorBody.style.display == "block") {
                 calculatorBody.style.display = "none";
                 calculatorIconSmall.style.display = "block";
             }
 
-            if(paramsBody.style.display == "block"){
+            if (paramsBody.style.display == "block") {
                 paramsBody.style.display = "none";
                 paramsIconSmall.style.display = "block";
             }
@@ -181,7 +186,7 @@ window.addEventListener('load', () => {
 
     //* at click on small icon of calc, display
     calculatorIconSmall.addEventListener('click', function () {
-        if(calculatorBody.style.display == "none"){
+        if (calculatorBody.style.display == "none") {
             backgroundWindow.style.display = "block";
             calculatorBody.style.display = "block";
         }
@@ -189,11 +194,43 @@ window.addEventListener('load', () => {
 
     //* at click on small icon of calc, display
     paramsIconSmall.addEventListener('click', function () {
-        if(paramsBody.style.display == "none"){
+        if (paramsBody.style.display == "none") {
             backgroundWindow.style.display = "block";
             paramsBody.style.display = "block";
         }
     })
+
+    //* function to create and set cookies
+    function setCookie(cookiName, cookieValue, expireDate) {
+        const d = new Date();
+        d.setTime(d.getTime() + (expireDate * 24 * 60 * 60 * 1000));
+        let expiresAt = "expires=" + d.toUTCString();
+        document.cookie = cookiName + "=" + cookieValue + ";" + expiresAt + ";path=/";
+    }
+
+    //* function that returns a cookie and it value
+    function getCookie(cookiName) {
+        let cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim().split('=');
+            if (cookiName == cookie[0]) {
+                return cookie;
+            }
+        }
+    }
+
+    //* set the theme 
+    function setTheme(theme) {
+        if (theme == "dark") { //dark mode
+            document.body.style.backgroundImage = "url('../src/assets/dark_mode.jpg')";
+            switchModeBtn.style.filter = "invert(100%)";
+            setCookie("theme", "dark", 30)
+        } else if (theme == "light") {        //light mode
+            document.body.style.backgroundImage = "url('../src/assets/light_background_3.jpg')";
+            switchModeBtn.style.filter = "invert(0%)";
+            setCookie("theme", "light", 30)
+        }
+    }
 })
 
 
