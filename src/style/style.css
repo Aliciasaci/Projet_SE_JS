@@ -67,10 +67,6 @@ body main #app_list {
   justify-content: space-between;
   width: 45rem;
   margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 body main #app_list li, body main #app_list #calculator-icon {
   flex-basis: 18%;
@@ -92,10 +88,6 @@ body .glass_effect {
 body #calculator {
   display: none;
   margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 20rem;
 }
 body #calculator .result td {
@@ -137,11 +129,7 @@ body .window {
   display: none;
   height: 38rem;
   width: 50rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(63, 63, 63, 0.3);
+  background: rgba(231, 227, 227, 0.6);
   -webkit-backdrop-filter: blur(5px);
           backdrop-filter: blur(5px);
   border: 2px solid rgba(255, 255, 255, 0.3);
@@ -158,4 +146,34 @@ body .window .window-upper-btns span {
 }
 body .window .window-upper-btns span:hover {
   cursor: pointer;
+  color: grey;
+}
+body #params {
+  display: none;
+  width: 45rem;
+  height: 33rem;
+}
+body #params #params-icons {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+body #params #params-icons li {
+  text-align: center;
+  flex-basis: 5.7rem;
+  margin: 2rem;
+}
+body #params #params-icons li img {
+  width: 100%;
+}
+body #params #params-icons li img:hover {
+  cursor: pointer;
+}
+body .center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }/*# sourceMappingURL=style.css.map */
