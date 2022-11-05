@@ -9,7 +9,10 @@ const closeWindowButton = document.querySelector(".fa-xmark");
 const reduceWindowButton = document.querySelector(".fa-minus");
 const reduceFullScreenButton = document.querySelector(".fa-square");
 const leftMenuBtns = document.querySelector('#left-menu-btns');
-
+const paramsIcon = document.querySelector("#params-icon");
+const paramsBody = document.querySelector("#params");
+const calculatorIconSmall = document.querySelector("#calculator-icon-small");
+const paramsIconSmall = document.querySelector("#params-icon-small");
 
 
 const operationsKeys = ["+", '-', "/", '*', "="];
@@ -43,13 +46,17 @@ window.addEventListener('load', () => {
     //*at click on calculator, display modal
     calculatorIcon.addEventListener('click', function () {
         calculatorBody.style.display = "block";
-        document.body.style.color.backgroundColor = "#000000";
+        backgroundWindow.style.display = "block";
+    });
+
+    //* at click on params, display 
+    paramsIcon.addEventListener('click', function () {
+        paramsBody.style.display = "block";
         backgroundWindow.style.display = "block";
     });
 
     //* calculator code
     //*at click on element
-
     if (keys) {
         keys.forEach(key => {
             key.addEventListener('click', function () {
@@ -137,26 +144,55 @@ window.addEventListener('load', () => {
     //* close window and app at clic on x
     if (closeWindowButton) {
         closeWindowButton.addEventListener('click', function () {
-            if (confirm("êtes-vous sûre de vouloir fermer la fenêtre?")) {
+           
                 backgroundWindow.style.display = "none";
-                leftMenuBtns.firstElementChild.style.display = "none";
-            }
+
+                if(calculatorBody.style.display == "block"){
+                    if (confirm("êtes-vous sûre de vouloir fermer la fenêtre?")) {
+                    calculatorIconSmall.style.display = "none";
+                    calculatorBody.style.display = "none";
+                    }
+                }
+
+                if(paramsBody.style.display == "block"){
+                    paramsBody.style.display = "none";
+                    paramsIconSmall.style.display = "none";
+                }
         });
     }
 
     //* reduce window and app at clic on -
     if (reduceWindowButton) {
         reduceWindowButton.addEventListener('click', function () {
+
             backgroundWindow.style.display = "none";
-            leftMenuBtns.firstElementChild.style.display = "block";
+
+            if(calculatorBody.style.display == "block"){
+                calculatorBody.style.display = "none";
+                calculatorIconSmall.style.display = "block";
+            }
+
+            if(paramsBody.style.display == "block"){
+                paramsBody.style.display = "none";
+                paramsIconSmall.style.display = "block";
+            }
         });
     }
 
-    leftMenuBtns.firstElementChild.addEventListener('click', function () {
-        // if(backgroundWindow.style.display == "none"  calculatorBody.style.display == "none"){
+    //* at click on small icon of calc, display
+    calculatorIconSmall.addEventListener('click', function () {
+        if(calculatorBody.style.display == "none"){
             backgroundWindow.style.display = "block";
             calculatorBody.style.display = "block";
-        // }
+        }
+    })
+
+    //* at click on small icon of calc, display
+    paramsIconSmall.addEventListener('click', function () {
+        if(paramsBody.style.display == "none"){
+            backgroundWindow.style.display = "block";
+            paramsBody.style.display = "block";
+        }
     })
 })
 

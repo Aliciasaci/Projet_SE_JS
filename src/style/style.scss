@@ -1,6 +1,8 @@
 $calculatrice-width : 20rem;
 $window-width : 50rem;
 $window-height : 38rem;
+$params-width : 45rem;
+$params-height : 33rem;
 
 
 body {
@@ -79,10 +81,6 @@ body {
             justify-content: space-between;
             width: 45rem;
             margin: 0;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
 
             // @media (max-width: 768px) {
             // flex-direction: column;
@@ -116,10 +114,6 @@ body {
     #calculator {
         display: none;
         margin: 0;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         width: $calculatrice-width;
 
         .result td {
@@ -167,11 +161,7 @@ body {
         display: none;
         height: $window-height;
         width: $window-width;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: rgba(63, 63, 63, 0.3);
+        background: rgba(231, 227, 227, 0.6);
         backdrop-filter: blur(5px);
         border: 2px solid rgba(255, 255, 255, 0.3);
 
@@ -184,11 +174,46 @@ body {
                 margin: 0.5em;
                 color : white;
                 &:hover{
-                    cursor: pointer
+                    cursor: pointer;
+                    color : grey;
                 }
             }
         }
     }
+
+    #params{
+        display: none;
+        width: $params-width;
+        height: $params-height;
+
+        #params-icons{
+            list-style: none;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            li{
+                text-align: center;
+                flex-basis: 5.7rem;
+                margin: 2rem;
+                
+                img{
+                    width: 100%;
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+
+    .center{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
 }
 
 
