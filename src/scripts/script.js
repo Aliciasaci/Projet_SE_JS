@@ -29,11 +29,13 @@ resultInput.value = 0;
 window.addEventListener('load', () => {
 
     //* at load, check the cookie variable to set the theme
-    const themeCookie = getCookie("theme");
-    if (themeCookie[1] == undefined || themeCookie == "light") {
-        setTheme("light"); //par défaut, c'est à light
-    } else if (themeCookie[1] == "dark") {
-        setTheme("dark");
+    if(getCookie("theme")){
+        const themeCookie = getCookie("theme");
+        if (themeCookie[1] == undefined || themeCookie == "light") {
+            setTheme("light"); //par défaut, c'est à light
+        } else if (themeCookie[1] == "dark") {
+            setTheme("dark");
+        }
     }
 
     //* calculator code
