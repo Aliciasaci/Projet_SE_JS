@@ -12,7 +12,7 @@
 
 <body>
     <header>
-        <nav class="menu glass_effect">
+        <nav class="menu">
             <ul id="left-menu-btns">
                 <li id="calculator-icon-small">
                     <img src="../src/assets/calculator.svg" />
@@ -53,8 +53,6 @@
                 <img src="../src/assets/params.svg" />
             </li>
         </ul>
-
-
         <section class="window center">
             <div class="window-upper-btns">
                 <span><i class="fa-solid fa-minus"></i></span>
@@ -62,41 +60,46 @@
                 <span><i class="fa-solid fa-xmark"></i></span>
             </div>
         </section>
-        <table id="calculator" class="center">
-            <tr class="result">
-                <td colspan="4" class="glass_effect"> <input id="result-input" type="text" value="0" /></td>
-            </tr>
-            <tr class="keys">
-                <td> <input type="button" value="C" id="btn-refresh" /> </td>
-                <td> <input type="button" value="M+" id="btn-mr" /> </td>
-                <td> <input type="button" value="MC" id="btn-mc"> </td>
-                <td> <input type="button" value="+/-" /> </td>
-            </tr>
-            <tr class="keys">
-                <td> <input type="button" value="1" /> </td>
-                <td> <input type="button" value="2" /> </td>
-                <td> <input type="button" value="3" /> </td>
-                <td> <input type="button" value="+" id="btn-add" /> </td>
-            </tr>
-            <tr class="keys">
-                <td> <input type="button" value="4" /> </td>
-                <td> <input type="button" value="5" /> </td>
-                <td> <input type="button" value="6" /> </td>
-                <td> <input type="button" value="-" id="btn-substract" /> </td>
-            </tr>
-            <tr class="keys">
-                <td> <input type="button" value="7" /> </td>
-                <td> <input type="button" value="8" /> </td>
-                <td> <input type="button" value="9" /> </td>
-                <td> <input type="button" value="*" id="btn-multiply" /> </td>
-            </tr>
-            <tr class="keys">
-                <td> <input type="button" value="." id="btn-comma" /> </td>
-                <td> <input type="button" value="0" /> </td>
-                <td> <input type="button" value="=" id="btn-equal" /> </td>
-                <td> <input type="button" value="/" id="btn-division" /> </td>
-            </tr>
-        </table>
+        <div class="calculator-wrapper center">
+            <table id="calculator">
+                <tr class="result">
+                    <td colspan="4" class="glass_effect"> <input id="result-input" type="text" value="0" /></td>
+                </tr>
+                <tr class="keys">
+                    <td> <input type="button" value="C" id="btn-refresh" /> </td>
+                    <td> <input type="button" value="M+" id="btn-mr" /> </td>
+                    <td> <input type="button" value="MC" id="btn-mc"> </td>
+                    <td> <input type="button" value="+/-" /> </td>
+                </tr>
+                <tr class="keys">
+                    <td> <input type="button" value="1" /> </td>
+                    <td> <input type="button" value="2" /> </td>
+                    <td> <input type="button" value="3" /> </td>
+                    <td> <input type="button" value="+" id="btn-add" /> </td>
+                </tr>
+                <tr class="keys">
+                    <td> <input type="button" value="4" /> </td>
+                    <td> <input type="button" value="5" /> </td>
+                    <td> <input type="button" value="6" /> </td>
+                    <td> <input type="button" value="-" id="btn-substract" /> </td>
+                </tr>
+                <tr class="keys">
+                    <td> <input type="button" value="7" /> </td>
+                    <td> <input type="button" value="8" /> </td>
+                    <td> <input type="button" value="9" /> </td>
+                    <td> <input type="button" value="*" id="btn-multiply" /> </td>
+                </tr>
+                <tr class="keys">
+                    <td> <input type="button" value="." id="btn-comma" /> </td>
+                    <td> <input type="button" value="0" /> </td>
+                    <td> <input type="button" value="=" id="btn-equal" /> </td>
+                    <td> <input type="button" value="/" id="btn-division" /> </td>
+                </tr>
+            </table>
+            <ul id="operations-pannel" class="glass_effect">
+                <li>0</li>
+            </ul>
+        </div>
         <div id="params" class="center">
             <h2>Paramètres</h2>
             <ul id="params-icons">

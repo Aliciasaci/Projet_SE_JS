@@ -6,7 +6,7 @@ body {
   background-repeat: no-repeat;
   margin: 0;
   padding: 0;
-  font-family: "Raleway", sans-serif;
+  font-family: "Roboto Mono", monospace;
 }
 body header #switch-mode-btn {
   width: 2.5rem;
@@ -24,6 +24,10 @@ body header nav {
   position: relative;
   display: flex;
   justify-content: space-between;
+  background: rgba(255, 255, 255, 0.3);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.47);
 }
 body header nav #left-menu-btns {
   width: 20%;
@@ -68,112 +72,141 @@ body main #app_list {
   width: 45rem;
   margin: 0;
 }
-body main #app_list li, body main #app_list #calculator-icon {
+body main #app_list li,
+body main #app_list #calculator-icon {
   flex-basis: 18%;
 }
-body main #app_list li img, body main #app_list #calculator-icon img {
+body main #app_list li img,
+body main #app_list #calculator-icon img {
   width: 100%;
   border-radius: 10px;
 }
-body main #app_list li img:hover, body main #app_list #calculator-icon img:hover {
+body main #app_list li img:hover,
+body main #app_list #calculator-icon img:hover {
   filter: brightness(120%);
   cursor: pointer;
 }
-body .glass_effect {
-  background: rgba(255, 255, 255, 0.3);
-  -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.47);
+body main .calculator-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 35rem;
+  height: 35rem;
 }
-body #calculator {
+body main .calculator-wrapper #calculator {
   display: none;
   margin: 0;
   width: 20rem;
 }
-body #calculator .result td {
+body main .calculator-wrapper #calculator .result td {
   border-radius: 5px;
 }
-body #calculator .result td input {
+body main .calculator-wrapper #calculator .result td input {
   width: 100%;
   background: none;
   border: none;
   padding: 1rem 0;
   font-family: "Roboto Mono", monospace;
 }
-body #calculator .keys input {
+body main .calculator-wrapper #calculator .keys input {
   width: 5rem;
-  background: rgba(129, 129, 129, 0.3);
+  background: rgba(255, 255, 255, 0.7);
   -webkit-backdrop-filter: blur(5px);
           backdrop-filter: blur(5px);
-  border: 1px solid rgba(80, 80, 80, 0.47);
+  border: 1px solid rgba(255, 255, 255, 0.47);
   padding: 1.5rem;
   border-radius: 5px;
   font-family: "Roboto Mono", monospace;
 }
-body #calculator .keys input:hover {
-  background-color: rgba(255, 255, 255, 0.63);
+body main .calculator-wrapper #calculator .keys input:hover {
+  background-color: white;
 }
-body #calculator .keys #btn-refresh {
+body main .calculator-wrapper #calculator .keys #btn-refresh {
   background-color: rgb(214, 133, 224);
 }
-body #calculator .keys #btn-refresh:hover {
+body main .calculator-wrapper #calculator .keys #btn-refresh:hover {
   background-color: #e4aeea;
 }
-body #calculator .keys #btn-equal {
+body main .calculator-wrapper #calculator .keys #btn-equal {
   background-color: rgb(123, 155, 216);
 }
-body #calculator .keys #btn-equal:hover {
+body main .calculator-wrapper #calculator .keys #btn-equal:hover {
   background-color: #a2b9e4;
 }
-body .window {
+body main .calculator-wrapper #operations-pannel {
+  height: 21.8rem;
+  width: 13rem;
+  margin-bottom: 0.3rem;
+  background: rgba(255, 255, 255, 0.7);
+  display: none;
+  border-radius: 5px;
+  list-style: none;
+  padding: 0;
+}
+body main .calculator-wrapper #operations-pannel li {
+  padding: 0 10px 0 10px;
+  color: rgb(56, 56, 56);
+  width: 100%;
+}
+body main .window {
   display: none;
   height: 38rem;
   width: 50rem;
-  background: rgba(231, 227, 227, 0.9);
+  background: rgba(231, 227, 227, 0.7);
   -webkit-backdrop-filter: blur(5px);
           backdrop-filter: blur(5px);
   border: 2px solid rgba(255, 255, 255, 0.3);
 }
-body .window .window-upper-btns {
+body main .window .window-upper-btns {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   background: rgba(255, 255, 255, 0.3);
 }
-body .window .window-upper-btns span {
+body main .window .window-upper-btns span {
   margin: 0.5em;
   color: white;
 }
-body .window .window-upper-btns span:hover {
+body main .window .window-upper-btns span .fa-xmark:hover {
+  cursor: pointer;
+  color: rgb(213, 24, 24);
+}
+body main .window .window-upper-btns span:hover {
   cursor: pointer;
   color: grey;
 }
-body #params {
+body main #params {
   display: none;
   width: 45rem;
   height: 33rem;
 }
-body #params #params-icons {
+body main #params #params-icons {
   list-style: none;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-around;
 }
-body #params #params-icons li {
+body main #params #params-icons li {
   text-align: center;
   flex-basis: 5.7rem;
   margin: 2rem;
 }
-body #params #params-icons li img {
+body main #params #params-icons li img {
   width: 100%;
 }
-body #params #params-icons li img:hover {
+body main #params #params-icons li img:hover {
   cursor: pointer;
 }
-body .center {
+body main .center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+body main .glass_effect {
+  background: rgba(255, 255, 255, 0.3);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.47);
 }/*# sourceMappingURL=style.css.map */
