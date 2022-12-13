@@ -32,6 +32,7 @@ resultInput.value = 0;
 window.addEventListener('load', () => {
 
     //* function to create and set cookies
+    //! le store du theme ne marche pas sur opera
     function setCookie(cookiName, cookieValue, expireDate) {
         const d = new Date();
         d.setTime(d.getTime() + (expireDate * 24 * 60 * 60 * 1000));
