@@ -17,13 +17,15 @@ const operationsPannel = document.querySelector('#operations-pannel')
 
 
 const operationsKeys = ["+", '-', "/", '*', "=", "+/-"];
-const numbersKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+const numbersKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0','.'];
 let operationPartOne = 0;
 let operationPartTwo = 0;
 let output = 0;
 let operator = undefined;
 let nbOperators = 0;
+let nbPoint = 0;
 let resultOfOperation = 0;
+let resetOutput = 0;
 resultInput.value = 0;
 
 // if page fully loaded
@@ -77,68 +79,106 @@ window.addEventListener('load', () => {
         keys.forEach(key => {
             key.addEventListener('click', function () {
                 const keyValue = key.value;
-                if (numbersKeys.includes(keyValue)) {     //si chiffre 
-                    if (output == 0) {
-                        output = keyValue;
-                        operationPartOne = keyValue;     //construire la partie 1 de l'opération
-                    } else {
-                        if (nbOperators == 0) {               //si toujours pas d'operateur, on continue de remplir
+                if (numbersKeys.includes(keyValue)) {//si chiffre 
+                    if(resetOutput == 1)
+                    {
+                        output = 0;
+                        resetOutput = 0;
+                    }
+                    if(keyValue == ".")
+                    {
+                        if(nbPoint == 0)
+                        {
+                            if (nbOperators == 0) {               //si toujours pas d'operateur, on continue de remplir
+                                operationPartOne += keyValue;
+                            }
+                            else{
+                                operationPartTwo += keyValue;
+                            }
                             output += keyValue;
-                            operationPartOne += keyValue;
-                        } else {                               //le cas ou on a déjà un operateur
-                            if (operationPartTwo == 0) {
-                                const outputLength = output.length;
-                                if (output.charAt(outputLength - 1) == 0) {
-                                    operationPartTwo = keyValue;
-                                    output[outputLength - 1] = keyValue;
-
+                            nbPoint++;
+                        }
+                    }   
+                    else{
+                        if (output == 0) {
+                            output = keyValue;
+                            operationPartOne = keyValue;     //construire la partie 1 de l'opération
+                        } else {
+                            if (nbOperators == 0) {               //si toujours pas d'operateur, on continue de remplir
+                                output += keyValue;
+                                operationPartOne += keyValue;
+                            }
+                            else {                               //le cas ou on a déjà un operateur
+                                if (operationPartTwo == 0) {
+                                    const outputLength = output.length;
+                                    if (output.charAt(outputLength - 1) == 0) {
+                                        operationPartTwo = keyValue;
+                                        output[outputLength - 1] = keyValue;
+    
+                                    } else {
+                                        operationPartTwo += keyValue;
+                                        output += keyValue;
+                                    }
                                 } else {
                                     operationPartTwo += keyValue;
                                     output += keyValue;
                                 }
-                            } else {
-                                operationPartTwo += keyValue;
-                                output += keyValue;
                             }
                         }
-                    }
+                    }  
+                    
                 } else if (operationsKeys.includes(keyValue)) {
                     if (nbOperators == 0) {             //si aucun opérateur auparavant
-                        if (keyValue != "=") {          //vérifier que le premier opérateur saisi n'est pas un =
+                        if (keyValue != "=" && keyValue != "+/-") {          //vérifier que le premier opérateur saisi n'est pas un =
                             operator = keyValue;
                             nbOperators++;
                             output += operator;
                         }
+                        else if (keyValue == "+/-") {
+                            operationPartOne = invertSignNumber(operationPartOne);
+                            output = operationPartOne;
+                        }
+                        nbPoint = 0;
+                        resetOutput = 0;
                     } else {                    //dès qu'un operateur existe, vérifier lequel c'est, et faire l'operétation
                         const outputLength = output.length;
                         if (!operationsKeys.includes(output[outputLength - 1])) {
-                            switch (operator) {
-                                case '+':
-                                    resultOfOperation = parseFloat(operationPartOne) + parseFloat(operationPartTwo);
-                                    break;
-                                case '-':
-                                    resultOfOperation = parseFloat(operationPartOne) - parseFloat(operationPartTwo);
-                                    break;
-                                case '/':
-                                    resultOfOperation = parseFloat(operationPartOne) / parseFloat(operationPartTwo);
-                                    break;
-                                case '*':
-                                    resultOfOperation = parseFloat(operationPartOne) * parseFloat(operationPartTwo);
-                                    break;
-                            }
-                            let listElement = document.createElement('li');   //créer une ligne dans le pannel d'affichage
-                            listElement.innerHTML += output;
-                            operationPartOne = resultOfOperation;
-                            operationPartTwo = 0;
-                            if (keyValue == "=") {
-                                output = operationPartOne;
-                                nbOperators = 0;
-                                listElement.innerHTML += "=";
-                                listElement.innerHTML += resultOfOperation;
-                                operationsPannel.append(listElement);
-                            }else {
-                                operator = keyValue;
-                                output = operationPartOne + keyValue;
+                            if (keyValue != "+/-") {
+                                switch (operator) {
+                                    case '+':
+                                        resultOfOperation = parseFloat(operationPartOne) + parseFloat(operationPartTwo);
+                                        break;
+                                    case '-':
+                                        resultOfOperation = parseFloat(operationPartOne) - parseFloat(operationPartTwo);
+                                        break;
+                                    case '/':
+                                        resultOfOperation = parseFloat(operationPartOne) / parseFloat(operationPartTwo);
+                                        break;
+                                    case '*':
+                                        resultOfOperation = parseFloat(operationPartOne) * parseFloat(operationPartTwo);
+                                        break;
+                                }
+                                let listElement = document.createElement('li');   //créer une ligne dans le pannel d'affichage
+                                listElement.innerHTML += output;
+                                operationPartOne = resultOfOperation;
+                                operationPartTwo = 0;
+                                if (keyValue == "=") {
+                                    output = operationPartOne;
+                                    nbOperators = 0;
+                                    listElement.innerHTML += "=";
+                                    listElement.innerHTML += resultOfOperation;
+                                    operationsPannel.append(listElement);
+                                    resetOutput = 1;
+
+                                } else {
+                                    operator = keyValue;
+                                    output = operationPartOne + keyValue;
+                                    resetOutput = 0;
+                                }
+                                nbPoint = 0;
+                            }else{
+                                operationPartTwo = invertSignNumber(operationPartTwo);
+                                output = operationPartOne + operator + operationPartTwo
                             }
                         }
                     }
@@ -248,15 +288,8 @@ window.addEventListener('load', () => {
 
     //Fonction qui inverse le signe d'un chiffre/résultat
     function invertSignNumber(number) {
-
-        if (number >= 0) {
-            number = -number;
-        } else {
-            number = -(-number);
-        }
-
-        console.log(number);
-        return number
+        if (number)
+            return -number
     }
 
 })

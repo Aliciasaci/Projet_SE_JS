@@ -12,7 +12,8 @@ $calculator-wrapper-height : 38rem;
 body {
     background-image: url('../assets/light_background_3.jpg');
     display: block;
-    background-repeat: no-repeat;
+    // background-repeat: no-repeat;
+    background-size: cover;
     margin: 0;
     padding: 0;
     font-family: 'Roboto Mono', monospace;
@@ -185,8 +186,8 @@ body {
                 list-style: none;
                 padding: 0;
 
-                li{
-                    padding : 0 10px 0 10px;
+                li {
+                    padding: 0 10px 0 10px;
                     color: rgb(56, 56, 56);
                     width: 100%;
                 }
