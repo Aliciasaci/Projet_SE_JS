@@ -54,11 +54,11 @@ window.addEventListener('load', () => {
     //* set the theme 
     function setTheme(theme) {
         if (theme == "dark") { //dark mode
-            document.body.style.backgroundImage = "url('../src/assets/dark_mode.jpg')";
+            document.body.style.backgroundImage = "url('assets/dark_mode.jpg')";
             switchModeBtn.style.filter = "invert(100%)";
             setCookie("theme", "dark", 30)
         } else if (theme == "light") {        //light mode
-            document.body.style.backgroundImage = "url('../src/assets/light_background_3.jpg')";
+            document.body.style.backgroundImage = "url('assets/light_background_3.jpg')";
             switchModeBtn.style.filter = "invert(0%)";
             setCookie("theme", "light", 30)
         }
