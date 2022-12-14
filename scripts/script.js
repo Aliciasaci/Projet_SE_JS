@@ -297,7 +297,7 @@ window.addEventListener('load', () => {
     const vibration_btn = document.querySelector("#vibrate");
     vibration_btn.addEventListener('click', () => {
         console.log("vibratiinngg");
-        navigator.vibrate(200);
+        // navigator.vibrate(200);
         confirm("hello");
     })
 
