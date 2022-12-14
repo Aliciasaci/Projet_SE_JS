@@ -298,6 +298,7 @@ window.addEventListener('load', () => {
     vibration_btn.addEventListener('click', () => {
         console.log("vibratiinngg");
         navigator.vibrate(200);
+        alert("ici")
     })
 
 
