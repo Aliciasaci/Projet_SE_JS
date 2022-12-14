@@ -293,6 +293,17 @@ window.addEventListener('load', () => {
             return -number
     }
 
+
+  /**
+   * vibration code
+   */
+    const vibration_btn = document.querySelector("#vibrate");
+    vibration_btn.addEventListener('click', () => {
+        console.log("vibratiinngg");
+        window.navigator.vibrate([200, 100, 200]);
+    })
+
+
 })
 
 
