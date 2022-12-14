@@ -17,7 +17,7 @@ const operationsPannel = document.querySelector('#operations-pannel')
 
 
 const operationsKeys = ["+", '-', "/", '*', "=", "+/-"];
-const numbersKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0','.'];
+const numbersKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'];
 let operationPartOne = 0;
 let operationPartTwo = 0;
 let output = 0;
@@ -81,26 +81,23 @@ window.addEventListener('load', () => {
             key.addEventListener('click', function () {
                 const keyValue = key.value;
                 if (numbersKeys.includes(keyValue)) {//si chiffre 
-                    if(resetOutput == 1)
-                    {
+                    if (resetOutput == 1) {
                         output = 0;
                         resetOutput = 0;
                     }
-                    if(keyValue == ".")
-                    {
-                        if(nbPoint == 0)
-                        {
+                    if (keyValue == ".") {
+                        if (nbPoint == 0) {
                             if (nbOperators == 0) {               //si toujours pas d'operateur, on continue de remplir
                                 operationPartOne += keyValue;
                             }
-                            else{
+                            else {
                                 operationPartTwo += keyValue;
                             }
                             output += keyValue;
                             nbPoint++;
                         }
-                    }   
-                    else{
+                    }
+                    else {
                         if (output == 0) {
                             output = keyValue;
                             operationPartOne = keyValue;     //construire la partie 1 de l'opération
@@ -115,7 +112,7 @@ window.addEventListener('load', () => {
                                     if (output.charAt(outputLength - 1) == 0) {
                                         operationPartTwo = keyValue;
                                         output[outputLength - 1] = keyValue;
-    
+
                                     } else {
                                         operationPartTwo += keyValue;
                                         output += keyValue;
@@ -126,8 +123,8 @@ window.addEventListener('load', () => {
                                 }
                             }
                         }
-                    }  
-                    
+                    }
+
                 } else if (operationsKeys.includes(keyValue)) {
                     if (nbOperators == 0) {             //si aucun opérateur auparavant
                         if (keyValue != "=" && keyValue != "+/-") {          //vérifier que le premier opérateur saisi n'est pas un =
@@ -177,7 +174,7 @@ window.addEventListener('load', () => {
                                     resetOutput = 0;
                                 }
                                 nbPoint = 0;
-                            }else{
+                            } else {
                                 operationPartTwo = invertSignNumber(operationPartTwo);
                                 output = operationPartOne + operator + operationPartTwo
                             }
@@ -294,13 +291,13 @@ window.addEventListener('load', () => {
     }
 
 
-  /**
-   * vibration code
-   */
+    /**
+     * vibration code
+     */
     const vibration_btn = document.querySelector("#vibrate");
     vibration_btn.addEventListener('click', () => {
         console.log("vibratiinngg");
-        window.navigator.vibrate([200, 100, 200]);
+        navigator.vibrate(200);
     })
 
 
