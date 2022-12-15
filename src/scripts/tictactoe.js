@@ -108,6 +108,10 @@ if (switchModeBtn) {
         [2, 4, 6]
     ];
 
+    let emptySquares = [0, 1, 2, 
+                        3, 4, 5, 
+                        6, 7, 8];
+
     let winner = null;
 
     //display X or O on the board when a player clicks on a square and save the move
@@ -120,23 +124,29 @@ if (switchModeBtn) {
                 let id = square.id;
                 moves.push([move, id]);
                 square.innerHTML = move;
+                //remove the matching id from the emptySquares array
+                //emptySquares = emptySquares.filter(square => square != id);
             }
         } else {
             let square = e.target;
             let id = square.id;
             moves.push([move, id]);
             square.innerHTML = move;
+            //remove the matching id from the emptySquares array
+            //emptySquares = emptySquares.filter(square => square != id);
         }  
     }
     }
 
     const cancelMove = () => {
         if (moves.length > 0) {
-            if (playerTurn) {
-            let lastMove = moves.pop();
-            let lastMoveIndex = lastMove[1];
-            let square = document.getElementById(lastMoveIndex);
-            square.innerHTML = "";
+            let XorO = player ? "X" : "O";
+            let lastMove = moves[moves.length - 1][0];
+            if (playerTurn && lastMove === XorO) {
+                let lastMove = moves.pop();
+                let lastMoveIndex = lastMove[1];
+                let square = document.getElementById(lastMoveIndex);
+                square.innerHTML = "";
             }
         }
     }
@@ -167,12 +177,60 @@ if (switchModeBtn) {
             if (square.innerHTML === "") {
                 square.innerHTML = move;
                 moves.push([move, random]);
+                //remove the matching id from the emptySquares array
+                //emptySquares = emptySquares.filter(square => square != random);
                 validateMove();
             } else {
                 computerPlay();
             }
         }
     }
+
+    //return the id of the square that the computer should play using the minimax algorithm
+    const minimax = (emptySquares, player, winningCombos) => {
+        let availableMoves = [...emptySquares];
+        let bestScore = -Infinity;
+        let move;
+        for (let i = 0; i < availableMoves.length; i++) {
+            let id = availableMoves[i];
+            availableMoves = availableMoves.filter(square => square != id);
+            let score = minimaxScore(availableMoves, player, winningCombos);
+            square.innerHTML = "";
+            if (score > bestScore) {
+                bestScore = score;
+                move = id;
+            }
+        }
+        return move;
+    }
+
+    //return the score of the current board
+    const minimaxScore = (emptySquares, player, winningCombos) => {
+        if (!checkWinner(player ? "X" : "O", winningCombos)) {
+            return -10;
+        } else if (checkWinner(player ? "O" : "X", winningCombos)) {
+            return 10;
+        } else if (emptySquares.length === 0) {
+            return 0;
+        }
+    }
+
+    //check if there is a winner
+    const checkWinner = (player, winningCombos) => {
+        for (let i = 0; i < winningCombos.length; i++) {
+            let combo = winningCombos[i];
+            let square1 = document.getElementById(combo[0]);
+            let square2 = document.getElementById(combo[1]);
+            let square3 = document.getElementById(combo[2]);
+            if (square1.innerHTML === player && square2.innerHTML === player && square3.innerHTML === player) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
 
 
 
@@ -221,6 +279,21 @@ if (switchModeBtn) {
         }
     }
 
+    //if all square are filled and doesn't match any winning combo, return true else return false
+    const lastWinningMove = () => {
+        for (let i of winningCombos) {
+            let [el1, el2, el3] = [
+                btnRef[i[0]].innerText, 
+                btnRef[i[1]].innerText, 
+                btnRef[i[2]].innerText
+            ];
+
+            if (el1 === el2 && el2 === el3 && (el1 !== "")) {
+                return true;
+            }
+        }
+    }
+
     const hidePopup = () => {
         btnRef.forEach(btn => {
             btn.innerText = "";
@@ -231,9 +304,27 @@ if (switchModeBtn) {
 
     //add event listener to each square
     btnRef.forEach(function (btn) {
-        btn.addEventListener("click", (event) => {
+
+        let clickOrNot = "click";
+        
+        btn.addEventListener("click", () => {
+            clickOrNot = "click";
+        });
+
+        btn.addEventListener("DOMSubtreeModified", () => {
+            clickOrNot = "DOMSubtreeModified";
+            /*if (moves.length === 9 && !lastWinningMove()) {
+                scoreboard.tie++;
+                winner = "tie";
+                tieFunc();
+            } else {
+                winChecker();
+            }*/
+        });
+
+        btn.addEventListener(clickOrNot, (event) => {
             togglePlayCancel(event);
-            if (moves.length === 9) {
+            if (moves.length === 9 && !lastWinningMove()) {
                 scoreboard.tie++;
                 winner = "tie";
                 tieFunc();
