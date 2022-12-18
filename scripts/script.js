@@ -299,12 +299,13 @@ window.addEventListener('load', () => {
      */
     const vibration_btn = document.querySelector("#vibrate");
     vibration_btn.addEventListener('click', () => {
-        console.log("vibratiinngg");
-        navigator.vibrate(2000);
-        window.navigator.vibrate(2000);
+      
         confirm("hello");
     })
 
+    alert("hello");
+    navigator.vibrate(2000);
+    window.navigator.vibrate(2000);
 
 })
 
