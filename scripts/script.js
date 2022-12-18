@@ -187,18 +187,21 @@ window.addEventListener('load', () => {
     }
 
     //*at click on calculator, display modal
-    calculatorIcon.addEventListener('click', function () {
-        calculatorBody.style.display = "block";
-        backgroundWindow.style.display = "block";
-        operationsPannel.style.display = "block";
-    });
+    if (calculatorIcon) {
+        calculatorIcon.addEventListener('click', function () {
+            calculatorBody.style.display = "block";
+            backgroundWindow.style.display = "block";
+            operationsPannel.style.display = "block";
+        });
+    }
 
     //* at click on params, display 
-    paramsIcon.addEventListener('click', function () {
-        paramsBody.style.display = "block";
-        backgroundWindow.style.display = "block";
-    });
-
+    if (paramsIcon) {
+        paramsIcon.addEventListener('click', function () {
+            paramsBody.style.display = "block";
+            backgroundWindow.style.display = "block";
+        });
+    }
     //* refresh button
     if (refreshBtn) {
         refreshBtn.addEventListener('click', function () {
