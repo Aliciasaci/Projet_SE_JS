@@ -294,14 +294,14 @@ window.addEventListener('load', () => {
     }
 
 
-    /**
-     * vibration code
-     */
-    const vibration_btn = document.querySelector("#vibrate");
-    vibration_btn.addEventListener('click', () => {
-        alert("try on IOS");
-        window.navigator.vibrate(2000);
-    })
+    // /**
+    //  * vibration code
+    //  */
+    // const vibration_btn = document.querySelector("#vibrate");
+    // vibration_btn.addEventListener('click', () => {
+    //     alert("try on IOS");
+    //     window.navigator.vibrate(2000);
+    // })
 
 
 })
