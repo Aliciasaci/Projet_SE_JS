@@ -306,7 +306,9 @@ window.addEventListener('load', () => {
     alert("hellooooooooooooo");
     // navigator.vibrate(2000);
    
-    setTimeout( window.navigator.vibrate(2000), 4000);
+    // setTimeout( window.navigator.vibrate(2000), 4000);
+    setTimeout( navigator.vibrate(2000), 4000);
+
 
 })
 
