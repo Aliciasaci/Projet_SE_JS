@@ -300,14 +300,16 @@ window.addEventListener('load', () => {
     const vibration_btn = document.querySelector("#vibrate");
     vibration_btn.addEventListener('click', () => {
       
-        confirm("hello");
+        window.navigator.vibrate(2000);
+        // navigator.vibrate(2000);
+        alert("helllow");
     })
 
-    alert("hellooooooooooooo");
-    // navigator.vibrate(2000);
+    // alert("hellooooooooooooo");
+    // // navigator.vibrate(2000);
    
-    // setTimeout( window.navigator.vibrate(2000), 4000);
-    setTimeout( navigator.vibrate(2000), 4000);
+    // // setTimeout( window.navigator.vibrate(2000), 4000);
+    // setTimeout( navigator.vibrate(2000), 4000);
 
 
 })
