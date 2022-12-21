@@ -1,3 +1,22 @@
+const switchModeBtn = document.querySelector("#switch-mode-btn");
+const keys = document.querySelectorAll(".keys input");
+const resultInput = document.querySelector("#result-input");
+const refreshBtn = document.querySelector("#btn-refresh");
+const calculatorIcon = document.querySelector("#calculator-icon");
+const calculatorBody = document.querySelector("#calculator");
+const backgroundWindow = document.querySelector(".window");
+const closeWindowButton = document.querySelector(".fa-xmark");
+const reduceWindowButton = document.querySelector(".fa-minus");
+const reduceFullScreenButton = document.querySelector(".fa-square");
+const leftMenuBtns = document.querySelector('#left-menu-btns');
+const paramsIcon = document.querySelector("#params-icon");
+const paramsBody = document.querySelector("#params");
+const calculatorIconSmall = document.querySelector("#calculator-icon-small");
+const paramsIconSmall = document.querySelector("#params-icon-small");
+const operationsPannel = document.querySelector('#operations-pannel')
+let errorMessage = "";
+
+
 //*lever les erreurs de divions 
 class DivisionError extends Error {
     constructor(...parameters) {
@@ -32,24 +51,6 @@ function invertSignNumber(number) {
     if (number)
         return -number
 }
-
-
-const switchModeBtn = document.querySelector("#switch-mode-btn");
-const keys = document.querySelectorAll(".keys input");
-const resultInput = document.querySelector("#result-input");
-const refreshBtn = document.querySelector("#btn-refresh");
-const calculatorIcon = document.querySelector("#calculator-icon");
-const calculatorBody = document.querySelector("#calculator");
-const backgroundWindow = document.querySelector(".window");
-const closeWindowButton = document.querySelector(".fa-xmark");
-const reduceWindowButton = document.querySelector(".fa-minus");
-const reduceFullScreenButton = document.querySelector(".fa-square");
-const leftMenuBtns = document.querySelector('#left-menu-btns');
-const paramsIcon = document.querySelector("#params-icon");
-const paramsBody = document.querySelector("#params");
-const calculatorIconSmall = document.querySelector("#calculator-icon-small");
-const paramsIconSmall = document.querySelector("#params-icon-small");
-const operationsPannel = document.querySelector('#operations-pannel')
 
 
 const operationsKeys = ["+", '-', "/", '*', "=", "+/-"];
@@ -189,7 +190,7 @@ window.addEventListener('load', () => {
                                             resultOfOperation = devide(operationPartOne, operationPartTwo)
                                         } catch (error) {
                                             if (error instanceof DivisionError) {
-                                                alert(error.message);
+                                                errorMessage = "Error";
                                             } else {
                                                 console.log(error.message);
                                             }
@@ -208,7 +209,13 @@ window.addEventListener('load', () => {
                                     nbOperators = 0;
                                     listElement.innerHTML += "=";
                                     listElement.innerHTML += resultOfOperation;
+
+                                    if (errorMessage == 'Error') {
+                                        listElement.innerHTML = errorMessage;
+                                    }
+
                                     operationsPannel.append(listElement);
+                                    errorMessage = "";
                                     resetOutput = 1;
 
                                 } else {
