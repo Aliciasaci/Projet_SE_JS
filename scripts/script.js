@@ -1,3 +1,39 @@
+//*lever les erreurs de divions 
+class DivisionError extends Error {
+    constructor(...parameters) {
+        super(...parameters)
+    }
+}
+
+function devide(partOne, partTwo) {
+    if (partTwo == 0)
+        throw new DivisionError('Erreur de division par zéro');
+
+    return parseFloat(partOne) / parseFloat(partTwo);
+}
+
+function add(partOne, partTwo) {
+    if (partOne && partTwo)
+        return parseFloat(partOne) + parseFloat(partTwo);
+}
+
+function substract(partOne, partTwo) {
+    if (partOne && partTwo)
+        return parseFloat(partOne) - parseFloat(partTwo);
+}
+
+function multiply(partOne, partTwo) {
+    if (partOne && partTwo)
+        return parseFloat(partOne) * parseFloat(partTwo);
+}
+
+//Fonction qui inverse le signe d'un chiffre/résultat
+function invertSignNumber(number) {
+    if (number)
+        return -number
+}
+
+
 const switchModeBtn = document.querySelector("#switch-mode-btn");
 const keys = document.querySelectorAll(".keys input");
 const resultInput = document.querySelector("#result-input");
@@ -124,7 +160,6 @@ window.addEventListener('load', () => {
                             }
                         }
                     }
-
                 } else if (operationsKeys.includes(keyValue)) {
                     if (nbOperators == 0) {             //si aucun opérateur auparavant
                         if (keyValue != "=" && keyValue != "+/-") {          //vérifier que le premier opérateur saisi n'est pas un =
@@ -144,16 +179,24 @@ window.addEventListener('load', () => {
                             if (keyValue != "+/-") {
                                 switch (operator) {
                                     case '+':
-                                        resultOfOperation = parseFloat(operationPartOne) + parseFloat(operationPartTwo);
+                                        resultOfOperation = add(operationPartOne, operationPartTwo);
                                         break;
                                     case '-':
-                                        resultOfOperation = parseFloat(operationPartOne) - parseFloat(operationPartTwo);
+                                        resultOfOperation = substract(operationPartOne, operationPartTwo);
                                         break;
                                     case '/':
-                                        resultOfOperation = parseFloat(operationPartOne) / parseFloat(operationPartTwo);
+                                        try {
+                                            resultOfOperation = devide(operationPartOne, operationPartTwo)
+                                        } catch (error) {
+                                            if (error instanceof DivisionError) {
+                                                alert(error.message);
+                                            } else {
+                                                console.log(error.message);
+                                            }
+                                        }
                                         break;
                                     case '*':
-                                        resultOfOperation = parseFloat(operationPartOne) * parseFloat(operationPartTwo);
+                                        resultOfOperation = multiply(operationPartOne, operationPartTwo);
                                         break;
                                 }
                                 let listElement = document.createElement('li');   //créer une ligne dans le pannel d'affichage
@@ -286,13 +329,6 @@ window.addEventListener('load', () => {
             paramsBody.style.display = "block";
         }
     })
-
-    //Fonction qui inverse le signe d'un chiffre/résultat
-    function invertSignNumber(number) {
-        if (number)
-            return -number
-    }
-
 
     // /**
     //  * vibration code
