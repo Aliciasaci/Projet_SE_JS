@@ -1,3 +1,39 @@
+//*lever les erreurs de divions 
+class DivisionError extends Error {
+    constructor(...parameters) {
+        super(...parameters)
+    }
+}
+
+function devide(partOne, partTwo) {
+    if (partTwo == 0)
+        throw new DivisionError('Erreur de division par zéro');
+
+    return parseFloat(partOne) / parseFloat(partTwo);
+}
+
+function add(partOne, partTwo) {
+    if (partOne && partTwo)
+        return parseFloat(partOne) + parseFloat(partTwo);
+}
+
+function substract(partOne, partTwo) {
+    if (partOne && partTwo)
+        return parseFloat(partOne) - parseFloat(partTwo);
+}
+
+function multiply(partOne, partTwo) {
+    if (partOne && partTwo)
+        return parseFloat(partOne) * parseFloat(partTwo);
+}
+
+//Fonction qui inverse le signe d'un chiffre/résultat
+function invertSignNumber(number) {
+    if (number)
+        return -number
+}
+
+
 const switchModeBtn = document.querySelector("#switch-mode-btn");
 const keys = document.querySelectorAll(".keys input");
 const resultInput = document.querySelector("#result-input");
@@ -17,7 +53,7 @@ const operationsPannel = document.querySelector('#operations-pannel')
 
 
 const operationsKeys = ["+", '-', "/", '*', "=", "+/-"];
-const numbersKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0','.'];
+const numbersKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'];
 let operationPartOne = 0;
 let operationPartTwo = 0;
 let output = 0;
@@ -81,26 +117,23 @@ window.addEventListener('load', () => {
             key.addEventListener('click', function () {
                 const keyValue = key.value;
                 if (numbersKeys.includes(keyValue)) {//si chiffre 
-                    if(resetOutput == 1)
-                    {
+                    if (resetOutput == 1) {
                         output = 0;
                         resetOutput = 0;
                     }
-                    if(keyValue == ".")
-                    {
-                        if(nbPoint == 0)
-                        {
+                    if (keyValue == ".") {
+                        if (nbPoint == 0) {
                             if (nbOperators == 0) {               //si toujours pas d'operateur, on continue de remplir
                                 operationPartOne += keyValue;
                             }
-                            else{
+                            else {
                                 operationPartTwo += keyValue;
                             }
                             output += keyValue;
                             nbPoint++;
                         }
-                    }   
-                    else{
+                    }
+                    else {
                         if (output == 0) {
                             output = keyValue;
                             operationPartOne = keyValue;     //construire la partie 1 de l'opération
@@ -115,7 +148,7 @@ window.addEventListener('load', () => {
                                     if (output.charAt(outputLength - 1) == 0) {
                                         operationPartTwo = keyValue;
                                         output[outputLength - 1] = keyValue;
-    
+
                                     } else {
                                         operationPartTwo += keyValue;
                                         output += keyValue;
@@ -126,8 +159,7 @@ window.addEventListener('load', () => {
                                 }
                             }
                         }
-                    }  
-                    
+                    }
                 } else if (operationsKeys.includes(keyValue)) {
                     if (nbOperators == 0) {             //si aucun opérateur auparavant
                         if (keyValue != "=" && keyValue != "+/-") {          //vérifier que le premier opérateur saisi n'est pas un =
@@ -147,16 +179,24 @@ window.addEventListener('load', () => {
                             if (keyValue != "+/-") {
                                 switch (operator) {
                                     case '+':
-                                        resultOfOperation = parseFloat(operationPartOne) + parseFloat(operationPartTwo);
+                                        resultOfOperation = add(operationPartOne, operationPartTwo);
                                         break;
                                     case '-':
-                                        resultOfOperation = parseFloat(operationPartOne) - parseFloat(operationPartTwo);
+                                        resultOfOperation = substract(operationPartOne, operationPartTwo);
                                         break;
                                     case '/':
-                                        resultOfOperation = parseFloat(operationPartOne) / parseFloat(operationPartTwo);
+                                        try {
+                                            resultOfOperation = devide(operationPartOne, operationPartTwo)
+                                        } catch (error) {
+                                            if (error instanceof DivisionError) {
+                                                alert(error.message);
+                                            } else {
+                                                console.log(error.message);
+                                            }
+                                        }
                                         break;
                                     case '*':
-                                        resultOfOperation = parseFloat(operationPartOne) * parseFloat(operationPartTwo);
+                                        resultOfOperation = multiply(operationPartOne, operationPartTwo);
                                         break;
                                 }
                                 let listElement = document.createElement('li');   //créer une ligne dans le pannel d'affichage
@@ -177,7 +217,7 @@ window.addEventListener('load', () => {
                                     resetOutput = 0;
                                 }
                                 nbPoint = 0;
-                            }else{
+                            } else {
                                 operationPartTwo = invertSignNumber(operationPartTwo);
                                 output = operationPartOne + operator + operationPartTwo
                             }
@@ -286,12 +326,6 @@ window.addEventListener('load', () => {
             paramsBody.style.display = "block";
         }
     })
-
-    //Fonction qui inverse le signe d'un chiffre/résultat
-    function invertSignNumber(number) {
-        if (number)
-            return -number
-    }
 
 })
 
