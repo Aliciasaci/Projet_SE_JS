@@ -14,7 +14,43 @@ const paramsBody = document.querySelector("#params");
 const calculatorIconSmall = document.querySelector("#calculator-icon-small");
 const paramsIconSmall = document.querySelector("#params-icon-small");
 const operationsPannel = document.querySelector('#operations-pannel')
-const paramsVibration = document.querySelector("#params-vibration");
+let errorMessage = "";
+
+
+//*lever les erreurs de divions 
+class DivisionError extends Error {
+    constructor(...parameters) {
+        super(...parameters)
+    }
+}
+
+function devide(partOne, partTwo) {
+    if (partTwo == 0)
+        throw new DivisionError('Erreur de division par zéro');
+
+    return parseFloat(partOne) / parseFloat(partTwo);
+}
+
+function add(partOne, partTwo) {
+    if (partOne && partTwo)
+        return parseFloat(partOne) + parseFloat(partTwo);
+}
+
+function substract(partOne, partTwo) {
+    if (partOne && partTwo)
+        return parseFloat(partOne) - parseFloat(partTwo);
+}
+
+function multiply(partOne, partTwo) {
+    if (partOne && partTwo)
+        return parseFloat(partOne) * parseFloat(partTwo);
+}
+
+//Fonction qui inverse le signe d'un chiffre/résultat
+function invertSignNumber(number) {
+    if (number)
+        return -number
+}
 
 
 const operationsKeys = ["+", '-', "/", '*', "=", "+/-"];
@@ -125,7 +161,6 @@ window.addEventListener('load', () => {
                             }
                         }
                     }
-
                 } else if (operationsKeys.includes(keyValue)) {
                     if (nbOperators == 0) {             //si aucun opérateur auparavant
                         if (keyValue != "=" && keyValue != "+/-") {          //vérifier que le premier opérateur saisi n'est pas un =
@@ -145,16 +180,24 @@ window.addEventListener('load', () => {
                             if (keyValue != "+/-") {
                                 switch (operator) {
                                     case '+':
-                                        resultOfOperation = parseFloat(operationPartOne) + parseFloat(operationPartTwo);
+                                        resultOfOperation = add(operationPartOne, operationPartTwo);
                                         break;
                                     case '-':
-                                        resultOfOperation = parseFloat(operationPartOne) - parseFloat(operationPartTwo);
+                                        resultOfOperation = substract(operationPartOne, operationPartTwo);
                                         break;
                                     case '/':
-                                        resultOfOperation = parseFloat(operationPartOne) / parseFloat(operationPartTwo);
+                                        try {
+                                            resultOfOperation = devide(operationPartOne, operationPartTwo)
+                                        } catch (error) {
+                                            if (error instanceof DivisionError) {
+                                                errorMessage = "Error";
+                                            } else {
+                                                console.log(error.message);
+                                            }
+                                        }
                                         break;
                                     case '*':
-                                        resultOfOperation = parseFloat(operationPartOne) * parseFloat(operationPartTwo);
+                                        resultOfOperation = multiply(operationPartOne, operationPartTwo);
                                         break;
                                 }
                                 let listElement = document.createElement('li');   //créer une ligne dans le pannel d'affichage
@@ -166,7 +209,13 @@ window.addEventListener('load', () => {
                                     nbOperators = 0;
                                     listElement.innerHTML += "=";
                                     listElement.innerHTML += resultOfOperation;
+
+                                    if (errorMessage == 'Error') {
+                                        listElement.innerHTML = errorMessage;
+                                    }
+
                                     operationsPannel.append(listElement);
+                                    errorMessage = "";
                                     resetOutput = 1;
 
                                 } else {
@@ -188,18 +237,21 @@ window.addEventListener('load', () => {
     }
 
     //*at click on calculator, display modal
-    calculatorIcon.addEventListener('click', function () {
-        calculatorBody.style.display = "block";
-        backgroundWindow.style.display = "block";
-        operationsPannel.style.display = "block";
-    });
+    if (calculatorIcon) {
+        calculatorIcon.addEventListener('click', function () {
+            calculatorBody.style.display = "block";
+            backgroundWindow.style.display = "block";
+            operationsPannel.style.display = "block";
+        });
+    }
 
     //* at click on params, display 
-    paramsIcon.addEventListener('click', function () {
-        paramsBody.style.display = "block";
-        backgroundWindow.style.display = "block";
-    });
-
+    if (paramsIcon) {
+        paramsIcon.addEventListener('click', function () {
+            paramsBody.style.display = "block";
+            backgroundWindow.style.display = "block";
+        });
+    }
     //* refresh button
     if (refreshBtn) {
         refreshBtn.addEventListener('click', function () {
@@ -239,20 +291,7 @@ window.addEventListener('load', () => {
                 }
             }
 
-            //*continuer cette animation
-            // const newspaperSpinning = [
-            //     { transform: 'translateY(-700px)' },
-            // ];
-
-            // const newspaperTiming = {
-            //     duration: 2000,
-            //     easing : "ease-in"
-            // }
-
-            // backgroundWindow.animate(newspaperSpinning, newspaperTiming);
-            // paramsBody.animate(newspaperSpinning, newspaperTiming);
-
-
+            alert("ici");
             if (paramsBody.style.display == "block") {
                 paramsBody.style.display = "none";
                 paramsIconSmall.style.display = "none";
@@ -301,15 +340,12 @@ window.addEventListener('load', () => {
             return -number
     }
 
-    if (paramsVibration) {
-        paramsVibration.addEventListener('click', function () {
-
-            paramsBody.style.display = "none";
+    // if (paramsVibration) {
+    //     paramsVibration.addEventListener('click', function () {
+    //         paramsBody.style.display = "none";
            
-        })
-    }
-
-
+    //     })
+    // }
 
     //   /**
     //    * vibration code
