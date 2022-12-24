@@ -69,7 +69,7 @@ window.addEventListener('load', () => {
     document.querySelectorAll('*')
   .forEach(element => element.addEventListener('click', e => {
     console.log('clicked: ', e.target);
-    if(window.navigator.vibrate(100)){
+    if(window.navigator.vibrate(200)){
         console.log("vibrating....");
     }
   }))
