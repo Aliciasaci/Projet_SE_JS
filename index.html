@@ -13,6 +13,7 @@
 <body>
     <header>
         <nav class="menu">
+            <!--les icones affichées en haut à gauche de l'écran à la réduction d'une appli-->
             <ul id="left-menu-btns">
                 <li id="calculator-icon-small">
                     <img src="assets/calculator.svg" />
@@ -28,7 +29,8 @@
                 </li>
             </ul>
             <ul id="right-menu-btns">
-                <li><img src="assets/icons/vibration.svg" /></li>
+                <li><img src="assets/icons/vibration.svg" id="vibration-icon-on"/></li>
+                <li><img src="assets/icons/vibration_off.svg" id="vibration-icon-off"/></li>
                 <li><img src="assets/icons/signal.svg" /></li>
                 <li><img src="assets/icons/battery.svg" /></li>
                 <li><time datetime="10:00">10:00</time></li>
@@ -111,8 +113,8 @@
                     <img src="assets/params_icons/calendar.png" />
                     <span>Date</span>
                 </li>
-                <li>
-                    <img src="assets/params_icons/vibrate.png" id="params-vibration"/>
+                <li id="params-vibration">
+                    <img src="assets/params_icons/vibrate.png" />
                     <span>Vibration</span>
                 </li>
                 <li>
@@ -137,8 +139,13 @@
                 </li> -->
             </ul>
         </div>
+        <div id="vibration-wrapper">
+            <h1>Paramètres de vibrations</h1>
+            <div><b>État de vibration</b><button id="vibration-display-btn">Afficher</button></div> <!--par défaut, l'état de vibration est caché-->
+            <div><b>Retours haptique de vibration dans tout le système</b><button id="vibration-activate-btn">Activer</button></div> <!--par défaut, la vibration est désactivé-->
+        </div>
     </main>
-    <script src="scripts/script.js"></script>
+    <script src="scripts/script.js" type="module"></script>
 </body>
 
 </html>

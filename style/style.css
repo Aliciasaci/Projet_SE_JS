@@ -65,6 +65,9 @@ body header nav #right-menu-btns li {
 body header nav #right-menu-btns li img {
   width: 100%;
 }
+body header nav #right-menu-btns #vibration-icon-on, body header nav #right-menu-btns #vibration-icon-off {
+  display: none;
+}
 body main #app_list {
   list-style: none;
   display: flex;
@@ -209,4 +212,36 @@ body main .glass_effect {
   -webkit-backdrop-filter: blur(5px);
           backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.47);
+}
+body main #vibration-wrapper {
+  display: none;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  width: 42rem;
+  margin: auto;
+  margin-top: 2rem;
+  padding: 2rem;
+  height: 28rem;
+}
+body main #vibration-wrapper div {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0 1rem 0;
+}
+body main #vibration-wrapper button {
+  background: rgba(214, 133, 224, 0.7);
+  border-radius: 99px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 18px;
+  z-index: 1;
+  border: 0;
+  width: 8rem;
+  cursor: pointer;
+  font-weight: 800;
+}
+body main #vibration-wrapper button:hover {
+  background-color: #ebc2f0;
 }/*# sourceMappingURL=style.css.map */

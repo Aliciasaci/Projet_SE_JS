@@ -1,3 +1,6 @@
+import { DivisionError } from './ExceptionsClasses.js';
+
+//*variables
 const switchModeBtn = document.querySelector("#switch-mode-btn");
 const keys = document.querySelectorAll(".keys input");
 const resultInput = document.querySelector("#result-input");
@@ -7,22 +10,18 @@ const calculatorBody = document.querySelector("#calculator");
 const backgroundWindow = document.querySelector(".window");
 const closeWindowButton = document.querySelector(".fa-xmark");
 const reduceWindowButton = document.querySelector(".fa-minus");
-const reduceFullScreenButton = document.querySelector(".fa-square");
-const leftMenuBtns = document.querySelector('#left-menu-btns');
 const paramsIcon = document.querySelector("#params-icon");
 const paramsBody = document.querySelector("#params");
 const calculatorIconSmall = document.querySelector("#calculator-icon-small");
 const paramsIconSmall = document.querySelector("#params-icon-small");
-const operationsPannel = document.querySelector('#operations-pannel')
+const operationsPannel = document.querySelector('#operations-pannel');
+const paramVibration = document.querySelector('#params-vibration');
+const calculatorWrapper = document.querySelector('.calculator-wrapper');
+const vibrationWrapper = document.querySelector('#vibration-wrapper');
+const VibrationDisplayBtn = document.querySelector('#vibration-display-btn');
+const VibrationActivateBtn = document.querySelector('#vibration-activate-btn');
 let errorMessage = "";
-
-
-//*lever les erreurs de divions 
-class DivisionError extends Error {
-    constructor(...parameters) {
-        super(...parameters)
-    }
-}
+let vibrationActivated = true;
 
 function devide(partOne, partTwo) {
     if (partTwo == 0)
@@ -52,7 +51,6 @@ function invertSignNumber(number) {
         return -number
 }
 
-
 const operationsKeys = ["+", '-', "/", '*', "=", "+/-"];
 const numbersKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'];
 let operationPartOne = 0;
@@ -67,6 +65,14 @@ resultInput.value = 0;
 
 // if page fully loaded
 window.addEventListener('load', () => {
+
+    document.querySelectorAll('*')
+  .forEach(element => element.addEventListener('click', e => {
+    console.log('clicked: ', e.target);
+    if(window.navigator.vibrate(200)){
+        console.log("vibrating....");
+    }
+  }))
 
     //* function to create and set cookies
     //! le store du theme ne marche pas sur opera
@@ -239,9 +245,9 @@ window.addEventListener('load', () => {
     //*at click on calculator, display modal
     if (calculatorIcon) {
         calculatorIcon.addEventListener('click', function () {
+            operationsPannel.style.display = "block";
             calculatorBody.style.display = "block";
             backgroundWindow.style.display = "block";
-            operationsPannel.style.display = "block";
         });
     }
 
@@ -250,6 +256,7 @@ window.addEventListener('load', () => {
         paramsIcon.addEventListener('click', function () {
             paramsBody.style.display = "block";
             backgroundWindow.style.display = "block";
+            calculatorWrapper.style.display = "none"
         });
     }
     //* refresh button
@@ -288,14 +295,18 @@ window.addEventListener('load', () => {
                     calculatorIconSmall.style.display = "none";
                     calculatorBody.style.display = "none";
                     operationsPannel.style.display = "none";
+                    calculatorWrapper.style.display = "none"
                 }
             }
 
-            alert("ici");
             if (paramsBody.style.display == "block") {
                 paramsBody.style.display = "none";
                 paramsIconSmall.style.display = "none";
                 operationsPannel.style.display = "none";
+            }
+
+            if (vibrationWrapper.style.display == "block") {
+                vibrationWrapper.style.display = "none";
             }
         });
     }
@@ -334,29 +345,70 @@ window.addEventListener('load', () => {
         }
     })
 
-    //Fonction qui inverse le signe d'un chiffre/résultat
-    function invertSignNumber(number) {
-        if (number)
-            return -number
+    /**
+     * vibration code
+     */
+    if (paramVibration) {
+        paramVibration.addEventListener('click', function () {
+            paramsBody.style.display = "none";
+            if (vibrationWrapper) {
+                backgroundWindow.append(vibrationWrapper);
+                vibrationWrapper.style.display = "block";
+            }
+            //* Afficher ou non l'état de vibration (vibration activé ou désactivé)
+            if (VibrationDisplayBtn) {
+
+                const vibrationIconOn = document.querySelector("#vibration-icon-on");
+                const vibrationIconOff = document.querySelector("#vibration-icon-off");
+
+                VibrationDisplayBtn.addEventListener('click', function () {
+                    if (vibrationIconOn && vibrationIconOff) {
+                        if (VibrationDisplayBtn.innerHTML == "Masquer") {
+                            //si masquer l'état de vibration, masquer les deux icones;
+                            vibrationIconOn.style.display = "none"
+                            vibrationIconOff.style.display = "none"
+                            VibrationDisplayBtn.innerHTML = "Afficher";
+                            VibrationDisplayBtn.style.background = 'rgb(214, 133, 224, 0.7)';
+                        } else {
+                            //si afficher état de vibration, conditionner sur l'activation de vibration et afficher la bonne icone.
+                            //**Améliorer l'affichage */
+                            if (vibrationActivated == true) {
+                                console.log(vibrationActivated);
+                                vibrationIconOn.style.display = "block"
+                                vibrationIconOff.style.display = "none"
+                            } else {
+                                vibrationIconOff.style.display = "block"
+                                vibrationIconOn.style.display = "none"
+                            }
+                            VibrationDisplayBtn.innerHTML = "Masquer";
+                            VibrationDisplayBtn.style.background = 'rgb(123, 155, 216)';
+                        }
+                    }
+                })
+            }
+
+            //* Activer ou non le retour haptique de vibration
+            if (VibrationActivateBtn) {
+
+                VibrationActivateBtn.addEventListener('click', function () {
+                    if (VibrationActivateBtn.innerHTML == "Activer") {
+                        if (confirm("Activer le retour haptique de vibration ?")) {
+                            VibrationActivateBtn.innerHTML = "Désactiver";
+                            VibrationActivateBtn.style.background = 'rgb(123, 155, 216)';
+                            vibrationActivated = true;
+                        }
+                    } else {
+                        VibrationActivateBtn.innerHTML = "Activer";
+                        vibrationActivated = false;
+                        VibrationActivateBtn.style.background = 'rgb(214, 133, 224, 0.7)';
+                    }
+                    //activer le retour haptique sur tout le système 
+                    //CODE vibration à chaque clique 
+                    //stocker l'état de vibration à true ou false 
+                })
+            }
+        })
     }
-
-    // if (paramsVibration) {
-    //     paramsVibration.addEventListener('click', function () {
-    //         paramsBody.style.display = "none";
-           
-    //     })
-    // }
-
-    //   /**
-    //    * vibration code
-    //    */
-    //     const vibration_btn = document.querySelector("#vibrate");
-    //     vibration_btn.addEventListener('click', () => {
-    //         console.log("vibratiinngg");
-    //         window.navigator.vibrate([200, 100, 200]);
-    //     })
-
-
 })
 
 
