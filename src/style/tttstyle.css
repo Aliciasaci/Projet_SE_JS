@@ -1,13 +1,13 @@
 * {
     padding: 0;
     margin: 0;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     font-family: 'Raleway', sans-serif;
 }
 
 body {
     height: 100vh;
-    background: rgb(41,34,156);
+    background: rgb(41, 34, 156);
     background: url(../assets/light_background_3.jpg) no-repeat center center;
     background-size: cover;
     overflow: hidden;
@@ -19,24 +19,36 @@ body header #switch-mode-btn {
     top: 4rem;
     position: absolute;
     z-index: 20;
-  }
+}
 
 body header #switch-mode-btn img {
     width: 100%;
-  }
+}
 
-  body header #switch-mode-btn img:hover {
+body header #switch-mode-btn img:hover {
     cursor: pointer;
-  }
+}
 
-  body header nav {
+#menu-btn {
+    width: 2.5rem;
+    left: 2.5rem;
+    top: 4.5rem;
+    position: absolute;
+    z-index: 20;
+}
+
+#menu-btn img {
+    width: 30px;
+}
+
+body header nav {
     position: relative;
     display: flex;
     justify-content: end;
     height: 5vh;
-  }
+}
 
-  body header nav ul {
+body header nav ul {
     width: 20%;
     display: flex;
     justify-content: space-around;
@@ -44,16 +56,16 @@ body header #switch-mode-btn img {
     list-style: none;
     align-items: center;
     padding: 0.5rem 0;
-  }
+}
 
-  body header nav ul li {
+body header nav ul li {
     flex-basis: 6%;
     color: #ffffff;
-  }
+}
 
-  body header nav ul li img {
+body header nav ul li img {
     width: 100%;
-  }
+}
 
 html {
     font-size: 16px;
@@ -101,7 +113,7 @@ button:hover {
     padding: 1em;
     border-radius: 8px;
     background-color: white;
-    color: rgba(41,34,156,1);
+    color: rgba(41, 34, 156, 1);
     border: 1px solid transparent;
     position: relative;
     margin: .5em auto;
@@ -147,7 +159,7 @@ button:hover {
     font-size: 0.6em;
     border-radius: 8px;
     background-color: white;
-    color: rgba(41,34,156,1);
+    color: rgba(41, 34, 156, 1);
     border: none;
 
 }
@@ -167,6 +179,7 @@ button:hover {
     0% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
@@ -176,6 +189,7 @@ button:hover {
     0% {
         opacity: 1;
     }
+
     100% {
         opacity: 0;
     }
