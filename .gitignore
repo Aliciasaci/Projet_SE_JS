@@ -1,1 +1,5 @@
+# Ignore test files
+**/__tests__/*
+**/*.test.js
+**/*.spec.js
 node_modules
