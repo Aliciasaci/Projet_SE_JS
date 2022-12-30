@@ -185,7 +185,7 @@ const computerPlay = () => {
 };
 
 //check if there is a winner
-const checkWinner = (player, winningCombos) => {
+export const checkWinner = (player, winningCombos) => {
   for (let i = 0; i < winningCombos.length; i++) {
     let combo = winningCombos[i];
     let square1 = document.getElementById(combo[0]);
