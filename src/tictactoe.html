@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="style/tttstyle.css" />
+    <title>SE JAVASCRIPT</title>
+</head>
+
+<body>
+    <header>
+        <nav class="glass">
+            <ul>
+                <li><img src="../assets/icons/vibration.svg" /></li>
+                <li><img src="../assets/icons/signal.svg" /></li>
+                <li><img src="../assets/icons/battery.svg" /></li>
+                <li><time datetime="10:00">10:00</time></li>
+                <li>09/10/2022</li>
+            </ul>
+        </nav>
+        <span id="switch-mode-btn"><img src="../assets/icons/day-and-night.svg"/></span>
+        <a id="menu-btn" href="index.html"><img src="../assets/icons/arrow-left.png"/></a>
+    </header>
+            
+        <div class="wrapper">
+            <div class="score-wrapper">
+                <div class="score" id="scoreX"></div>
+                <div class="score" id="scoreTie"></div>
+                <div class="score" id="scoreO"></div>
+                
+            </div>
+            <div class="container">
+                <button class="button-option glass" id="0"></button>
+                <button class="button-option glass" id="1"></button>
+                <button class="button-option glass" id="2"></button>
+                <button class="button-option glass" id="3"></button>
+                <button class="button-option glass" id="4"></button>
+                <button class="button-option glass" id="5"></button>
+                <button class="button-option glass" id="6"></button>
+                <button class="button-option glass" id="7"></button>
+                <button class="button-option glass" id="8"></button>
+            </div>
+            <div class="btn-wrapper">
+                <div class="gamebtn">
+                    <button class="button op" id="validate">Confirmer</button>
+                    <button class="button op" id="cancel">Annuler</button>
+                </div>
+                <button class="button op" id="reset">Recommencer</button>
+            </div>
+            
+        </div>
+
+        <div class="popup hide">
+            <p id="message"></p>
+            <button class="button" id="play-again">Jouer</button>
+        </div>
+
+    <script src="scripts/tictactoe.js"></script>
+</body>
+
+</html>
