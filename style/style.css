@@ -97,7 +97,6 @@ body main .calculator-wrapper {
   height: 35rem;
 }
 body main .calculator-wrapper #calculator {
-  display: none;
   margin: 0;
   width: 20rem;
 }
@@ -141,7 +140,6 @@ body main .calculator-wrapper #operations-pannel {
   width: 13rem;
   margin-bottom: 0.3rem;
   background: rgba(255, 255, 255, 0.7);
-  display: none;
   border-radius: 5px;
   list-style: none;
   padding: 0;

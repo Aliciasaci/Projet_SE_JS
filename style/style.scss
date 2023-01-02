@@ -133,7 +133,7 @@ body {
             height: $calculator-wrapper-width;
 
             #calculator {
-                display: none;
+                // display: none;
                 margin: 0;
                 width: $calculatrice-width;
 
@@ -187,7 +187,6 @@ body {
                 width: $operations-pannel-width;
                 margin-bottom: 0.3rem;
                 background: rgba(255, 255, 255, 0.7);
-                display: none;
                 border-radius: 5px;
                 list-style: none;
                 padding: 0;
