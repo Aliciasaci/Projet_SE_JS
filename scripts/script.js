@@ -1,4 +1,7 @@
 import { DivisionError } from './ExceptionsClasses.js';
+import { render as renderTicTacToe, init as initTicTacToe } from './tictactoe.js';
+
+
 
 //*variables
 const switchModeBtn = document.querySelector("#switch-mode-btn");
@@ -14,14 +17,18 @@ const paramsIcon = document.querySelector("#params-icon");
 const paramsBody = document.querySelector("#params");
 const calculatorIconSmall = document.querySelector("#calculator-icon-small");
 const paramsIconSmall = document.querySelector("#params-icon-small");
+const morpionsIconSmall = document.querySelector("#morpions-icon-small");
 const operationsPannel = document.querySelector('#operations-pannel');
 const paramVibration = document.querySelector('#params-vibration');
 const calculatorWrapper = document.querySelector('.calculator-wrapper');
 const vibrationWrapper = document.querySelector('#vibration-wrapper');
 const VibrationDisplayBtn = document.querySelector('#vibration-display-btn');
 const VibrationActivateBtn = document.querySelector('#vibration-activate-btn');
+const windowContent = document.querySelector('.window-content');
+const morpion = document.querySelector('#tictactoe');
 let errorMessage = "";
 let vibrationActivated = true;
+let displayedApp = "";
 
 function devide(partOne, partTwo) {
     if (partTwo == 0)
@@ -62,6 +69,7 @@ let nbPoint = 0;
 let resultOfOperation = 0;
 let resetOutput = 0;
 resultInput.value = 0;
+let openedApps = [];
 
 // if page fully loaded
 window.addEventListener('load', () => {
@@ -73,6 +81,32 @@ window.addEventListener('load', () => {
         console.log("vibrating....");
     }
   }))
+
+  //`<iframe src="../src/${content}.html" style="height:100%;width: -webkit-fill-available;" frameborder="0" allowfullscreen></iframe>`
+
+    const renderWindowContent = (content) => {
+        
+        switch (content) {
+            case "tictactoe":
+                windowContent.innerHTML = renderTicTacToe();
+                initTicTacToe();
+                break;
+            default:
+                break;
+        }
+        displayedApp = content;
+        openedApps.push(content);
+    }
+
+    morpion.addEventListener('click', function () {
+        if (displayedApp == "tictactoe") {
+            backgroundWindow.style.display = "block";
+        } else {
+            renderWindowContent("tictactoe");
+            backgroundWindow.style.display = "block";
+        }
+        
+    });
 
     //* function to create and set cookies
     //! le store du theme ne marche pas sur opera
@@ -290,6 +324,7 @@ window.addEventListener('load', () => {
     if (closeWindowButton) {
         closeWindowButton.addEventListener('click', function () {
             backgroundWindow.style.display = "none";
+            windowContent.innerHTML = "";
             if (calculatorBody.style.display == "block") {
                 if (confirm("êtes-vous sûre de vouloir fermer la fenêtre?")) {
                     calculatorIconSmall.style.display = "none";
@@ -307,6 +342,10 @@ window.addEventListener('load', () => {
 
             if (vibrationWrapper.style.display == "block") {
                 vibrationWrapper.style.display = "none";
+            }
+            if (displayedApp === "tictactoe") {
+                morpionsIconSmall.style.display = "none";
+                displayedApp = "";
             }
         });
     }
@@ -326,6 +365,10 @@ window.addEventListener('load', () => {
                 paramsIconSmall.style.display = "block";
                 operationsPannel.style.display = "none";
             }
+
+            if (displayedApp === "tictactoe") {
+                morpionsIconSmall.style.display = "block";
+            }
         });
     }
 
@@ -344,6 +387,16 @@ window.addEventListener('load', () => {
             paramsBody.style.display = "block";
         }
     })
+
+    morpionsIconSmall.addEventListener('click', function () {
+        if (backgroundWindow.style.display = "none") {
+            backgroundWindow.style.display = "block";
+        } else if (backgroundWindow.style.display = "block") {
+            backgroundWindow.style.display = "none";
+        }
+    })
+
+
 
     /**
      * vibration code
@@ -410,34 +463,5 @@ window.addEventListener('load', () => {
         })
     }
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
