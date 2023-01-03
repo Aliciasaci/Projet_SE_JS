@@ -82,8 +82,6 @@ window.addEventListener('load', () => {
     }
   }))
 
-  //`<iframe src="../src/${content}.html" style="height:100%;width: -webkit-fill-available;" frameborder="0" allowfullscreen></iframe>`
-
     const renderWindowContent = (content) => {
         
         switch (content) {
