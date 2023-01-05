@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap"
+    rel="stylesheet">
     <link rel="stylesheet" href="style/style.css" />
     <script src="https://kit.fontawesome.com/6ef2e0941a.js" crossorigin="anonymous"></script>
     <title>SE JAVASCRIPT</title>
@@ -21,7 +23,7 @@
                 <li>
                     <img src="assets/clock.svg" />
                 </li>
-                <li>
+                <li id="morpions-icon-small">
                     <img src="assets/noughts-and-crosses.svg" />
                 </li>
                 <li id="params-icon-small">
@@ -48,7 +50,7 @@
             <li>
                 <img src="assets/clock.svg" />
             </li>
-            <li>
+            <li id="tictactoe">
                 <img src="assets/noughts-and-crosses.svg" />
             </li>
             <li id="params-icon">
@@ -61,8 +63,9 @@
                 <span><i class="fa-regular fa-square"></i></span>
                 <span><i class="fa-solid fa-xmark"></i></span>
             </div>
+            <div class="window-content"></div>
         </section>
-        <div class="calculator-wrapper center">
+        <div class="calculator-wrapper center" style="display:none;">
             <table id="calculator">
                 <tr class="result">
                     <td colspan="4" class="glass_effect"> <input id="result-input" type="text" value="0" /></td>

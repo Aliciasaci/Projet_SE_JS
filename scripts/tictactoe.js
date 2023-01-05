@@ -1,38 +1,45 @@
 export const render = () => {
   return `    
-        <div class="wrapper">
-            <div class="score-wrapper">
-                <div class="score" id="scoreX"></div>
-                <div class="score" id="scoreTie"></div>
-                <div class="score" id="scoreO"></div>
-        
-            </div>
+  <div id="tictac">
+  <header>
+      <span id="switch-mode-btn"><img src="../assets/icons/day-and-night.svg"/></span>
+      <a id="menu-btn"><img src="../assets/icons/arrow-left.png"/></a>
+  </header>
+          
+      <div class="wrapper">
+          <div class="score-wrapper">
+              <div class="score" id="scoreX"></div>
+              <div class="score" id="scoreTie"></div>
+              <div class="score" id="scoreO"></div>
+              
+          </div>
+          <div class="container">
+              <button class="button-option glass" id="0"></button>
+              <button class="button-option glass" id="1"></button>
+              <button class="button-option glass" id="2"></button>
+              <button class="button-option glass" id="3"></button>
+              <button class="button-option glass" id="4"></button>
+              <button class="button-option glass" id="5"></button>
+              <button class="button-option glass" id="6"></button>
+              <button class="button-option glass" id="7"></button>
+              <button class="button-option glass" id="8"></button>
+          </div>
+          <div class="btn-wrapper">
+              <div class="gamebtn">
+                  <button class="button op" id="validate">Confirmer</button>
+                  <button class="button op" id="cancel">Annuler</button>
+              </div>
+              <button class="button op" id="reset">Recommencer</button>
+          </div>
+          
+      </div>
 
-            <div class="container">
-                <button class="button-option glass" id="0"></button>
-                <button class="button-option glass" id="1"></button>
-                <button class="button-option glass" id="2"></button>
-                <button class="button-option glass" id="3"></button>
-                <button class="button-option glass" id="4"></button>
-                <button class="button-option glass" id="5"></button>
-                <button class="button-option glass" id="6"></button>
-                <button class="button-option glass" id="7"></button>
-                <button class="button-option glass" id="8"></button>
-            </div>
+      <div class="popup hide">
+          <p id="message"></p>
+          <button class="button" id="play-again">Jouer</button>
+      </div>
 
-            <div class="btn-wrapper">
-                <div class="gamebtn">
-                    <button class="button op" id="validate">Confirmer</button>
-                    <button class="button op" id="cancel">Annuler</button>
-                </div>
-                <button class="button op" id="reset">Recommencer</button>
-            </div>
-        </div>
-
-        <div class="popup hide">
-            <p id="message"></p>
-            <button class="button" id="play-again">Jouer</button>
-        </div>
+  </div>
     `;
 };
 
@@ -44,7 +51,6 @@ if (switchModeBtn) {
   switchModeBtn.addEventListener("click", function () {
     if (!darkMode) {
       //dark mode
-
       document.body.style.backgroundImage =
         "url('../src/assets/dark_mode.jpg')";
       switchModeBtn.style.filter = "invert(100%)";
@@ -70,6 +76,7 @@ if (switchModeBtn) {
   });
 }
 
+export const init = () => {
 let btnRef = document.querySelectorAll(".button-option");
 let popupRef = document.querySelector(".popup");
 let newGameButton = document.getElementById("play-again");
@@ -185,7 +192,7 @@ const computerPlay = () => {
 };
 
 //check if there is a winner
-export const checkWinner = (player, winningCombos) => {
+const checkWinner = (player, winningCombos) => {
   for (let i = 0; i < winningCombos.length; i++) {
     let combo = winningCombos[i];
     let square1 = document.getElementById(combo[0]);
@@ -366,4 +373,5 @@ const generateChoice = () => {
     computer = true;
     hidePopup();
   });
+};
 };
