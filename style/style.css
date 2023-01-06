@@ -1,0 +1,461 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap");
+:root {
+  --light-blue-border: #72cce3;
+  --light-blue-color: #96dcee;
+  --light-yellow-background: #fffaa8;
+  --light-yellow-border: #f5eb71;
+  --dark-indigo-background: #808fc7;
+  --dark-gray-border: #e8e8ea;
+  --dark-gray-dots: #e8e8ea;
+  --white: #fff;
+  --turquoise: #1abc9c;
+  --greensea: #16a085;
+  --night: #34495e;
+  --midnight: #2c3e50;
+}
+body {
+  background: url(../assets/light_background_3.jpg) no-repeat center center;
+  display: block;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto Mono", monospace;
+}
+body header #switch-mode-btn {
+  width: 2.5rem;
+  right: 2.5rem;
+  top: 4rem;
+  position: absolute;
+}
+body header #switch-mode-btn img {
+  width: 100%;
+}
+body header #switch-mode-btn img:hover {
+  cursor: pointer;
+}
+body header nav {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.3);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.47);
+}
+body header nav #left-menu-btns {
+  width: 20%;
+  display: flex;
+  justify-content: start;
+  margin: 0;
+  list-style: none;
+  align-items: center;
+}
+body header nav #left-menu-btns li {
+  display: none;
+  flex-basis: 9%;
+  margin: 0 1.5rem 0 0;
+}
+body header nav #left-menu-btns li img {
+  width: 100%;
+}
+body header nav #left-menu-btns li img:hover {
+  filter: brightness(150%);
+  cursor: pointer;
+}
+body header nav #right-menu-btns {
+  width: 20%;
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  list-style: none;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+body header nav #right-menu-btns li {
+  flex-basis: 6%;
+  color: #ffffff;
+}
+body header nav #right-menu-btns li img {
+  width: 100%;
+}
+body header nav #right-menu-btns #vibration-icon-on, body header nav #right-menu-btns #vibration-icon-off {
+  display: none;
+}
+body main #app_list {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  width: 45rem;
+  margin: 0;
+}
+body main #app_list li,
+body main #app_list #calculator-icon {
+  flex-basis: 18%;
+}
+body main #app_list li img,
+body main #app_list #calculator-icon img {
+  width: 100%;
+  border-radius: 10px;
+}
+body main #app_list li img:hover,
+body main #app_list #calculator-icon img:hover {
+  filter: brightness(120%);
+  cursor: pointer;
+}
+body main .calculator-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 35rem;
+  height: 35rem;
+}
+body main .calculator-wrapper #calculator {
+  display: none;
+  margin: 0;
+  width: 20rem;
+}
+body main .calculator-wrapper #calculator .result td {
+  border-radius: 5px;
+}
+body main .calculator-wrapper #calculator .result td input {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 1rem 0;
+  font-family: "Roboto Mono", monospace;
+}
+body main .calculator-wrapper #calculator .keys input {
+  width: 5rem;
+  background: rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.47);
+  padding: 1.5rem;
+  border-radius: 5px;
+  font-family: "Roboto Mono", monospace;
+}
+body main .calculator-wrapper #calculator .keys input:hover {
+  background-color: white;
+}
+body main .calculator-wrapper #calculator .keys #btn-refresh {
+  background-color: rgb(214, 133, 224);
+}
+body main .calculator-wrapper #calculator .keys #btn-refresh:hover {
+  background-color: #e4aeea;
+}
+body main .calculator-wrapper #calculator .keys #btn-equal {
+  background-color: rgb(123, 155, 216);
+}
+body main .calculator-wrapper #calculator .keys #btn-equal:hover {
+  background-color: #a2b9e4;
+}
+body main .calculator-wrapper #operations-pannel {
+  height: 21.8rem;
+  width: 13rem;
+  margin-bottom: 0.3rem;
+  background: rgba(255, 255, 255, 0.7);
+  display: none;
+  border-radius: 5px;
+  list-style: none;
+  padding: 0;
+}
+body main .calculator-wrapper #operations-pannel li {
+  padding: 0 10px 0 10px;
+  color: rgb(56, 56, 56);
+  width: 100%;
+}
+body main .window {
+  display: none;
+  height: 38rem;
+  width: 50rem;
+  background: rgba(231, 227, 227, 0.7);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+body main .window .window-upper-btns {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background: rgba(255, 255, 255, 0.3);
+}
+body main .window .window-upper-btns span {
+  margin: 0.5em;
+  color: white;
+}
+body main .window .window-upper-btns span .fa-xmark:hover {
+  cursor: pointer;
+  color: rgb(213, 24, 24);
+}
+body main .window .window-upper-btns span:hover {
+  cursor: pointer;
+  color: grey;
+}
+body main #params {
+  display: none;
+  width: 45rem;
+  height: 33rem;
+}
+body main #params #params-icons {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+body main #params #params-icons li {
+  text-align: center;
+  flex-basis: 5.7rem;
+  margin: 2rem;
+}
+body main #params #params-icons li img {
+  width: 100%;
+}
+body main #params #params-icons li img:hover {
+  cursor: pointer;
+}
+body main .center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+body main .glass_effect {
+  background: rgba(255, 255, 255, 0.3);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.47);
+}
+body main #vibration-wrapper, #time-wrapper {
+  display: none;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  width: 42rem;
+  margin: auto;
+  margin-top: 2rem;
+  padding: 2rem;
+  height: 28rem;
+}
+body main #vibration-wrapper div {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0 1rem 0;
+}
+body main #vibration-wrapper button {
+  background: rgba(214, 133, 224, 0.7);
+  border-radius: 99px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 18px;
+  z-index: 1;
+  border: 0;
+  width: 8rem;
+  cursor: pointer;
+  font-weight: 800;
+}
+body main #vibration-wrapper button:hover {
+  background-color: #ebc2f0;
+}/*# sourceMappingURL=style.css.map */
+param-switch {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+.param-label {
+  display: flex;
+  align-items: center;
+  width: 3.5em;
+  height: 2em;
+  background: var(--midnight);
+  border-radius: 1.5em;
+  transition: all .5s ease;
+  cursor: pointer;
+}
+.param-label-background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 0.5em;
+  width: 1em;
+  height: 1em;
+  background: var(--night);
+  border-radius: 50%;
+  transition: all .5s ease;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
+.param-label-background::before {
+  content: "\00D7";
+  font-size: 1em;
+  font-weight: bold;
+  color: white;
+}
+.param-switch {
+  display: none;
+}
+.param-switch:checked + .param-label {
+  background: var(--greensea);
+}
+.param-switch:checked + .param-label .param-label-background {
+  margin-left: 60%;
+  background: var(--turquoise);
+}
+.param-switch:checked + .param-label .param-label-background::before {
+  content: "\2714";
+}
+.time-param-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0 1rem 0;
+}
+.mode-switch {
+  display: none;
+}
+.mode-switch:checked ~ .background {
+  background: var(--dark-indigo-background);
+}
+.mode-switch:checked + .mode-label {
+  background: var(--midnight);
+  border-color: var(--night);
+}
+/*First dot outside moon */
+.mode-switch:checked + .mode-label .mode-label-background:before {
+  width: 3px;
+  height: 3px;
+  top: -10px;
+}
+/* Second dot ouside moon */
+.mode-switch:checked + .mode-label .mode-label-background {
+  left: 45px;
+  width: 3px;
+  height: 3px;
+}
+/* Third dot outside moon */
+.mode-switch:checked + .mode-label .mode-label-background:after {
+  width: 3px;
+  height: 3px;
+  left: -25px;
+  top: 5px;
+}
+.mode-switch:checked + .mode-label:before {
+  background: var(--white);
+  border-color: var(--dark-gray-border);
+  animation-name: switch;
+  animation-duration: 350ms;
+  animation-fill-mode: forwards;
+}
+.mode-switch:checked + .mode-label:after {
+  transition-delay: 350ms;
+  opacity: 1;
+}
+/* Slide bar */
+.mode-label {
+  width: 95px;
+  height: 40px;
+  float: right;
+  margin-top: 10px;
+  margin-right: 10px;
+  background: var(--light-blue-color);
+  border-radius: 100px;
+  border: 3px solid var(--light-blue-border);
+  display: flex;
+  position: relative;
+  transition: all 350ms ease;
+}
+/* Second stick light and whole group */
+  .mode-label-background {
+  width: 7px;
+  height: 2px;
+  border-radius: 5px;
+  position: relative;
+  background: var(--white);
+  left: 60px;
+  top: 20px;
+  transition: all 150ms ease;
+}
+/* Sun and moon */
+.mode-label:before {
+  animation-name: reverse;
+  animation-duration: 350ms;
+  animation-fill-mode: forwards;
+  transition: all 350ms ease;
+  content: "";
+  width: 30px;
+  height: 30px;
+  border: 3px solid var(--light-yellow-border);
+  top: 2px;
+  left: 4px;
+  position: absolute;
+  border-radius: 82px;
+  background: var(--light-yellow-background);
+}
+/* Dots inside moon */
+.mode-label:after {
+  transition-delay: 0ms;
+  transition: all 250ms ease;
+  position: absolute;
+  content: "";
+  box-shadow: var(--dark-gray-dots) -13px 0 0 2px, var(--dark-gray-dots) -20px 5px 0 -2px;
+  left: 85px;
+  top: 10px;
+  width: 7px;
+  height: 7px;
+  background: transparent;
+  border-radius: 50%;
+  opacity: 0;
+}
+/* First stick light */
+  .mode-label-background:before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  width: 30px;
+  height: 2px;
+  border-radius: 5px;
+  background: var(--white);
+  left: -10px;
+  transition: all 150ms ease;
+}
+/* Third stick light */
+  .mode-label-background:after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  width: 30px;
+  height: 2px;
+  border-radius: 5px;
+  background: var(--white);
+  left: -5px;
+  transition: all 150ms ease;
+}
+
+/* Animation moon size and position */
+@keyframes switch {
+  0% {
+    left: 4px;
+  }
+  60% {
+    left: 4px;
+    width: 50px;
+  }
+  100% {
+    left: 55px;
+    width: 30px;
+  }
+}
+@keyframes reverse {
+  0% {
+    left: 20px;
+    width: 82px;
+  }
+  60% {
+    left: 40px;
+    width: 50px;
+  }
+  100% {
+    left: 4px;
+  }
+}

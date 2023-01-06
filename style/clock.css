@@ -184,27 +184,21 @@
     z-index: 1;
 }
 
-.time-ref {
+.time-ref-display {
     color: rgba(255, 255, 255, .45);
     position: absolute;
     left: 40%;
     top: 70%;
 }
 
-.digital-clock {
+.digital-clock-display {
     font-size: 40px;
-    letter-spacing: 7px;
-    width: 5rem;
-    height: 5rem;
     position: relative;
     display: flex;
     justify-content: center;
-    margin: 20px auto;
     color: #fff;
-    
-    /* hover */
 }
 
-
-
-  
+li > div.digital-clock-display {
+    font-size: 15px;
+}

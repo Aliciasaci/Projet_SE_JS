@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style.css" />
+    <link rel="stylesheet" href="style/clock.css" />
+    <script src="https://kit.fontawesome.com/6ef2e0941a.js" crossorigin="anonymous"></script>
+    <title>SE JAVASCRIPT</title>
+</head>
+
+<body>
+    <header>
+        <nav class="menu">
+            <!--les icones affichées en haut à gauche de l'écran à la réduction d'une appli-->
+            <ul id="left-menu-btns">
+                <li id="calculator-icon-small">
+                    <img src="assets/calculator.svg" />
+                </li>
+                <li>
+                    <img src="assets/clock.svg" />
+                </li>
+                <li>
+                    <img src="assets/noughts-and-crosses.svg" />
+                </li>
+                <li id="params-icon-small">
+                    <img src="assets/params.svg" />
+                </li>
+            </ul>
+            <ul id="right-menu-btns">
+                <li><img src="assets/icons/vibration.svg" id="vibration-icon-on"/></li>
+                <li><img src="assets/icons/vibration_off.svg" id="vibration-icon-off"/></li>
+                <li><img src="assets/icons/signal.svg" /></li>
+                <li><img src="assets/icons/battery.svg" /></li>
+                <li>
+                    <div class="digital-clock-display">
+                        <span id="digital-clock-hour"></span> :
+                        <span id="digital-clock-min"></span> :
+                        <span id="digital-clock-sec"></span>
+                    </div>
+                </li>
+                <li>09/10/2022</li>
+            </ul>
+        </nav>
+        <!-- Mode switch -->
+        <input type="checkbox" id="mode" class="mode-switch">
+        <label for="mode" class="mode-label">
+        <span class="mode-label-background"></span>
+        </label>
+        <a href="Sujet.pdf">Sujet</a>
+    </header>
+    <main>
+        <ul id="app_list" class="center">
+            <li id="calculator-icon">
+                <img src="assets/calculator.svg" />
+            </li>
+            <li>
+                <img src="assets/clock.svg" />
+            </li>
+            <li>
+                <img src="assets/noughts-and-crosses.svg" />
+            </li>
+            <li id="params-icon">
+                <img src="assets/params.svg" />
+            </li>
+        </ul>
+        <section class="window center">
+            <div class="window-upper-btns">
+                <span><i class="fa-solid fa-minus"></i></span>
+                <span><i class="fa-regular fa-square"></i></span>
+                <span><i class="fa-solid fa-xmark"></i></span>
+            </div>
+        </section>
+        <div class="calculator-wrapper center">
+            <table id="calculator">
+                <tr class="result">
+                    <td colspan="4" class="glass_effect"> <input id="result-input" type="text" value="0" /></td>
+                </tr>
+                <tr class="keys">
+                    <td> <input type="button" value="C" id="btn-refresh" /> </td>
+                    <td> <input type="button" value="M+" id="btn-mr" /> </td>
+                    <td> <input type="button" value="MC" id="btn-mc"> </td>
+                    <td> <input type="button" value="+/-" /> </td>
+                </tr>
+                <tr class="keys">
+                    <td> <input type="button" value="1" /> </td>
+                    <td> <input type="button" value="2" /> </td>
+                    <td> <input type="button" value="3" /> </td>
+                    <td> <input type="button" value="+" id="btn-add" /> </td>
+                </tr>
+                <tr class="keys">
+                    <td> <input type="button" value="4" /> </td>
+                    <td> <input type="button" value="5" /> </td>
+                    <td> <input type="button" value="6" /> </td>
+                    <td> <input type="button" value="-" id="btn-substract" /> </td>
+                </tr>
+                <tr class="keys">
+                    <td> <input type="button" value="7" /> </td>
+                    <td> <input type="button" value="8" /> </td>
+                    <td> <input type="button" value="9" /> </td>
+                    <td> <input type="button" value="*" id="btn-multiply" /> </td>
+                </tr>
+                <tr class="keys">
+                    <td> <input type="button" value="." id="btn-comma" /> </td>
+                    <td> <input type="button" value="0" /> </td>
+                    <td> <input type="button" value="=" id="btn-equal" /> </td>
+                    <td> <input type="button" value="/" id="btn-division" /> </td>
+                </tr>
+            </table>
+            <ul id="operations-pannel" class="glass_effect">
+                <li>0</li>
+            </ul>
+        </div>
+
+        <!-- Clock -->
+        <div id="clock" class="wrapper">
+            <div class="card">
+                <div class="tab">
+                    <button class="tab-links" onclick="openTab(event, 'tab-clock')" id="default-tab"><i class="fa fa-regular fa-clock"></i> Horloge</button>
+                    <button class="tab-links" onclick="openTab(event, 'tab-stop-watch')"><i class="fa fa-solid fa-stopwatch"></i> Chronomètre</button>
+                    <button class="tab-links" onclick="openTab(event, 'tab-timer')"><i class="fa fa-solid fa-hourglass-end"></i> Minuteur</button>  
+                </div>
+                <div id="tab-clock" class="tab-content">
+                    <div class="analog-clock">
+                        <div class="line">
+                            <div class="sub sub-one"></div>
+                            <div class="sub sub-two"></div>
+                            <div class="sub sub-three"></div>
+                            <div class="sub sub-four"></div>
+                            <div class="circle">
+                                <div class="hand hand-hour"></div>
+                                <div class="hand hand-min"></div>
+                                <div class="hand hand-second"></div>
+                                <div id="time-ref" class="time-ref-display"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="digital-clock" class="digital-clock-display">          
+                    </div>
+                </div>
+                <div id="tab-stop-watch" class="tab-content">
+                    <div>
+                        <span id="min">00</span> :
+                        <span id="sec">00</span> ,
+                        <span id="milisec">00</span>
+                    </div>
+        
+                </div>
+                <div id="tab-timer" class="tab-content">
+                    <p>Test timer</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="params" class="center">
+            <h2>Paramètres</h2>
+            <ul id="params-icons">
+                <li id="params-time">
+                    <img src="assets/params_icons/clock.png" />
+                    <span>Paramètres d'horloge</span>
+                </li>
+                <li id="params-date">
+                    <img src="assets/params_icons/calendar.png" />
+                    <span>Date</span>
+                </li>
+                <li id="params-vibration">
+                    <img src="assets/params_icons/vibrate.png" />
+                    <span>Vibration</span>
+                </li>
+                <li>
+                    <img src="assets/params_icons/battery.png" />
+                    <span>Batterie</span>
+                </li>
+                <li>
+                    <img src="assets/params_icons/network.png" />
+                    <span>Réseau</span>
+                </li>
+                <li>
+                    <img src="assets/params_icons/lock.png" />
+                    <span>Écran de verouillage</span>
+                </li>
+                <li>
+                    <img src="assets/params_icons/theme.png" />
+                    <span>Thèmes</span>
+                </li>
+                <!-- <li>
+                    <img src="../src/assets/params_icons/params.png" />
+                    <span>Paramètres supplimentaires</span>
+                </li> -->
+            </ul>
+        </div>
+        <div id="vibration-wrapper">
+            <h1>Paramètres de vibrations</h1>
+            <div class="vibration-param-display"><b>Afficher l'état de vibration</b>
+                <input type="checkbox" id="vibration-display-check" class="param-switch">
+                <label for="vibration-display-check" class="param-label">
+                    <span class="param-label-background"></span>
+                </label>
+            </div>
+            <div class="vibration-param-display"><b>Retours haptique de vibration dans tout le système</b>
+                <input type="checkbox" id="vibration-activate-check" class="param-switch">
+                <label for="vibration-activate-check" class="param-label">
+                    <span class="param-label-background"></span>
+                </label>
+            </div>
+            
+        </div>
+        <div id="time-wrapper">
+            <h1>Paramètres de l'horloge</h1>
+            <div class="time-param-display"><b>Afficher l'heure</b>
+                <input type="checkbox" id="hour-display-check" class="param-switch">
+                <label for="hour-display-check" class="param-label">
+                    <span class="param-label-background"></span>
+                </label>
+            </div>
+            <div class="time-param-display"><b>Afficher la minute</b>
+                <input type="checkbox" id="minute-display-check" class="param-switch">
+                <label for="minute-display-check" class="param-label">
+                    <span class="param-label-background"></span>
+                </label>    
+            </div>
+            <div class="time-param-display"><b>Afficher la seconde</b>
+                <input type="checkbox" id="second-display-check" class="param-switch">
+                <label for="second-display-check" class="param-label">
+                    <span class="param-label-background"></span>
+                </label>
+            </div>
+        </div>
+    </main>
+    <script src="scripts/script.js" type="module"></script>
+    <script src="scripts/clock.js"></script>
+
+</body>
+
+</html>
