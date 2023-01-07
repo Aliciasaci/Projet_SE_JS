@@ -1,14 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap");
 :root {
-  --light-blue-border: #72cce3;
-  --light-blue-color: #96dcee;
-  --light-yellow-background: #fffaa8;
-  --light-yellow-border: #f5eb71;
+  --white-background: #fff;
+  --light-blue-border: #47b2cd;
+  --light-blue-color: #7fcadd;
+  --light-yellow-border: #ecda0d;
   --dark-indigo-background: #808fc7;
   --dark-gray-border: #e8e8ea;
   --dark-gray-dots: #e8e8ea;
-  --white: #fff;
   --turquoise: #1abc9c;
   --greensea: #16a085;
   --night: #34495e;
@@ -341,7 +340,7 @@ param-switch {
   top: 5px;
 }
 .mode-switch:checked + .mode-label:before {
-  background: var(--white);
+  background: var(--white-background);
   border-color: var(--dark-gray-border);
   animation-name: switch;
   animation-duration: 350ms;
@@ -366,12 +365,12 @@ param-switch {
   transition: all 350ms ease;
 }
 /* Second stick light and whole group */
-  .mode-label-background {
+.mode-label-background {
   width: 7px;
   height: 2px;
   border-radius: 5px;
   position: relative;
-  background: var(--white);
+  background: var(--light-yellow-border);
   left: 60px;
   top: 20px;
   transition: all 150ms ease;
@@ -390,7 +389,7 @@ param-switch {
   left: 4px;
   position: absolute;
   border-radius: 82px;
-  background: var(--light-yellow-background);
+  background: var(--white-background);
 }
 /* Dots inside moon */
 .mode-label:after {
@@ -408,26 +407,26 @@ param-switch {
   opacity: 0;
 }
 /* First stick light */
-  .mode-label-background:before {
+.mode-label-background:before {
   content: "";
   position: absolute;
   top: -5px;
   width: 30px;
   height: 2px;
   border-radius: 5px;
-  background: var(--white);
+  background: var(--light-yellow-border);
   left: -10px;
   transition: all 150ms ease;
 }
 /* Third stick light */
-  .mode-label-background:after {
+.mode-label-background:after {
   content: "";
   position: absolute;
   top: 5px;
   width: 30px;
   height: 2px;
   border-radius: 5px;
-  background: var(--white);
+  background: var(--light-yellow-border);
   left: -5px;
   transition: all 150ms ease;
 }
