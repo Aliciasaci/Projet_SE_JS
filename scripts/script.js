@@ -1,4 +1,7 @@
 import { DivisionError } from './ExceptionsClasses.js';
+import { render as renderTicTacToe, init as initTicTacToe } from './tictactoe.js';
+
+
 
 //*variables
 const switchModeBtn = document.querySelector("#switch-mode-btn");
@@ -14,6 +17,7 @@ const paramsIcon = document.querySelector("#params-icon");
 const paramsBody = document.querySelector("#params");
 const calculatorIconSmall = document.querySelector("#calculator-icon-small");
 const paramsIconSmall = document.querySelector("#params-icon-small");
+const morpionsIconSmall = document.querySelector("#morpions-icon-small");
 const operationsPannel = document.querySelector('#operations-pannel');
 const paramVibration = document.querySelector('#params-vibration');
 const paramTime = document.querySelector('#params-time');
@@ -25,9 +29,11 @@ const timeNavWrapper = document.querySelector('#time-wrapper');
 const hourNavDisplayBtn = document.querySelector('#hour-nav-display-btn');
 const minuteNavDisplayBtn = document.querySelector('#minute-nav-display-btn');
 const secondNavDisplayBtn = document.querySelector('#second-nav-display-btn');
-
+const windowContent = document.querySelector('.window-content');
+const morpion = document.querySelector('#tictactoe');
 let errorMessage = "";
 let vibrationActivated = true;
+let displayedApp = "";
 
 function devide(partOne, partTwo) {
     if (partTwo == 0)
@@ -68,6 +74,7 @@ let nbPoint = 0;
 let resultOfOperation = 0;
 let resetOutput = 0;
 resultInput.value = 0;
+let openedApps = [];
 
 // if page fully loaded
 window.addEventListener('load', () => {
@@ -79,6 +86,30 @@ window.addEventListener('load', () => {
             console.log("vibrating....");
         }
     }))
+
+    const renderWindowContent = (content) => {
+        
+        switch (content) {
+            case "tictactoe":
+                windowContent.innerHTML = renderTicTacToe();
+                initTicTacToe();
+                break;
+            default:
+                break;
+        }
+        displayedApp = content;
+        openedApps.push(content);
+    }
+
+    morpion.addEventListener('click', function () {
+        if (displayedApp == "tictactoe") {
+            backgroundWindow.style.display = "block";
+        } else {
+            renderWindowContent("tictactoe");
+            backgroundWindow.style.display = "block";
+        }
+        
+    });
 
     //* function to create and set cookies
     //! le store du theme ne marche pas sur opera
@@ -296,6 +327,7 @@ window.addEventListener('load', () => {
     if (closeWindowButton) {
         closeWindowButton.addEventListener('click', function () {
             backgroundWindow.style.display = "none";
+            windowContent.innerHTML = "";
             if (calculatorBody.style.display == "block") {
                 if (confirm("êtes-vous sûre de vouloir fermer la fenêtre?")) {
                     calculatorIconSmall.style.display = "none";
@@ -313,6 +345,10 @@ window.addEventListener('load', () => {
 
             if (vibrationWrapper.style.display == "block") {
                 vibrationWrapper.style.display = "none";
+            }
+            if (displayedApp === "tictactoe") {
+                morpionsIconSmall.style.display = "none";
+                displayedApp = "";
             }
         });
     }
@@ -332,6 +368,10 @@ window.addEventListener('load', () => {
                 paramsIconSmall.style.display = "block";
                 operationsPannel.style.display = "none";
             }
+
+            if (displayedApp === "tictactoe") {
+                morpionsIconSmall.style.display = "block";
+            }
         });
     }
 
@@ -350,6 +390,16 @@ window.addEventListener('load', () => {
             paramsBody.style.display = "block";
         }
     })
+
+    morpionsIconSmall.addEventListener('click', function () {
+        if (backgroundWindow.style.display = "none") {
+            backgroundWindow.style.display = "block";
+        } else if (backgroundWindow.style.display = "block") {
+            backgroundWindow.style.display = "none";
+        }
+    })
+
+
 
     /**
      * time parameters
@@ -429,34 +479,5 @@ window.addEventListener('load', () => {
         })
     }
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

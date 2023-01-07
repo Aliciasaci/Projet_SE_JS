@@ -14,12 +14,13 @@
   --midnight: #2c3e50;
 }
 body {
+  height: 100vh;
   background: url(../assets/light_background_3.jpg) no-repeat center center;
-  display: block;
   background-size: cover;
+  overflow: hidden;
   margin: 0;
   padding: 0;
-  font-family: "Roboto Mono", monospace;
+  font-family: 'Raleway', sans-serif;
 }
 body header #switch-mode-btn {
   width: 2.5rem;
@@ -191,6 +192,236 @@ body main .window .window-upper-btns span:hover {
   cursor: pointer;
   color: grey;
 }
+body main .window .window-content {
+  height: 94%;
+  /* GLASSMORPHISM PROPERTIES */
+}
+body main .window .window-content * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+}
+body main .window .window-content #tictac {
+  height: 100%;
+  background: url(../assets/light_background_3.jpg) no-repeat center center;
+  background-size: cover;
+  overflow: hidden;
+}
+body main .window .window-content #tictac header #switch-mode-btn {
+  width: 2.5rem;
+  right: 2.5rem;
+  top: 4rem;
+  position: absolute;
+  z-index: 20;
+}
+body main .window .window-content #tictac header #switch-mode-btn img {
+  width: 100%;
+}
+body main .window .window-content #tictac header #switch-mode-btn img:hover {
+  cursor: pointer;
+}
+body main .window .window-content #menu-btn {
+  width: 2.5rem;
+  left: 2.5rem;
+  top: 4.5rem;
+  position: absolute;
+  z-index: 20;
+}
+body main .window .window-content #menu-btn img {
+  width: 30px;
+}
+body main .window .window-content #tictac header nav {
+  position: relative;
+  display: flex;
+  justify-content: end;
+  height: 5vh;
+}
+body main .window .window-content #tictac header nav ul {
+  width: 20%;
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  list-style: none;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+body main .window .window-content #tictac header nav ul li {
+  flex-basis: 6%;
+  color: #ffffff;
+}
+body main .window .window-content #tictac header nav ul li img {
+  width: 100%;
+}
+body main .window .window-content html {
+  font-size: 16px;
+}
+body main .window .window-content .wrapper {
+  height: 94%;
+}
+body main .window .window-content .container {
+  width: 45vmin;
+  height: 45vmin;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5vmin;
+  margin: auto;
+  margin-top: 1.5vmin;
+}
+body main .window .window-content button:hover {
+  cursor: pointer;
+}
+body main .window .window-content .button-option {
+  height: 14vmin;
+  width: 14vmin;
+  font-size: 12vmin;
+  color: #12043d;
+  border-radius: 16px;
+}
+body main .window .window-content .button-option:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+body main .window .window-content .gamebtn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  margin: auto;
+}
+body main .window .window-content .op {
+  font-size: 3vmin;
+  padding: 1em;
+  border-radius: 8px;
+  background-color: white;
+  color: rgb(41, 34, 156);
+  border: 1px solid transparent;
+  position: relative;
+  margin: 0.5em auto;
+  display: flex;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+body main .window .window-content .choice {
+  display: flex;
+  padding: 0.5em;
+}
+body main .window .window-content .choice .op {
+  padding: 0.3em 1.2em;
+  font-size: 14vmin;
+  margin: auto 0.5em;
+  justify-content: center;
+}
+body main .window .window-content .op:hover {
+  background-color: transparent;
+  border: 1px solid white;
+  background: rgba(255, 255, 255, 0.3);
+}
+body main .window .window-content .popup {
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  z-index: 2;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1em;
+  font-size: 12vmin;
+}
+body main .window .window-content #play-again {
+  padding: 0.5em 1em;
+  font-size: 0.6em;
+  border-radius: 8px;
+  background-color: white;
+  color: rgb(41, 34, 156);
+  border: none;
+}
+body main .window .window-content #message {
+  color: white;
+  text-align: center;
+  font-size: 1em;
+}
+body main .window .window-content .popup.hide {
+  display: none;
+  -webkit-animation: fadeOut 0.5s ease-in-out;
+          animation: fadeOut 0.5s ease-in-out;
+}
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+body main .window .window-content .glass {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.47);
+}
+body main .window .window-content .darkglass {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.493);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.438);
+}
+body main .window .window-content .darkglass:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+body main .window .window-content .darkbtn {
+  background-color: #0A0027;
+  color: white;
+}
+body main .window .window-content .darkbtn:hover {
+  background-color: transparent;
+  background: rgba(28, 21, 37, 0.2);
+  border: 1px solid rgba(28, 21, 37, 0.29);
+}
+body main .window .window-content .score-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+body main .window .window-content .score {
+  color: white;
+  font-size: 5vmin;
+  text-align: center;
+  padding: 1.75vh;
+  border-radius: 8px;
+  background-color: #0A0027;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+body main .window .window-content #scoreTie {
+  background-color: white;
+  color: #0A0027;
+}
 body main #params {
   display: none;
   width: 45rem;
@@ -232,7 +463,7 @@ body main #vibration-wrapper, #time-wrapper {
   border-radius: 10px;
   width: 42rem;
   margin: auto;
-  margin-top: 2rem;
+  margin-top: -34rem;
   padding: 2rem;
   height: 28rem;
 }
