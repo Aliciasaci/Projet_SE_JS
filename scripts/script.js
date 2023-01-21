@@ -1,4 +1,5 @@
 import { renderCalculatorBody, calculate } from './Calculatrice.js';
+import { renderVibrationBody, vibrate } from './Params.js';
 
 //*variables
 const switchModeBtn = document.querySelector("#switch-mode-btn");
@@ -12,60 +13,54 @@ const paramsIcon = document.querySelector("#params-icon");
 const paramsBody = document.querySelector("#params");
 const calculatorIconSmall = document.querySelector("#calculator-icon-small");
 const paramsIconSmall = document.querySelector("#params-icon-small");
-// const paramVibration = document.querySelector('#params-vibration');
 const calculatorWrapper = document.querySelector('.calculator-wrapper');
-const vibrationWrapper = document.querySelector('#vibration-wrapper');
-// const VibrationDisplayBtn = document.querySelector('#vibration-display-btn');
-// const VibrationActivateBtn = document.querySelector('#vibration-activate-btn');
 const windowContent = document.querySelector('.window-content');
 
 
 // if page fully loaded
 window.addEventListener('load', () => {
 
-    //* function that turns an html string to a dom element
-    function textToHtml(text) {
-        if (typeof text === 'string') {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(text, "text/html");
-            if (doc.body.firstChild) {
-                return doc.body.firstChild
-            }
-        }
-    }
-
-    //*Calculator Code
+    //* at click on calc icon, display calc
     if (calculatorIcon) {
         calculatorIcon.addEventListener('click', function () {
+
             backgroundWindow.style.display = "block";
-
             const calculatorBodyString = renderCalculatorBody();
-            const calculatorBodyDomElement = textToHtml(calculatorBodyString);
+            windowContent.innerHTML = calculatorBodyString;
+            const keys = document.querySelectorAll(".keys input");
 
-            if (calculatorBodyDomElement) {
-                windowContent.append(calculatorBodyDomElement);
-
-                const keys = document.querySelectorAll(".keys input");
-                if (keys) {
-                    keys.forEach(key => {
-                        key.addEventListener('click', function () {
-                            calculate(key);
-                        })
+            if (keys) {
+                keys.forEach(key => {
+                    key.addEventListener('click', function () {
+                        calculate(key);
                     })
-                }
+                })
             }
         });
     }
 
+    //* at click on params, display tout les paramètres
+    if (paramsIcon) {
+        paramsIcon.addEventListener('click', function () {
+            backgroundWindow.style.display = "block";
+            paramsBody.style.display = "block";
 
-    // //* at click on params, display 
-    // if (paramsIcon) {
-    //     paramsIcon.addEventListener('click', function () {
-    //         paramsBody.style.display = "block";
-    //         backgroundWindow.style.display = "block";
-    //         calculatorWrapper.style.display = "none"
-    //     });
-    // }
+            const paramOptions = document.getElementById("params-icons").children;
+            
+            for (const param of paramOptions) {
+                param.addEventListener('click', function () {
+                    let paramId = param.getAttribute('id');
+                    switch (paramId) {
+                        case 'params-vibration':
+                            const vibrationBodyString = renderVibrationBody();
+                            windowContent.innerHTML = vibrationBodyString;
+                            vibrate();
+                            break;
+                    }
+                })
+            }
+        });
+    }
 
 
     //* close window and app at clic on x
@@ -125,7 +120,7 @@ window.addEventListener('load', () => {
         }
     })
 
-    
+
     //*THEME CODE *//
     //* function to create and set cookies
     //! le store du theme ne marche pas sur opera
