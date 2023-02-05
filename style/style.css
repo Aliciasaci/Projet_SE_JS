@@ -1,12 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap");
 body {
-  background-image: url("../assets/light_background_3.jpg");
+  background-image: url("../assets/bg_6.jpg");
   display: block;
   background-size: cover;
   margin: 0;
   padding: 0;
   font-family: "Roboto Mono", monospace;
+  background-repeat: no-repeat;
+  background-position-x: center;
+}
+body #starting-page {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  background-color: #d59bbe;
+}
+body header {
+  display: none;
 }
 body header #switch-mode-btn {
   width: 2.5rem;
@@ -65,7 +76,11 @@ body header nav #right-menu-btns li {
 body header nav #right-menu-btns li img {
   width: 100%;
 }
-body header nav #right-menu-btns #vibration-icon-on, body header nav #right-menu-btns #vibration-icon-off {
+body header nav #right-menu-btns #vibration-icon-on,
+body header nav #right-menu-btns #vibration-icon-off {
+  display: none;
+}
+body main {
   display: none;
 }
 body main #app_list {
@@ -199,18 +214,6 @@ body main #params #params-icons li img {
 body main #params #params-icons li img:hover {
   cursor: pointer;
 }
-body main .center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-body main .glass_effect {
-  background: rgba(255, 255, 255, 0.3);
-  -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.47);
-}
 body main #vibration-wrapper {
   display: none;
   background: rgba(255, 255, 255, 0.7);
@@ -230,7 +233,7 @@ body main #vibration-wrapper button {
   background: rgba(214, 133, 224, 0.7);
   border-radius: 99px;
   box-sizing: border-box;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 13px;
   font-weight: 500;
   padding: 10px 18px;
@@ -242,4 +245,29 @@ body main #vibration-wrapper button {
 }
 body main #vibration-wrapper button:hover {
   background-color: #ebc2f0;
+}
+body .center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+body .glass_effect {
+  background: rgba(255, 255, 255, 0.3);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.47);
+}
+body .open_systeme_button {
+  padding: 1em 2em 1em 2em;
+  cursor: pointer;
+  color: white;
+  margin-top: 15em;
+}
+body .open_systeme_button img {
+  width: 50px;
+  height: 50px;
+}
+body .open_systeme_button:hover {
+  background-color: rgba(255, 255, 255, 0.658);
 }/*# sourceMappingURL=style.css.map */
