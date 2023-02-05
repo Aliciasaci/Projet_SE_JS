@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  schedule:
+    - cron: '0 18 * * 5' # every Friday at 18h
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: dev
+      - name: Run tests
+        run: |
+          npm install
+          npm test
+      - name: Create pull request
+        if: success() # only run this step if the tests pass
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: "Merge dev -> main hebdomadaire"
+          body: "Tous les tests sur dev sont passés"
+          head: dev
+          base: main
+          reviewers: londones,aliciasaci,maithi-trandiep
