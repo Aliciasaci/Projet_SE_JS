@@ -7,7 +7,7 @@ body {
   overflow: hidden;
   margin: 0;
   padding: 0;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
 }
 body header #switch-mode-btn {
   width: 2.5rem;
@@ -82,27 +82,6 @@ body main #app_list #calculator-icon {
   width: 10vmax;
   position: absolute;
 }
-
-body main #app_list #calculator-icon {
-  top: 10%;
-  left: 10%;
-}
-
-body main #app_list #clock-icon {
-  top: 30%;
-  left: 10%;
-}
-
-body main #app_list #tictactoe-icon {
-  top: 50%;
-  left: 10%;
-}
-
-body main #app_list #params-icon {
-  top: 70%;
-  left: 10%;
-}
-
 body main #app_list span img,
 body main #app_list #calculator-icon img {
   width: 100%;
@@ -112,6 +91,22 @@ body main #app_list span img:hover,
 body main #app_list #calculator-icon img:hover {
   filter: brightness(120%);
   cursor: pointer;
+}
+body main #app_list #calculator-icon {
+  left: 10%;
+  top: 50%;
+}
+body main #app_list #clock-icon {
+  top: 50%;
+  left: 30%;
+}
+body main #app_list #tictactoe-icon {
+  top: 50%;
+  left: 50%;
+}
+body main #app_list #params-icon {
+  top: 50%;
+  left: 70%;
 }
 body main .calculator-wrapper {
   display: flex;
@@ -268,8 +263,6 @@ body main .window .window-content html {
 }
 body main .window .window-content .wrapper {
   height: inherit;
-  margin-top: 2%;
-  font-weight: 700;
 }
 body main .window .window-content .container {
   width: 40vmin;
@@ -332,6 +325,7 @@ body main .window .window-content .op:hover {
 body main .window .window-content .popup {
   background-size: cover;
   height: inherit;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
