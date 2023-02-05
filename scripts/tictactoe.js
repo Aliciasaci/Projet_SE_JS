@@ -372,17 +372,5 @@ const generateChoice = () => {
 };
 
 generateChoice();
-console.log("init");
 
 };
-
-/*export const saveScore = () => {
-  localStorage.setItem("scoreboard", JSON.stringify(scoreboard));
-};*/
-
-/*export const getScore = () => {
-  let score = JSON.parse(localStorage.getItem("scoreboard"));
-  if (score) {
-    scoreboard = score;
-  }
-};*/

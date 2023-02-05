@@ -43,20 +43,20 @@
         <a href="Sujet.pdf">Sujet</a>
     </header>
     <main>
-        <ul id="app_list" class="center">
-            <li id="calculator-icon">
+        <div id="app_list">
+            <span id="calculator-icon" class="draggable">
                 <img src="assets/calculator.svg" />
-            </li>
-            <li>
+            </span>
+            <span id="clock-icon" class="draggable">
                 <img src="assets/clock.svg" />
-            </li>
-            <li id="tictactoe">
+            </span>
+            <span id="tictactoe-icon" class="draggable">
                 <img src="assets/noughts-and-crosses.svg" />
-            </li>
-            <li id="params-icon">
+            </span>
+            <span id="params-icon" class="draggable">
                 <img src="assets/params.svg" />
-            </li>
-        </ul>
+            </span>
+        </div>
         <section class="window center">
             <div class="window-upper-btns">
                 <span><i class="fa-solid fa-minus"></i></span>
@@ -65,83 +65,6 @@
             </div>
             <div class="window-content"></div>
         </section>
-        <div class="calculator-wrapper center" style="display:none;">
-            <table id="calculator">
-                <tr class="result">
-                    <td colspan="4" class="glass_effect"> <input id="result-input" type="text" value="0" /></td>
-                </tr>
-                <tr class="keys">
-                    <td> <input type="button" value="C" id="btn-refresh" /> </td>
-                    <td> <input type="button" value="M+" id="btn-mr" /> </td>
-                    <td> <input type="button" value="MC" id="btn-mc"> </td>
-                    <td> <input type="button" value="+/-" /> </td>
-                </tr>
-                <tr class="keys">
-                    <td> <input type="button" value="1" /> </td>
-                    <td> <input type="button" value="2" /> </td>
-                    <td> <input type="button" value="3" /> </td>
-                    <td> <input type="button" value="+" id="btn-add" /> </td>
-                </tr>
-                <tr class="keys">
-                    <td> <input type="button" value="4" /> </td>
-                    <td> <input type="button" value="5" /> </td>
-                    <td> <input type="button" value="6" /> </td>
-                    <td> <input type="button" value="-" id="btn-substract" /> </td>
-                </tr>
-                <tr class="keys">
-                    <td> <input type="button" value="7" /> </td>
-                    <td> <input type="button" value="8" /> </td>
-                    <td> <input type="button" value="9" /> </td>
-                    <td> <input type="button" value="*" id="btn-multiply" /> </td>
-                </tr>
-                <tr class="keys">
-                    <td> <input type="button" value="." id="btn-comma" /> </td>
-                    <td> <input type="button" value="0" /> </td>
-                    <td> <input type="button" value="=" id="btn-equal" /> </td>
-                    <td> <input type="button" value="/" id="btn-division" /> </td>
-                </tr>
-            </table>
-            <ul id="operations-pannel" class="glass_effect">
-                <li>0</li>
-            </ul>
-        </div>
-        <div id="params" class="center">
-            <h2>Paramètres</h2>
-            <ul id="params-icons">
-                <li id="params-horloge">
-                    <img src="assets/params_icons/clock.png" />
-                    <span>Paramètres d'horloge</span>
-                </li>
-                <li id="params-date">
-                    <img src="assets/params_icons/calendar.png" />
-                    <span>Date</span>
-                </li>
-                <li id="params-vibration">
-                    <img src="assets/params_icons/vibrate.png" />
-                    <span>Vibration</span>
-                </li>
-                <li>
-                    <img src="assets/params_icons/battery.png" />
-                    <span>Batterie</span>
-                </li>
-                <li>
-                    <img src="assets/params_icons/network.png" />
-                    <span>Réseau</span>
-                </li>
-                <li>
-                    <img src="assets/params_icons/lock.png" />
-                    <span>Écran de verouillage</span>
-                </li>
-                <li>
-                    <img src="assets/params_icons/theme.png" />
-                    <span>Thèmes</span>
-                </li>
-                <!-- <li>
-                    <img src="../src/assets/params_icons/params.png" />
-                    <span>Paramètres supplimentaires</span>
-                </li> -->
-            </ul>
-        </div>
         <div id="vibration-wrapper">
             <h1>Paramètres de vibrations</h1>
             <div><b>État de vibration</b><button id="vibration-display-btn">Afficher</button></div> <!--par défaut, l'état de vibration est caché-->

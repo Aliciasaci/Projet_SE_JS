@@ -70,22 +70,45 @@ body header nav #right-menu-btns #vibration-icon-on, body header nav #right-menu
   display: none;
 }
 body main #app_list {
-  list-style: none;
+  height: 100vh;
   display: flex;
   justify-content: space-between;
-  width: 45rem;
+  width: 100%;
   margin: 0;
+  align-items: center;
 }
-body main #app_list li,
+body main #app_list span,
 body main #app_list #calculator-icon {
-  flex-basis: 18%;
+  width: 10vmax;
+  position: absolute;
 }
-body main #app_list li img,
+
+body main #app_list #calculator-icon {
+  top: 10%;
+  left: 10%;
+}
+
+body main #app_list #clock-icon {
+  top: 30%;
+  left: 10%;
+}
+
+body main #app_list #tictactoe-icon {
+  top: 50%;
+  left: 10%;
+}
+
+body main #app_list #params-icon {
+  top: 70%;
+  left: 10%;
+}
+
+body main #app_list span img,
 body main #app_list #calculator-icon img {
   width: 100%;
   border-radius: 10px;
 }
-body main #app_list li img:hover,
+body main #app_list span img:hover,
 body main #app_list #calculator-icon img:hover {
   filter: brightness(120%);
   cursor: pointer;
