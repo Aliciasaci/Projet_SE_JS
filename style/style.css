@@ -180,7 +180,7 @@ body main .window .window-upper-btns span:hover {
   color: grey;
 }
 body main .window .window-content {
-  height: 94%;
+  height: 97%;
   /* GLASSMORPHISM PROPERTIES */
 }
 body main .window .window-content * {
@@ -190,7 +190,7 @@ body main .window .window-content * {
   font-family: "Raleway", sans-serif;
 }
 body main .window .window-content #tictac {
-  height: 100%;
+  height: inherit;
   background: url(../assets/light_background_3.jpg) no-repeat center center;
   background-size: cover;
   overflow: hidden;
@@ -244,26 +244,29 @@ body main .window .window-content html {
   font-size: 16px;
 }
 body main .window .window-content .wrapper {
-  height: 94%;
+  height: inherit;
+  margin-top: 2%;
+  font-weight: 700;
 }
 body main .window .window-content .container {
-  width: 45vmin;
-  height: 45vmin;
+  width: 40vmin;
+  height: 33vmin;
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5vmin;
+  gap: 1vmin;
   margin: auto;
   margin-top: 1.5vmin;
+  justify-content: center;
 }
 body main .window .window-content button:hover {
   cursor: pointer;
 }
 body main .window .window-content .button-option {
-  height: 14vmin;
-  width: 14vmin;
-  font-size: 12vmin;
+  height: 10vmin;
+  width: 10vmin;
+  font-size: 8.5vmin;
   color: #12043d;
-  border-radius: 16px;
+  border-radius: 10px;
 }
 body main .window .window-content .button-option:hover {
   background: rgba(255, 255, 255, 0.5);
@@ -277,7 +280,7 @@ body main .window .window-content .gamebtn {
   margin: auto;
 }
 body main .window .window-content .op {
-  font-size: 3vmin;
+  font-weight: 700;
   padding: 1em;
   border-radius: 8px;
   background-color: white;
@@ -294,7 +297,7 @@ body main .window .window-content .choice {
 }
 body main .window .window-content .choice .op {
   padding: 0.3em 1.2em;
-  font-size: 14vmin;
+  font-size: 5vmin;
   margin: auto 0.5em;
   justify-content: center;
 }
@@ -305,16 +308,11 @@ body main .window .window-content .op:hover {
 }
 body main .window .window-content .popup {
   background-size: cover;
-  height: 100%;
-  width: 100%;
-  position: absolute;
+  height: inherit;
   display: flex;
-  z-index: 2;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
   gap: 1em;
-  font-size: 12vmin;
 }
 body main .window .window-content #play-again {
   padding: 0.5em 1em;
@@ -398,8 +396,9 @@ body main .window .window-content .score-wrapper {
 }
 body main .window .window-content .score {
   color: white;
-  font-size: 5vmin;
+  font-size: 3vmin;
   text-align: center;
+  margin: 0 2vh;
   padding: 1.75vh;
   border-radius: 8px;
   background-color: #0A0027;

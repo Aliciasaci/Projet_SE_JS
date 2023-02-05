@@ -5,9 +5,6 @@ import { render as renderTicTacToe, init as initTicTacToe } from './tictactoe.js
 
 //*variables
 const switchModeBtn = document.querySelector("#switch-mode-btn");
-const keys = document.querySelectorAll(".keys input");
-const resultInput = document.querySelector("#result-input");
-const refreshBtn = document.querySelector("#btn-refresh");
 const calculatorIcon = document.querySelector("#calculator-icon");
 const calculatorBody = document.querySelector("#calculator");
 const backgroundWindow = document.querySelector(".window");
@@ -26,49 +23,11 @@ const VibrationDisplayBtn = document.querySelector('#vibration-display-btn');
 const VibrationActivateBtn = document.querySelector('#vibration-activate-btn');
 const windowContent = document.querySelector('.window-content');
 const morpion = document.querySelector('#tictactoe');
+const windowBar = document.querySelector('.window-upper-btns');
+let morpionPanel = null;
 let errorMessage = "";
 let vibrationActivated = true;
 let displayedApp = "";
-
-function devide(partOne, partTwo) {
-    if (partTwo == 0)
-        throw new DivisionError('Erreur de division par zéro');
-
-    return parseFloat(partOne) / parseFloat(partTwo);
-}
-
-function add(partOne, partTwo) {
-    if (partOne && partTwo)
-        return parseFloat(partOne) + parseFloat(partTwo);
-}
-
-function substract(partOne, partTwo) {
-    if (partOne && partTwo)
-        return parseFloat(partOne) - parseFloat(partTwo);
-}
-
-function multiply(partOne, partTwo) {
-    if (partOne && partTwo)
-        return parseFloat(partOne) * parseFloat(partTwo);
-}
-
-//Fonction qui inverse le signe d'un chiffre/résultat
-function invertSignNumber(number) {
-    if (number)
-        return -number
-}
-
-const operationsKeys = ["+", '-', "/", '*', "=", "+/-"];
-const numbersKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'];
-let operationPartOne = 0;
-let operationPartTwo = 0;
-let output = 0;
-let operator = undefined;
-let nbOperators = 0;
-let nbPoint = 0;
-let resultOfOperation = 0;
-let resetOutput = 0;
-resultInput.value = 0;
 let openedApps = [];
 
 // if page fully loaded
@@ -99,8 +58,10 @@ window.addEventListener('load', () => {
     morpion.addEventListener('click', function () {
         if (displayedApp == "tictactoe") {
             backgroundWindow.style.display = "block";
+            morpionPanel.style.display = "block";
         } else {
             renderWindowContent("tictactoe");
+            morpionPanel = document.querySelector('#tictac');
             backgroundWindow.style.display = "block";
         }
         
@@ -149,136 +110,9 @@ window.addEventListener('load', () => {
         }
     }
 
-    //* calculator code
-    //*at click on element
-    if (keys) {
-        keys.forEach(key => {
-            key.addEventListener('click', function () {
-                const keyValue = key.value;
-                if (numbersKeys.includes(keyValue)) {//si chiffre 
-                    if (resetOutput == 1) {
-                        output = 0;
-                        resetOutput = 0;
-                    }
-                    if (keyValue == ".") {
-                        if (nbPoint == 0) {
-                            if (nbOperators == 0) {               //si toujours pas d'operateur, on continue de remplir
-                                operationPartOne += keyValue;
-                            }
-                            else {
-                                operationPartTwo += keyValue;
-                            }
-                            output += keyValue;
-                            nbPoint++;
-                        }
-                    }
-                    else {
-                        if (output == 0) {
-                            output = keyValue;
-                            operationPartOne = keyValue;     //construire la partie 1 de l'opération
-                        } else {
-                            if (nbOperators == 0) {               //si toujours pas d'operateur, on continue de remplir
-                                output += keyValue;
-                                operationPartOne += keyValue;
-                            }
-                            else {                               //le cas ou on a déjà un operateur
-                                if (operationPartTwo == 0) {
-                                    const outputLength = output.length;
-                                    if (output.charAt(outputLength - 1) == 0) {
-                                        operationPartTwo = keyValue;
-                                        output[outputLength - 1] = keyValue;
-
-                                    } else {
-                                        operationPartTwo += keyValue;
-                                        output += keyValue;
-                                    }
-                                } else {
-                                    operationPartTwo += keyValue;
-                                    output += keyValue;
-                                }
-                            }
-                        }
-                    }
-                } else if (operationsKeys.includes(keyValue)) {
-                    if (nbOperators == 0) {             //si aucun opérateur auparavant
-                        if (keyValue != "=" && keyValue != "+/-") {          //vérifier que le premier opérateur saisi n'est pas un =
-                            operator = keyValue;
-                            nbOperators++;
-                            output += operator;
-                        }
-                        else if (keyValue == "+/-") {
-                            operationPartOne = invertSignNumber(operationPartOne);
-                            output = operationPartOne;
-                        }
-                        nbPoint = 0;
-                        resetOutput = 0;
-                    } else {                    //dès qu'un operateur existe, vérifier lequel c'est, et faire l'operétation
-                        const outputLength = output.length;
-                        if (!operationsKeys.includes(output[outputLength - 1])) {
-                            if (keyValue != "+/-") {
-                                switch (operator) {
-                                    case '+':
-                                        resultOfOperation = add(operationPartOne, operationPartTwo);
-                                        break;
-                                    case '-':
-                                        resultOfOperation = substract(operationPartOne, operationPartTwo);
-                                        break;
-                                    case '/':
-                                        try {
-                                            resultOfOperation = devide(operationPartOne, operationPartTwo)
-                                        } catch (error) {
-                                            if (error instanceof DivisionError) {
-                                                errorMessage = "Error";
-                                            } else {
-                                                console.log(error.message);
-                                            }
-                                        }
-                                        break;
-                                    case '*':
-                                        resultOfOperation = multiply(operationPartOne, operationPartTwo);
-                                        break;
-                                }
-                                let listElement = document.createElement('li');   //créer une ligne dans le pannel d'affichage
-                                listElement.innerHTML += output;
-                                operationPartOne = resultOfOperation;
-                                operationPartTwo = 0;
-                                if (keyValue == "=") {
-                                    output = operationPartOne;
-                                    nbOperators = 0;
-                                    listElement.innerHTML += "=";
-                                    listElement.innerHTML += resultOfOperation;
-
-                                    if (errorMessage == 'Error') {
-                                        listElement.innerHTML = errorMessage;
-                                    }
-
-                                    operationsPannel.append(listElement);
-                                    errorMessage = "";
-                                    resetOutput = 1;
-
-                                } else {
-                                    operator = keyValue;
-                                    output = operationPartOne + keyValue;
-                                    resetOutput = 0;
-                                }
-                                nbPoint = 0;
-                            } else {
-                                operationPartTwo = invertSignNumber(operationPartTwo);
-                                output = operationPartOne + operator + operationPartTwo
-                            }
-                        }
-                    }
-                }
-                resultInput.value = output;
-            })
-        })
-    }
-
     //*at click on calculator, display modal
     if (calculatorIcon) {
         calculatorIcon.addEventListener('click', function () {
-            operationsPannel.style.display = "block";
-            calculatorBody.style.display = "block";
             backgroundWindow.style.display = "block";
         });
     }
@@ -289,19 +123,6 @@ window.addEventListener('load', () => {
             paramsBody.style.display = "block";
             backgroundWindow.style.display = "block";
             calculatorWrapper.style.display = "none"
-        });
-    }
-    //* refresh button
-    if (refreshBtn) {
-        refreshBtn.addEventListener('click', function () {
-            operationPartOne = 0;
-            operationPartTwo = 0;
-            output = 0;
-            operator = undefined;
-            nbOperators = 0;
-            resultOfOperation = 0;
-            resultInput.value = 0;
-            operationsPannel.innerHTML = 0;
         });
     }
 
@@ -366,6 +187,7 @@ window.addEventListener('load', () => {
 
             if (displayedApp === "tictactoe") {
                 morpionsIconSmall.style.display = "block";
+                morpionPanel.style.display = "none";
             }
         });
     }
@@ -389,6 +211,7 @@ window.addEventListener('load', () => {
     morpionsIconSmall.addEventListener('click', function () {
         if (backgroundWindow.style.display = "none") {
             backgroundWindow.style.display = "block";
+            morpionPanel.style.display = "block";
         } else if (backgroundWindow.style.display = "block") {
             backgroundWindow.style.display = "none";
         }
@@ -460,6 +283,45 @@ window.addEventListener('load', () => {
             }
         })
     }
+
+    const dragElement = (elmnt) => {
+        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        elmnt.onmousedown = dragMouseDown;
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // get the mouse cursor position at startup:
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            // call a function whenever the cursor moves:
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // calculate the new cursor position:
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            // set the element's new position:
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            // stop moving when mouse button is released:
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }
+
+    dragElement(morpion);
+    dragElement(backgroundWindow);
+
 })
 
 
