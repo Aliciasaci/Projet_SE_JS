@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@sentry/browser": "^7.28.1",
+    "@sentry/tracing": "^7.28.1"
+  }
+}

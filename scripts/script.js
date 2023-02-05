@@ -1,3 +1,6 @@
+
+import { renderCalculatorBody, calculate } from "./Calculatrice.js";
+import { renderVibrationBody, vibrate } from "./Params.js";
 import { DivisionError } from "./ExceptionsClasses.js";
 import {
   render as renderTicTacToe,
@@ -11,37 +14,106 @@ const calculatorBody = document.querySelector("#calculator");
 const backgroundWindow = document.querySelector(".window");
 const closeWindowButton = document.querySelector(".fa-xmark");
 const reduceWindowButton = document.querySelector(".fa-minus");
+
 const paramsIcon = document.querySelector("#params-icon");
 const paramsBody = document.querySelector("#params");
 const calculatorIconSmall = document.querySelector("#calculator-icon-small");
 const paramsIconSmall = document.querySelector("#params-icon-small");
+const header = document.querySelector("header");
+const main = document.querySelector("main");
 const morpionsIconSmall = document.querySelector("#morpions-icon-small");
 const operationsPannel = document.querySelector("#operations-pannel");
 const paramVibration = document.querySelector("#params-vibration");
 const calculatorWrapper = document.querySelector(".calculator-wrapper");
-const vibrationWrapper = document.querySelector("#vibration-wrapper");
-const VibrationDisplayBtn = document.querySelector("#vibration-display-btn");
-const VibrationActivateBtn = document.querySelector("#vibration-activate-btn");
 const windowContent = document.querySelector(".window-content");
 const morpionIcon = document.querySelector("#tictactoe-icon");
 const clockIcon = document.querySelector("#clock-icon");
 const windowBar = document.querySelector(".window-upper-btns");
 let morpionPanel = null;
 let errorMessage = "";
-let vibrationActivated = true;
 let displayedApp = "";
 let openedApps = [];
 
 // if page fully loaded
 window.addEventListener("load", () => {
-  document.querySelectorAll("*").forEach((element) =>
-    element.addEventListener("click", (e) => {
-      console.log("clicked: ", e.target);
-      if (window.navigator.vibrate(200)) {
-        console.log("vibrating....");
+  //* at click on calc icon, display calc
+  if (calculatorIcon) {
+    calculatorIcon.addEventListener("click", function () {
+      backgroundWindow.style.display = "block";
+      const calculatorBodyString = renderCalculatorBody();
+      windowContent.innerHTML = calculatorBodyString;
+      const keys = document.querySelectorAll(".keys input");
+
+      if (keys) {
+        keys.forEach((key) => {
+          key.addEventListener("click", function () {
+            calculate(key);
+          });
+        });
       }
-    })
-  );
+    });
+  }
+
+
+  //* at click on params, display tout les paramètres
+  if (paramsIcon) {
+    paramsIcon.addEventListener("click", function () {
+      backgroundWindow.style.display = "block";
+      paramsBody.style.display = "block";
+
+      const paramOptions = document.getElementById("params-icons").children;
+
+      for (const param of paramOptions) {
+        param.addEventListener("click", function () {
+          let paramId = param.getAttribute("id");
+          switch (paramId) {
+            case "params-vibration":
+              const vibrationBodyString = renderVibrationBody();
+              windowContent.innerHTML = vibrationBodyString;
+              vibrate();
+              break;
+          }
+        });
+      }
+    });
+  }
+
+  //* set the theme
+  function setTheme(theme) {
+    if (theme == "dark") {
+      //dark mode
+      document.body.style.backgroundImage = "url('assets/bg_9.jpg')";
+      switchModeBtn.style.filter = "invert(100%)";
+      setCookie("theme", "dark", 30);
+    } else if (theme == "light") {
+      //light mode
+      document.body.style.backgroundImage =
+        "url('assets/bg_6.jpg')";
+      switchModeBtn.style.filter = "invert(0%)";
+      setCookie("theme", "light", 30);
+    }
+  }
+
+const enterBtn = document.querySelector(".open_systeme_button");
+const startingPage = document.querySelector("#starting-page");
+
+enterBtn.addEventListener("click", function () {
+  var audio = new Audio("../assets/sounds/Bling.m4a");
+  audio.play();
+
+  let animation = startingPage.animate([{ opacity: 1 }, { opacity: 0 }], {
+    duration: 1000,
+    easing: "linear",
+  });
+
+  animation.finished.then(() => {
+    //*at click on button, display the elements.
+    if (header) {
+      header.style.display = "block";
+    }
+
+    if (startingPage) {
+      startingPage.style.display = "none";
 
   const renderWindowContent = (content) => {
     switch (content) {
@@ -281,6 +353,14 @@ window.addEventListener("load", () => {
     }
   };
 
+
+    if (enterBtn) {
+      enterBtn.style.display = "none";
+    }
+
+    if (main) {
+      main.style.display = "block";
+      
   dragElement(backgroundWindow);
 
   let isDragging = false;
