@@ -7,24 +7,17 @@ const resultInput = document.querySelector("#result-input");
 const refreshBtn = document.querySelector("#btn-refresh");
 const calculatorIcon = document.querySelector("#calculator-icon");
 const calculatorBody = document.querySelector("#calculator");
-const backgroundWindow = document.querySelector(".window");
 const closeWindowButton = document.querySelector(".fa-xmark");
 const reduceWindowButton = document.querySelector(".fa-minus");
 const paramsIcon = document.querySelector("#params-icon");
-const paramsBody = document.querySelector("#params");
 const calculatorIconSmall = document.querySelector("#calculator-icon-small");
 const paramsIconSmall = document.querySelector("#params-icon-small");
 const operationsPannel = document.querySelector('#operations-pannel');
 const paramVibration = document.querySelector('#params-vibration');
-const paramTime = document.querySelector('#params-time');
 const calculatorWrapper = document.querySelector('.calculator-wrapper');
 const vibrationWrapper = document.querySelector('#vibration-wrapper');
 const VibrationDisplayBtn = document.querySelector('#vibration-display-check');
 const VibrationActivateBtn = document.querySelector('#vibration-activate-check');
-const timeNavWrapper = document.querySelector('#time-wrapper');
-const hourNavDisplayBtn = document.querySelector('#hour-nav-display-btn');
-const minuteNavDisplayBtn = document.querySelector('#minute-nav-display-btn');
-const secondNavDisplayBtn = document.querySelector('#second-nav-display-btn');
 
 let errorMessage = "";
 let vibrationActivated = true;
@@ -74,9 +67,9 @@ window.addEventListener('load', () => {
 
     document.querySelectorAll('*')
     .forEach(element => element.addEventListener('click', e => {
-        console.log('clicked: ', e.target);
+        // console.log('clicked: ', e.target);
         if(window.navigator.vibrate(200)){
-            console.log("vibrating....");
+            // console.log("vibrating....");
         }
     }))
 
@@ -351,18 +344,6 @@ window.addEventListener('load', () => {
         }
     })
 
-    /**
-     * time parameters
-     */
-    if (paramTime) {
-        paramTime.addEventListener("click", function() {
-            paramsBody.style.display = "none";
-            if (timeNavWrapper) {
-                backgroundWindow.append(timeNavWrapper);
-                timeNavWrapper.style.display = "block";
-            }
-        })
-    }
 
     /**
      * vibration code

@@ -64,7 +64,7 @@ function setDigitalClock(seconds, mins, hours) {
     digitalClock.textContent = timeText
 }
 
-function setDigitalClockMenu(seconds, mins, hours) {
+    function setDigitalClockMenu(seconds, mins, hours) {
     let digitalClockHour = document.getElementById("digital-clock-hour")
     let digitalClockMin = document.getElementById("digital-clock-min")
     let digitalClockSec = document.getElementById("digital-clock-sec")
