@@ -1,11 +1,6 @@
 export const render = () => {
   return `    
-  <div id="tictac">
-  <header>
-      <span id="switch-mode-btn"><img src="../assets/icons/day-and-night.svg"/></span>
-      <a id="menu-btn"><img src="../assets/icons/arrow-left.png"/></a>
-  </header>
-          
+  <div id="tictac">      
       <div class="wrapper">
           <div class="score-wrapper">
               <div class="score" id="scoreX"></div>
@@ -334,6 +329,7 @@ window.addEventListener("beforeunload", () => {
 //get score from local storage
 window.addEventListener("load", () => {
   generateChoice();
+  console.log("is this called?");
   let score = JSON.parse(localStorage.getItem("scoreboard"));
   if (score) {
     scoreboard = score;
@@ -374,4 +370,19 @@ const generateChoice = () => {
     hidePopup();
   });
 };
+
+generateChoice();
+console.log("init");
+
 };
+
+/*export const saveScore = () => {
+  localStorage.setItem("scoreboard", JSON.stringify(scoreboard));
+};*/
+
+/*export const getScore = () => {
+  let score = JSON.parse(localStorage.getItem("scoreboard"));
+  if (score) {
+    scoreboard = score;
+  }
+};*/
