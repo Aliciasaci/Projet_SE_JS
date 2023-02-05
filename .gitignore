@@ -1,1 +1,12 @@
+<<<<<<< HEAD
 node_modules
+=======
+.DS_Store
+# Ignore test files
+**/__tests__/*
+**/*.test.js
+**/*.spec.js
+node_modules
+package-lock.json
+package.json
+>>>>>>> 0894a3602dbae0f30297b7deec51f9d2186e84ca
