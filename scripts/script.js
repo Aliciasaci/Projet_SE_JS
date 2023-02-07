@@ -140,6 +140,7 @@ enterBtn.addEventListener("click", function () {
         backgroundWindow.style.display = "block";
         morpionPanel.style.display = "block";
       } else if (openedApps.includes("tictactoe")) {
+        console.log("tictactoe already opened");
         backgroundWindow.style.display = "block";
         morpionPanel.style.display = "block";
         displayedApp = "tictactoe";
@@ -227,26 +228,20 @@ enterBtn.addEventListener("click", function () {
   //* close window and app at clic on x
     closeWindowButton.addEventListener("click", function () {
       backgroundWindow.style.display = "none";
+      let temp;
       if (displayedApp === "tictactoe") {
         morpionsIconSmall.style.display = "none";
         displayedApp = "";
         windowContent.removeChild(morpionPanel);
-        if (openedApps.length === 1) {
-          openedApps = [];
-        } else {
-          openedApps.filter(app => app !== 'tictactoe');
-        }
+        temp = openedApps.filter(app => app !== 'tictactoe');
       }
       if (displayedApp === "calculator") {
         calculatorIconSmall.style.display = "none";
         displayedApp = "";
         windowContent.removeChild(calculatorPanel);
-        if (openedApps.length === 1) {
-          openedApps = [];
-        } else {
-          openedApps.filter(app => app !== 'calculator');
-        }
+        temp = openedApps.filter(app => app !== 'calculator');
       }
+      openedApps = temp;
     });
 
   //* reduce window and app at clic on -
