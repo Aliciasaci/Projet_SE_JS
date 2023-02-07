@@ -1,3 +1,6 @@
+
+import { renderCalculatorBody, calculate } from "./Calculatrice.js";
+import { renderVibrationBody, vibrate } from "./Params.js";
 import { DivisionError } from "./ExceptionsClasses.js";
 import {
   render as renderTicTacToe,
@@ -7,40 +10,90 @@ import {
 //*variables
 const switchModeBtn = document.querySelector("#switch-mode-btn");
 const calculatorIcon = document.querySelector("#calculator-icon");
-const calculatorBody = document.querySelector("#calculator");
 const backgroundWindow = document.querySelector(".window");
 const closeWindowButton = document.querySelector(".fa-xmark");
 const reduceWindowButton = document.querySelector(".fa-minus");
+
 const paramsIcon = document.querySelector("#params-icon");
-const paramsBody = document.querySelector("#params");
+const paramsBody = document.querySelector("#params"); //c'est pas présent dans le DOM ça
 const calculatorIconSmall = document.querySelector("#calculator-icon-small");
 const paramsIconSmall = document.querySelector("#params-icon-small");
+const header = document.querySelector("header");
+const main = document.querySelector("main");
 const morpionsIconSmall = document.querySelector("#morpions-icon-small");
 const operationsPannel = document.querySelector("#operations-pannel");
 const paramVibration = document.querySelector("#params-vibration");
 const calculatorWrapper = document.querySelector(".calculator-wrapper");
-const vibrationWrapper = document.querySelector("#vibration-wrapper");
-const VibrationDisplayBtn = document.querySelector("#vibration-display-btn");
-const VibrationActivateBtn = document.querySelector("#vibration-activate-btn");
 const windowContent = document.querySelector(".window-content");
 const morpionIcon = document.querySelector("#tictactoe-icon");
 const clockIcon = document.querySelector("#clock-icon");
 const windowBar = document.querySelector(".window-upper-btns");
 let morpionPanel = null;
+let calculatorPanel = null;
 let errorMessage = "";
-let vibrationActivated = true;
 let displayedApp = "";
 let openedApps = [];
 
 // if page fully loaded
 window.addEventListener("load", () => {
 
+  //* set the theme
+  function setTheme(theme) {
+    if (theme == "dark") {
+      //dark mode
+      document.body.style.backgroundImage = "url('assets/bg_9.jpg')";
+      switchModeBtn.style.filter = "invert(100%)";
+      setCookie("theme", "dark", 30);
+    } else if (theme == "light") {
+      //light mode
+      document.body.style.backgroundImage =
+        "url('assets/bg_6.jpg')";
+      switchModeBtn.style.filter = "invert(0%)";
+      setCookie("theme", "light", 30);
+    }
+  }
+
+const enterBtn = document.querySelector(".open_systeme_button");
+const startingPage = document.querySelector("#starting-page");
+
+enterBtn.addEventListener("click", function () {
+  var audio = new Audio("../assets/sounds/Bling.m4a");
+  audio.play();
+
+  let animation = startingPage.animate([{ opacity: 1 }, { opacity: 0 }], {
+    duration: 1000,
+    easing: "linear",
+  });
+
+  animation.finished.then(() => {
+    //*at click on button, display the elements.
+    if (header) {
+      header.style.display = "block";
+    }
+
+    if (startingPage) {
+      startingPage.style.display = "none";
+    }
+    });
+});
+
   const renderWindowContent = (content) => {
     switch (content) {
       case "tictactoe":
-        windowContent.innerHTML = renderTicTacToe();
+        windowContent.insertAdjacentHTML("beforeend", renderTicTacToe());
         initTicTacToe();
         break;
+      case "calculator":
+        windowContent.insertAdjacentHTML("beforeend", renderCalculatorBody());
+        const keys = document.querySelectorAll(".keys input");
+
+        if (keys) {
+          keys.forEach((key) => {
+            key.addEventListener("click", function () {
+              calculate(key);
+            });
+          });
+        }
       default:
         break;
     }
@@ -49,6 +102,34 @@ window.addEventListener("load", () => {
   };
 
   let drag = false;
+
+  calculatorIcon.addEventListener("mousedown", () => (drag = false));
+  calculatorIcon.addEventListener("mousemove", () => (drag = true));
+
+  //*at click on calculator, display modal
+  if (calculatorIcon) {
+    calculatorIcon.addEventListener("mouseup", function () {
+      if (drag) {
+        return;
+      } else {
+        if (displayedApp == "calculator") {
+          backgroundWindow.style.display = "block";
+          calculatorPanel.style.display = "flex";
+        } else if (openedApps.includes("calculator")) {
+          console.log("calculator already opened");
+          backgroundWindow.style.display = "block";
+          calculatorPanel.style.display = "flex";
+          displayedApp = "calculator";
+        } else {
+          renderWindowContent("calculator");
+          calculatorPanel = document.querySelector(".calculator-wrapper");
+          backgroundWindow.style.display = "block";
+        }
+      }
+    });
+  }
+
+ 
   morpionIcon.addEventListener("mousedown", () => (drag = false));
   morpionIcon.addEventListener("mousemove", () => (drag = true));
 
@@ -59,6 +140,11 @@ window.addEventListener("load", () => {
       if (displayedApp == "tictactoe") {
         backgroundWindow.style.display = "block";
         morpionPanel.style.display = "block";
+      } else if (openedApps.includes("tictactoe")) {
+        console.log("tictactoe already opened");
+        backgroundWindow.style.display = "block";
+        morpionPanel.style.display = "block";
+        displayedApp = "tictactoe";
       } else {
         renderWindowContent("tictactoe");
         morpionPanel = document.querySelector("#tictac");
@@ -66,6 +152,35 @@ window.addEventListener("load", () => {
       }
     }
   });
+
+  paramsIcon.addEventListener("mousedown", () => (drag = false));
+  paramsIcon.addEventListener("mousemove", () => (drag = true));
+
+  //* at click on params, display tout les paramètres
+    paramsIcon.addEventListener("mouseup", function () { // comme le paramsBody n'est pas présent dans le DOM, il faut changer cette fonction
+      if (drag) {
+        return;
+      } else {
+        backgroundWindow.style.display = "block";
+        paramsBody.style.display = "block";
+
+        const paramOptions = document.getElementById("params-icons").children;
+
+        for (const param of paramOptions) {
+          param.addEventListener("click", function () {
+          let paramId = param.getAttribute("id");
+            switch (paramId) {
+              case "params-vibration":
+                const vibrationBodyString = renderVibrationBody();
+                windowContent.innerHTML = vibrationBodyString;
+                vibrate();
+              break;
+            }
+          });
+        }
+      }
+    });
+
 
   //* function to create and set cookies
   //! le store du theme ne marche pas sur opera
@@ -88,22 +203,6 @@ window.addEventListener("load", () => {
     }
   }
 
-  //* set the theme
-  function setTheme(theme) {
-    if (theme == "dark") {
-      //dark mode
-      document.body.style.backgroundImage = "url('assets/dark_mode.jpg')";
-      switchModeBtn.style.filter = "invert(100%)";
-      setCookie("theme", "dark", 30);
-    } else if (theme == "light") {
-      //light mode
-      document.body.style.backgroundImage =
-        "url('assets/light_background_3.jpg')";
-      switchModeBtn.style.filter = "invert(0%)";
-      setCookie("theme", "light", 30);
-    }
-  }
-
   //* at load, check the cookie variable to set the theme
   if (getCookie("theme")) {
     const themeCookie = getCookie("theme");
@@ -112,36 +211,6 @@ window.addEventListener("load", () => {
     } else if (themeCookie[1] == "dark") {
       setTheme("dark");
     }
-  }
-
-  calculatorIcon.addEventListener("mousedown", () => (drag = false));
-  calculatorIcon.addEventListener("mousemove", () => (drag = true));
-
-  //*at click on calculator, display modal
-  if (calculatorIcon) {
-    calculatorIcon.addEventListener("mouseup", function () {
-      if (drag) {
-        return;
-      } else {
-        backgroundWindow.style.display = "block";
-      }
-    });
-  }
-
-  paramsIcon.addEventListener("mousedown", () => (drag = false));
-  paramsIcon.addEventListener("mousemove", () => (drag = true));
-
-  //* at click on params, display
-  if (paramsIcon) {
-    paramsIcon.addEventListener("mouseup", function () {
-      if (drag) {
-        return;
-      } else {
-        paramsBody.style.display = "block";
-        backgroundWindow.style.display = "block";
-        calculatorWrapper.style.display = "none";
-      }
-    });
   }
 
   //* switch theme btn
@@ -158,68 +227,58 @@ window.addEventListener("load", () => {
   }
 
   //* close window and app at clic on x
-  if (closeWindowButton) {
     closeWindowButton.addEventListener("click", function () {
       backgroundWindow.style.display = "none";
-      windowContent.innerHTML = "";
-      if (calculatorBody.style.display == "block") {
-        if (confirm("êtes-vous sûre de vouloir fermer la fenêtre?")) {
-          calculatorIconSmall.style.display = "none";
-          calculatorBody.style.display = "none";
-          operationsPannel.style.display = "none";
-          calculatorWrapper.style.display = "none";
-        }
-      }
-
-      if (paramsBody.style.display == "block") {
-        paramsBody.style.display = "none";
-        paramsIconSmall.style.display = "none";
-        operationsPannel.style.display = "none";
-      }
-
-      if (vibrationWrapper.style.display == "block") {
-        vibrationWrapper.style.display = "none";
-      }
+      console.log(displayedApp);
       if (displayedApp === "tictactoe") {
         morpionsIconSmall.style.display = "none";
         displayedApp = "";
+        windowContent.removeChild(morpionPanel);
+        if (openedApps.length === 1) {
+          openedApps = [];
+        } else {
+          openedApps.filter(app => app !== 'tictactoe');
+        }
+      }
+      if (displayedApp === "calculator") {
+        calculatorIconSmall.style.display = "none";
+        displayedApp = "";
+        windowContent.removeChild(calculatorPanel);
+        if (openedApps.length === 1) {
+          openedApps = [];
+        } else {
+          openedApps.filter(app => app !== 'calculator');
+        }
       }
     });
-  }
 
   //* reduce window and app at clic on -
-  if (reduceWindowButton) {
     reduceWindowButton.addEventListener("click", function () {
       backgroundWindow.style.display = "none";
-      if (calculatorBody.style.display == "block") {
-        calculatorBody.style.display = "none";
+      hideDisplayedApp(displayedApp);
+      if (displayedApp === "calculator") {
         calculatorIconSmall.style.display = "block";
-        operationsPannel.style.display = "none";
       }
-
-      if (paramsBody.style.display == "block") {
-        paramsBody.style.display = "none";
-        paramsIconSmall.style.display = "block";
-        operationsPannel.style.display = "none";
-      }
-
       if (displayedApp === "tictactoe") {
         morpionsIconSmall.style.display = "block";
-        morpionPanel.style.display = "none";
       }
+      displayedApp = "";
     });
-  }
 
   //* at click on small icon of calc, display
   calculatorIconSmall.addEventListener("click", function () {
-    if (calculatorBody.style.display == "none") {
+    if ((backgroundWindow.style.display = "none")) {
       backgroundWindow.style.display = "block";
-      calculatorBody.style.display = "block";
+      calculatorPanel.style.display = "flex";
+    } else if (displayedApp !== "calculator") {
+      hideDisplayedApp(displayedApp);
+      calculatorPanel.style.display = "flex";
     }
+    displayedApp = "calculator";
   });
 
   //* at click on small icon of calc, display
-  paramsIconSmall.addEventListener("click", function () {
+  paramsIconSmall.addEventListener("click", function () { //la meme ici (paramsBody pas dans le DOM)
     if (paramsBody.style.display == "none") {
       backgroundWindow.style.display = "block";
       paramsBody.style.display = "block";
@@ -230,10 +289,25 @@ window.addEventListener("load", () => {
     if ((backgroundWindow.style.display = "none")) {
       backgroundWindow.style.display = "block";
       morpionPanel.style.display = "block";
-    } else if ((backgroundWindow.style.display = "block")) {
-      backgroundWindow.style.display = "none";
+    } else if (displayedApp !== "tictactoe") {
+      hideDisplayedApp(displayedApp);
+      morpionPanel.style.display = "block";
     }
+    displayedApp = "tictactoe";
   });
+
+  const hideDisplayedApp = (displayedApp) => {
+    switch (displayedApp) {
+      case "tictactoe":
+        morpionPanel.style.display = "none";
+        break;
+      case "calculator":
+        calculatorPanel.style.display = "none";
+        break;
+      default:
+        break;
+    }
+  };
 
   const dragElement = (elmnt) => {
     let pos1 = 0,
@@ -273,6 +347,15 @@ window.addEventListener("load", () => {
     }
   };
 
+
+    if (enterBtn) {
+      enterBtn.style.display = "none";
+    }
+
+    if (main) {
+      main.style.display = "block";
+    }
+      
   dragElement(backgroundWindow);
 
   let isDragging = false;
