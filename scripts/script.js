@@ -346,7 +346,7 @@ enterBtn.addEventListener("click", function () {
 
 
     if (enterBtn) {
-      enterBtn.style.display = "none";
+      //enterBtn.style.display = "none"; //pourquoi ?
     }
 
     if (main) {
