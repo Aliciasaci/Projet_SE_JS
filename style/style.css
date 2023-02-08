@@ -50,6 +50,7 @@ body header #switch-mode-btn {
   right: 2.5rem;
   top: 4rem;
   position: absolute;
+  background-color: grey;
 }
 body header #switch-mode-btn img {
   width: 100%;
@@ -110,15 +111,36 @@ body main {
   display: none;
 }
 body main #app_list {
-  height: 100vh;
-  display: flex;
-  justify-content: space-between;
   width: 100%;
   margin: 0;
-  align-items: center;
+  /* GLASSMORPHISM PROPERTIES */
+}
+body main #app_list .glass {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.47);
+}
+body main #app_list .darkglass {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.493);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.438);
+}
+body main #app_list .darkglass:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+body main #app_list .darkbtn {
+  background-color: #0a0027;
+  color: white;
+}
+body main #app_list .darkbtn:hover {
+  background-color: transparent;
+  background: rgba(28, 21, 37, 0.2);
+  border: 1px solid rgba(28, 21, 37, 0.29);
 }
 body main #app_list span {
-  width: 10vmax;
+  width: 8vmax;
   position: absolute;
 }
 body main #app_list span img {
@@ -130,19 +152,19 @@ body main #app_list span img:hover {
   cursor: pointer;
 }
 body main #app_list #calculator-icon {
-  left: 10%;
-  top: 50%;
+  left: 20%;
+  top: 45%;
 }
 body main #app_list #clock-icon {
-  top: 50%;
-  left: 30%;
+  top: 45%;
+  left: 37%;
 }
 body main #app_list #tictactoe-icon {
-  top: 50%;
-  left: 50%;
+  top: 45%;
+  left: 53%;
 }
 body main #app_list #params-icon {
-  top: 50%;
+  top: 45%;
   left: 70%;
 }
 body main .center {
@@ -192,7 +214,6 @@ body main .window .window-content #tictac {
   background: url(../assets/light_background_3.jpg) no-repeat center center;
   background-size: cover;
   overflow: hidden;
-  /* GLASSMORPHISM PROPERTIES */
 }
 body main .window .window-content #tictac .wrapper {
   margin-top: 2%;
@@ -300,16 +321,7 @@ body main .window .window-content #tictac .popup #play-again {
 }
 body main .window .window-content #tictac .popup.hide {
   display: none;
-  -webkit-animation: fadeOut 0.5s ease-in-out;
-          animation: fadeOut 0.5s ease-in-out;
-}
-@-webkit-keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+  animation: fadeOut 0.5s ease-in-out;
 }
 @keyframes fadeIn {
   0% {
@@ -319,14 +331,6 @@ body main .window .window-content #tictac .popup.hide {
     opacity: 1;
   }
 }
-@-webkit-keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
 @keyframes fadeOut {
   0% {
     opacity: 1;
@@ -334,30 +338,6 @@ body main .window .window-content #tictac .popup.hide {
   100% {
     opacity: 0;
   }
-}
-body main .window .window-content #tictac .glass {
-  background: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.47);
-}
-body main .window .window-content #tictac .darkglass {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 0, 0, 0.493);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.438);
-}
-body main .window .window-content #tictac .darkglass:hover {
-  background: rgba(0, 0, 0, 0.5);
-}
-body main .window .window-content #tictac .darkbtn {
-  background-color: #0a0027;
-  color: white;
-}
-body main .window .window-content #tictac .darkbtn:hover {
-  background-color: transparent;
-  background: rgba(28, 21, 37, 0.2);
-  border: 1px solid rgba(28, 21, 37, 0.29);
 }
 body main .window .window-content .calculator-wrapper {
   display: flex;
@@ -427,8 +407,25 @@ body #params {
   width: 45rem;
   height: 33rem;
 }
+body #params #params-icons {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+body #params #params-icons li {
+  text-align: center;
+  flex-basis: 5.7rem;
+  margin: 2rem;
+}
+body #params #params-icons li img {
+  width: 100%;
+}
+body #params #params-icons li img:hover {
+  cursor: pointer;
+}
 body #vibration-wrapper {
-  display: none;
   background: rgba(255, 255, 255, 0.7);
   border-radius: 10px;
   width: 42rem;

@@ -42,34 +42,35 @@ let darkMode = false;
 
 const switchModeBtn = document.querySelector("#switch-mode-btn");
 
-if (switchModeBtn) {
-  switchModeBtn.addEventListener("click", function () {
-    if (!darkMode) {
-      //dark mode
-      document.body.style.backgroundImage =
-        "url('../src/assets/dark_mode.jpg')";
-      switchModeBtn.style.filter = "invert(100%)";
+//*je l'ai mi en comm pour que le mode dark fonctionne !
+// if (switchModeBtn) {
+//   switchModeBtn.addEventListener("click", function () {
+//     if (!darkMode) {
+//       //dark mode
+//       document.body.style.backgroundImage =
+//         "url('../src/assets/dark_mode.jpg')";
+//       switchModeBtn.style.filter = "invert(100%)";
 
-      btnRef.forEach((btn) => {
-        btn.classList.add("darkglass");
-      });
-      //document.querySelector(".score-wrapper").style.filter = "invert(100%)";
-      darkMode = true;
-    } else {
-      //white mode
+//       btnRef.forEach((btn) => {
+//         btn.classList.add("darkglass");
+//       });
+//       //document.querySelector(".score-wrapper").style.filter = "invert(100%)";
+//       darkMode = true;
+//     } else {
+//       //white mode
 
-      document.body.style.backgroundImage =
-        "url('../src/assets/light_background_3.jpg')";
-      switchModeBtn.style.filter = "invert(0%)";
+//       document.body.style.backgroundImage =
+//         "url('../src/assets/light_background_3.jpg')";
+//       switchModeBtn.style.filter = "invert(0%)";
 
-      btnRef.forEach((btn) => {
-        btn.classList.remove("darkglass");
-      });
-      //document.querySelector(".score-wrapper").style.filter = "invert(0%)";
-      darkMode = false;
-    }
-  });
-}
+//       btnRef.forEach((btn) => {
+//         btn.classList.remove("darkglass");
+//       });
+//       //document.querySelector(".score-wrapper").style.filter = "invert(0%)";
+//       darkMode = false;
+//     }
+//   });
+// }
 
 export const init = () => {
 let btnRef = document.querySelectorAll(".button-option");

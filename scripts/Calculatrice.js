@@ -135,7 +135,6 @@ export function calculate(key) {
     }
   } else if (operationsKeys.includes(keyValue)) {
     if (keyValue == "M+") {
-      console.log("broooooooooo");
       intermediaryResult = operationPartOne;
       window.alert("Le resultat a été mis en mémoire.");
     } else {

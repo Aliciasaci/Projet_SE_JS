@@ -63,6 +63,7 @@ body {
       right: 2.5rem;
       top: 4rem;
       position: absolute;
+      background-color: grey;
 
       img {
         width: 100%;
@@ -137,12 +138,8 @@ body {
   main {
     display: none;
     #app_list {
-      height: 100vh;
-      display: flex;
-      justify-content: space-between;
       width: 100%;
       margin: 0;
-      align-items: center;
 
       // @media (max-width: 768px) {
       // flex-direction: column;
@@ -150,8 +147,38 @@ body {
       // width: 7rem;
       // }
 
+      /* GLASSMORPHISM PROPERTIES */
+      .glass {
+        background: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.47);
+      }
+
+      .darkglass {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(0, 0, 0, 0.493);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.438);
+      }
+
+      .darkglass:hover {
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+      .darkbtn {
+        background-color: #0a0027;
+        color: white;
+      }
+
+      .darkbtn:hover {
+        background-color: transparent;
+        background: rgba(28, 21, 37, 0.2);
+        border: 1px solid rgba(28, 21, 37, 0.29);
+      }
+
       span {
-        width: 10vmax;
+        width: 8vmax;
         position: absolute;
 
         img {
@@ -166,22 +193,22 @@ body {
       }
 
       #calculator-icon {
-        left: 10%;
-        top: 50%;
+        left: 20%;
+        top: 45%;
       }
 
       #clock-icon {
-        top: 50%;
-        left: 30%;
+        top: 45%;
+        left: 37%;
       }
 
       #tictactoe-icon {
-        top: 50%;
-        left: 50%;
+        top: 45%;
+        left: 53%;
       }
 
       #params-icon {
-        top: 50%;
+        top: 45%;
         left: 70%;
       }
     }
@@ -384,37 +411,6 @@ body {
               opacity: 0;
             }
           }
-
-          /* GLASSMORPHISM PROPERTIES */
-
-          .glass {
-            background: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.47);
-          }
-
-          .darkglass {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(0, 0, 0, 0.493);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.438);
-          }
-
-          .darkglass:hover {
-            background: rgba(0, 0, 0, 0.5);
-          }
-
-          .darkbtn {
-            background-color: #0a0027;
-            color: white;
-          }
-
-          .darkbtn:hover {
-            background-color: transparent;
-            background: rgba(28, 21, 37, 0.2);
-            border: 1px solid rgba(28, 21, 37, 0.29);
-          }
         }
 
         .calculator-wrapper {
@@ -501,10 +497,32 @@ body {
     display: none;
     width: $params-width;
     height: $params-height;
+
+    #params-icons {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: space-around;
+
+      li {
+        text-align: center;
+        flex-basis: 5.7rem;
+        margin: 2rem;
+
+        img {
+          width: 100%;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
   }
 
   #vibration-wrapper {
-    display: none;
+    // display: none;
     background: rgba(255, 255, 255, 0.7);
     border-radius: 10px;
     width: 42rem;
