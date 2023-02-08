@@ -1,452 +1,486 @@
-import { DivisionError } from './ExceptionsClasses.js';
-import { render as renderTicTacToe, init as initTicTacToe } from './tictactoe.js';
-
-
+import { renderCalculatorBody, calculate } from "./Calculatrice.js";
+import { renderVibrationBody, vibrate, renderParamsBody } from "./Params.js";
+import {
+  render as renderTicTacToe,
+  init as initTicTacToe,
+} from "./tictactoe.js";
+import { getCookie, setTheme } from "./Theme.js";
 
 //*variables
 const switchModeBtn = document.querySelector("#switch-mode-btn");
-const keys = document.querySelectorAll(".keys input");
-const resultInput = document.querySelector("#result-input");
-const refreshBtn = document.querySelector("#btn-refresh");
 const calculatorIcon = document.querySelector("#calculator-icon");
-const calculatorBody = document.querySelector("#calculator");
+const backgroundWindow = document.querySelector(".window");
 const closeWindowButton = document.querySelector(".fa-xmark");
 const reduceWindowButton = document.querySelector(".fa-minus");
+
 const paramsIcon = document.querySelector("#params-icon");
+const paramsBody = document.querySelector("#params"); //c'est pas présent dans le DOM ça
 const calculatorIconSmall = document.querySelector("#calculator-icon-small");
 const paramsIconSmall = document.querySelector("#params-icon-small");
+const header = document.querySelector("header");
+const main = document.querySelector("main");
 const morpionsIconSmall = document.querySelector("#morpions-icon-small");
-const operationsPannel = document.querySelector('#operations-pannel');
-const paramVibration = document.querySelector('#params-vibration');
-const calculatorWrapper = document.querySelector('.calculator-wrapper');
-const vibrationWrapper = document.querySelector('#vibration-wrapper');
-const VibrationDisplayBtn = document.querySelector('#vibration-display-check');
-const VibrationActivateBtn = document.querySelector('#vibration-activate-check');
-let errorMessage = "";
-let vibrationActivated = true;
+const operationsPannel = document.querySelector("#operations-pannel");
+// const paramVibration = document.querySelector("#params-vibration");
+// const calculatorWrapper = document.querySelector(".calculator-wrapper");
+const windowContent = document.querySelector(".window-content");
+const morpionIcon = document.querySelector("#tictactoe-icon");
+// const clockIcon = document.querySelector("#clock-icon");
+const windowBar = document.querySelector(".window-upper-btns");
+let morpionPanel = null;
+let calculatorPanel = null;
+let paramsPanel = null;
 let displayedApp = "";
-
-function devide(partOne, partTwo) {
-    if (partTwo == 0)
-        throw new DivisionError('Erreur de division par zéro');
-
-    return parseFloat(partOne) / parseFloat(partTwo);
-}
-
-function add(partOne, partTwo) {
-    if (partOne && partTwo)
-        return parseFloat(partOne) + parseFloat(partTwo);
-}
-
-function substract(partOne, partTwo) {
-    if (partOne && partTwo)
-        return parseFloat(partOne) - parseFloat(partTwo);
-}
-
-function multiply(partOne, partTwo) {
-    if (partOne && partTwo)
-        return parseFloat(partOne) * parseFloat(partTwo);
-}
-
-//Fonction qui inverse le signe d'un chiffre/résultat
-function invertSignNumber(number) {
-    if (number)
-        return -number
-}
-
-const operationsKeys = ["+", '-', "/", '*', "=", "+/-"];
-const numbersKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'];
-let operationPartOne = 0;
-let operationPartTwo = 0;
-let output = 0;
-let operator = undefined;
-let nbOperators = 0;
-let nbPoint = 0;
-let resultOfOperation = 0;
-let resetOutput = 0;
-resultInput.value = 0;
 let openedApps = [];
+let openedParams = [];
 
 // if page fully loaded
-window.addEventListener('load', () => {
-
-    document.querySelectorAll('*')
-    .forEach(element => element.addEventListener('click', e => {
-        // console.log('clicked: ', e.target);
-        if(window.navigator.vibrate(200)){
-            // console.log("vibrating....");
-        }
-    }))
-
-    const renderWindowContent = (content) => {
-        
-        switch (content) {
-            case "tictactoe":
-                windowContent.innerHTML = renderTicTacToe();
-                initTicTacToe();
-                break;
-            default:
-                break;
-        }
-        displayedApp = content;
-        openedApps.push(content);
+window.addEventListener("load", () => {
+  //* at load, check the cookie variable to set the theme
+  if (getCookie("theme")) {
+    const themeCookie = getCookie("theme");
+    if (themeCookie[1] == undefined || themeCookie == "light") {
+      setTheme("light"); //par défaut, c'est à light
+    } else if (themeCookie[1] == "dark") {
+      setTheme("dark");
     }
+  }
 
-    morpion.addEventListener('click', function () {
-        if (displayedApp == "tictactoe") {
-            backgroundWindow.style.display = "block";
-        } else {
-            renderWindowContent("tictactoe");
-            backgroundWindow.style.display = "block";
-        }
-        
+  //* switch theme btn
+  if (switchModeBtn) {
+    let nbClickMode = 0;
+    switchModeBtn.addEventListener("click", function () {
+      if (nbClickMode % 2 == 0) {
+        setTheme("dark");
+      } else {
+        setTheme("light");
+      }
+      nbClickMode++;
+    });
+  }
+
+  //*landing page code
+  const enterBtn = document.querySelector(".open_systeme_button");
+  const startingPage = document.querySelector("#starting-page");
+  enterBtn.addEventListener("click", function () {
+    var audio = new Audio("../assets/sounds/Bling.m4a");
+    audio.play();
+
+    let animation = startingPage.animate([{ opacity: 1 }, { opacity: 0 }], {
+      duration: 1000,
+      easing: "linear",
     });
 
-    //* function to create and set cookies
-    //! le store du theme ne marche pas sur opera
-    function setCookie(cookiName, cookieValue, expireDate) {
-        const d = new Date();
-        d.setTime(d.getTime() + (expireDate * 24 * 60 * 60 * 1000));
-        let expiresAt = "expires=" + d.toUTCString();
-        document.cookie = cookiName + "=" + cookieValue + ";" + expiresAt + ";path=/";
-    }
+    animation.finished.then(() => {
+      //*at click on button, display the elements.
+      if (header) {
+        header.style.display = "block";
+      }
 
-    //* function that returns a cookie and it value
-    function getCookie(cookiName) {
-        let cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            let cookie = cookies[i].trim().split('=');
-            if (cookiName == cookie[0]) {
-                return cookie;
-            }
+      if (startingPage) {
+        startingPage.style.display = "none";
+      }
+    });
+  });
+
+  //*render content of window
+  const renderWindowContent = (content) => {
+    switch (content) {
+      case "tictactoe":
+        windowContent.insertAdjacentHTML("beforeend", renderTicTacToe());
+        initTicTacToe();
+        break;
+      case "calculator":
+        windowContent.insertAdjacentHTML("beforeend", renderCalculatorBody());
+        const keys = document.querySelectorAll(".keys input");
+
+        if (keys) {
+          keys.forEach((key) => {
+            key.addEventListener("click", function () {
+              calculate(key);
+            });
+          });
         }
+        break;
+      case "params":
+        windowContent.insertAdjacentHTML("beforeend", renderParamsBody());
+        break;
+      default:
     }
+    displayedApp = content;
+    openedApps.push(content);
+  };
 
-    //* set the theme 
-    function setTheme(theme) {
-        if (theme == "dark") { //dark mode
-            document.body.style.backgroundImage = "url('assets/dark_mode.jpg')";
-            switchModeBtn.style.filter = "invert(100%)";
-            setCookie("theme", "dark", 30)
-        } else if (theme == "light") {        //light mode
-            document.body.style.backgroundImage = "url('assets/light_background_3.jpg')";
-            switchModeBtn.style.filter = "invert(0%)";
-            setCookie("theme", "light", 30)
+  let drag = false;
+  //*at click on calculator, display modal
+  if (calculatorIcon) {
+    calculatorIcon.addEventListener("mousedown", () => (drag = false));
+    calculatorIcon.addEventListener("mousemove", () => (drag = true));
+
+    calculatorIcon.addEventListener("mouseup", function () {
+      if (drag) {
+        return;
+      } else {
+        if (displayedApp == "calculator") {
+          backgroundWindow.style.display = "block";
+          calculatorPanel.style.display = "flex";
+        } else if (openedApps.includes("calculator")) {
+          backgroundWindow.style.display = "block";
+          calculatorPanel.style.display = "flex";
+          displayedApp = "calculator";
+        } else {
+          renderWindowContent("calculator");
+          calculatorPanel = document.querySelector(".calculator-wrapper");
+          backgroundWindow.style.display = "block";
         }
-    }
+      }
+    });
+  }
+  //*at click on morpion, display modal
+  if (morpionIcon) {
+    morpionIcon.addEventListener("mousedown", () => (drag = false));
+    morpionIcon.addEventListener("mousemove", () => (drag = true));
 
-    //* at load, check the cookie variable to set the theme
-    if (getCookie("theme")) {
-        const themeCookie = getCookie("theme");
-        if (themeCookie[1] == undefined || themeCookie == "light") {
-            setTheme("light"); //par défaut, c'est à light
-        } else if (themeCookie[1] == "dark") {
-            setTheme("dark");
+    morpionIcon.addEventListener("mouseup", function () {
+      if (drag) {
+        return;
+      } else {
+        if (displayedApp == "tictactoe") {
+          backgroundWindow.style.display = "block";
+          morpionPanel.style.display = "block";
+        } else if (openedApps.includes("tictactoe")) {
+          console.log("tictactoe already opened");
+          backgroundWindow.style.display = "block";
+          morpionPanel.style.display = "block";
+          displayedApp = "tictactoe";
+        } else {
+          renderWindowContent("tictactoe");
+          morpionPanel = document.querySelector("#tictac");
+          backgroundWindow.style.display = "block";
         }
-    }
+      }
+    });
+  }
 
-    //* calculator code
-    //*at click on element
-    if (keys) {
-        keys.forEach(key => {
-            key.addEventListener('click', function () {
-                const keyValue = key.value;
-                if (numbersKeys.includes(keyValue)) {//si chiffre 
-                    if (resetOutput == 1) {
-                        output = 0;
-                        resetOutput = 0;
-                    }
-                    if (keyValue == ".") {
-                        if (nbPoint == 0) {
-                            if (nbOperators == 0) {               //si toujours pas d'operateur, on continue de remplir
-                                operationPartOne += keyValue;
-                            }
-                            else {
-                                operationPartTwo += keyValue;
-                            }
-                            output += keyValue;
-                            nbPoint++;
-                        }
-                    }
-                    else {
-                        if (output == 0) {
-                            output = keyValue;
-                            operationPartOne = keyValue;     //construire la partie 1 de l'opération
-                        } else {
-                            if (nbOperators == 0) {               //si toujours pas d'operateur, on continue de remplir
-                                output += keyValue;
-                                operationPartOne += keyValue;
-                            }
-                            else {                               //le cas ou on a déjà un operateur
-                                if (operationPartTwo == 0) {
-                                    const outputLength = output.length;
-                                    if (output.charAt(outputLength - 1) == 0) {
-                                        operationPartTwo = keyValue;
-                                        output[outputLength - 1] = keyValue;
+  //*at click on params, display modal
+  if (paramsIcon) {
+    paramsIcon.addEventListener("mousedown", () => (drag = false));
+    paramsIcon.addEventListener("mousemove", () => (drag = true));
 
-                                    } else {
-                                        operationPartTwo += keyValue;
-                                        output += keyValue;
-                                    }
-                                } else {
-                                    operationPartTwo += keyValue;
-                                    output += keyValue;
-                                }
-                            }
-                        }
-                    }
-                } else if (operationsKeys.includes(keyValue)) {
-                    if (nbOperators == 0) {             //si aucun opérateur auparavant
-                        if (keyValue != "=" && keyValue != "+/-") {          //vérifier que le premier opérateur saisi n'est pas un =
-                            operator = keyValue;
-                            nbOperators++;
-                            output += operator;
-                        }
-                        else if (keyValue == "+/-") {
-                            operationPartOne = invertSignNumber(operationPartOne);
-                            output = operationPartOne;
-                        }
-                        nbPoint = 0;
-                        resetOutput = 0;
-                    } else {                    //dès qu'un operateur existe, vérifier lequel c'est, et faire l'operétation
-                        const outputLength = output.length;
-                        if (!operationsKeys.includes(output[outputLength - 1])) {
-                            if (keyValue != "+/-") {
-                                switch (operator) {
-                                    case '+':
-                                        resultOfOperation = add(operationPartOne, operationPartTwo);
-                                        break;
-                                    case '-':
-                                        resultOfOperation = substract(operationPartOne, operationPartTwo);
-                                        break;
-                                    case '/':
-                                        try {
-                                            resultOfOperation = devide(operationPartOne, operationPartTwo)
-                                        } catch (error) {
-                                            if (error instanceof DivisionError) {
-                                                errorMessage = "Error";
-                                            } else {
-                                                console.log(error.message);
-                                            }
-                                        }
-                                        break;
-                                    case '*':
-                                        resultOfOperation = multiply(operationPartOne, operationPartTwo);
-                                        break;
-                                }
-                                let listElement = document.createElement('li');   //créer une ligne dans le pannel d'affichage
-                                listElement.innerHTML += output;
-                                operationPartOne = resultOfOperation;
-                                operationPartTwo = 0;
-                                if (keyValue == "=") {
-                                    output = operationPartOne;
-                                    nbOperators = 0;
-                                    listElement.innerHTML += "=";
-                                    listElement.innerHTML += resultOfOperation;
-
-                                    if (errorMessage == 'Error') {
-                                        listElement.innerHTML = errorMessage;
-                                    }
-
-                                    operationsPannel.append(listElement);
-                                    errorMessage = "";
-                                    resetOutput = 1;
-
-                                } else {
-                                    operator = keyValue;
-                                    output = operationPartOne + keyValue;
-                                    resetOutput = 0;
-                                }
-                                nbPoint = 0;
-                            } else {
-                                operationPartTwo = invertSignNumber(operationPartTwo);
-                                output = operationPartOne + operator + operationPartTwo
-                            }
-                        }
-                    }
-                }
-                resultInput.value = output;
-            })
-        })
-    }
-
-    //*at click on calculator, display modal
-    if (calculatorIcon) {
-        calculatorIcon.addEventListener('click', function () {
-            operationsPannel.style.display = "block";
-            calculatorBody.style.display = "block";
-            backgroundWindow.style.display = "block";
-        });
-    }
-
-    //* at click on params, display 
-    if (paramsIcon) {
-        paramsIcon.addEventListener('click', function () {
-            paramsBody.style.display = "block";
-            backgroundWindow.style.display = "block";
-            calculatorWrapper.style.display = "none"
-        });
-    }
-    //* refresh button
-    if (refreshBtn) {
-        refreshBtn.addEventListener('click', function () {
-            operationPartOne = 0;
-            operationPartTwo = 0;
-            output = 0;
-            operator = undefined;
-            nbOperators = 0;
-            resultOfOperation = 0;
-            resultInput.value = 0;
-            operationsPannel.innerHTML = 0;
-        });
-    }
-
-    //* switch theme btn
-    if (switchModeBtn) {
-        let nbClickMode = 0;
-        switchModeBtn.addEventListener('click', function () {
-            if (nbClickMode % 2 == 0) {
-                setTheme("dark");
-            } else {
-                setTheme("light");
-            }
-            nbClickMode++
-        });
-    }
-
-    //* close window and app at clic on x
-    if (closeWindowButton) {
-        closeWindowButton.addEventListener('click', function () {
-            backgroundWindow.style.display = "none";
-            windowContent.innerHTML = "";
-            if (calculatorBody.style.display == "block") {
-                if (confirm("êtes-vous sûre de vouloir fermer la fenêtre?")) {
-                    calculatorIconSmall.style.display = "none";
-                    calculatorBody.style.display = "none";
-                    operationsPannel.style.display = "none";
-                    calculatorWrapper.style.display = "none"
-                }
-            }
-
-            if (paramsBody.style.display == "block") {
-                paramsBody.style.display = "none";
-                paramsIconSmall.style.display = "none";
-                operationsPannel.style.display = "none";
-            }
-
-            if (vibrationWrapper.style.display == "block") {
-                vibrationWrapper.style.display = "none";
-            }
-            if (displayedApp === "tictactoe") {
-                morpionsIconSmall.style.display = "none";
-                displayedApp = "";
-            }
-        });
-    }
-
-    //* reduce window and app at clic on -
-    if (reduceWindowButton) {
-        reduceWindowButton.addEventListener('click', function () {
-            backgroundWindow.style.display = "none";
-            if (calculatorBody.style.display == "block") {
-                calculatorBody.style.display = "none";
-                calculatorIconSmall.style.display = "block";
-                operationsPannel.style.display = "none";
-            }
-
-            if (paramsBody.style.display == "block") {
-                paramsBody.style.display = "none";
-                paramsIconSmall.style.display = "block";
-                operationsPannel.style.display = "none";
-            }
-
-            if (displayedApp === "tictactoe") {
-                morpionsIconSmall.style.display = "block";
-            }
-        });
-    }
-
-    //* at click on small icon of calc, display
-    calculatorIconSmall.addEventListener('click', function () {
-        if (calculatorBody.style.display == "none") {
-            backgroundWindow.style.display = "block";
-            calculatorBody.style.display = "block";
+    paramsIcon.addEventListener("mouseup", function () {
+      if (drag) {
+        return;
+      } else {
+        if (displayedApp == "params") {
+          backgroundWindow.style.display = "block";
+          paramsPanel.style.display = "block";
+        } else if (openedApps.includes("params")) {
+          console.log("params already opened");
+          backgroundWindow.style.display = "block";
+          paramsPanel.style.display = "block";
+          displayedApp = "params";
+        } else {
+          renderWindowContent("params");
+          paramsPanel = document.querySelector("#params");
+          console.log(paramsPanel);
+          backgroundWindow.style.display = "block";
+          paramsPanel.style.display = "block"; //*investiguer prq ça necessite 2 clique
         }
-    })
+      }
 
-    //* at click on small icon of calc, display
-    paramsIconSmall.addEventListener('click', function () {
-        if (paramsBody.style.display == "none") {
-            backgroundWindow.style.display = "block";
-            paramsBody.style.display = "block";
-        }
-    })
+      //* display param options
+      const paramOptions = document.getElementById("params-icons").children;
+      for (const param of paramOptions) {
+        param.addEventListener("click", function () {
+          let paramId = param.getAttribute("id");
+          //windowContent.innerHTML = "";   //remettre le contenu de windows à rien. pas sure que ce soit la meilleure manière de faire ça.
+          paramsPanel.style.display = "none";
+          switch (paramId) {
+            case "params-vibration":
+              if (openedParams !== undefined && openedParams.includes("vibration-wrapper")) {
+                document.querySelector("#vibration-wrapper").style.display = "block";
+              } else {
+                windowContent.insertAdjacentHTML("beforeend",  renderVibrationBody());
+                openedParams.push("vibration-wrapper");
+                vibrate();
+              }
+              break;
+          }
+        });
+      }
+    });
+  }
 
-
-    /**
-     * vibration code
-     */
-    if (paramVibration) {
-        paramVibration.addEventListener('click', function () {
-            paramsBody.style.display = "none";
-            if (vibrationWrapper) {
-                backgroundWindow.append(vibrationWrapper);
-                vibrationWrapper.style.display = "block";
-            }
-            //* Afficher ou non l'état de vibration (vibration activé ou désactivé)
-            if (VibrationDisplayBtn) {
-
-                const vibrationIconOn = document.querySelector("#vibration-icon-on");
-                const vibrationIconOff = document.querySelector("#vibration-icon-off");
-
-                VibrationDisplayBtn.addEventListener('click', function () {
-                    if (vibrationIconOn && vibrationIconOff) {
-                        if (VibrationDisplayBtn.innerHTML == "Masquer") {
-                            //si masquer l'état de vibration, masquer les deux icones;
-                            vibrationIconOn.style.display = "none"
-                            vibrationIconOff.style.display = "none"
-                            VibrationDisplayBtn.innerHTML = "Afficher";
-                            VibrationDisplayBtn.style.background = 'rgb(214, 133, 224, 0.7)';
-                        } else {
-                            //si afficher état de vibration, conditionner sur l'activation de vibration et afficher la bonne icone.
-                            //**Améliorer l'affichage */
-                            if (vibrationActivated == true) {
-                                console.log(vibrationActivated);
-                                vibrationIconOn.style.display = "block"
-                                vibrationIconOff.style.display = "none"
-                            } else {
-                                vibrationIconOff.style.display = "block"
-                                vibrationIconOn.style.display = "none"
-                            }
-                            VibrationDisplayBtn.innerHTML = "Masquer";
-                            VibrationDisplayBtn.style.background = 'rgb(123, 155, 216)';
-                        }
-                    }
-                })
-            }
-
-            //* Activer ou non le retour haptique de vibration
-            if (VibrationActivateBtn) {
-
-                VibrationActivateBtn.addEventListener('click', function () {
-                    if (VibrationActivateBtn.innerHTML == "Activer") {
-                        if (confirm("Activer le retour haptique de vibration ?")) {
-                            VibrationActivateBtn.innerHTML = "Désactiver";
-                            VibrationActivateBtn.style.background = 'rgb(123, 155, 216)';
-                            vibrationActivated = true;
-                        }
-                    } else {
-                        VibrationActivateBtn.innerHTML = "Activer";
-                        vibrationActivated = false;
-                        VibrationActivateBtn.style.background = 'rgb(214, 133, 224, 0.7)';
-                    }
-                    //activer le retour haptique sur tout le système 
-                    //CODE vibration à chaque clique 
-                    //stocker l'état de vibration à true ou false 
-                })
-            }
-        })
+  //* close window and app at clic on x
+  closeWindowButton.addEventListener("click", function () {
+    backgroundWindow.style.display = "none";
+    let temp;
+    let temp2;
+    if (displayedApp === "tictactoe") {
+      morpionsIconSmall.style.display = "none";
+      displayedApp = "";
+      windowContent.removeChild(morpionPanel);
+      temp = openedApps.filter((app) => app !== "tictactoe");
     }
-})
+    if (displayedApp === "calculator") {
+      calculatorIconSmall.style.display = "none";
+      displayedApp = "";
+      windowContent.removeChild(calculatorPanel);
+      temp = openedApps.filter((app) => app !== "calculator");
+    }
+    if (displayedApp === "params") {
+      paramsIconSmall.style.display = "none";
+      displayedApp = "";
+      windowContent.removeChild(paramsPanel);
+      temp = openedApps.filter((app) => app !== "params");
+      if (openedParams !== undefined) {
+        openedParams.forEach ((param) => {
+          windowContent.removeChild(document.querySelector(`#${param}`));
+          temp2 = openedParams.filter((param) => param !== param);
+        });
+      }
+      openedParams = temp2;
+    }
+    openedApps = temp;
+  });
 
+  //* reduce window and app at clic on -
+  reduceWindowButton.addEventListener("click", function () {
+    backgroundWindow.style.display = "none";
+    hideDisplayedApp(displayedApp);
+    if (displayedApp === "calculator") {
+      calculatorIconSmall.style.display = "block";
+    }
+    if (displayedApp === "tictactoe") {
+      morpionsIconSmall.style.display = "block";
+    }
+    if (displayedApp === "params") {
+      paramsIconSmall.style.display = "block";
+      openedParams.forEach ((param) => {
+        document.querySelector(`#${param}`).style.display = "none";
+      });
+    }
+    displayedApp = "";
+  });
 
+  //* at click on small icon of calc, display
+  calculatorIconSmall.addEventListener("click", function () {
+    if ((backgroundWindow.style.display === "none")) {
+      backgroundWindow.style.display = "block";
+      calculatorPanel.style.display = "flex";
+    } else if (displayedApp !== "calculator") {
+      hideDisplayedApp(displayedApp);
+      calculatorPanel.style.display = "flex";
+    }
+    displayedApp = "calculator";
+  });
+
+  //* at click on small icon of params, display
+  paramsIconSmall.addEventListener("click", function () {
+    if ((backgroundWindow.style.display === "none")) {
+      backgroundWindow.style.display = "block";
+      paramsPanel.style.display = "block";
+    } else if (displayedApp !== "params") {
+      hideDisplayedApp(displayedApp);
+      paramsPanel.style.display = "block";
+    }
+    displayedApp = "params";
+  });
+
+  //* at click on small icon of morpion, display
+  morpionsIconSmall.addEventListener("click", function () {
+    if ((backgroundWindow.style.display === "none")) {
+      backgroundWindow.style.display = "block";
+      morpionPanel.style.display = "block";
+    } else if (displayedApp !== "tictactoe") {
+      hideDisplayedApp(displayedApp);
+      morpionPanel.style.display = "block";
+    }
+    displayedApp = "tictactoe";
+  });
+
+  const hideDisplayedApp = (displayedApp) => {
+    switch (displayedApp) {
+      case "tictactoe":
+        morpionPanel.style.display = "none";
+        break;
+      case "calculator":
+        calculatorPanel.style.display = "none";
+        break;
+      case "params":
+        paramsPanel.style.display = "none";
+      default:
+        break;
+    }
+  };
+
+  //*code du drag
+  const dragElement = (elmnt) => {
+    let pos1 = 0,
+      pos2 = 0,
+      pos3 = 0,
+      pos4 = 0;
+    elmnt.onmousedown = dragMouseDown;
+
+    function dragMouseDown(e) {
+      e = e || window.event;
+      e.preventDefault();
+      // get the mouse cursor position at startup:
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      document.onmouseup = closeDragElement;
+      // call a function whenever the cursor moves:
+      document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+      e = e || window.event;
+      e.preventDefault();
+      // calculate the new cursor position:
+      pos1 = pos3 - e.clientX;
+      pos2 = pos4 - e.clientY;
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      // set the element's new position:
+      elmnt.style.top = elmnt.offsetTop - pos2 + "px";
+      elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
+    }
+
+    function closeDragElement() {
+      // stop moving when mouse button is released:
+      document.onmouseup = null;
+      document.onmousemove = null;
+    }
+  };
+
+  if (enterBtn) {
+    //enterBtn.style.display = "none"; //pourquoi ?
+  }
+
+  if (main) {
+    main.style.display = "block";
+  }
+
+  dragElement(backgroundWindow);
+
+  let isDragging = false;
+
+  document.addEventListener("mousedown", function (event) {
+    let dragElement = event.target.closest(".draggable");
+
+    if (!dragElement) return;
+
+    event.preventDefault();
+
+    dragElement.ondragstart = function () {
+      return false;
+    };
+
+    let coords, shiftX, shiftY;
+
+    startDrag(dragElement, event.clientX, event.clientY);
+
+    function onMouseUp(event) {
+      finishDrag();
+    }
+
+    function onMouseMove(event) {
+      moveAt(event.clientX, event.clientY);
+    }
+
+    // on drag start:
+    //   remember the initial shift
+    //   move the element position:fixed and a direct child of body
+    function startDrag(element, clientX, clientY) {
+      if (isDragging) {
+        return;
+      }
+
+      isDragging = true;
+
+      document.addEventListener("mousemove", onMouseMove);
+      element.addEventListener("mouseup", onMouseUp);
+
+      shiftX = clientX - element.getBoundingClientRect().left;
+      shiftY = clientY - element.getBoundingClientRect().top;
+
+      element.style.position = "fixed";
+
+      moveAt(clientX, clientY);
+    }
+
+    // switch to absolute coordinates at the end, to fix the element in the document
+    function finishDrag() {
+      if (!isDragging) {
+        return;
+      }
+
+      isDragging = false;
+
+      dragElement.style.top =
+        parseInt(dragElement.style.top) + window.pageYOffset + "px";
+      dragElement.style.position = "absolute";
+
+      document.removeEventListener("mousemove", onMouseMove);
+      dragElement.removeEventListener("mouseup", onMouseUp);
+    }
+
+    function moveAt(clientX, clientY) {
+      // new window-relative coordinates
+      let newX = clientX - shiftX;
+      let newY = clientY - shiftY;
+
+      // check if the new coordinates are below the bottom window edge
+      let newBottom = newY + dragElement.offsetHeight; // new bottom
+
+      // below the window? let's scroll the page
+      if (newBottom > document.documentElement.clientHeight) {
+        // window-relative coordinate of document end
+        let docBottom = document.documentElement.getBoundingClientRect().bottom;
+
+        // scroll the document down by 10px has a problem
+        // it can scroll beyond the end of the document
+        // Math.min(how much left to the end, 10)
+        let scrollY = Math.min(docBottom - newBottom, 10);
+
+        // calculations are imprecise, there may be rounding errors that lead to scrolling up
+        // that should be impossible, fix that here
+        if (scrollY < 0) scrollY = 0;
+
+        window.scrollBy(0, scrollY);
+
+        // a swift mouse move make put the cursor beyond the document end
+        // if that happens -
+        // limit the new Y by the maximally possible (right at the bottom of the document)
+        newY = Math.min(
+          newY,
+          document.documentElement.clientHeight - dragElement.offsetHeight
+        );
+      }
+
+      // check if the new coordinates are above the top window edge (similar logic)
+      if (newY < 0) {
+        // scroll up
+        let scrollY = Math.min(-newY, 10);
+        if (scrollY < 0) scrollY = 0; // check precision errors
+
+        window.scrollBy(0, -scrollY);
+        // a swift mouse move can put the cursor beyond the document start
+        newY = Math.max(newY, 0); // newY may not be below 0
+      }
+
+      // limit the new X within the window boundaries
+      // there's no scroll here so it's simple
+      if (newX < 0) newX = 0;
+      if (
+        newX >
+        document.documentElement.clientWidth - dragElement.offsetWidth
+      ) {
+        newX = document.documentElement.clientWidth - dragElement.offsetWidth;
+      }
+
+      dragElement.style.left = newX + "px";
+      dragElement.style.top = newY + "px";
+    }
+  });
+});

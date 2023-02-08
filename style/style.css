@@ -1,32 +1,58 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap");
-:root {
-  --white-background: #fff;
-  --light-blue-border: #47b2cd;
-  --light-blue-color: #7fcadd;
-  --light-yellow-border: #ecda0d;
-  --dark-indigo-background: #808fc7;
-  --dark-gray-border: #e8e8ea;
-  --dark-gray-dots: #e8e8ea;
-  --turquoise: #1abc9c;
-  --greensea: #16a085;
-  --night: #34495e;
-  --midnight: #2c3e50;
-}
 body {
-  height: 100vh;
-  background: url(../assets/light_background_3.jpg) no-repeat center center;
-  background-size: cover;
+  background-image: url("../assets/bg_6.jpg");
+  display: block;
   overflow: hidden;
+  height: 100vh;
+  background-size: cover;
   margin: 0;
   padding: 0;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Roboto Mono", monospace;
+  background-repeat: no-repeat;
+  background-position-x: center;
+}
+body #starting-page {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  background-color: #d59bbe;
+  z-index: 1;
+}
+body #starting-page .center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+body #starting-page .open_systeme_button {
+  padding: 1em 2em 1em 2em;
+  cursor: pointer;
+  color: white;
+  margin-top: 15em;
+}
+body #starting-page .open_systeme_button img {
+  width: 50px;
+  height: 50px;
+}
+body #starting-page .open_systeme_button:hover {
+  background-color: rgba(255, 255, 255, 0.658);
+}
+body .glass_effect {
+  background: rgba(255, 255, 255, 0.3);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.47);
+}
+body header {
+  display: none;
 }
 body header #switch-mode-btn {
   width: 2.5rem;
   right: 2.5rem;
   top: 4rem;
   position: absolute;
+  background-color: grey;
 }
 body header #switch-mode-btn img {
   width: 100%;
@@ -79,91 +105,75 @@ body header nav #right-menu-btns li {
 body header nav #right-menu-btns li img {
   width: 100%;
 }
-body header nav #right-menu-btns #vibration-icon-on, body header nav #right-menu-btns #vibration-icon-off {
+body header nav #right-menu-btns #vibration-icon-on,
+body header nav #right-menu-btns #vibration-icon-off {
+  display: none;
+}
+body main {
   display: none;
 }
 body main #app_list {
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  width: 45rem;
+  width: 100%;
   margin: 0;
+  /* GLASSMORPHISM PROPERTIES */
 }
-body main #app_list li,
-body main #app_list #calculator-icon {
-  flex-basis: 18%;
+body main #app_list .glass {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.47);
 }
-body main #app_list li img,
-body main #app_list #calculator-icon img {
+body main #app_list .darkglass {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.493);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.438);
+}
+body main #app_list .darkglass:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+body main #app_list .darkbtn {
+  background-color: #0a0027;
+  color: white;
+}
+body main #app_list .darkbtn:hover {
+  background-color: transparent;
+  background: rgba(28, 21, 37, 0.2);
+  border: 1px solid rgba(28, 21, 37, 0.29);
+}
+body main #app_list span {
+  width: 8vmax;
+  position: absolute;
+}
+body main #app_list span img {
   width: 100%;
   border-radius: 10px;
 }
-body main #app_list li img:hover,
-body main #app_list #calculator-icon img:hover {
+body main #app_list span img:hover {
   filter: brightness(120%);
   cursor: pointer;
 }
-body main .calculator-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  width: 35rem;
-  height: 35rem;
+body main #app_list #calculator-icon {
+  left: 20%;
+  top: 45%;
 }
-body main .calculator-wrapper #calculator {
-  display: none;
-  margin: 0;
-  width: 20rem;
+body main #app_list #clock-icon {
+  top: 45%;
+  left: 37%;
 }
-body main .calculator-wrapper #calculator .result td {
-  border-radius: 5px;
+body main #app_list #tictactoe-icon {
+  top: 45%;
+  left: 53%;
 }
-body main .calculator-wrapper #calculator .result td input {
-  width: 100%;
-  background: none;
-  border: none;
-  padding: 1rem 0;
-  font-family: "Roboto Mono", monospace;
+body main #app_list #params-icon {
+  top: 45%;
+  left: 70%;
 }
-body main .calculator-wrapper #calculator .keys input {
-  width: 5rem;
-  background: rgba(255, 255, 255, 0.7);
-  -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.47);
-  padding: 1.5rem;
-  border-radius: 5px;
-  font-family: "Roboto Mono", monospace;
-}
-body main .calculator-wrapper #calculator .keys input:hover {
-  background-color: white;
-}
-body main .calculator-wrapper #calculator .keys #btn-refresh {
-  background-color: rgb(214, 133, 224);
-}
-body main .calculator-wrapper #calculator .keys #btn-refresh:hover {
-  background-color: #e4aeea;
-}
-body main .calculator-wrapper #calculator .keys #btn-equal {
-  background-color: rgb(123, 155, 216);
-}
-body main .calculator-wrapper #calculator .keys #btn-equal:hover {
-  background-color: #a2b9e4;
-}
-body main .calculator-wrapper #operations-pannel {
-  height: 21.8rem;
-  width: 13rem;
-  margin-bottom: 0.3rem;
-  background: rgba(255, 255, 255, 0.7);
-  display: none;
-  border-radius: 5px;
-  list-style: none;
-  padding: 0;
-}
-body main .calculator-wrapper #operations-pannel li {
-  padding: 0 10px 0 10px;
-  color: rgb(56, 56, 56);
-  width: 100%;
+body main .center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 body main .window {
   display: none;
@@ -193,8 +203,7 @@ body main .window .window-upper-btns span:hover {
   color: grey;
 }
 body main .window .window-content {
-  height: 94%;
-  /* GLASSMORPHISM PROPERTIES */
+  height: 97%;
 }
 body main .window .window-content * {
   padding: 0;
@@ -203,85 +212,55 @@ body main .window .window-content * {
   font-family: "Raleway", sans-serif;
 }
 body main .window .window-content #tictac {
-  height: 100%;
+  height: inherit;
   background: url(../assets/light_background_3.jpg) no-repeat center center;
   background-size: cover;
   overflow: hidden;
 }
-body main .window .window-content #tictac header #switch-mode-btn {
-  width: 2.5rem;
-  right: 2.5rem;
-  top: 4rem;
-  position: absolute;
-  z-index: 20;
+body main .window .window-content #tictac .wrapper {
+  margin-top: 2%;
+  font-weight: 700;
 }
-body main .window .window-content #tictac header #switch-mode-btn img {
-  width: 100%;
-}
-body main .window .window-content #tictac header #switch-mode-btn img:hover {
-  cursor: pointer;
-}
-body main .window .window-content #menu-btn {
-  width: 2.5rem;
-  left: 2.5rem;
-  top: 4.5rem;
-  position: absolute;
-  z-index: 20;
-}
-body main .window .window-content #menu-btn img {
-  width: 30px;
-}
-body main .window .window-content #tictac header nav {
-  position: relative;
+body main .window .window-content #tictac .wrapper .score-wrapper {
   display: flex;
-  justify-content: end;
-  height: 5vh;
+  justify-content: space-between;
+  flex-direction: row;
 }
-body main .window .window-content #tictac header nav ul {
-  width: 20%;
-  display: flex;
-  justify-content: space-around;
-  margin: 0;
-  list-style: none;
-  align-items: center;
-  padding: 0.5rem 0;
+body main .window .window-content #tictac .wrapper .score-wrapper .score {
+  color: white;
+  font-size: 3vmin;
+  text-align: center;
+  margin: 0 1vh;
+  padding: 1.75vh;
+  border-radius: 8px;
+  background-color: #0a0027;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
-body main .window .window-content #tictac header nav ul li {
-  flex-basis: 6%;
-  color: #ffffff;
+body main .window .window-content #tictac .wrapper .score-wrapper #scoreTie {
+  background-color: white;
+  color: #0a0027;
 }
-body main .window .window-content #tictac header nav ul li img {
-  width: 100%;
-}
-body main .window .window-content html {
-  font-size: 16px;
-}
-body main .window .window-content .wrapper {
-  height: 94%;
-}
-body main .window .window-content .container {
-  width: 45vmin;
-  height: 45vmin;
+body main .window .window-content #tictac .wrapper .container {
+  width: 40vmin;
+  height: 33vmin;
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5vmin;
+  gap: 1vmin;
   margin: auto;
   margin-top: 1.5vmin;
+  justify-content: center;
 }
-body main .window .window-content button:hover {
-  cursor: pointer;
-}
-body main .window .window-content .button-option {
-  height: 14vmin;
-  width: 14vmin;
-  font-size: 12vmin;
+body main .window .window-content #tictac .wrapper .container .button-option {
+  height: 10vmin;
+  width: 10vmin;
+  font-size: 8.5vmin;
   color: #12043d;
-  border-radius: 16px;
+  border-radius: 10px;
 }
-body main .window .window-content .button-option:hover {
+body main .window .window-content #tictac .wrapper .container .button-option:hover {
   background: rgba(255, 255, 255, 0.5);
 }
-body main .window .window-content .gamebtn {
+body main .window .window-content #tictac .wrapper .gamebtn {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -289,8 +268,11 @@ body main .window .window-content .gamebtn {
   width: 50%;
   margin: auto;
 }
-body main .window .window-content .op {
-  font-size: 3vmin;
+body main .window .window-content #tictac button:hover {
+  cursor: pointer;
+}
+body main .window .window-content #tictac .op {
+  font-weight: 700;
   padding: 1em;
   border-radius: 8px;
   background-color: white;
@@ -301,35 +283,37 @@ body main .window .window-content .op {
   display: flex;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
-body main .window .window-content .choice {
+body main .window .window-content #tictac .choice {
   display: flex;
   padding: 0.5em;
 }
-body main .window .window-content .choice .op {
+body main .window .window-content #tictac .choice .op {
   padding: 0.3em 1.2em;
-  font-size: 14vmin;
+  font-size: 5vmin;
   margin: auto 0.5em;
   justify-content: center;
 }
-body main .window .window-content .op:hover {
+body main .window .window-content #tictac .choice .op:hover {
   background-color: transparent;
   border: 1px solid white;
   background: rgba(255, 255, 255, 0.3);
 }
-body main .window .window-content .popup {
+body main .window .window-content #tictac .popup {
   background-size: cover;
-  height: 100%;
+  height: inherit;
   width: 100%;
-  position: absolute;
   display: flex;
-  z-index: 2;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 1em;
-  font-size: 12vmin;
 }
-body main .window .window-content #play-again {
+body main .window .window-content #tictac .popup #message {
+  color: white;
+  text-align: center;
+  font-size: 1em;
+}
+body main .window .window-content #tictac .popup #play-again {
   padding: 0.5em 1em;
   font-size: 0.6em;
   border-radius: 8px;
@@ -337,23 +321,9 @@ body main .window .window-content #play-again {
   color: rgb(41, 34, 156);
   border: none;
 }
-body main .window .window-content #message {
-  color: white;
-  text-align: center;
-  font-size: 1em;
-}
-body main .window .window-content .popup.hide {
+body main .window .window-content #tictac .popup.hide {
   display: none;
-  -webkit-animation: fadeOut 0.5s ease-in-out;
-          animation: fadeOut 0.5s ease-in-out;
-}
-@-webkit-keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+  animation: fadeOut 0.5s ease-in-out;
 }
 @keyframes fadeIn {
   0% {
@@ -361,14 +331,6 @@ body main .window .window-content .popup.hide {
   }
   100% {
     opacity: 1;
-  }
-}
-@-webkit-keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
   }
 }
 @keyframes fadeOut {
@@ -379,104 +341,111 @@ body main .window .window-content .popup.hide {
     opacity: 0;
   }
 }
-body main .window .window-content .glass {
-  background: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.47);
-}
-body main .window .window-content .darkglass {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 0, 0, 0.493);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.438);
-}
-body main .window .window-content .darkglass:hover {
-  background: rgba(0, 0, 0, 0.5);
-}
-body main .window .window-content .darkbtn {
-  background-color: #0A0027;
-  color: white;
-}
-body main .window .window-content .darkbtn:hover {
-  background-color: transparent;
-  background: rgba(28, 21, 37, 0.2);
-  border: 1px solid rgba(28, 21, 37, 0.29);
-}
-body main .window .window-content .score-wrapper {
+body main .window .window-content .calculator-wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 35rem;
+  height: 35rem;
 }
-body main .window .window-content .score {
-  color: white;
-  font-size: 5vmin;
-  text-align: center;
-  padding: 1.75vh;
-  border-radius: 8px;
-  background-color: #0A0027;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+body main .window .window-content .calculator-wrapper #calculator {
+  margin: 0;
+  width: 20rem;
 }
-body main .window .window-content #scoreTie {
+body main .window .window-content .calculator-wrapper #calculator .result td {
+  border-radius: 5px;
+}
+body main .window .window-content .calculator-wrapper #calculator .result td input {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 1rem 0;
+  font-family: "Roboto Mono", monospace;
+}
+body main .window .window-content .calculator-wrapper #calculator .keys input {
+  width: 5rem;
+  background: rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.47);
+  padding: 1.5rem;
+  border-radius: 5px;
+  font-family: "Roboto Mono", monospace;
+}
+body main .window .window-content .calculator-wrapper #calculator .keys input:hover {
   background-color: white;
-  color: #0A0027;
 }
-body main #params {
+body main .window .window-content .calculator-wrapper #calculator .keys #btn-refresh {
+  background-color: rgb(214, 133, 224);
+}
+body main .window .window-content .calculator-wrapper #calculator .keys #btn-refresh:hover {
+  background-color: #e4aeea;
+}
+body main .window .window-content .calculator-wrapper #calculator .keys #btn-equal {
+  background-color: rgb(123, 155, 216);
+}
+body main .window .window-content .calculator-wrapper #calculator .keys #btn-equal:hover {
+  background-color: #a2b9e4;
+}
+body main .window .window-content .calculator-wrapper #operations-pannel {
+  height: 21.8rem;
+  width: 13rem;
+  margin-bottom: 0.3rem;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
+  list-style: none;
+  padding: 0;
+}
+body main .window .window-content .calculator-wrapper #operations-pannel li {
+  padding: 0 10px 0 10px;
+  color: rgb(56, 56, 56);
+  width: 100%;
+}
+body main .window .window-content .calculator-wrapper #operations-pannel:hover {
+  background-color: #a2b9e4;
+}
+body #params {
   display: none;
   width: 45rem;
   height: 33rem;
 }
-body main #params #params-icons {
+body #params #params-icons {
   list-style: none;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-around;
 }
-body main #params #params-icons li {
+body #params #params-icons li {
   text-align: center;
   flex-basis: 5.7rem;
   margin: 2rem;
 }
-body main #params #params-icons li img {
+body #params #params-icons li img {
   width: 100%;
 }
-body main #params #params-icons li img:hover {
+body #params #params-icons li img:hover {
   cursor: pointer;
 }
-body main .center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-body main .glass_effect {
-  background: rgba(255, 255, 255, 0.3);
-  -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.47);
-}
-body main #vibration-wrapper, #time-wrapper {
-  display: none;
+body #vibration-wrapper {
   background: rgba(255, 255, 255, 0.7);
   border-radius: 10px;
   width: 42rem;
   margin: auto;
-  margin-top: -34rem;
+  margin-top: 2rem;
   padding: 2rem;
   height: 28rem;
 }
-body main #vibration-wrapper div {
+body #vibration-wrapper div {
   display: flex;
   justify-content: space-between;
   margin: 1rem 0 1rem 0;
 }
-body main #vibration-wrapper button {
+body #vibration-wrapper button {
   background: rgba(214, 133, 224, 0.7);
   border-radius: 99px;
   box-sizing: border-box;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 13px;
   font-weight: 500;
   padding: 10px 18px;
@@ -486,206 +455,6 @@ body main #vibration-wrapper button {
   cursor: pointer;
   font-weight: 800;
 }
-body main #vibration-wrapper button:hover {
+body #vibration-wrapper button:hover {
   background-color: #ebc2f0;
 }/*# sourceMappingURL=style.css.map */
-param-switch {
-  position: absolute;
-  opacity: 0;
-  z-index: -1;
-}
-.param-label {
-  display: flex;
-  align-items: center;
-  width: 3.5em;
-  height: 2em;
-  background: var(--midnight);
-  border-radius: 1.5em;
-  transition: all .5s ease;
-  cursor: pointer;
-}
-.param-label-background {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 0.5em;
-  width: 1em;
-  height: 1em;
-  background: var(--night);
-  border-radius: 50%;
-  transition: all .5s ease;
-  box-shadow: 0 0 8px rgba(0,0,0,0.3);
-}
-.param-label-background::before {
-  content: "\00D7";
-  font-size: 1em;
-  font-weight: bold;
-  color: white;
-}
-.param-switch {
-  display: none;
-}
-.param-switch:checked + .param-label {
-  background: var(--greensea);
-}
-.param-switch:checked + .param-label .param-label-background {
-  margin-left: 60%;
-  background: var(--turquoise);
-}
-.param-switch:checked + .param-label .param-label-background::before {
-  content: "\2714";
-}
-.time-param-display {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 1rem 0 1rem 0;
-}
-.mode-switch {
-  display: none;
-}
-.mode-switch:checked ~ .background {
-  background: var(--dark-indigo-background);
-}
-.mode-switch:checked + .mode-label {
-  background: var(--midnight);
-  border-color: var(--night);
-}
-/*First dot outside moon */
-.mode-switch:checked + .mode-label .mode-label-background:before {
-  width: 3px;
-  height: 3px;
-  top: -10px;
-}
-/* Second dot ouside moon */
-.mode-switch:checked + .mode-label .mode-label-background {
-  left: 45px;
-  width: 3px;
-  height: 3px;
-}
-/* Third dot outside moon */
-.mode-switch:checked + .mode-label .mode-label-background:after {
-  width: 3px;
-  height: 3px;
-  left: -25px;
-  top: 5px;
-}
-.mode-switch:checked + .mode-label:before {
-  background: var(--white-background);
-  border-color: var(--dark-gray-border);
-  animation-name: switch;
-  animation-duration: 350ms;
-  animation-fill-mode: forwards;
-}
-.mode-switch:checked + .mode-label:after {
-  transition-delay: 350ms;
-  opacity: 1;
-}
-/* Slide bar */
-.mode-label {
-  width: 95px;
-  height: 40px;
-  float: right;
-  margin-top: 10px;
-  margin-right: 10px;
-  background: var(--light-blue-color);
-  border-radius: 100px;
-  border: 3px solid var(--light-blue-border);
-  display: flex;
-  position: relative;
-  transition: all 350ms ease;
-}
-/* Second stick light and whole group */
-.mode-label-background {
-  width: 7px;
-  height: 2px;
-  border-radius: 5px;
-  position: relative;
-  background: var(--light-yellow-border);
-  left: 60px;
-  top: 20px;
-  transition: all 150ms ease;
-}
-/* Sun and moon */
-.mode-label:before {
-  animation-name: reverse;
-  animation-duration: 350ms;
-  animation-fill-mode: forwards;
-  transition: all 350ms ease;
-  content: "";
-  width: 30px;
-  height: 30px;
-  border: 3px solid var(--light-yellow-border);
-  top: 2px;
-  left: 4px;
-  position: absolute;
-  border-radius: 82px;
-  background: var(--white-background);
-}
-/* Dots inside moon */
-.mode-label:after {
-  transition-delay: 0ms;
-  transition: all 250ms ease;
-  position: absolute;
-  content: "";
-  box-shadow: var(--dark-gray-dots) -13px 0 0 2px, var(--dark-gray-dots) -20px 5px 0 -2px;
-  left: 85px;
-  top: 10px;
-  width: 7px;
-  height: 7px;
-  background: transparent;
-  border-radius: 50%;
-  opacity: 0;
-}
-/* First stick light */
-.mode-label-background:before {
-  content: "";
-  position: absolute;
-  top: -5px;
-  width: 30px;
-  height: 2px;
-  border-radius: 5px;
-  background: var(--light-yellow-border);
-  left: -10px;
-  transition: all 150ms ease;
-}
-/* Third stick light */
-.mode-label-background:after {
-  content: "";
-  position: absolute;
-  top: 5px;
-  width: 30px;
-  height: 2px;
-  border-radius: 5px;
-  background: var(--light-yellow-border);
-  left: -5px;
-  transition: all 150ms ease;
-}
-
-/* Animation moon size and position */
-@keyframes switch {
-  0% {
-    left: 4px;
-  }
-  60% {
-    left: 4px;
-    width: 50px;
-  }
-  100% {
-    left: 55px;
-    width: 30px;
-  }
-}
-@keyframes reverse {
-  0% {
-    left: 20px;
-    width: 82px;
-  }
-  60% {
-    left: 40px;
-    width: 50px;
-  }
-  100% {
-    left: 4px;
-  }
-}
