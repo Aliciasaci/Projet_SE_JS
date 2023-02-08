@@ -32,6 +32,7 @@ let calculatorPanel = null;
 let paramsPanel = null;
 let displayedApp = "";
 let openedApps = [];
+let openedParams = [];
 
 // if page fully loaded
 window.addEventListener("load", () => {
@@ -192,11 +193,17 @@ window.addEventListener("load", () => {
       for (const param of paramOptions) {
         param.addEventListener("click", function () {
           let paramId = param.getAttribute("id");
-          windowContent.innerHTML = "";   //remettre le contenu de windows à rien. pas sure que ce soit la meilleure manière de faire ça.
+          //windowContent.innerHTML = "";   //remettre le contenu de windows à rien. pas sure que ce soit la meilleure manière de faire ça.
+          paramsPanel.style.display = "none";
           switch (paramId) {
             case "params-vibration":
-              windowContent.insertAdjacentHTML("beforeend",  renderVibrationBody());
-              vibrate();
+              if (openedParams !== undefined && openedParams.includes("vibration-wrapper")) {
+                document.querySelector("#vibration-wrapper").style.display = "block";
+              } else {
+                windowContent.insertAdjacentHTML("beforeend",  renderVibrationBody());
+                openedParams.push("vibration-wrapper");
+                vibrate();
+              }
               break;
           }
         });
@@ -208,6 +215,7 @@ window.addEventListener("load", () => {
   closeWindowButton.addEventListener("click", function () {
     backgroundWindow.style.display = "none";
     let temp;
+    let temp2;
     if (displayedApp === "tictactoe") {
       morpionsIconSmall.style.display = "none";
       displayedApp = "";
@@ -219,6 +227,19 @@ window.addEventListener("load", () => {
       displayedApp = "";
       windowContent.removeChild(calculatorPanel);
       temp = openedApps.filter((app) => app !== "calculator");
+    }
+    if (displayedApp === "params") {
+      paramsIconSmall.style.display = "none";
+      displayedApp = "";
+      windowContent.removeChild(paramsPanel);
+      temp = openedApps.filter((app) => app !== "params");
+      if (openedParams !== undefined) {
+        openedParams.forEach ((param) => {
+          windowContent.removeChild(document.querySelector(`#${param}`));
+          temp2 = openedParams.filter((param) => param !== param);
+        });
+      }
+      openedParams = temp2;
     }
     openedApps = temp;
   });
@@ -233,12 +254,18 @@ window.addEventListener("load", () => {
     if (displayedApp === "tictactoe") {
       morpionsIconSmall.style.display = "block";
     }
+    if (displayedApp === "params") {
+      paramsIconSmall.style.display = "block";
+      openedParams.forEach ((param) => {
+        document.querySelector(`#${param}`).style.display = "none";
+      });
+    }
     displayedApp = "";
   });
 
   //* at click on small icon of calc, display
   calculatorIconSmall.addEventListener("click", function () {
-    if ((backgroundWindow.style.display = "none")) {
+    if ((backgroundWindow.style.display === "none")) {
       backgroundWindow.style.display = "block";
       calculatorPanel.style.display = "flex";
     } else if (displayedApp !== "calculator") {
@@ -250,16 +277,19 @@ window.addEventListener("load", () => {
 
   //* at click on small icon of params, display
   paramsIconSmall.addEventListener("click", function () {
-    //la meme ici (paramsBody pas dans le DOM)
-    if (paramsBody.style.display == "none") {
+    if ((backgroundWindow.style.display === "none")) {
       backgroundWindow.style.display = "block";
-      paramsBody.style.display = "block";
+      paramsPanel.style.display = "block";
+    } else if (displayedApp !== "params") {
+      hideDisplayedApp(displayedApp);
+      paramsPanel.style.display = "block";
     }
+    displayedApp = "params";
   });
 
   //* at click on small icon of morpion, display
   morpionsIconSmall.addEventListener("click", function () {
-    if ((backgroundWindow.style.display = "none")) {
+    if ((backgroundWindow.style.display === "none")) {
       backgroundWindow.style.display = "block";
       morpionPanel.style.display = "block";
     } else if (displayedApp !== "tictactoe") {

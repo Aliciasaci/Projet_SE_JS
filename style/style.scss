@@ -11,7 +11,9 @@ $calculator-wrapper-height: 38rem;
 body {
   background-image: url("../assets/bg_6.jpg");
   display: block;
+  overflow: hidden;
   // background-repeat: no-repeat;
+  height: 100vh;
   background-size: cover;
   margin: 0;
   padding: 0;
