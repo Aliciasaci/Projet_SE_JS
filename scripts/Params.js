@@ -3,53 +3,60 @@ const backgroundWindow = document.querySelector(".window");
 const paramsBody = document.querySelector("#params");
 
 export function renderParamsBody() {
-  return `<div id="params" class="center">
-    <h2>Paramètres</h2>
-    <ul id="params-icons">
-      <li id="params-horloge">
-        <img src="assets/params_icons/clock.png" />
-        <span>Paramètres d'horloge</span>
-      </li>
-      <li id="params-date">
-        <img src="assets/params_icons/calendar.png" />
-        <span>Date</span>
-      </li>
-      <li id="params-vibration">
-        <img src="assets/params_icons/vibrate.png" />
-        <span>Vibration</span>
-      </li>
-      <li>
-        <img src="assets/params_icons/battery.png" />
-        <span>Batterie</span>
-      </li>
-      <li>
-        <img src="assets/params_icons/network.png" />
-        <span>Réseau</span>
-      </li>
-      <li>
-        <img src="assets/params_icons/lock.png" />
-        <span>Écran de verouillage</span>
-      </li>
-      <li>
-        <img src="assets/params_icons/theme.png" />
-        <span>Thèmes</span>
-      </li>
-      <!-- <li>
-                <img src="../src/assets/params_icons/params.png" />
-                <span>Paramètres supplimentaires</span>
-            </li> -->
-    </ul>
-  </div>`;
+  return `
+    <div id="params" class="center">
+      <h2>Paramètres</h2>
+      <ul id="params-icons">
+          <li id="params-time">
+              <img src="assets/params_icons/clock.png" />
+              <span>Paramètres d'horloge</span>
+          </li>
+          <li id="params-date">
+              <img src="assets/params_icons/calendar.png" />
+              <span>Date</span>
+          </li>
+          <li id="params-vibration">
+              <img src="assets/params_icons/vibrate.png" />
+              <span>Vibration</span>
+          </li>
+          <li id="params-battery">
+              <img src="assets/params_icons/battery.png" />
+              <span>Batterie</span>
+          </li>
+          <li id="params-network">
+              <img src="assets/params_icons/network.png" />
+              <span>Réseau</span>
+          </li>
+          <li>
+              <img src="assets/params_icons/lock.png" />
+              <span>Écran de verouillage</span>
+          </li>
+          <li>
+              <img src="assets/params_icons/theme.png" />
+              <span>Thèmes</span>
+          </li>
+      </ul>
+    </div>`;
 }
 
 export function renderVibrationBody() {
   return `
     <div id="vibration-wrapper">
-    <h1>Paramètres de vibrations</h1>
-    <div><b>État de vibration</b><button id="vibration-display-btn">Afficher</button></div>
-    <div><b>Retours haptique de vibration dans tout le système</b><button id="vibration-activate-btn">Activer</button></div>
+      <h1>Paramètres de vibrations</h1>
+      <div class="vibration-param-display">Afficher l'état de vibration
+          <input type="checkbox" id="vibration-display-check" name="params" class="param-switch">
+          <label for="vibration-display-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>
+      </div>
+      <div class="vibration-param-display">Retours haptique de vibration dans tout le système
+          <input type="checkbox" id="vibration-activate-check" name="params" class="param-switch">
+          <label for="vibration-activate-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>
+      </div>
     </div>
-    `;
+  `;
 }
 
 export function vibrate() {
@@ -129,4 +136,102 @@ function etatVibration(VibrationActivateBtn) {
       //TODO stocker l'état de vibration à true ou false
     });
   }
+}
+
+export function renderTimeParams() {
+  return `
+    <div id="time-wrapper">
+      <h1>Paramètres d'horloge</h1>
+      <div class="time-param-display">Afficher l'heure
+          <input type="checkbox" id="hour-display-check" name="params" class="param-switch">
+          <label for="hour-display-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>
+      </div>
+      <div class="time-param-display">Afficher la minute
+          <input type="checkbox" id="min-display-check" name="params" class="param-switch">
+          <label for="min-display-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>    
+      </div>
+      <div class="time-param-display">Afficher la seconde
+          <input type="checkbox" id="sec-display-check" name="params" class="param-switch">
+          <label for="sec-display-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>
+      </div>
+    </div>
+  `;
+}
+
+export function renderDateParams() {
+  return `
+    <div id="date-wrapper">
+      <h1>Paramètres de date</h1>
+      <div class="date-param-display">Afficher la date
+          <input type="checkbox" id="date-display-check" name="params" class="param-switch">
+          <label for="date-display-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>
+      </div>
+      <div class="date-param-display">Afficher l'année
+          <input type="checkbox" id="year-display-check" name="params" class="param-switch">
+          <label for="year-display-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>    
+      </div>
+      <div class="date-param-display">Afficher le mois
+          <input type="checkbox" id="month-display-check" name="params" class="param-switch">
+          <label for="month-display-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>
+      </div>
+      <div class="date-param-display">Afficher le jour
+          <input type="checkbox" id="day-display-check" name="params" class="param-switch">
+          <label for="day-display-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>
+      </div>
+    </div>
+  `;
+}
+
+export function renderBatteryParams() {
+  return `
+    <div id="battery-wrapper">
+      <h1>Paramètres de battery</h1>
+      <div class="battery-param-display">Afficher la batterie
+          <input type="checkbox" id="battery-display-check" name="params" class="param-switch">
+          <label for="battery-display-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>
+      </div>
+    </div>
+  `;
+}
+
+export function renderNetworkParams() {
+  return `
+    <div id="network-wrapper">
+      <h1>Paramètres de latence réseau</h1>
+      <div class="network-param-display">Afficher la latence réseau
+          <input type="checkbox" id="battery-display-check" name="params" class="param-switch">
+          <label for="battery-display-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>
+      </div>
+      <div class="network-param-display">Configurer le nom de domaine du serveur de ping
+          <input type="checkbox" id="domain-config-check" name="params" class="param-switch">
+          <label for="domain-config-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>
+      </div>
+      <div class="network-param-display">Configurer le délai de rafraichissement en secondes
+          <input type="checkbox" id="delay-network-check" name="params" class="param-switch">
+          <label for="delay-network-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>
+      </div>
+    </div>
+  `;
 }

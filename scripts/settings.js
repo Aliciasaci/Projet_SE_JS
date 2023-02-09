@@ -16,6 +16,7 @@ let checkboxArray = [];
 let checkbox = document.querySelectorAll("input[type=checkbox][name=params]");
 
 function saveCheckboxState() {
+    console.log("test page settings")
     checkbox.forEach((element, i) => { 
         checkboxArray[i] = checkbox[i].checked;
         sessionStorage.setItem("checkboxArray", JSON.stringify(checkboxArray));
