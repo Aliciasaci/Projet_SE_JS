@@ -8,6 +8,15 @@ $operations-pannel-width: 13rem;
 $calculator-wrapper-width: 35rem;
 $calculator-wrapper-height: 38rem;
 
+//*BREAKPOINTS
+$min-small-screen: 320px;
+$max-small-screen: 480px;
+
+$min-medium-screen: 481px;
+$max-medium-screen: 1024px;
+
+$min-large-screen: 1025px;
+
 body {
   background-image: url("../assets/bg_6.jpg");
   // display: block;
@@ -96,7 +105,7 @@ body {
 
         li {
           display: none;
-          flex-basis: 9%;
+          flex-basis: 13%;
           margin: 0 1.5rem 0 0;
 
           img {
@@ -111,13 +120,21 @@ body {
       }
 
       #right-menu-btns {
-        width: 20%;
+        @media only screen and (min-device-width: $min-medium-screen) and (max-device-width: $max-medium-screen) {
+          width: 50%;
+        }
+
+        @media only screen and (min-device-width: $min-large-screen) {
+          width: 30%;
+        }
+
         display: flex;
         justify-content: space-around;
         margin: 0;
         list-style: none;
         align-items: center;
         padding: 0.5rem 0;
+        width: 70%;
 
         li {
           flex-basis: 6%;
@@ -142,13 +159,6 @@ body {
     #app_list {
       width: 100%;
       margin: 0;
-
-      // @media (max-width: 768px) {
-      // flex-direction: column;
-      // justify-content: center;
-      // width: 7rem;
-      // }
-
       /* GLASSMORPHISM PROPERTIES */
       .glass {
         background: rgba(255, 255, 255, 0.3);
@@ -180,6 +190,10 @@ body {
       }
 
       span {
+        @media only screen and (min-device-width: $min-medium-screen) and (max-device-width: $max-medium-screen) {
+          width: 10vmax;
+        }
+
         width: 8vmax;
         position: absolute;
 
@@ -194,24 +208,72 @@ body {
         }
       }
 
-      #calculator-icon {
-        left: 20%;
-        top: 45%;
+      //*Small screen
+      @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
+        #calculator-icon {
+          left: 10%;
+          top: 15%;
+        }
+
+        #clock-icon {
+          top: 15%;
+          left: 40%;
+        }
+
+        #tictactoe-icon {
+          top: 15%;
+          left: 70%;
+        }
+
+        #params-icon {
+          top: 30%;
+          left: 10%;
+        }
       }
 
-      #clock-icon {
-        top: 45%;
-        left: 37%;
+      //*Medium screen
+      @media only screen and (min-device-width: $min-medium-screen) and (max-device-width: $max-medium-screen) {
+        #calculator-icon {
+          left: 10%;
+          top: 45%;
+        }
+
+        #clock-icon {
+          top: 45%;
+          left: 32%;
+        }
+
+        #tictactoe-icon {
+          top: 45%;
+          left: 53%;
+        }
+
+        #params-icon {
+          top: 45%;
+          left: 75%;
+        }
       }
 
-      #tictactoe-icon {
-        top: 45%;
-        left: 53%;
-      }
+      @media only screen and (min-device-width: $min-large-screen) {
+        #calculator-icon {
+          left: 20%;
+          top: 45%;
+        }
 
-      #params-icon {
-        top: 45%;
-        left: 70%;
+        #clock-icon {
+          top: 45%;
+          left: 37%;
+        }
+
+        #tictactoe-icon {
+          top: 45%;
+          left: 53%;
+        }
+
+        #params-icon {
+          top: 45%;
+          left: 70%;
+        }
       }
     }
 
