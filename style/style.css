@@ -104,7 +104,7 @@ body header nav #right-menu-btns {
 }
 @media only screen and (min-device-width: 1025px) {
   body header nav #right-menu-btns {
-    width: 30%;
+    width: 20%;
   }
 }
 body header nav #right-menu-btns li {
