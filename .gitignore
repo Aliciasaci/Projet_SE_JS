@@ -4,5 +4,6 @@
 **/*.test.js
 **/*.spec.js
 node_modules
+.vscode
 package-lock.json
 package.json

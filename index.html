@@ -42,9 +42,9 @@
                 <li><img src="assets/icons/signal.svg" /></li>
                 <li><img src="assets/icons/battery.svg" /></li>
                 <li>
-                    <div class="digital-clock-display">
-                        <span id="digital-clock-hour"></span> :
-                        <span id="digital-clock-min"></span> :
+                    <div id="clock-nav" class="digital-clock-display">
+                        <span id="digital-clock-hour"></span><span>:</span>
+                        <span id="digital-clock-min"></span><span>:</span>
                         <span id="digital-clock-sec"></span>
                     </div>
                 </li>
@@ -52,10 +52,12 @@
             </ul>
         </nav>
         <!-- Mode switch -->
-        <input type="checkbox" id="mode" class="mode-switch">
+        <input type="checkbox" id="mode" name="params" class="mode-switch">
         <label for="mode" class="mode-label">
-        <span class="mode-label-background"></span>
+            <span class="mode-label-background"></span>
         </label>
+
+        <!-- <span id="switch-mode-btn"><img src="assets/icons/day-and-night.svg"/></span> -->
         <a href="Sujet.pdf">Sujet</a>
     </header>
     <main>
@@ -73,7 +75,7 @@
                 <img src="assets/params.svg" />
             </span>
         </div>
-        <section class="window center">
+        <section class="window center glass">
             <div class="window-upper-btns">
                 <span><i class="fa-solid fa-minus"></i></span>
                 <span><i class="fa-regular fa-square"></i></span>
@@ -81,10 +83,48 @@
             </div>
             <div class="window-content"></div>
         </section>
+
+        <!-- Clock -->
+        <!-- <div id="clock" class="wrapper">
+            <div class="card">
+                <div class="tab">
+                    <button class="tab-links" onclick="openTab(event, 'tab-clock')" id="default-tab"><i class="fa fa-regular fa-clock"></i> Horloge</button>
+                    <button class="tab-links" onclick="openTab(event, 'tab-stop-watch')"><i class="fa fa-solid fa-stopwatch"></i> Chronomètre</button>
+                    <button class="tab-links" onclick="openTab(event, 'tab-timer')"><i class="fa fa-solid fa-hourglass-end"></i> Minuteur</button>  
+                </div>
+                <div id="tab-clock" class="tab-content">
+                    <div class="analog-clock">
+                        <div class="line">
+                            <div class="sub sub-one"></div>
+                            <div class="sub sub-two"></div>
+                            <div class="sub sub-three"></div>
+                            <div class="sub sub-four"></div>
+                            <div class="circle">
+                                <div class="hand hand-hour"></div>
+                                <div class="hand hand-min"></div>
+                                <div class="hand hand-second"></div>
+                                <div id="time-ref" class="time-ref-display"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="digital-clock" class="digital-clock-display">          
+                    </div>
+                </div>
+                <div id="tab-stop-watch" class="tab-content">
+                    <div>
+                        <span id="min">00</span> :
+                        <span id="sec">00</span> ,
+                        <span id="milisec">00</span>
+                    </div>
+        
+                </div>
+                <div id="tab-timer" class="tab-content">
+                    <p>Test timer</p>
+                </div>
+            </div>
+        </div> -->
     </main>
     <script src="scripts/script.js" type="module"></script>
-    <script src="scripts/clock.js"></script>
-
 </body>
 
 </html>

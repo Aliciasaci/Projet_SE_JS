@@ -16,10 +16,12 @@ let errorMessage = "";
 let intermediaryResult = 0;
 
 export function renderCalculatorBody() {
-  return `<div class="calculator-wrapper center">
+  return `
+  <h2 class="param-title">Calculatrice</h2>
+  <div class="calculator-wrapper center">
             <table id="calculator">
                 <tr class="result">
-                    <td colspan="4" class="glass_effect"> <input id="result-input" type="text" value="0" /></td>
+                    <td colspan="4" class="glass"> <input id="result-input" type="text" value="0" /></td>
                 </tr>
                 <tr class="keys">
                     <td> <input type="button" value="C" id="btn-refresh" /> </td>
@@ -135,7 +137,6 @@ export function calculate(key) {
     }
   } else if (operationsKeys.includes(keyValue)) {
     if (keyValue == "M+") {
-      console.log("broooooooooo");
       intermediaryResult = operationPartOne;
       window.alert("Le resultat a été mis en mémoire.");
     } else {
