@@ -6,7 +6,7 @@ $params-height: 33rem;
 $operations-pannel-height: 21.8rem;
 $operations-pannel-width: 13rem;
 $calculator-wrapper-width: 35rem;
-$calculator-wrapper-height: 38rem;
+// $calculator-wrapper-height: 38rem;
 
 body {
   background-image: url("../assets/bg_6.jpg");
@@ -53,7 +53,7 @@ body {
   }
 
   .glass_effect {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.47);
   }
@@ -80,8 +80,6 @@ body {
       position: relative;
       display: flex;
       justify-content: space-between;
-
-      //!remplacer par la class glass_effect dans nav - investiguer pourquoi ça marche pas
       background: rgba(255, 255, 255, 0.3);
       backdrop-filter: blur(5px);
       border: 1px solid rgba(255, 255, 255, 0.47);
@@ -187,7 +185,7 @@ body {
 
     /* GLASSMORPHISM PROPERTIES */
     .glass {
-      background: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.4);
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
@@ -195,13 +193,9 @@ body {
     }
 
     .darkglass {
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.4);
       border: 1px solid rgba(0, 0, 0, 0.493);
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.438);
-    }
-
-    .darkglass:hover {
-      background: rgba(0, 0, 0, 0.5);
     }
 
     .darkbtn {
@@ -226,9 +220,6 @@ body {
       display: none;
       height: $window-height;
       width: $window-width;
-      background: rgba(231, 227, 227, 0.7);
-      backdrop-filter: blur(5px);
-      border: 2px solid rgba(255, 255, 255, 0.3);
 
       .window-upper-btns {
         display: flex;
@@ -420,7 +411,6 @@ body {
           justify-content: space-between;
           align-items: flex-end;
           width: $calculator-wrapper-width;
-          height: $calculator-wrapper-width;
 
           #calculator {
             margin: 0;
@@ -475,7 +465,6 @@ body {
             height: $operations-pannel-height;
             width: $operations-pannel-width;
             margin-bottom: 0.3rem;
-            background: rgba(255, 255, 255, 0.7);
             border-radius: 5px;
             list-style: none;
             padding: 0;
@@ -705,8 +694,18 @@ body {
 
       li {
         text-align: center;
-        flex-basis: 5.7rem;
+        flex-basis: 7rem;
         margin: 2rem;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+          rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+        border-radius: 10px;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: 1rem;
+        padding-bottom: 0.2rem;
+        height: 9rem;
+        text-align: bottom;
+        text-align-last: center;
 
         img {
           width: 100%;
@@ -753,6 +752,16 @@ body {
         background-color: lighten(rgb(214, 133, 224), 15%);
       }
     }
+  }
+
+  .param-title {
+    color: #3e3e3e;
+    margin: auto;
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 4rem;
   }
 }
 

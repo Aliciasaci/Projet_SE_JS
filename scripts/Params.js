@@ -5,34 +5,34 @@ const paramsBody = document.querySelector("#params");
 export function renderParamsBody() {
   return `
     <div id="params" class="center">
-      <h2>Paramètres</h2>
+      <h2 class="param-title">Paramètres</h2>
       <ul id="params-icons">
           <li id="params-time">
-              <img src="assets/params_icons/clock.png" />
+              <img src="assets/params_icons/clock.svg" />
               <span>Paramètres d'horloge</span>
           </li>
           <li id="params-date">
-              <img src="assets/params_icons/calendar.png" />
+              <img src="assets/params_icons/calendar.svg" />
               <span>Date</span>
           </li>
           <li id="params-vibration">
-              <img src="assets/params_icons/vibrate.png" />
+              <img src="assets/params_icons/vibrate.svg" />
               <span>Vibration</span>
           </li>
           <li id="params-battery">
-              <img src="assets/params_icons/battery.png" />
+              <img src="assets/params_icons/battery.svg" />
               <span>Batterie</span>
           </li>
           <li id="params-network">
-              <img src="assets/params_icons/network.png" />
+              <img src="assets/params_icons/network.svg" />
               <span>Réseau</span>
           </li>
           <li>
-              <img src="assets/params_icons/lock.png" />
+              <img src="assets/params_icons/lock.svg" />
               <span>Écran de verouillage</span>
           </li>
           <li>
-              <img src="assets/params_icons/theme.png" />
+              <img src="assets/params_icons/theme.svg" />
               <span>Thèmes</span>
           </li>
       </ul>
