@@ -4,7 +4,7 @@ renderTimeParams, renderDateParams, renderBatteryParams, renderNetworkParams
 } from "./Params.js";
 import { render as renderTicTacToe, init as initTicTacToe } from "./tictactoe.js";
 import { setTheme } from "./Theme.js";
-import { renderClock } from "./clock.js";
+import { renderClock, openTab, setClock } from "./clock.js";
 
 //*variables
 const switchModeBtn = document.querySelector("#switch-mode-btn");
@@ -27,6 +27,7 @@ const windowContent = document.querySelector(".window-content");
 const morpionIcon = document.querySelector("#tictactoe-icon");
 const clockIcon = document.querySelector("#clock-icon");
 const windowBar = document.querySelector(".window-upper-btns");
+// document.getElementById("default-tab").click()
 
 
 let morpionPanel = null;
@@ -43,7 +44,6 @@ window.addEventListener("load", () => {
     function saveCheckboxState() {
         // Get all checkbox elements on the page
         let checkboxes = document.querySelectorAll("input[type=checkbox]");
-        console.log(checkboxes)
         // Add an event listener for the change event to each checkbox
         checkboxes.forEach(function(checkbox) {
             checkbox.addEventListener("change", function() {
@@ -112,6 +112,7 @@ window.addEventListener("load", () => {
             windowContent.insertAdjacentHTML("beforeend", renderTicTacToe());
             initTicTacToe();
         break;
+
         case "calculator":
             windowContent.insertAdjacentHTML("beforeend", renderCalculatorBody());
             const keys = document.querySelectorAll(".keys input");
@@ -124,8 +125,31 @@ window.addEventListener("load", () => {
                 });
             }
         break;
+
         case "clock":
             windowContent.insertAdjacentHTML("beforeend", renderClock());
+            // define tab buttons
+            let tabClock = document.querySelector("#clock-tab-btn");
+            let tabStopWatch = document.querySelector("#stopwatch-tab-btn");
+            let tabTimer = document.querySelector("#timer-tab-btn");
+            tabClock.addEventListener("click", function () {
+                openTab(event, "tab-clock");
+            });
+            tabStopWatch.addEventListener("click", function () {
+                openTab(event, "tab-stopwatch");
+            });
+            tabTimer.addEventListener("click", function () {
+                openTab(event, "tab-timer");
+            });
+            // define default tab to be displayed
+            document.getElementById("clock-tab-btn").click()
+
+            // define clock
+            setClock();
+            setInterval(setClock, 1000);
+
+        break;
+
         case "params":
             windowContent.insertAdjacentHTML("beforeend", renderParamsBody());
         break;
