@@ -4,7 +4,7 @@ renderTimeParams, renderDateParams, renderBatteryParams, renderNetworkParams
 } from "./Params.js";
 import { render as renderTicTacToe, init as initTicTacToe } from "./tictactoe.js";
 import { setTheme } from "./Theme.js";
-import { renderClock, openTab, setClock } from "./clock.js";
+import { renderClock, openTab, setClock, setDigitalClockTopBar } from "./clock.js";
 
 //*variables
 const switchModeBtn = document.querySelector("#switch-mode-btn");
@@ -40,47 +40,6 @@ let openedParams = [];
 
 // if page fully loaded
 window.addEventListener("load", () => {
-    saveCheckboxState();
-    function saveCheckboxState() {
-        // Get all checkbox elements on the page
-        let checkboxes = document.querySelectorAll("input[type=checkbox]");
-        // Add an event listener for the change event to each checkbox
-        checkboxes.forEach(function(checkbox) {
-            checkbox.addEventListener("change", function() {
-                // Get the current state of the checkbox
-                let isChecked = checkbox.checked;
-                // Save the state to session storage using the checkbox's id as the key
-                sessionStorage.setItem(checkbox.id, isChecked);
-                if (checkbox.id == "mode" && isChecked == true) {
-                    setTheme("dark");
-                } else {
-                    setTheme("light");
-                }
-            });
-        });
-
-        // Retrieve the saved states from session storage
-        checkboxes.forEach(function(checkbox) {
-        let savedState = sessionStorage.getItem(checkbox.id);
-            // Update the checkbox state and set the theme accordingly if theme checkbox is checked
-            if (checkbox.id == "mode") {
-                checkbox.checked = savedState === "true";
-                setTheme(savedState === "true" ? "dark" : "light");
-            } else {
-                checkbox.checked = savedState === "true";
-            }
-            // if (savedState === "true") {
-            //     checkbox.checked = true;
-            //     setTheme("dark");
-            // } else {
-            //     checkbox.checked = false;
-            //     setTheme("light");
-            // }
-        });
-    }
-    
-
-
     //*landing page code
     const enterBtn = document.querySelector(".open_systeme_button");
     const startingPage = document.querySelector("#starting-page");
@@ -104,6 +63,53 @@ window.addEventListener("load", () => {
             }
         });
     });
+
+    /**
+     * * Save the state of the checkbox to session storage
+     */
+    function saveCheckboxState() {
+        //* get all checkbox elements on the page
+        let checkboxes = document.querySelectorAll("input[type=checkbox]");
+        //* add an event listener for the change event to each checkbox
+        checkboxes.forEach(function(checkbox) {
+            checkbox.addEventListener("change", function() {
+                //* get the current state of the checkbox
+                let isChecked = checkbox.checked;
+                //* save the state to session storage using the checkbox's id as the key
+                sessionStorage.setItem(checkbox.id, isChecked);
+                if (checkbox.id == "mode" && isChecked == true) {
+                    setTheme("dark");
+                } else {
+                    setTheme("light");
+                }
+            });
+        });
+
+        //* retrieve the saved states from session storage
+        checkboxes.forEach(function(checkbox) {
+        let savedState = sessionStorage.getItem(checkbox.id);
+            //* update the checkbox state and set the theme accordingly if theme checkbox is checked
+            if (checkbox.id == "mode") {
+                checkbox.checked = savedState === "true";
+                setTheme(savedState === "true" ? "dark" : "light");
+            } else {
+                checkbox.checked = savedState === "true";
+            }
+            // if (savedState === "true") {
+            //     checkbox.checked = true;
+            //     setTheme("dark");
+            // } else {
+            //     checkbox.checked = false;
+            //     setTheme("light");
+            // }
+        });
+    }
+    saveCheckboxState();
+
+    //* elements to be displayed in top bar
+    setDigitalClockTopBar();
+    setInterval(setDigitalClockTopBar, 1000);
+
 
     //*render content of window
     const renderWindowContent = (content) => {
@@ -159,6 +165,7 @@ window.addEventListener("load", () => {
     openedApps.push(content);
     };
 
+    
     let drag = false;
     //*at click on calculator, display modal
     if (calculatorIcon) {

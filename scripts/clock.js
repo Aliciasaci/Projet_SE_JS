@@ -1,3 +1,7 @@
+/**
+ * * Render the clock windown when click on the clock app icon
+ * @returns {string} HTML code for the clock
+ */
 export function renderClock() {
     return `
     <div id="clock" class="wrapper">
@@ -40,25 +44,32 @@ export function renderClock() {
     </div>`;
 };
 
+/**
+ * * Open the tab when click on the tab button
+ * @param {string} event - Action to be performed on the tab
+ * @param {string} el - Element to be displayed : tab-clock, tab-stopwatch, tab-timer
+ */
 export function openTab(event, el) {
     let i, tabContent, tabLinks;
-    // clear the previous clicked content
+    //* clear the previous clicked content
     tabContent = document.getElementsByClassName("tab-content")
     for(i = 0; i < tabContent.length; i++) {
         tabContent[i].style.display = "none"
     }
-    // set "active" tab
+    //* set "active" tab
     tabLinks = document.getElementsByClassName("tab-links");
     for(i = 0; i < tabLinks.length; i++) {
         tabLinks[i].className = tabLinks[i].className.replace(" active", "")
     }
-    // display the clicked tab and set to active.
+    //* display the clicked tab and set to active.
     document.getElementById(el).style.display = "block"
     event.currentTarget.className += " active"
 }
 
 
-// horloge 
+/**
+ * * Set the clock to be displayed in the tab clock
+ */
 export function setClock() {
     const handHour = document.querySelector(".hand-hour")
     const handMin = document.querySelector(".hand-min")
@@ -66,7 +77,7 @@ export function setClock() {
     
     const now = new Date()
 
-    // analog clock
+    //* analog clock
     const seconds = now.getSeconds()
     const secondsPosition = ((seconds / 60) * 360) + 90
     handSecond.style.transform = `rotate(${secondsPosition}deg)`
@@ -85,12 +96,16 @@ export function setClock() {
         document.getElementById("time-ref").innerHTML = 'AM'
     }
 
-    // call function digital clock
+    //* call function digital clock
     setDigitalClock(seconds, mins, hours)
-    setDigitalClockMenu(seconds, mins, hours)
 }
 
-// digital clock to be displayed in the tab clock
+/**
+ * * Set the digital clock to be displayed in the tab clock
+ * @param {string} seconds - seconds
+ * @param {string} mins - minutes
+ * @param {string} hours - hours
+ */
 function setDigitalClock(seconds, mins, hours) {
     let digitalClock = document.getElementById("digital-clock")
     let hoursText = (hours < 10) ? "0" + hours : hours
@@ -101,8 +116,16 @@ function setDigitalClock(seconds, mins, hours) {
     digitalClock.innerText = timeText
     digitalClock.textContent = timeText
 }
-// digital clock to be displayed in the menu
-function setDigitalClockMenu(seconds, mins, hours) {
+
+/**
+ * * Set the digital clock to be displayed in the top bar
+ */
+export function setDigitalClockTopBar() {
+    const now = new Date()
+    const seconds = now.getSeconds()
+    const mins = now.getMinutes()
+    const hours = now.getHours()
+
     let digitalClockHour = document.getElementById("digital-clock-hour")
     let digitalClockMin = document.getElementById("digital-clock-min")
     let digitalClockSec = document.getElementById("digital-clock-sec")
@@ -122,6 +145,3 @@ function setDigitalClockMenu(seconds, mins, hours) {
     digitalClockSec.innerText = secText
     digitalClockSec.textContent = secText
 }
-
-// setInterval(setClock, 1000)
-// setClock()
