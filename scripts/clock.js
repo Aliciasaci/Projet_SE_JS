@@ -160,12 +160,10 @@ export function setDigitalClockTopBar() {
     digitalClockSec.textContent = secText;
 }
 
-let hours = 0;
-let mins = 0;
-let seconds = 0;
-let miliseconds = 0;
+let startTime;
+let elapsedTime = 0;
+let timerInterval;
 
-let interval = null;
 let status = "PAUSED";
 let lapCount = 0;
 
@@ -173,24 +171,23 @@ let lapCount = 0;
  * * Start the stopwatch
  */
 function startStopWatch() {
-    miliseconds++;
-    if(miliseconds === 100) {
-        miliseconds = 0;
-        seconds++;
-        if(seconds === 60) {
-            seconds = 0;
-            mins++;
-            if(mins === 60) {
-                mins = 0;
-                hours++;
-            }
-        }
-    }
+    //* Use Date() to get the current time
+    startTime = new Date().getTime();
+    timerInterval = setInterval(function () {
+        const elapsedTime = new Date().getTime() - startTime; //* Calculate the elapsed time in ms
 
-    document.getElementById("stopwatch-hour").innerHTML = hours < 10 ? "0" + hours : hours;
-    document.getElementById("stopwatch-min").innerHTML = mins < 10 ? "0" + mins : mins;
-    document.getElementById("stopwatch-sec").innerHTML = seconds < 10 ? "0" + seconds : seconds;
-    document.getElementById("stopwatch-milisec").innerHTML = miliseconds < 10 ? "0" + miliseconds : miliseconds;
+        //* Convert the elapsed time to hours, mins, seconds and miliseconds
+        const hours = Math.floor(elapsedTime / 3600000);
+        const mins = Math.floor((elapsedTime % 3600000) / 60000);
+        const seconds = Math.floor(((elapsedTime % 360000) % 60000) / 1000);
+        const miliseconds = Math.floor(((elapsedTime % 360000) % 60000) % 1000 / 10);
+
+        //* Format the minutes, seconds and miliseconds to 2 digits
+        document.getElementById("stopwatch-hour").innerHTML = hours;
+        document.getElementById("stopwatch-min").innerHTML = mins.toString().padStart(2, "0");
+        document.getElementById("stopwatch-sec").innerHTML = seconds.toString().padStart(2, "0");
+        document.getElementById("stopwatch-milisec").innerHTML = miliseconds.toString().padStart(2, "0");
+    }, 10); //* Update every 10ms
 }
 
 /**
@@ -198,11 +195,11 @@ function startStopWatch() {
  */
 export function startPause() {
     if(status === "PAUSED") {
-        interval = window.setInterval(startStopWatch, 10);
+        startStopWatch();
         document.getElementById("start-pause-stopwatch").innerHTML = "Terminer";
         status = "RUNNING";
     } else {
-        window.clearInterval(interval);
+        window.clearInterval(timerInterval);
         document.getElementById("start-pause-stopwatch").innerHTML = "Démarrer";
         status = "PAUSED";
     }
@@ -212,11 +209,8 @@ export function startPause() {
  * * Reset the stopwatch to 00:00:00:00
  */
 export function reset() {
-    window.clearInterval(interval);
-    hours = 0;
-    mins = 0;
-    seconds = 0;
-    miliseconds = 0;
+    window.clearInterval(timerInterval);
+    elapsedTime = 0;
     document.getElementById("stopwatch-hour").innerHTML = "00";
     document.getElementById("stopwatch-min").innerHTML = "00";
     document.getElementById("stopwatch-sec").innerHTML = "00";
@@ -241,7 +235,7 @@ export function lap() {
         lapItem.className = "lap-item";
         lapItem.innerHTML = `
             <div class="lap-item-number">${lapCount}</div>
-            <div class="lap-item-time">${hours < 10 ? "0" + hours : hours}:${mins < 10 ? "0" + mins : mins}:${seconds < 10 ? "0" + seconds : seconds}:${miliseconds < 10 ? "0" + miliseconds : miliseconds}</div>
+            <div class="lap-item-time">${document.getElementById("stopwatch-hour").innerHTML}:${document.getElementById("stopwatch-min").innerHTML}:${document.getElementById("stopwatch-sec").innerHTML}:${document.getElementById("stopwatch-milisec").innerHTML}</div>
         `;
         lapList.appendChild(lapItem);
     }
