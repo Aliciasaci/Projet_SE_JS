@@ -30,12 +30,27 @@ export function renderClock() {
                 </div>
             </div>
             <div id="tab-stopwatch" class="tab-content">
-                <div>
-                    <span id="min">00</span> :
-                    <span id="sec">00</span> ,
-                    <span id="milisec">00</span>
+                <div class="stopwatch-wrapper">
+                    <div class="time-display">
+                        <span id="stopwatch-hour">00</span> :
+                        <span id="stopwatch-min">00</span> :
+                        <span id="stopwatch-sec">00</span> ,
+                        <span id="stopwatch-milisec">00</span> 
+                    </div>
+                    <div class="stopwatch-btn">
+                        <button id="start-pause-stopwatch" class="btn btn-stopwatch btn-start-stopwatch">Démarrer</button>
+                        <button id="reset-stopwatch" class="btn btn-stopwatch btn-reset-stopwatch">Effacer</button>
+                        <button id="lap-stopwatch" class="btn btn-stopwatch btn-lap-stopwatch">Arrêter</button>
+                    </div>
+                    <div class="stopwatch-lap">
+                        <div id="lap-list" class="lap-list">
+                            <div class="lap-item">
+                                <span class="lap-item-number"></span>
+                                <span class="lap-item-time"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
             <div id="tab-timer" class="tab-content">
                 <p>Test timer</p>
@@ -49,55 +64,54 @@ export function renderClock() {
  * @param {string} event - Action to be performed on the tab
  * @param {string} el - Element to be displayed : tab-clock, tab-stopwatch, tab-timer
  */
-export function openTab(event, el) {
+export function openTab(ev, el) {
     let i, tabContent, tabLinks;
     //* clear the previous clicked content
-    tabContent = document.getElementsByClassName("tab-content")
+    tabContent = document.getElementsByClassName("tab-content");
     for(i = 0; i < tabContent.length; i++) {
-        tabContent[i].style.display = "none"
+        tabContent[i].style.display = "none";
     }
     //* set "active" tab
     tabLinks = document.getElementsByClassName("tab-links");
     for(i = 0; i < tabLinks.length; i++) {
-        tabLinks[i].className = tabLinks[i].className.replace(" active", "")
+        tabLinks[i].className = tabLinks[i].className.replace(" active", "");
     }
     //* display the clicked tab and set to active.
-    document.getElementById(el).style.display = "block"
-    event.currentTarget.className += " active"
+    document.getElementById(el).style.display = "block";
+    event.currentTarget.className += " active";
 }
-
 
 /**
  * * Set the clock to be displayed in the tab clock
  */
 export function setClock() {
-    const handHour = document.querySelector(".hand-hour")
-    const handMin = document.querySelector(".hand-min")
-    const handSecond = document.querySelector(".hand-second")
+    const handHour = document.querySelector(".hand-hour");
+    const handMin = document.querySelector(".hand-min");
+    const handSecond = document.querySelector(".hand-second");
     
-    const now = new Date()
+    const now = new Date();
 
     //* analog clock
-    const seconds = now.getSeconds()
-    const secondsPosition = ((seconds / 60) * 360) + 90
-    handSecond.style.transform = `rotate(${secondsPosition}deg)`
+    const seconds = now.getSeconds();
+    const secondsPosition = ((seconds / 60) * 360) + 90;
+    handSecond.style.transform = `rotate(${secondsPosition}deg)`;
 
-    const mins = now.getMinutes()
-    const minsPosition = ((mins / 60) * 360) + ((seconds / 60) * 6) + 90 
-    handMin.style.transform = `rotate(${minsPosition}deg)`
+    const mins = now.getMinutes();
+    const minsPosition = ((mins / 60) * 360) + ((seconds / 60) * 6) + 90 ;
+    handMin.style.transform = `rotate(${minsPosition}deg)`;
 
-    const hours = now.getHours()
-    const hoursPosition = ((hours / 12) * 360) + ((mins / 60) * 30) + 90
-    handHour.style.transform = `rotate(${hoursPosition}deg)`
+    const hours = now.getHours();
+    const hoursPosition = ((hours / 12) * 360) + ((mins / 60) * 30) + 90;
+    handHour.style.transform = `rotate(${hoursPosition}deg)`;
 
     if(hours > 11) {
-        document.getElementById("time-ref").innerHTML = 'PM'
+        document.getElementById("time-ref").innerHTML = 'PM';
     } else {
-        document.getElementById("time-ref").innerHTML = 'AM'
+        document.getElementById("time-ref").innerHTML = 'AM';
     }
 
     //* call function digital clock
-    setDigitalClock(seconds, mins, hours)
+    setDigitalClock(seconds, mins, hours);
 }
 
 /**
@@ -107,41 +121,131 @@ export function setClock() {
  * @param {string} hours - hours
  */
 function setDigitalClock(seconds, mins, hours) {
-    let digitalClock = document.getElementById("digital-clock")
-    let hoursText = (hours < 10) ? "0" + hours : hours
-    let minsText = (mins < 10) ? "0" + mins : mins
-    let secondsText = (seconds < 10) ? "0" + seconds : seconds
+    let digitalClock = document.getElementById("digital-clock");
+    let hoursText = (hours < 10) ? "0" + hours : hours;
+    let minsText = (mins < 10) ? "0" + mins : mins;
+    let secondsText = (seconds < 10) ? "0" + seconds : seconds;
 
-    let timeText = hoursText + ":" + minsText + ":" + secondsText
-    digitalClock.innerText = timeText
-    digitalClock.textContent = timeText
+    let timeText = hoursText + ":" + minsText + ":" + secondsText;
+    digitalClock.innerText = timeText;
+    digitalClock.textContent = timeText;
 }
 
 /**
  * * Set the digital clock to be displayed in the top bar
  */
 export function setDigitalClockTopBar() {
-    const now = new Date()
-    const seconds = now.getSeconds()
-    const mins = now.getMinutes()
-    const hours = now.getHours()
+    const now = new Date();
+    const seconds = now.getSeconds();
+    const mins = now.getMinutes();
+    const hours = now.getHours();
 
-    let digitalClockHour = document.getElementById("digital-clock-hour")
-    let digitalClockMin = document.getElementById("digital-clock-min")
-    let digitalClockSec = document.getElementById("digital-clock-sec")
+    let digitalClockHour = document.getElementById("digital-clock-hour");
+    let digitalClockMin = document.getElementById("digital-clock-min");
+    let digitalClockSec = document.getElementById("digital-clock-sec");
 
-    let hoursText = (hours < 10) ? "0" + hours : hours
-    let minsText = (mins < 10) ? "0" + mins : mins
-    let secondsText = (seconds < 10) ? "0" + seconds : seconds
+    let hoursText = (hours < 10) ? "0" + hours : hours;
+    let minsText = (mins < 10) ? "0" + mins : mins;
+    let secondsText = (seconds < 10) ? "0" + seconds : seconds;
 
-    let hourText = hoursText
-    let minText = minsText
-    let secText = secondsText
+    let hourText = hoursText;
+    let minText = minsText;
+    let secText = secondsText;
 
-    digitalClockHour.innerText = hourText
-    digitalClockHour.textContent = hourText
-    digitalClockMin.innerText = minText
-    digitalClockMin.textContent = minText
-    digitalClockSec.innerText = secText
-    digitalClockSec.textContent = secText
+    digitalClockHour.innerText = hourText;
+    digitalClockHour.textContent = hourText;
+    digitalClockMin.innerText = minText;
+    digitalClockMin.textContent = minText;
+    digitalClockSec.innerText = secText;
+    digitalClockSec.textContent = secText;
 }
+
+let hours = 0;
+let mins = 0;
+let seconds = 0;
+let miliseconds = 0;
+
+let interval = null;
+let status = "PAUSED";
+let lapCount = 0;
+
+/**
+ * * Start the stopwatch
+ */
+function startStopWatch() {
+    miliseconds++;
+    if(miliseconds === 100) {
+        miliseconds = 0;
+        seconds++;
+        if(seconds === 60) {
+            seconds = 0;
+            mins++;
+            if(mins === 60) {
+                mins = 0;
+                hours++;
+            }
+        }
+    }
+
+    document.getElementById("stopwatch-hour").innerHTML = hours < 10 ? "0" + hours : hours;
+    document.getElementById("stopwatch-min").innerHTML = mins < 10 ? "0" + mins : mins;
+    document.getElementById("stopwatch-sec").innerHTML = seconds < 10 ? "0" + seconds : seconds;
+    document.getElementById("stopwatch-milisec").innerHTML = miliseconds < 10 ? "0" + miliseconds : miliseconds;
+}
+
+/**
+ * * Start or pause the stopwatch
+ */
+export function startPause() {
+    if(status === "PAUSED") {
+        interval = window.setInterval(startStopWatch, 10);
+        document.getElementById("start-pause-stopwatch").innerHTML = "Terminer";
+        status = "RUNNING";
+    } else {
+        window.clearInterval(interval);
+        document.getElementById("start-pause-stopwatch").innerHTML = "Démarrer";
+        status = "PAUSED";
+    }
+}
+
+/**
+ * * Reset the stopwatch to 00:00:00:00
+ */
+export function reset() {
+    window.clearInterval(interval);
+    hours = 0;
+    mins = 0;
+    seconds = 0;
+    miliseconds = 0;
+    document.getElementById("stopwatch-hour").innerHTML = "00";
+    document.getElementById("stopwatch-min").innerHTML = "00";
+    document.getElementById("stopwatch-sec").innerHTML = "00";
+    document.getElementById("stopwatch-milisec").innerHTML = "00";
+    document.getElementById("start-pause-stopwatch").innerHTML = "Démarrer";
+    status = "PAUSED";
+
+    //* reset the lap list
+    let lapList = document.getElementById("lap-list");
+    lapList.innerHTML = "";
+    lapCount = 0;
+}
+
+/**
+ * * Add a lap to the lap list
+ */
+export function lap() {
+    if(status === "RUNNING") {
+        lapCount++;
+        let lapList = document.getElementById("lap-list");
+        let lapItem = document.createElement("li");
+        lapItem.className = "lap-item";
+        lapItem.innerHTML = `
+            <div class="lap-item-number">${lapCount}</div>
+            <div class="lap-item-time">${hours < 10 ? "0" + hours : hours}:${mins < 10 ? "0" + mins : mins}:${seconds < 10 ? "0" + seconds : seconds}:${miliseconds < 10 ? "0" + miliseconds : miliseconds}</div>
+        `;
+        lapList.appendChild(lapItem);
+    }
+}
+
+
+

@@ -1,10 +1,9 @@
 import { renderCalculatorBody, calculate } from "./Calculatrice.js";
-import { renderVibrationBody, vibrate, renderParamsBody,
-renderTimeParams, renderDateParams, renderBatteryParams, renderNetworkParams
+import { renderVibrationBody, vibrate, renderParamsBody, renderTimeParams, renderDateParams, renderBatteryParams, renderNetworkParams
 } from "./Params.js";
 import { render as renderTicTacToe, init as initTicTacToe } from "./tictactoe.js";
 import { setTheme } from "./Theme.js";
-import { renderClock, openTab, setClock, setDigitalClockTopBar } from "./clock.js";
+import { renderClock, openTab, setClock, setDigitalClockTopBar, startPause, reset, lap } from "./clock.js";
 
 //*variables
 const switchModeBtn = document.querySelector("#switch-mode-btn");
@@ -27,8 +26,6 @@ const windowContent = document.querySelector(".window-content");
 const morpionIcon = document.querySelector("#tictactoe-icon");
 const clockIcon = document.querySelector("#clock-icon");
 const windowBar = document.querySelector(".window-upper-btns");
-// document.getElementById("default-tab").click()
-
 
 let morpionPanel = null;
 let calculatorPanel = null;
@@ -140,9 +137,24 @@ window.addEventListener("load", () => {
             let tabTimer = document.querySelector("#timer-tab-btn");
             tabClock.addEventListener("click", function () {
                 openTab(event, "tab-clock");
+                // define clock
+                setClock();
+                setInterval(setClock, 1000);
             });
             tabStopWatch.addEventListener("click", function () {
                 openTab(event, "tab-stopwatch");
+                let startPauseBtn = document.querySelector("#start-pause-stopwatch");
+                startPauseBtn.addEventListener("click", function () {
+                    startPause();
+                });
+                let resetBtn = document.querySelector("#reset-stopwatch");
+                resetBtn.addEventListener("click", function () {
+                    reset();
+                });
+                let lapBtn = document.querySelector("#lap-stopwatch");
+                lapBtn.addEventListener("click", function () {
+                    lap();
+                });
             });
             tabTimer.addEventListener("click", function () {
                 openTab(event, "tab-timer");
@@ -150,9 +162,7 @@ window.addEventListener("load", () => {
             // define default tab to be displayed
             document.getElementById("clock-tab-btn").click()
 
-            // define clock
-            setClock();
-            setInterval(setClock, 1000);
+            
 
         break;
 
