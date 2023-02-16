@@ -301,6 +301,17 @@ body {
   }
 
   main {
+    input[type="text"] {
+      width: 100px;
+      height: 30px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+      color: #333;
+      font-size: 14px;
+    }
+
     display: none;
     #app_list {
       width: 100%;
@@ -900,7 +911,7 @@ body {
               font-size: 15px;
             }
 
-            .stopwatch-wrapper {
+            .stopwatch-wrapper, .timer-wrapper {
               display: flex;
               flex-direction: column;
               justify-content: center;
@@ -916,7 +927,7 @@ body {
               color: gray;
             }
 
-            .btn-stopwatch {
+            .btn-clock {
               font-weight: 700;
               padding: 1em;
               border-radius: 8px;
@@ -929,7 +940,7 @@ body {
               margin: 1em;
             }
 
-            .btn-stopwatch:hover {
+            .btn-clock:hover {
               background-color: rgba(41, 34, 156, 1);
               color: white;
               border: 1px solid rgba(41, 34, 156, 1);

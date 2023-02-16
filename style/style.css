@@ -274,6 +274,16 @@ body main {
   display: none;
   /* GLASSMORPHISM PROPERTIES */
 }
+body main input[type=text] {
+  width: 100px;
+  height: 30px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+  font-size: 14px;
+}
 body main #app_list {
   width: 100%;
   margin: 0;
@@ -774,7 +784,7 @@ body main .window .window-content #clock .card .digital-clock-display {
 body main .window .window-content #clock .card li > div.digital-clock-display {
   font-size: 15px;
 }
-body main .window .window-content #clock .card .stopwatch-wrapper {
+body main .window .window-content #clock .card .stopwatch-wrapper, body main .window .window-content #clock .card .timer-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -788,7 +798,7 @@ body main .window .window-content #clock .card .time-display {
   justify-content: center;
   color: gray;
 }
-body main .window .window-content #clock .card .btn-stopwatch {
+body main .window .window-content #clock .card .btn-clock {
   font-weight: 700;
   padding: 1em;
   border-radius: 8px;
@@ -800,7 +810,7 @@ body main .window .window-content #clock .card .btn-stopwatch {
   cursor: pointer;
   margin: 1em;
 }
-body main .window .window-content #clock .card .btn-stopwatch:hover {
+body main .window .window-content #clock .card .btn-clock:hover {
   background-color: rgb(41, 34, 156);
   color: white;
   border: 1px solid rgb(41, 34, 156);

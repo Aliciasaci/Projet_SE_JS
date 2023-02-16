@@ -38,9 +38,9 @@ export function renderClock() {
                         <span id="stopwatch-milisec">00</span> 
                     </div>
                     <div class="stopwatch-btn">
-                        <button id="start-pause-stopwatch" class="btn btn-stopwatch btn-start-stopwatch">Démarrer</button>
-                        <button id="reset-stopwatch" class="btn btn-stopwatch btn-reset-stopwatch">Effacer</button>
-                        <button id="lap-stopwatch" class="btn btn-stopwatch btn-lap-stopwatch">Arrêter</button>
+                        <button id="start-pause-stopwatch" class="btn btn-clock btn-start-stopwatch">Démarrer</button>
+                        <button id="reset-stopwatch" class="btn btn-clock btn-reset-stopwatch">Effacer</button>
+                        <button id="lap-stopwatch" class="btn btn-clock btn-lap-stopwatch">Arrêter (lap)</button>
                     </div>
                     <div class="stopwatch-lap">
                         <div id="lap-list" class="lap-list">
@@ -53,7 +53,17 @@ export function renderClock() {
                 </div>
             </div>
             <div id="tab-timer" class="tab-content">
-                <p>Test timer</p>
+                <div class="timer-wrapper">
+                    <div class="time-inputs">
+                        <input type="text" id="timer-hour">
+                        <input type="text" id="timer-min">
+                        <input type="text" id="timer-sec">
+                    </div>
+                    <div class="timer-btn">
+                        <button id="start-pause-timer" class="btn btn-clock btn-timer btn-start-timer">Démarrer</button>
+                        <button id="reset-timer" class="btn btn-clock btn-timer btn-reset-timer">Annuler</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>`;
@@ -61,10 +71,10 @@ export function renderClock() {
 
 /**
  * * Open the tab when click on the tab button
- * @param {string} event - Action to be performed on the tab
+ * @param {string} e - Event to be performed on the tab
  * @param {string} el - Element to be displayed : tab-clock, tab-stopwatch, tab-timer
  */
-export function openTab(ev, el) {
+export function openTab(e, el) {
     let i, tabContent, tabLinks;
     //* clear the previous clicked content
     tabContent = document.getElementsByClassName("tab-content");
@@ -78,7 +88,7 @@ export function openTab(ev, el) {
     }
     //* display the clicked tab and set to active.
     document.getElementById(el).style.display = "block";
-    event.currentTarget.className += " active";
+    e.currentTarget.className += " active";
 }
 
 /**
@@ -163,18 +173,19 @@ export function setDigitalClockTopBar() {
 let startTime;
 let elapsedTime = 0;
 let timerInterval;
-
 let status = "PAUSED";
 let lapCount = 0;
+let duration = 0;
+let alarm = new Audio("../assets/sounds/alarm.mp3");
 
 /**
  * * Start the stopwatch
  */
-function startStopWatch() {
+function updateStopWatch() {
     //* Use Date() to get the current time
     startTime = new Date().getTime();
     timerInterval = setInterval(function () {
-        const elapsedTime = new Date().getTime() - startTime; //* Calculate the elapsed time in ms
+        elapsedTime = new Date().getTime() - startTime; //* Calculate the elapsed time in ms
 
         //* Convert the elapsed time to hours, mins, seconds and miliseconds
         const hours = Math.floor(elapsedTime / 3600000);
@@ -182,8 +193,8 @@ function startStopWatch() {
         const seconds = Math.floor(((elapsedTime % 360000) % 60000) / 1000);
         const miliseconds = Math.floor(((elapsedTime % 360000) % 60000) % 1000 / 10);
 
-        //* Format the minutes, seconds and miliseconds to 2 digits
-        document.getElementById("stopwatch-hour").innerHTML = hours;
+        //* Format the hours, minutes, seconds and miliseconds to 2 digits
+        document.getElementById("stopwatch-hour").innerHTML = hours.toString().padStart(2, "0");
         document.getElementById("stopwatch-min").innerHTML = mins.toString().padStart(2, "0");
         document.getElementById("stopwatch-sec").innerHTML = seconds.toString().padStart(2, "0");
         document.getElementById("stopwatch-milisec").innerHTML = miliseconds.toString().padStart(2, "0");
@@ -193,10 +204,10 @@ function startStopWatch() {
 /**
  * * Start or pause the stopwatch
  */
-export function startPause() {
+export function startPauseStopWatch() {
     if(status === "PAUSED") {
-        startStopWatch();
-        document.getElementById("start-pause-stopwatch").innerHTML = "Terminer";
+        updateStopWatch();
+        document.getElementById("start-pause-stopwatch").innerHTML = "Annuler";
         status = "RUNNING";
     } else {
         window.clearInterval(timerInterval);
@@ -241,5 +252,74 @@ export function lap() {
     }
 }
 
+/**
+ * * Start the timer
+ */
+function updateTimer() {
+    startTime = new Date().getTime();
+    elapsedTime = new Date().getTime() - startTime; //* Calculate the elapsed time in ms
+    const remainingTime = duration - elapsedTime;
+    if(remainingTime <= 0) {
+        window.clearInterval(timerInterval);
+        //* Play the alarm sound when the time is over
+        alarm.play();
+        navigator.vibrate(1000);
+        //* Display a notification when the time is over
+        if (!("Notification" in window)) {
+            alert("This browser does not support desktop notification");
+            } else if (Notification.permission === "granted") {
+                    const notification = new Notification("Le temps s'est écoulé !");
+            } else if (Notification.permission !== "denied") {
+                Notification.requestPermission().then((permission) => {
+                if (permission === "granted") {
+                const notification = new Notification("Le temps s'est écoulé !");
+                }
+            });
+        }
+        document.getElementById("start-pause-timer").innerHTML = "Démarrer";
+        status = "PAUSED";
+    }
+    const hours = Math.floor(remainingTime / 3600000);
+    const mins = Math.floor((remainingTime % 3600000) / 60000);
+    const seconds = Math.floor(((remainingTime % 360000) % 60000) / 1000);
+    
+    document.getElementById("timer-hour").value = hours.toString().padStart(2, "0");
+    document.getElementById("timer-min").value = mins.toString().padStart(2, "0");
+    document.getElementById("timer-sec").value = seconds.toString().padStart(2, "0");
+}
+
+/**
+ * * Start or pause the timer
+ * @param {string} hourValue - The hour value of the timer
+ * @param {string} minValue - The minute value of the timer
+ * @param {string} secValue - The second value of the timer
+ */
+export function startPauseTimer(hourValue, minValue, secValue) {
+    if(status === "PAUSED") {
+        duration = hourValue * 3600000 + minValue * 60000 + secValue * 1000;
+        updateTimer();
+        timerInterval = setInterval(updateTimer, 10);
+        document.getElementById("start-pause-timer").innerHTML = "Arrêter";
+        status = "RUNNING";
+    } else {
+        window.clearInterval(timerInterval);
+        document.getElementById("start-pause-timer").innerHTML = "Démarrer";
+        status = "PAUSED";
+    }
+}
+
+/**
+ * * Reset the timer to 00:00:00
+ */
+export function resetTimer() {
+    window.clearInterval(timerInterval);
+    elapsedTime = 0;
+    document.getElementById("timer-hour").innerHTML = "00";
+    document.getElementById("timer-min").innerHTML = "00";
+    document.getElementById("timer-sec").innerHTML = "00";
+    document.getElementById("start-pause-timer").innerHTML = "Démarrer";
+    status = "PAUSED";
+    alarm.pause();
+}
 
 

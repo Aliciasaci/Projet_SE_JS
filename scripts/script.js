@@ -3,7 +3,7 @@ import { renderVibrationBody, vibrate, renderParamsBody, renderTimeParams, rende
 } from "./Params.js";
 import { render as renderTicTacToe, init as initTicTacToe } from "./tictactoe.js";
 import { setTheme } from "./Theme.js";
-import { renderClock, openTab, setClock, setDigitalClockTopBar, startPause, reset, lap } from "./clock.js";
+import { renderClock, openTab, setClock, setDigitalClockTopBar, startPauseStopWatch, reset, lap, startPauseTimer, resetTimer  } from "./clock.js";
 
 //*variables
 const switchModeBtn = document.querySelector("#switch-mode-btn");
@@ -107,6 +107,9 @@ window.addEventListener("load", () => {
     setDigitalClockTopBar();
     setInterval(setDigitalClockTopBar, 1000);
 
+    //* settings elements to be displayed in top bar
+
+
 
     //*render content of window
     const renderWindowContent = (content) => {
@@ -135,17 +138,17 @@ window.addEventListener("load", () => {
             let tabClock = document.querySelector("#clock-tab-btn");
             let tabStopWatch = document.querySelector("#stopwatch-tab-btn");
             let tabTimer = document.querySelector("#timer-tab-btn");
-            tabClock.addEventListener("click", function () {
-                openTab(event, "tab-clock");
+            tabClock.addEventListener("click", function (e) {
+                openTab(e, "tab-clock");
                 // define clock
                 setClock();
                 setInterval(setClock, 1000);
             });
-            tabStopWatch.addEventListener("click", function () {
-                openTab(event, "tab-stopwatch");
+            tabStopWatch.addEventListener("click", function (e) {
+                openTab(e, "tab-stopwatch");
                 let startPauseBtn = document.querySelector("#start-pause-stopwatch");
                 startPauseBtn.addEventListener("click", function () {
-                    startPause();
+                    startPauseStopWatch();
                 });
                 let resetBtn = document.querySelector("#reset-stopwatch");
                 resetBtn.addEventListener("click", function () {
@@ -156,14 +159,55 @@ window.addEventListener("load", () => {
                     lap();
                 });
             });
-            tabTimer.addEventListener("click", function () {
-                openTab(event, "tab-timer");
+            tabTimer.addEventListener("click", function (e) {
+                openTab(e, "tab-timer");
+                let idHour = document.querySelector("#timer-hour");
+                idHour.defaultValue = "00";
+                let idMin = document.querySelector("#timer-min");
+                idMin.defaultValue = "00";
+                let idSec = document.querySelector("#timer-sec");
+                idSec.defaultValue = "00";
+                idHour.onclick = function (event) {
+                    idHour.focus();
+                    idHour.value = '';
+                    console.log("hour clicked", event);
+                };
+                idHour.addEventListener("change", function () {
+                    console.log("hour changed", idHour.value);
+                });
+                idMin.onclick = function () {
+                    idMin.focus();
+                    idMin.value = '';
+                    console.log("min clicked");
+                };
+                idMin.addEventListener("change", function () {
+                    console.log("min changed", idMin.value);
+                });
+                idSec.onclick = function () {
+                    idSec.focus();
+                    idSec.value = '';
+                    console.log("sec clicked");
+                };
+                idSec.addEventListener("change", function () {
+                    console.log("min changed", idSec.value);
+                });
+
+
+                let startPauseBtn = document.querySelector("#start-pause-timer");
+                startPauseBtn.addEventListener("click", function () {
+                    let hourValue = idHour.value;
+                    let minValue = idMin.value;
+                    let secValue = idSec.value;
+                    console.log(hourValue, minValue, secValue)
+                    startPauseTimer(hourValue, minValue, secValue);
+                });
+                let resetBtn = document.querySelector("#reset-timer");
+                resetBtn.addEventListener("click", function () {
+                    resetTimer();
+                });
             });
             // define default tab to be displayed
             document.getElementById("clock-tab-btn").click()
-
-            
-
         break;
 
         case "params":
