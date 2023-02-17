@@ -17,7 +17,6 @@ let intermediaryResult = 0;
 
 export function renderCalculatorBody() {
   return `
-  <h2 class="param-title">Calculatrice</h2>
   <div class="calculator-wrapper center">
             <table id="calculator">
                 <tr class="result">

@@ -1,7 +1,7 @@
 export const render = () => {
   return `    
   <div id="tictac">      
-      <div class="wrapper">
+      <div class="wrapper glass">
           <div class="score-wrapper">
               <div class="score" id="scoreX"></div>
               <div class="score" id="scoreTie"></div>
