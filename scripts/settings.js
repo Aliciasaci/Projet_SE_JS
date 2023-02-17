@@ -9,6 +9,7 @@ const hourNavDisplay = document.querySelector('#digital-clock-hour');
 const minNavDisplay = document.querySelector('#digital-clock-min');
 const secNavDisplay = document.querySelector('#digital-clock-sec');
 
+//* ta tout déplacé ? on peut supprimer ? 
 /**
  * Save checkbox state in settings to session storage
  */

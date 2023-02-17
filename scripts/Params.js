@@ -5,34 +5,34 @@ const paramsBody = document.querySelector("#params");
 export function renderParamsBody() {
   return `
     <div id="params" class="center">
-      <h2>Paramètres</h2>
+      <h2 class="param-title">Paramètres</h2>
       <ul id="params-icons">
           <li id="params-time">
-              <img src="assets/params_icons/clock.png" />
+              <img src="assets/params_icons/clock.svg" />
               <span>Paramètres d'horloge</span>
           </li>
           <li id="params-date">
-              <img src="assets/params_icons/calendar.png" />
+              <img src="assets/params_icons/calendar.svg" />
               <span>Date</span>
           </li>
           <li id="params-vibration">
-              <img src="assets/params_icons/vibrate.png" />
+              <img src="assets/params_icons/vibrate.svg" />
               <span>Vibration</span>
           </li>
           <li id="params-battery">
-              <img src="assets/params_icons/battery.png" />
+              <img src="assets/params_icons/battery.svg" />
               <span>Batterie</span>
           </li>
           <li id="params-network">
-              <img src="assets/params_icons/network.png" />
+              <img src="assets/params_icons/network.svg" />
               <span>Réseau</span>
           </li>
           <li>
-              <img src="assets/params_icons/lock.png" />
+              <img src="assets/params_icons/lock.svg" />
               <span>Écran de verouillage</span>
           </li>
           <li>
-              <img src="assets/params_icons/theme.png" />
+              <img src="assets/params_icons/theme.svg" />
               <span>Thèmes</span>
           </li>
       </ul>
@@ -162,6 +162,49 @@ export function renderTimeParams() {
       </div>
     </div>
   `;
+}
+
+export function displayTimeTopBar() {
+    if (paramTime) {
+      paramTime.addEventListener("click", function() {
+          paramsBody.style.display = "none";
+          if (timeNavWrapper) {
+              backgroundWindow.append(timeNavWrapper);
+              timeNavWrapper.style.display = "block";
+          }
+
+          hourParamBtn.addEventListener("click", function() {
+              if (hourParamBtn.checked == true) {
+                  // document.getElementById(clock-nav).append(`<span id="digital-clock-hour"></span><span>:</span>`);
+                  hourNavDisplay.style.display = "block";
+                  hourNavDisplay.nextElementSibling.style.display = "block";
+              } else {
+                  // hourNavDisplay.remove();
+                  hourNavDisplay.style.display = "none";
+                  hourNavDisplay.nextElementSibling.style.display = "none";
+              }
+          })
+
+          minParamBtn.addEventListener("click", function() {
+              if (minParamBtn.checked == true) {
+
+                  minNavDisplay.style.display = "block";
+                  minNavDisplay.nextElementSibling.style.display = "block";
+              } else {
+                  minNavDisplay.style.display = "none";
+                  minNavDisplay.nextElementSibling.style.display = "none";
+              }
+          })
+
+          secParamBtn.addEventListener("click", function() {
+              if (secParamBtn.checked == true) {
+                  secNavDisplay.style.display = "block";
+              } else {
+                  secNavDisplay.style.display = "none";
+              }
+          })
+      })
+  }
 }
 
 export function renderDateParams() {

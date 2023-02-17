@@ -20,7 +20,7 @@ export function renderCalculatorBody() {
   <div class="calculator-wrapper center">
             <table id="calculator">
                 <tr class="result">
-                    <td colspan="4" class="glass_effect"> <input id="result-input" type="text" value="0" /></td>
+                    <td colspan="4" class="glass"> <input id="result-input" type="text" value="0" /></td>
                 </tr>
                 <tr class="keys">
                     <td> <input type="button" value="C" id="btn-refresh" /> </td>
