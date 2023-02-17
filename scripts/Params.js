@@ -164,6 +164,49 @@ export function renderTimeParams() {
   `;
 }
 
+export function displayTimeTopBar() {
+    if (paramTime) {
+      paramTime.addEventListener("click", function() {
+          paramsBody.style.display = "none";
+          if (timeNavWrapper) {
+              backgroundWindow.append(timeNavWrapper);
+              timeNavWrapper.style.display = "block";
+          }
+
+          hourParamBtn.addEventListener("click", function() {
+              if (hourParamBtn.checked == true) {
+                  // document.getElementById(clock-nav).append(`<span id="digital-clock-hour"></span><span>:</span>`);
+                  hourNavDisplay.style.display = "block";
+                  hourNavDisplay.nextElementSibling.style.display = "block";
+              } else {
+                  // hourNavDisplay.remove();
+                  hourNavDisplay.style.display = "none";
+                  hourNavDisplay.nextElementSibling.style.display = "none";
+              }
+          })
+
+          minParamBtn.addEventListener("click", function() {
+              if (minParamBtn.checked == true) {
+
+                  minNavDisplay.style.display = "block";
+                  minNavDisplay.nextElementSibling.style.display = "block";
+              } else {
+                  minNavDisplay.style.display = "none";
+                  minNavDisplay.nextElementSibling.style.display = "none";
+              }
+          })
+
+          secParamBtn.addEventListener("click", function() {
+              if (secParamBtn.checked == true) {
+                  secNavDisplay.style.display = "block";
+              } else {
+                  secNavDisplay.style.display = "none";
+              }
+          })
+      })
+  }
+}
+
 export function renderDateParams() {
   return `
     <div id="date-wrapper">

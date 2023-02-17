@@ -273,6 +273,19 @@ body header .mode-label-background:after {
 body main {
   display: none;
   /* GLASSMORPHISM PROPERTIES */
+<<<<<<< HEAD
+=======
+}
+body main input[type=text] {
+  width: 100px;
+  height: 30px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+  font-size: 14px;
+>>>>>>> clock-stopwatch-timer
 }
 body main #app_list {
   width: 100%;
@@ -307,17 +320,31 @@ body main #app_list #params-icon {
   left: 70%;
 }
 body main .glass {
+<<<<<<< HEAD
   background: rgba(255, 255, 255, 0.4);
+=======
+  background: rgba(255, 255, 255, 0.3);
+>>>>>>> clock-stopwatch-timer
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.47);
 }
 body main .darkglass {
+<<<<<<< HEAD
   background: rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(0, 0, 0, 0.493);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.438);
 }
+=======
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.493);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.438);
+}
+body main .darkglass:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+>>>>>>> clock-stopwatch-timer
 body main .darkbtn {
   background-color: #0a0027;
   color: white;
@@ -637,7 +664,11 @@ body main .window .window-content #clock .card .tab button {
   border-radius: 10px;
   outline: none;
   cursor: pointer;
+<<<<<<< HEAD
   padding: 14px 16px;
+=======
+  padding: 1px 16px;
+>>>>>>> clock-stopwatch-timer
   transition: 0.3s;
   font-size: 17px;
 }
@@ -760,11 +791,99 @@ body main .window .window-content #clock .card .digital-clock-display {
   position: relative;
   display: flex;
   justify-content: center;
+<<<<<<< HEAD
   color: #fff;
+=======
+  color: gray;
+>>>>>>> clock-stopwatch-timer
 }
 body main .window .window-content #clock .card li > div.digital-clock-display {
   font-size: 15px;
 }
+<<<<<<< HEAD
+=======
+body main .window .window-content #clock .card .stopwatch-wrapper, body main .window .window-content #clock .card .timer-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+body main .window .window-content #clock .card .time-display {
+  font-size: 40px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  color: gray;
+}
+body main .window .window-content #clock .card .btn-clock {
+  font-weight: 700;
+  padding: 1em;
+  border-radius: 8px;
+  background-color: white;
+  color: rgb(41, 34, 156);
+  border: 1px solid transparent;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  margin: 1em;
+}
+body main .window .window-content #clock .card .btn-clock:hover {
+  background-color: rgb(41, 34, 156);
+  color: white;
+  border: 1px solid rgb(41, 34, 156);
+}
+body main .window .window-content #clock .card .stopwatch-lap {
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  width: 100%;
+  height: 100%;
+  margin: 3em;
+}
+body main .window .window-content #clock .card .stopwatch-lap > div {
+  list-style: none;
+}
+body main .window .window-content #clock .card .stopwatch-lap::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+body main .window .window-content #clock .card .stopwatch-lap::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 6px;
+}
+body main .window .window-content #clock .card .stopwatch-lap::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 6px;
+}
+body main .window .window-content #clock .card .stopwatch-lap::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  border-radius: 6px;
+}
+body main .window .window-content #clock .card .stopwatch-lap > div {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5em;
+}
+body main .window .window-content #clock .card .stopwatch-lap > div > div {
+  width: 50%;
+}
+body main .window .window-content #clock .card .stopwatch-lap > div > div:first-child {
+  text-align: left;
+}
+body main .window .window-content #clock .card .stopwatch-lap > div > div:last-child {
+  text-align: right;
+}
+body main .window .window-content #clock .card .stopwatch-lap > div > div > span {
+  font-size: 20px;
+}
+body main .window .window-content #clock .card .stopwatch-lap > div > div > span:first-child {
+  color: gray;
+}
+body main .window .window-content #clock .card .stopwatch-lap > div > div > span:last-child {
+  color: rgb(41, 34, 156);
+}
+>>>>>>> clock-stopwatch-timer
 body #params {
   display: none;
   width: 45rem;
@@ -798,7 +917,11 @@ body #params #params-icons li img {
 body #params #params-icons li img:hover {
   cursor: pointer;
 }
+<<<<<<< HEAD
 body #vibration-wrapper {
+=======
+body #vibration-wrapper, body #time-wrapper, body #date-wrapper, body #battery-wrapper, body #network-wrapper {
+>>>>>>> clock-stopwatch-timer
   background: rgba(255, 255, 255, 0.7);
   border-radius: 10px;
   width: 42rem;
@@ -807,12 +930,16 @@ body #vibration-wrapper {
   padding: 2rem;
   height: 28rem;
 }
+<<<<<<< HEAD
 body #vibration-wrapper div {
+=======
+body #vibration-wrapper div, body #time-wrapper div, body #date-wrapper div, body #battery-wrapper div, body #network-wrapper div {
+>>>>>>> clock-stopwatch-timer
   display: flex;
   justify-content: space-between;
   margin: 1rem 0 1rem 0;
 }
-body #vibration-wrapper button {
+body #vibration-wrapper button, body #time-wrapper button, body #date-wrapper button, body #battery-wrapper button, body #network-wrapper button {
   background: rgba(214, 133, 224, 0.7);
   border-radius: 99px;
   box-sizing: border-box;
@@ -826,8 +953,9 @@ body #vibration-wrapper button {
   cursor: pointer;
   font-weight: 800;
 }
-body #vibration-wrapper button:hover {
+body #vibration-wrapper button:hover, body #time-wrapper button:hover, body #date-wrapper button:hover, body #battery-wrapper button:hover, body #network-wrapper button:hover {
   background-color: #ebc2f0;
+<<<<<<< HEAD
 }
 body .param-title {
   color: #3e3e3e;
@@ -837,4 +965,6 @@ body .param-title {
   align-items: center;
   justify-content: center;
   margin-top: 4rem;
+=======
+>>>>>>> clock-stopwatch-timer
 }/*# sourceMappingURL=style.css.map */

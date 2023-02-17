@@ -299,6 +299,17 @@ body {
   }
 
   main {
+    input[type="text"] {
+      width: 100px;
+      height: 30px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+      color: #333;
+      font-size: 14px;
+    }
+
     display: none;
     #app_list {
       width: 100%;
@@ -710,7 +721,6 @@ body {
             border: 1px solid rgba(255, 255, 255, 0.25);
             box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
             backdrop-filter: blur(5px);
-
             .tab {
               overflow: hidden;
               border: 1px solid #ccc;
@@ -726,7 +736,7 @@ body {
                 border-radius: 10px;
                 outline: none;
                 cursor: pointer;
-                padding: 14px 16px;
+                padding: 1px 16px;
                 transition: 0.3s;
                 font-size: 17px;
               }
@@ -749,9 +759,9 @@ body {
               padding: 1rem;
               border: 5px solid #282828;
               box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5),
-                inset 4px 4px 10px rgba(0, 0, 0, 0.5),
-                inset -4px -4px 10px rgba(67, 67, 67, 0.5),
-                4px 4px 10px rgba(0, 0, 0, 0.3);
+              inset 4px 4px 10px rgba(0, 0, 0, 0.5),
+              inset -4px -4px 10px rgba(67, 67, 67, 0.5),
+              4px 4px 10px rgba(0, 0, 0, 0.3);
               border-radius: 50%;
               margin: 20px auto;
               background-color: #282828;
@@ -883,11 +893,109 @@ body {
               position: relative;
               display: flex;
               justify-content: center;
-              color: #fff;
+              color: gray;
             }
 
             li > div.digital-clock-display {
               font-size: 15px;
+            }
+
+            .stopwatch-wrapper, .timer-wrapper {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              margin-top: 20px;
+            }
+
+            .time-display {
+              font-size: 40px;
+              position: relative;
+              display: flex;
+              justify-content: center;
+              color: gray;
+            }
+
+            .btn-clock {
+              font-weight: 700;
+              padding: 1em;
+              border-radius: 8px;
+              background-color: white;
+              color: rgba(41, 34, 156, 1);
+              border: 1px solid transparent;
+              box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+              transition: all 0.3s ease-in-out;
+              cursor: pointer;
+              margin: 1em;
+            }
+
+            .btn-clock:hover {
+              background-color: rgba(41, 34, 156, 1);
+              color: white;
+              border: 1px solid rgba(41, 34, 156, 1);
+            }
+
+            .stopwatch-lap {
+              scroll-behavior: smooth;
+              overflow-y: scroll;
+              width: 100%;
+              height: 100%;
+              margin: 3em;
+            }
+            
+            .stopwatch-lap > div {
+              list-style: none;
+            }
+
+            .stopwatch-lap::-webkit-scrollbar {
+              width: 6px;
+              height: 6px;
+            }
+
+            .stopwatch-lap::-webkit-scrollbar-track {
+              background: #f1f1f1;
+              border-radius: 6px;
+            }
+
+            .stopwatch-lap::-webkit-scrollbar-thumb {
+              background: #888;
+              border-radius: 6px;
+            }
+
+            .stopwatch-lap::-webkit-scrollbar-thumb:hover {
+              background: #555;
+              border-radius: 6px;
+            }
+
+            .stopwatch-lap > div {
+              display: flex;
+              justify-content: space-between;
+              width: 100%;
+              padding: 0.5em;
+            }
+
+            .stopwatch-lap > div > div {
+              width: 50%;
+            }
+
+            .stopwatch-lap > div > div:first-child {
+              text-align: left;
+            }
+
+            .stopwatch-lap > div > div:last-child {
+              text-align: right;
+            }
+
+            .stopwatch-lap > div > div > span {
+              font-size: 20px;
+            }
+
+            .stopwatch-lap > div > div > span:first-child {
+              color: gray;
+            }
+
+            .stopwatch-lap > div > div > span:last-child {
+              color: rgba(41, 34, 156, 1);
             }
           }
         }
@@ -933,7 +1041,7 @@ body {
     }
   }
 
-  #vibration-wrapper {
+  #vibration-wrapper, #time-wrapper, #date-wrapper, #battery-wrapper, #network-wrapper {
     // display: none;
     background: rgba(255, 255, 255, 0.7);
     border-radius: 10px;

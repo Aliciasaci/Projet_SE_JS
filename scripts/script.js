@@ -1,10 +1,9 @@
 import { renderCalculatorBody, calculate } from "./Calculatrice.js";
-import { renderVibrationBody, vibrate, renderParamsBody,
-renderTimeParams, renderDateParams, renderBatteryParams, renderNetworkParams
+import { renderVibrationBody, vibrate, renderParamsBody, renderTimeParams, renderDateParams, renderBatteryParams, renderNetworkParams
 } from "./Params.js";
 import { render as renderTicTacToe, init as initTicTacToe } from "./tictactoe.js";
 import { setTheme } from "./Theme.js";
-import { renderClock } from "./clock.js";
+import { renderClock, openTab, setClock, setDigitalClockTopBar, startPauseStopWatch, reset, lap, startPauseTimer, resetTimer  } from "./clock.js";
 
 //*variables
 const switchModeBtn = document.querySelector("#switch-mode-btn");
@@ -28,7 +27,6 @@ const morpionIcon = document.querySelector("#tictactoe-icon");
 const clockIcon = document.querySelector("#clock-icon");
 const windowBar = document.querySelector(".window-upper-btns");
 
-
 let morpionPanel = null;
 let calculatorPanel = null;
 let paramsPanel = null;
@@ -39,48 +37,6 @@ let openedParams = [];
 
 // if page fully loaded
 window.addEventListener("load", () => {
-    saveCheckboxState();
-    function saveCheckboxState() {
-        // Get all checkbox elements on the page
-        let checkboxes = document.querySelectorAll("input[type=checkbox]");
-        console.log(checkboxes)
-        // Add an event listener for the change event to each checkbox
-        checkboxes.forEach(function(checkbox) {
-            checkbox.addEventListener("change", function() {
-                // Get the current state of the checkbox
-                let isChecked = checkbox.checked;
-                // Save the state to session storage using the checkbox's id as the key
-                sessionStorage.setItem(checkbox.id, isChecked);
-                if (checkbox.id == "mode" && isChecked == true) {
-                    setTheme("dark");
-                } else {
-                    setTheme("light");
-                }
-            });
-        });
-
-        // Retrieve the saved states from session storage
-        checkboxes.forEach(function(checkbox) {
-        let savedState = sessionStorage.getItem(checkbox.id);
-            // Update the checkbox state and set the theme accordingly if theme checkbox is checked
-            if (checkbox.id == "mode") {
-                checkbox.checked = savedState === "true";
-                setTheme(savedState === "true" ? "dark" : "light");
-            } else {
-                checkbox.checked = savedState === "true";
-            }
-            // if (savedState === "true") {
-            //     checkbox.checked = true;
-            //     setTheme("dark");
-            // } else {
-            //     checkbox.checked = false;
-            //     setTheme("light");
-            // }
-        });
-    }
-    
-
-
     //*landing page code
     const enterBtn = document.querySelector(".open_systeme_button");
     const startingPage = document.querySelector("#starting-page");
@@ -105,6 +61,56 @@ window.addEventListener("load", () => {
         });
     });
 
+    /**
+     * * Save the state of the checkbox to session storage
+     */
+    function saveCheckboxState() {
+        //* get all checkbox elements on the page
+        let checkboxes = document.querySelectorAll("input[type=checkbox]");
+        //* add an event listener for the change event to each checkbox
+        checkboxes.forEach(function(checkbox) {
+            checkbox.addEventListener("change", function() {
+                //* get the current state of the checkbox
+                let isChecked = checkbox.checked;
+                //* save the state to session storage using the checkbox's id as the key
+                sessionStorage.setItem(checkbox.id, isChecked);
+                if (checkbox.id == "mode" && isChecked == true) {
+                    setTheme("dark");
+                } else {
+                    setTheme("light");
+                }
+            });
+        });
+
+        //* retrieve the saved states from session storage
+        checkboxes.forEach(function(checkbox) {
+        let savedState = sessionStorage.getItem(checkbox.id);
+            //* update the checkbox state and set the theme accordingly if theme checkbox is checked
+            if (checkbox.id == "mode") {
+                checkbox.checked = savedState === "true";
+                setTheme(savedState === "true" ? "dark" : "light");
+            } else {
+                checkbox.checked = savedState === "true";
+            }
+            // if (savedState === "true") {
+            //     checkbox.checked = true;
+            //     setTheme("dark");
+            // } else {
+            //     checkbox.checked = false;
+            //     setTheme("light");
+            // }
+        });
+    }
+    saveCheckboxState();
+
+    //* elements to be displayed in top bar
+    setDigitalClockTopBar();
+    setInterval(setDigitalClockTopBar, 1000);
+
+    //* settings elements to be displayed in top bar
+
+
+
     //*render content of window
     const renderWindowContent = (content) => {
     switch (content) {
@@ -112,6 +118,7 @@ window.addEventListener("load", () => {
             windowContent.insertAdjacentHTML("beforeend", renderTicTacToe());
             initTicTacToe();
         break;
+
         case "calculator":
             windowContent.insertAdjacentHTML("beforeend", renderCalculatorBody());
             const keys = document.querySelectorAll(".keys input");
@@ -124,8 +131,85 @@ window.addEventListener("load", () => {
                 });
             }
         break;
+
         case "clock":
             windowContent.insertAdjacentHTML("beforeend", renderClock());
+            // define tab buttons
+            let tabClock = document.querySelector("#clock-tab-btn");
+            let tabStopWatch = document.querySelector("#stopwatch-tab-btn");
+            let tabTimer = document.querySelector("#timer-tab-btn");
+            tabClock.addEventListener("click", function (e) {
+                openTab(e, "tab-clock");
+                // define clock
+                setClock();
+                setInterval(setClock, 1000);
+            });
+            tabStopWatch.addEventListener("click", function (e) {
+                openTab(e, "tab-stopwatch");
+                let startPauseBtn = document.querySelector("#start-pause-stopwatch");
+                startPauseBtn.addEventListener("click", function () {
+                    startPauseStopWatch();
+                });
+                let resetBtn = document.querySelector("#reset-stopwatch");
+                resetBtn.addEventListener("click", function () {
+                    reset();
+                });
+                let lapBtn = document.querySelector("#lap-stopwatch");
+                lapBtn.addEventListener("click", function () {
+                    lap();
+                });
+            });
+            tabTimer.addEventListener("click", function (e) {
+                openTab(e, "tab-timer");
+                let idHour = document.querySelector("#timer-hour");
+                idHour.defaultValue = "00";
+                let idMin = document.querySelector("#timer-min");
+                idMin.defaultValue = "00";
+                let idSec = document.querySelector("#timer-sec");
+                idSec.defaultValue = "00";
+                idHour.onclick = function (event) {
+                    idHour.focus();
+                    idHour.value = '';
+                    console.log("hour clicked", event);
+                };
+                idHour.addEventListener("change", function () {
+                    console.log("hour changed", idHour.value);
+                });
+                idMin.onclick = function () {
+                    idMin.focus();
+                    idMin.value = '';
+                    console.log("min clicked");
+                };
+                idMin.addEventListener("change", function () {
+                    console.log("min changed", idMin.value);
+                });
+                idSec.onclick = function () {
+                    idSec.focus();
+                    idSec.value = '';
+                    console.log("sec clicked");
+                };
+                idSec.addEventListener("change", function () {
+                    console.log("min changed", idSec.value);
+                });
+
+
+                let startPauseBtn = document.querySelector("#start-pause-timer");
+                startPauseBtn.addEventListener("click", function () {
+                    let hourValue = idHour.value;
+                    let minValue = idMin.value;
+                    let secValue = idSec.value;
+                    console.log(hourValue, minValue, secValue)
+                    startPauseTimer(hourValue, minValue, secValue);
+                });
+                let resetBtn = document.querySelector("#reset-timer");
+                resetBtn.addEventListener("click", function () {
+                    resetTimer();
+                });
+            });
+            // define default tab to be displayed
+            document.getElementById("clock-tab-btn").click()
+        break;
+
         case "params":
             windowContent.insertAdjacentHTML("beforeend", renderParamsBody());
         break;
@@ -135,6 +219,7 @@ window.addEventListener("load", () => {
     openedApps.push(content);
     };
 
+    
     let drag = false;
     //*at click on calculator, display modal
     if (calculatorIcon) {
