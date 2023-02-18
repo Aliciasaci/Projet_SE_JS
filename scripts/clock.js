@@ -258,7 +258,8 @@ export function lap() {
 function updateTimer(duration) {
     startTime = new Date().getTime();
     timerInterval = setInterval(function () {
-        elapsedTime = new Date().getTime() - startTime; //* Calculate the elapsed time in ms
+        //* Calculate the elapsed time in ms and convert it to seconds
+        elapsedTime = new Date().getTime() - startTime;
         const remainingTime = duration - elapsedTime;
         if(remainingTime <= 0) {
             window.clearInterval(timerInterval);
@@ -269,23 +270,25 @@ function updateTimer(duration) {
             if (!("Notification" in window)) {
                 alert("This browser does not support desktop notification");
                 } else if (Notification.permission === "granted") {
-                        const notification = new Notification("Le temps s'est écoulé !");
+                        new Notification("Le temps s'est écoulé !");
                 } else if (Notification.permission !== "denied") {
                     Notification.requestPermission().then((permission) => {
                     if (permission === "granted") {
-                    const notification = new Notification("Le temps s'est écoulé !");
+                        new Notification("Le temps s'est écoulé !");
                     }
                 });
             }
             document.getElementById("start-pause-timer").innerHTML = "Démarrer";
             status = "PAUSED";
         }
+
         if (remainingTime > 0) {
+            //* Convert the remaining time to hours, mins, seconds and miliseconds
             const hours = Math.floor(remainingTime / 3600000);
             const mins = Math.floor((remainingTime % 3600000) / 60000);
             const seconds = Math.floor(((remainingTime % 360000) % 60000) / 1000);
             console.log(hours, mins, seconds)
-            
+            //* Format the hours, minutes, seconds and miliseconds to 2 digits
             document.getElementById("timer-hour").value = hours.toString().padStart(2, "0");
             document.getElementById("timer-min").value = mins.toString().padStart(2, "0");
             document.getElementById("timer-sec").value = seconds.toString().padStart(2, "0");
@@ -301,12 +304,14 @@ function updateTimer(duration) {
  */
 export function startPauseTimer(hourValue, minValue, secValue) {
     if(status === "PAUSED") {
+        //* Convert the hour, minute and second values to ms and add them to get the total duration
         duration = hourValue * 3600000 + minValue * 60000 + secValue * 1000;
-        console.log("duration", duration);
+        //* Start the timer
         updateTimer(duration);
         document.getElementById("start-pause-timer").innerHTML = "Arrêter";
         status = "RUNNING";
     } else {
+        //* Pause the timer
         window.clearInterval(timerInterval);
         document.getElementById("start-pause-timer").innerHTML = "Démarrer";
         status = "PAUSED";
@@ -326,5 +331,3 @@ export function resetTimer() {
     status = "PAUSED";
     alarm.pause();
 }
-
-
