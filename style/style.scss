@@ -743,6 +743,9 @@ body {
           #calculator {
             margin: 0;
             width: $calculatrice-width;
+            border-style: none !important;
+            table-layout: fixed;
+            border-collapse: collapse;
 
             @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
               margin: auto;

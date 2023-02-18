@@ -649,6 +649,9 @@ body main .window .window-content .calculator-wrapper {
 body main .window .window-content .calculator-wrapper #calculator {
   margin: 0;
   width: 20rem;
+  border-style: none !important;
+  table-layout: fixed;
+  border-collapse: collapse;
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   body main .window .window-content .calculator-wrapper #calculator {
