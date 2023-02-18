@@ -45,15 +45,18 @@ body {
   background-position-x: center;
   //   background-position-y: 30%;
   #starting-page {
-    img {
-      width: 100%;
-    }
     position: absolute;
     height: 100vh;
     width: 100%;
     background-color: #d59bbe;
     z-index: 1;
     // display: none;
+
+    @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
+      img {
+        width: 100%;
+      }
+    }
     .center {
       position: absolute;
       top: 50%;
@@ -146,6 +149,9 @@ body {
         list-style: none;
         align-items: center;
 
+        @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
+          display: none;
+        }
         li {
           display: none;
           flex-basis: 13%;
@@ -163,12 +169,16 @@ body {
       }
 
       #right-menu-btns {
+        @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
+          width: 100%;
+        }
+
         @media only screen and (min-device-width: $min-medium-screen) and (max-device-width: $max-medium-screen) {
           width: 50%;
         }
 
         @media only screen and (min-device-width: $min-large-screen) {
-          width: 20%;
+          width: 25%;
         }
 
         display: flex;
