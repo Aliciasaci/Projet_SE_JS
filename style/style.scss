@@ -7,6 +7,7 @@ $operations-pannel-height: 21.8rem;
 $operations-pannel-width: 13rem;
 $calculator-wrapper-width: 35rem;
 $calculator-wrapper-height: 38rem;
+
 :root {
   --white-background: #fff;
   --light-blue-border: #235c6a;
@@ -73,7 +74,7 @@ body {
       }
     }
   }
-  
+
   /* Animation moon size and position */
   @keyframes switch {
     0% {
@@ -192,127 +193,127 @@ body {
       }
     }
 
-    
-  .mode-switch {
-    display: none;
-  }
-  .mode-switch:checked ~ .background {
-    background: var(--dark-indigo-background);
-  }
-  .mode-switch:checked + .mode-label {
-    background: var(--midnight);
-    border-color: var(--night);
-  }
-  /*First dot outside moon */
-  .mode-switch:checked + .mode-label .mode-label-background:before {
-    width: 3px;
-    height: 3px;
-    top: -10px;
-  }
-  /* Second dot ouside moon */
-  .mode-switch:checked + .mode-label .mode-label-background {
-    left: 45px;
-    width: 3px;
-    height: 3px;
-  }
-  /* Third dot outside moon */
-  .mode-switch:checked + .mode-label .mode-label-background:after {
-    width: 3px;
-    height: 3px;
-    left: -25px;
-    top: 5px;
-  }
-  .mode-switch:checked + .mode-label:before {
-    background: var(--white-background);
-    border-color: var(--dark-gray-border);
-    animation-name: switch;
-    animation-duration: 350ms;
-    animation-fill-mode: forwards;
-  }
-  .mode-switch:checked + .mode-label:after {
-    transition-delay: 350ms;
-    opacity: 1;
-  }
-  /* Slide bar */
-  .mode-label {
-    width: 95px;
-    height: 40px;
-    float: right;
-    margin-top: 10px;
-    margin-right: 10px;
-    background: var(--light-blue-color);
-    border-radius: 100px;
-    border: 3px solid var(--light-blue-border);
-    display: flex;
-    position: relative;
-    transition: all 350ms ease;
-  }
-  /* Second stick light and whole group */
-  .mode-label-background {
-    width: 7px;
-    height: 2px;
-    border-radius: 5px;
-    position: relative;
-    background: var(--light-yellow-border);
-    left: 60px;
-    top: 20px;
-    transition: all 150ms ease;
-  }
-  /* Sun and moon */
-  .mode-label:before {
-    animation-name: reverse;
-    animation-duration: 350ms;
-    animation-fill-mode: forwards;
-    transition: all 350ms ease;
-    content: "";
-    width: 30px;
-    height: 30px;
-    border: 3px solid var(--light-yellow-border);
-    top: 2px;
-    left: 4px;
-    position: absolute;
-    border-radius: 82px;
-    background: var(--white-background);
-  }
-  /* Dots inside moon */
-  .mode-label:after {
-    transition-delay: 0ms;
-    transition: all 250ms ease;
-    position: absolute;
-    content: "";
-    box-shadow: var(--dark-gray-dots) -13px 0 0 2px, var(--dark-gray-dots) -20px 5px 0 -2px;
-    left: 85px;
-    top: 10px;
-    width: 7px;
-    height: 7px;
-    background: transparent;
-    border-radius: 50%;
-    opacity: 0;
-  }
-  /* First stick light */
-  .mode-label-background:before {
-    content: "";
-    position: absolute;
-    top: -5px;
-    width: 30px;
-    height: 2px;
-    border-radius: 5px;
-    background: var(--light-yellow-border);
-    left: -10px;
-    transition: all 150ms ease;
-  }
-  /* Third stick light */
-  .mode-label-background:after {
-    content: "";
-    position: absolute;
-    top: 5px;
-    width: 30px;
-    height: 2px;
-    border-radius: 5px;
-    background: var(--light-yellow-border);
-    left: -5px;
-    transition: all 150ms ease;
-  }
+    .mode-switch {
+      display: none;
+    }
+    .mode-switch:checked ~ .background {
+      background: var(--dark-indigo-background);
+    }
+    .mode-switch:checked + .mode-label {
+      background: var(--midnight);
+      border-color: var(--night);
+    }
+    /*First dot outside moon */
+    .mode-switch:checked + .mode-label .mode-label-background:before {
+      width: 3px;
+      height: 3px;
+      top: -10px;
+    }
+    /* Second dot ouside moon */
+    .mode-switch:checked + .mode-label .mode-label-background {
+      left: 45px;
+      width: 3px;
+      height: 3px;
+    }
+    /* Third dot outside moon */
+    .mode-switch:checked + .mode-label .mode-label-background:after {
+      width: 3px;
+      height: 3px;
+      left: -25px;
+      top: 5px;
+    }
+    .mode-switch:checked + .mode-label:before {
+      background: var(--white-background);
+      border-color: var(--dark-gray-border);
+      animation-name: switch;
+      animation-duration: 350ms;
+      animation-fill-mode: forwards;
+    }
+    .mode-switch:checked + .mode-label:after {
+      transition-delay: 350ms;
+      opacity: 1;
+    }
+    /* Slide bar */
+    .mode-label {
+      width: 95px;
+      height: 40px;
+      float: right;
+      margin-top: 10px;
+      margin-right: 10px;
+      background: var(--light-blue-color);
+      border-radius: 100px;
+      border: 3px solid var(--light-blue-border);
+      display: flex;
+      position: relative;
+      transition: all 350ms ease;
+    }
+    /* Second stick light and whole group */
+    .mode-label-background {
+      width: 7px;
+      height: 2px;
+      border-radius: 5px;
+      position: relative;
+      background: var(--light-yellow-border);
+      left: 60px;
+      top: 20px;
+      transition: all 150ms ease;
+    }
+    /* Sun and moon */
+    .mode-label:before {
+      animation-name: reverse;
+      animation-duration: 350ms;
+      animation-fill-mode: forwards;
+      transition: all 350ms ease;
+      content: "";
+      width: 30px;
+      height: 30px;
+      border: 3px solid var(--light-yellow-border);
+      top: 2px;
+      left: 4px;
+      position: absolute;
+      border-radius: 82px;
+      background: var(--white-background);
+    }
+    /* Dots inside moon */
+    .mode-label:after {
+      transition-delay: 0ms;
+      transition: all 250ms ease;
+      position: absolute;
+      content: "";
+      box-shadow: var(--dark-gray-dots) -13px 0 0 2px,
+        var(--dark-gray-dots) -20px 5px 0 -2px;
+      left: 85px;
+      top: 10px;
+      width: 7px;
+      height: 7px;
+      background: transparent;
+      border-radius: 50%;
+      opacity: 0;
+    }
+    /* First stick light */
+    .mode-label-background:before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      width: 30px;
+      height: 2px;
+      border-radius: 5px;
+      background: var(--light-yellow-border);
+      left: -10px;
+      transition: all 150ms ease;
+    }
+    /* Third stick light */
+    .mode-label-background:after {
+      content: "";
+      position: absolute;
+      top: 5px;
+      width: 30px;
+      height: 2px;
+      border-radius: 5px;
+      background: var(--light-yellow-border);
+      left: -5px;
+      transition: all 150ms ease;
+    }
   }
 
   main {
@@ -460,23 +461,35 @@ body {
     }
 
     .window {
-      display: none;
+      @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-medium-screen) {
+        height: 100%;
+        width: 100%;
+      }
+
       height: $window-height;
       width: $window-width;
+      display: none;
 
       .window-upper-btns {
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        background: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.7);
 
         span {
           margin: 0.5em;
           color: white;
 
+          .fa-xmark {
+            color: red;
+          }
           .fa-xmark:hover {
             cursor: pointer;
-            color: rgb(213, 24, 24);
+            color: rgb(171, 84, 84);
+          }
+
+          .fa-minus {
+            color: #282828;
           }
 
           &:hover {
@@ -491,7 +504,7 @@ body {
 
         * {
           padding: 0;
-          margin: 0;
+          // margin: 0;
           box-sizing: border-box;
           font-family: "Raleway", sans-serif;
         }
@@ -508,7 +521,7 @@ body {
           height: 30px;
           background: var(--midnight);
           border-radius: 1.5em;
-          transition: all .5s ease;
+          transition: all 0.5s ease;
           cursor: pointer;
         }
         .param-label-background {
@@ -519,8 +532,8 @@ body {
           height: 1.5em;
           background: var(--night);
           border-radius: 50%;
-          transition: all .5s ease;
-          box-shadow: 0 0 8px rgba(0,0,0,0.3);
+          transition: all 0.5s ease;
+          box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
         }
         .param-label-background::before {
           content: "\00D7";
@@ -707,9 +720,23 @@ body {
           align-items: flex-end;
           width: $calculator-wrapper-width;
 
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+
+          @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
+            flex-direction: column;
+            top: 40%;
+          }
+
           #calculator {
             margin: 0;
             width: $calculatrice-width;
+
+            @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
+              margin: auto;
+            }
 
             .result td {
               border-radius: 5px;
@@ -757,6 +784,14 @@ body {
           }
 
           #operations-pannel {
+            @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
+              margin: auto;
+              height: 5rem;
+              margin-top: 1rem;
+              width: 20rem;
+              overflow: scroll;
+            }
+
             height: $operations-pannel-height;
             width: $operations-pannel-width;
             margin-bottom: 0.3rem;
@@ -778,6 +813,11 @@ body {
 
         #clock {
           .card {
+            @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
+              width: 100%;
+              height: 400px;
+            }
+
             /* max-width: 500px; */
             width: 700px;
             height: 400px;
@@ -828,9 +868,9 @@ body {
               padding: 1rem;
               border: 5px solid #282828;
               box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5),
-              inset 4px 4px 10px rgba(0, 0, 0, 0.5),
-              inset -4px -4px 10px rgba(67, 67, 67, 0.5),
-              4px 4px 10px rgba(0, 0, 0, 0.3);
+                inset 4px 4px 10px rgba(0, 0, 0, 0.5),
+                inset -4px -4px 10px rgba(67, 67, 67, 0.5),
+                4px 4px 10px rgba(0, 0, 0, 0.3);
               border-radius: 50%;
               margin: 20px auto;
               background-color: #282828;
@@ -969,7 +1009,8 @@ body {
               font-size: 15px;
             }
 
-            .stopwatch-wrapper, .timer-wrapper {
+            .stopwatch-wrapper,
+            .timer-wrapper {
               display: flex;
               flex-direction: column;
               justify-content: center;
@@ -1011,7 +1052,7 @@ body {
               height: 100%;
               margin: 3em;
             }
-            
+
             .stopwatch-lap > div {
               list-style: none;
             }
@@ -1073,9 +1114,16 @@ body {
   }
 
   #params {
+    @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
+      width: 100%;
+      position: absolute;
+      top: 40%;
+    }
+
     display: none;
     width: $params-width;
     height: $params-height;
+    margin-top: 3rem;
 
     #params-icons {
       list-style: none;
@@ -1083,6 +1131,11 @@ body {
       align-items: center;
       flex-wrap: wrap;
       justify-content: space-around;
+
+      @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
+        flex-wrap: wrap;
+        font-size: 12px;
+      }
 
       li {
         text-align: center;
@@ -1095,9 +1148,18 @@ body {
         padding-right: 1rem;
         padding-top: 1rem;
         padding-bottom: 0.2rem;
-        height: 9rem;
+        height: auto;
         text-align: bottom;
         text-align-last: center;
+
+        @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
+          flex-basis: 6rem;
+          margin: 1rem;
+          height: auto;
+          img {
+            width: 100%;
+          }
+        }
 
         img {
           width: 100%;
@@ -1110,7 +1172,11 @@ body {
     }
   }
 
-  #vibration-wrapper, #time-wrapper, #date-wrapper, #battery-wrapper, #network-wrapper {
+  #vibration-wrapper,
+  #time-wrapper,
+  #date-wrapper,
+  #battery-wrapper,
+  #network-wrapper {
     // display: none;
     background: rgba(255, 255, 255, 0.7);
     border-radius: 10px;
@@ -1153,9 +1219,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 4rem;
   }
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Serif:wght@700&display=swap");

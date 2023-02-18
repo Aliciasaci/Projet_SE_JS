@@ -8,31 +8,31 @@ export function renderParamsBody() {
       <h2 class="param-title">Paramètres</h2>
       <ul id="params-icons">
           <li id="params-time">
-              <img src="assets/params_icons/clock.svg" />
-              <span>Paramètres d'horloge</span>
+              <img src="assets/params_icons/clock_3.png" />
+              <span>Horloge</span>
           </li>
           <li id="params-date">
-              <img src="assets/params_icons/calendar.svg" />
+              <img src="assets/params_icons/calendar_3.png" />
               <span>Date</span>
           </li>
           <li id="params-vibration">
-              <img src="assets/params_icons/vibrate.svg" />
+              <img src="assets/params_icons/vibration_3.png" />
               <span>Vibration</span>
           </li>
           <li id="params-battery">
-              <img src="assets/params_icons/battery.svg" />
+              <img src="assets/params_icons/battery_3.png" />
               <span>Batterie</span>
           </li>
           <li id="params-network">
-              <img src="assets/params_icons/network.svg" />
+              <img src="assets/params_icons/signal_3.png" />
               <span>Réseau</span>
           </li>
           <li>
-              <img src="assets/params_icons/lock.svg" />
-              <span>Écran de verouillage</span>
+              <img src="assets/params_icons/lock_3.png" />
+              <span>Verouillage</span>
           </li>
           <li>
-              <img src="assets/params_icons/theme.svg" />
+              <img src="assets/params_icons/dark-mode_3.png" />
               <span>Thèmes</span>
           </li>
       </ul>

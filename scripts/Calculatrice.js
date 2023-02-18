@@ -17,7 +17,7 @@ let intermediaryResult = 0;
 
 export function renderCalculatorBody() {
   return `
-  <div class="calculator-wrapper center">
+  <div class="calculator-wrapper">
             <table id="calculator">
                 <tr class="result">
                     <td colspan="4" class="glass"> <input id="result-input" type="text" value="0" /></td>
