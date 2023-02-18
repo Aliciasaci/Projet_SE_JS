@@ -341,7 +341,7 @@ body main #app_list span img:hover {
     left: 70%;
   }
   body main #app_list #params-icon {
-    top: 55%;
+    top: 50%;
     left: 10%;
   }
 }
