@@ -51,6 +51,7 @@ body #starting-page .open_systeme_button {
   cursor: pointer;
   color: white;
   margin-top: 15em;
+  text-align: center;
 }
 body #starting-page .open_systeme_button img {
   width: 50px;
@@ -334,18 +335,18 @@ body main #app_list span img:hover {
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   body main #app_list #calculator-icon {
     left: 10%;
-    top: 15%;
+    top: 30%;
   }
   body main #app_list #clock-icon {
-    top: 15%;
+    top: 30%;
     left: 40%;
   }
   body main #app_list #tictactoe-icon {
-    top: 15%;
+    top: 30%;
     left: 70%;
   }
   body main #app_list #params-icon {
-    top: 30%;
+    top: 45%;
     left: 10%;
   }
 }
