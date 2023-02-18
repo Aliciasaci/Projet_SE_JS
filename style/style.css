@@ -649,9 +649,6 @@ body main .window .window-content .calculator-wrapper {
 body main .window .window-content .calculator-wrapper #calculator {
   margin: 0;
   width: 20rem;
-  border-style: none !important;
-  table-layout: fixed;
-  border-collapse: collapse;
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   body main .window .window-content .calculator-wrapper #calculator {
@@ -672,9 +669,7 @@ body main .window .window-content .calculator-wrapper #calculator .keys input {
           backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.47);
   padding: 1.5rem;
-  border-radius: unset;
-  border-style: hidden;
-  border-style: none;
+  border-radius: 5px;
   font-family: "Roboto Mono", monospace;
 }
 body main .window .window-content .calculator-wrapper #calculator .keys input:hover {
@@ -696,6 +691,7 @@ body main .window .window-content .calculator-wrapper #operations-pannel {
   height: 21.8rem;
   width: 13rem;
   margin-bottom: 0.3rem;
+  border-radius: 5px;
   list-style: none;
   padding: 0;
 }

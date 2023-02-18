@@ -743,9 +743,6 @@ body {
           #calculator {
             margin: 0;
             width: $calculatrice-width;
-            border-style: none !important;
-            table-layout: fixed;
-            border-collapse: collapse;
 
             @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
               margin: auto;
@@ -769,10 +766,7 @@ body {
                 backdrop-filter: blur(5px);
                 border: 1px solid rgba(255, 255, 255, 0.47);
                 padding: 1.5rem;
-                // border-radius: 5px;
-                border-radius: unset;
-                border-style: hidden;
-                border-style: none;
+                border-radius: 5px;
                 font-family: "Roboto Mono", monospace;
 
                 &:hover {
@@ -810,7 +804,7 @@ body {
             height: $operations-pannel-height;
             width: $operations-pannel-width;
             margin-bottom: 0.3rem;
-            // border-radius: 5px;
+            border-radius: 5px;
             list-style: none;
             padding: 0;
 
