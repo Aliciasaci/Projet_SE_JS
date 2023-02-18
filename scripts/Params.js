@@ -138,46 +138,40 @@ export function renderTimeParams() {
 }
 
 export function displayTimeTopBar() {
-    if (paramTime) {
-      paramTime.addEventListener("click", function() {
-          paramsBody.style.display = "none";
-          if (timeNavWrapper) {
-              backgroundWindow.append(timeNavWrapper);
-              timeNavWrapper.style.display = "block";
-          }
+  const hourParamBtn = document.querySelector('#hour-display-check');
+  const minParamBtn = document.querySelector('#min-display-check');
+  const secParamBtn = document.querySelector('#sec-display-check');
+  const hourNavDisplay = document.querySelector('#digital-clock-hour');
+  const minNavDisplay = document.querySelector('#digital-clock-min');
+  const secNavDisplay = document.querySelector('#digital-clock-sec');
+  hourParamBtn.addEventListener("click", function() {
+    if (hourParamBtn.checked == true) {
+        // document.getElementById(clock-nav).append(`<span id="digital-clock-hour"></span><span>:</span>`);
+        hourNavDisplay.style.display = "block";
+        hourNavDisplay.nextElementSibling.style.display = "block";
+    } else {
+        // hourNavDisplay.remove();
+        hourNavDisplay.style.display = "none";
+        hourNavDisplay.nextElementSibling.style.display = "none";
+    }
+  })
+  minParamBtn.addEventListener("click", function() {
+    if (minParamBtn.checked == true) {
 
-          hourParamBtn.addEventListener("click", function() {
-              if (hourParamBtn.checked == true) {
-                  // document.getElementById(clock-nav).append(`<span id="digital-clock-hour"></span><span>:</span>`);
-                  hourNavDisplay.style.display = "block";
-                  hourNavDisplay.nextElementSibling.style.display = "block";
-              } else {
-                  // hourNavDisplay.remove();
-                  hourNavDisplay.style.display = "none";
-                  hourNavDisplay.nextElementSibling.style.display = "none";
-              }
-          })
-
-          minParamBtn.addEventListener("click", function() {
-              if (minParamBtn.checked == true) {
-
-                  minNavDisplay.style.display = "block";
-                  minNavDisplay.nextElementSibling.style.display = "block";
-              } else {
-                  minNavDisplay.style.display = "none";
-                  minNavDisplay.nextElementSibling.style.display = "none";
-              }
-          })
-
-          secParamBtn.addEventListener("click", function() {
-              if (secParamBtn.checked == true) {
-                  secNavDisplay.style.display = "block";
-              } else {
-                  secNavDisplay.style.display = "none";
-              }
-          })
-      })
-  }
+        minNavDisplay.style.display = "block";
+        minNavDisplay.nextElementSibling.style.display = "block";
+    } else {
+        minNavDisplay.style.display = "none";
+        minNavDisplay.nextElementSibling.style.display = "none";
+    }
+  })
+  secParamBtn.addEventListener("click", function() {
+    if (secParamBtn.checked == true) {
+        secNavDisplay.style.display = "block";
+    } else {
+        secNavDisplay.style.display = "none";
+    }
+  })
 }
 
 export function renderDateParams() {
@@ -224,6 +218,43 @@ export function renderBatteryParams() {
       </div>
     </div>
   `;
+}
+
+/**
+ * * Save the state of the checkbox for battery settings in the local storage
+ * @param {boolean} checkbox 
+ * @param {string} batteryNavDisplay 
+ */
+export function saveCheckboxBatteryState(checkbox, batteryNavDisplay) {
+  checkbox.addEventListener('change', function() {
+    let isChecked = checkbox.checked;
+    localStorage.setItem("checkbox-battery", isChecked);
+    if (checkbox.id == "battery-display-check" && isChecked == true) {
+      batteryNavDisplay.style.display = "block";
+    } else {
+      batteryNavDisplay.style.display = "none";
+    }
+  });
+}
+
+/**
+ * * Retrieve the state of the checkbox for battery settings in the local storage
+ * @param {string} batteryNavDisplay 
+ * @param {boolean} checkbox 
+ */
+export function retrieveCheckboxBatteryState(batteryNavDisplay, checkbox) {
+  let savedState = localStorage.getItem("checkbox-battery");
+  if (savedState == "true") {
+    if (checkbox) {
+      checkbox.checked = true;
+    }
+    batteryNavDisplay.style.display = "block";
+  } else {
+    if (checkbox) {
+      checkbox.checked = false;
+    }
+    batteryNavDisplay.style.display = "none";
+  }
 }
 
 export function renderNetworkParams() {

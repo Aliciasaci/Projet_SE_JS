@@ -255,37 +255,45 @@ export function lap() {
 /**
  * * Start the timer
  */
-function updateTimer() {
+function updateTimer(duration) {
     startTime = new Date().getTime();
-    elapsedTime = new Date().getTime() - startTime; //* Calculate the elapsed time in ms
-    const remainingTime = duration - elapsedTime;
-    if(remainingTime <= 0) {
-        window.clearInterval(timerInterval);
-        //* Play the alarm sound when the time is over
-        alarm.play();
-        navigator.vibrate(1000);
-        //* Display a notification when the time is over
-        if (!("Notification" in window)) {
-            alert("This browser does not support desktop notification");
-            } else if (Notification.permission === "granted") {
-                    const notification = new Notification("Le temps s'est écoulé !");
-            } else if (Notification.permission !== "denied") {
-                Notification.requestPermission().then((permission) => {
-                if (permission === "granted") {
-                const notification = new Notification("Le temps s'est écoulé !");
-                }
-            });
+    timerInterval = setInterval(function () {
+        //* Calculate the elapsed time in ms and convert it to seconds
+        elapsedTime = new Date().getTime() - startTime;
+        const remainingTime = duration - elapsedTime;
+        if(remainingTime <= 0) {
+            window.clearInterval(timerInterval);
+            //* Play the alarm sound when the time is over
+            alarm.play();
+            navigator.vibrate(1000);
+            //* Display a notification when the time is over
+            if (!("Notification" in window)) {
+                alert("This browser does not support desktop notification");
+                } else if (Notification.permission === "granted") {
+                        new Notification("Le temps s'est écoulé !");
+                } else if (Notification.permission !== "denied") {
+                    Notification.requestPermission().then((permission) => {
+                    if (permission === "granted") {
+                        new Notification("Le temps s'est écoulé !");
+                    }
+                });
+            }
+            document.getElementById("start-pause-timer").innerHTML = "Démarrer";
+            status = "PAUSED";
         }
-        document.getElementById("start-pause-timer").innerHTML = "Démarrer";
-        status = "PAUSED";
-    }
-    const hours = Math.floor(remainingTime / 3600000);
-    const mins = Math.floor((remainingTime % 3600000) / 60000);
-    const seconds = Math.floor(((remainingTime % 360000) % 60000) / 1000);
-    
-    document.getElementById("timer-hour").value = hours.toString().padStart(2, "0");
-    document.getElementById("timer-min").value = mins.toString().padStart(2, "0");
-    document.getElementById("timer-sec").value = seconds.toString().padStart(2, "0");
+
+        if (remainingTime > 0) {
+            //* Convert the remaining time to hours, mins, seconds and miliseconds
+            const hours = Math.floor(remainingTime / 3600000);
+            const mins = Math.floor((remainingTime % 3600000) / 60000);
+            const seconds = Math.floor(((remainingTime % 360000) % 60000) / 1000);
+            console.log(hours, mins, seconds)
+            //* Format the hours, minutes, seconds and miliseconds to 2 digits
+            document.getElementById("timer-hour").value = hours.toString().padStart(2, "0");
+            document.getElementById("timer-min").value = mins.toString().padStart(2, "0");
+            document.getElementById("timer-sec").value = seconds.toString().padStart(2, "0");
+        }
+    }, 10); //* Update every 10ms
 }
 
 /**
@@ -296,12 +304,14 @@ function updateTimer() {
  */
 export function startPauseTimer(hourValue, minValue, secValue) {
     if(status === "PAUSED") {
+        //* Convert the hour, minute and second values to ms and add them to get the total duration
         duration = hourValue * 3600000 + minValue * 60000 + secValue * 1000;
-        updateTimer();
-        timerInterval = setInterval(updateTimer, 10);
+        //* Start the timer
+        updateTimer(duration);
         document.getElementById("start-pause-timer").innerHTML = "Arrêter";
         status = "RUNNING";
     } else {
+        //* Pause the timer
         window.clearInterval(timerInterval);
         document.getElementById("start-pause-timer").innerHTML = "Démarrer";
         status = "PAUSED";
@@ -321,5 +331,3 @@ export function resetTimer() {
     status = "PAUSED";
     alarm.pause();
 }
-
-
