@@ -316,13 +316,8 @@ body main #app_list {
   margin: 0;
 }
 body main #app_list span {
-  width: 8vmax;
+  width: 10vmax;
   position: absolute;
-}
-@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) {
-  body main #app_list span {
-    width: 10vmax;
-  }
 }
 body main #app_list span img {
   width: 100%;
@@ -660,9 +655,6 @@ body main .window .window-content .calculator-wrapper #calculator {
     margin: auto;
   }
 }
-body main .window .window-content .calculator-wrapper #calculator .result td {
-  border-radius: 5px;
-}
 body main .window .window-content .calculator-wrapper #calculator .result td input {
   width: 100%;
   background: none;
@@ -677,7 +669,6 @@ body main .window .window-content .calculator-wrapper #calculator .keys input {
           backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.47);
   padding: 1.5rem;
-  border-radius: 5px;
   font-family: "Roboto Mono", monospace;
 }
 body main .window .window-content .calculator-wrapper #calculator .keys input:hover {
@@ -699,7 +690,6 @@ body main .window .window-content .calculator-wrapper #operations-pannel {
   height: 21.8rem;
   width: 13rem;
   margin-bottom: 0.3rem;
-  border-radius: 5px;
   list-style: none;
   padding: 0;
 }
