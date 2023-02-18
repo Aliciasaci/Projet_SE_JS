@@ -395,6 +395,12 @@ window.addEventListener("load", () => {
         windowContent.removeChild(calculatorPanel);
         temp = openedApps.filter((app) => app !== "calculator");
     }
+    if (displayedApp === "clock") {
+        clockIconSmall.style.display = "none";
+        displayedApp = "";
+        windowContent.removeChild(clockPanel);
+        temp = openedApps.filter((app) => app !== "clock");
+    }
     if (displayedApp === "params") {
         paramsIconSmall.style.display = "none";
         displayedApp = "";
@@ -420,6 +426,9 @@ window.addEventListener("load", () => {
     }
     if (displayedApp === "tictactoe") {
         morpionsIconSmall.style.display = "block";
+    }
+    if (displayedApp === "clock") {
+        clockIconSmall.style.display = "block";
     }
     if (displayedApp === "params") {
         paramsIconSmall.style.display = "block";
