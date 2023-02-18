@@ -492,6 +492,7 @@ body {
 
           .fa-xmark {
             color: red;
+            font-size: 1.5rem;
           }
           .fa-xmark:hover {
             cursor: pointer;
@@ -500,6 +501,7 @@ body {
 
           .fa-minus {
             color: #282828;
+            font-size: 1.5rem;
           }
 
           &:hover {
@@ -737,7 +739,6 @@ body {
 
           @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
             flex-direction: column;
-            top: 40%;
           }
 
           #calculator {

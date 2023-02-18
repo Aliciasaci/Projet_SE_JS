@@ -431,6 +431,7 @@ body main .window .window-upper-btns span {
 }
 body main .window .window-upper-btns span .fa-xmark {
   color: red;
+  font-size: 1.5rem;
 }
 body main .window .window-upper-btns span .fa-xmark:hover {
   cursor: pointer;
@@ -438,6 +439,7 @@ body main .window .window-upper-btns span .fa-xmark:hover {
 }
 body main .window .window-upper-btns span .fa-minus {
   color: #282828;
+  font-size: 1.5rem;
 }
 body main .window .window-upper-btns span:hover {
   cursor: pointer;
@@ -643,7 +645,6 @@ body main .window .window-content .calculator-wrapper {
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   body main .window .window-content .calculator-wrapper {
     flex-direction: column;
-    top: 40%;
   }
 }
 body main .window .window-content .calculator-wrapper #calculator {
