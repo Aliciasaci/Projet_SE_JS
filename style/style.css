@@ -731,7 +731,7 @@ body main .window .window-content #clock .card {
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   body main .window .window-content #clock .card {
     width: 100%;
-    height: 400px;
+    padding: 0;
   }
 }
 body main .window .window-content #clock .card .tab {
@@ -876,6 +876,9 @@ body main .window .window-content #clock .card .digital-clock-display {
 }
 body main .window .window-content #clock .card li > div.digital-clock-display {
   font-size: 15px;
+}
+body main .window .window-content #clock .card .stopwatch-btn {
+  display: flex;
 }
 body main .window .window-content #clock .card .stopwatch-wrapper,
 body main .window .window-content #clock .card .timer-wrapper {

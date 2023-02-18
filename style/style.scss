@@ -825,7 +825,7 @@ body {
           .card {
             @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
               width: 100%;
-              height: 400px;
+              padding: 0;
             }
 
             /* max-width: 500px; */
@@ -1019,6 +1019,9 @@ body {
               font-size: 15px;
             }
 
+            .stopwatch-btn{
+              display: flex;
+            }
             .stopwatch-wrapper,
             .timer-wrapper {
               display: flex;
