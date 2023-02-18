@@ -45,6 +45,9 @@ body {
   background-position-x: center;
   //   background-position-y: 30%;
   #starting-page {
+    img {
+      width: 100%;
+    }
     position: absolute;
     height: 100vh;
     width: 100%;

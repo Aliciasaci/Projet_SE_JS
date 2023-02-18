@@ -35,6 +35,9 @@ body #starting-page {
   background-color: #d59bbe;
   z-index: 1;
 }
+body #starting-page img {
+  width: 100%;
+}
 body #starting-page .center {
   position: absolute;
   top: 50%;
