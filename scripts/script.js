@@ -1,5 +1,5 @@
 import { renderCalculatorBody, calculate } from "./Calculatrice.js";
-import { renderVibrationBody, vibrate, renderParamsBody, renderTimeParams, renderDateParams, renderBatteryParams, renderNetworkParams
+import { renderVibrationBody, vibrate, renderParamsBody, renderTimeParams, renderDateParams, renderBatteryParams, renderNetworkParams, displayEtatVibration
 } from "./Params.js";
 import { render as renderTicTacToe, init as initTicTacToe } from "./tictactoe.js";
 import { setTheme } from "./Theme.js";
@@ -38,8 +38,12 @@ let openedParams = [];
 // if page fully loaded
 window.addEventListener("load", () => {
     //*landing page code
+
+    //*Starting animation
     const enterBtn = document.querySelector(".open_systeme_button");
     const startingPage = document.querySelector("#starting-page");
+    let VibrationDisplayBtn;
+    let VibrationActivateCheck;
     enterBtn.addEventListener("click", function () {
         var audio = new Audio("../assets/sounds/Bling.m4a");
         audio.play();
@@ -48,7 +52,6 @@ window.addEventListener("load", () => {
             duration: 1000,
             easing: "linear",
         });
-
         animation.finished.then(() => {
             //*at click on button, display the elements.
             if (header) {
@@ -106,9 +109,7 @@ window.addEventListener("load", () => {
     //* elements to be displayed in top bar
     setDigitalClockTopBar();
     setInterval(setDigitalClockTopBar, 1000);
-
     //* settings elements to be displayed in top bar
-
 
 
     //*render content of window
