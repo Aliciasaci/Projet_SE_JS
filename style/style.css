@@ -669,6 +669,7 @@ body main .window .window-content .calculator-wrapper #calculator .keys input {
           backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.47);
   padding: 1.5rem;
+  border-radius: unset;
   font-family: "Roboto Mono", monospace;
 }
 body main .window .window-content .calculator-wrapper #calculator .keys input:hover {
