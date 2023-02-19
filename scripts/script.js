@@ -260,7 +260,6 @@ window.addEventListener("load", () => {
     openedApps.push(content);
     };
 
-    
     let drag = false;
     //*at click on calculator, display modal
     if (calculatorIcon) {
@@ -417,6 +416,33 @@ window.addEventListener("load", () => {
                             } else {
                                 windowContent.insertAdjacentHTML("beforeend",  renderNetworkParams());
                                 openedParams.push("network-wrapper");
+                                let select = document.querySelector('.refresh-time-select');
+                                let options = document.querySelectorAll('.refresh-time-select option');
+                                select.addEventListener('mousedown', function(event) {
+                                    event.stopPropagation();
+                                });
+                                select.addEventListener('mouseup', function(event) {
+                                    event.stopPropagation();
+                                });
+                                options.forEach(function(option) {
+                                    option.addEventListener('mousedown', function(event) {
+                                        event.stopPropagation();
+                                    });
+                                    option.addEventListener('mouseup', function(event) {
+                                        event.stopPropagation();
+                                    });
+                                });
+
+                                const refreshTimeSelect = document.getElementById('refresh-time-select');
+                                refreshTimeSelect.addEventListener('change', () => {
+                                    clearInterval();
+                                    networkLatencyRefreshTime = refreshTimeSelect.value;
+                                    console.log(networkLatencyRefreshTime)
+                                    //* Passe updated network latency refresh time
+                                    // setInterval(getNetworkLatency, networkLatencyRefreshTime * 1000);
+                                    startLatency();
+                                    stopLatency();
+                                });
                             }
                         break;
                     }
@@ -424,6 +450,32 @@ window.addEventListener("load", () => {
             }
         });
     }
+
+    //* Init network latency refresh time
+    let networkLatencyRefreshTime = 10;
+    let latencyInterval = null;
+
+    function getNetworkLatency() {
+        const startTime = window.performance.now(); //* Get accurate start time of network latency since page load
+        //* Make request to server
+        fetch(window.location.href).then(response => {
+            const endTime = window.performance.now(); //* Get the time at which the response from the server was received
+            const latency = endTime - startTime; //* Calculate the latency to get the time it took for the response to be received
+            console.log(`Latency: ${latency}ms`);
+        }).catch(error => console.error(error));  
+    }
+
+    function startLatency() {
+        latencyInterval = setInterval(getNetworkLatency, networkLatencyRefreshTime * 1000);
+    }
+
+    function stopLatency() {
+        clearInterval(latencyInterval);
+        latencyInterval = null;
+    }
+
+    startLatency();
+
 
     //* close window and app at clic on x
     closeWindowButton.addEventListener("click", function () {

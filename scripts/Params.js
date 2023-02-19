@@ -327,22 +327,23 @@ export function renderNetworkParams() {
     <div id="network-wrapper">
       <h1>Paramètres de latence réseau</h1>
       <div class="network-param-display">Afficher la latence réseau
-          <input type="checkbox" id="battery-display-check" name="params" class="param-switch">
-          <label for="battery-display-check" class="param-label">
-              <span class="param-label-background"></span>
-          </label>
+        <input type="checkbox" id="battery-display-check" name="params" class="param-switch">
+        <label for="battery-display-check" class="param-label">
+          <span class="param-label-background"></span>
+        </label>
       </div>
       <div class="network-param-display">Configurer le nom de domaine du serveur de ping
-          <input type="checkbox" id="domain-config-check" name="params" class="param-switch">
-          <label for="domain-config-check" class="param-label">
-              <span class="param-label-background"></span>
-          </label>
+        <input type="checkbox" id="domain-config-check" name="params" class="param-switch">
+        <label for="domain-config-check" class="param-label">
+          <span class="param-label-background"></span>
+        </label>
       </div>
       <div class="network-param-display">Configurer le délai de rafraichissement en secondes
-          <input type="checkbox" id="delay-network-check" name="params" class="param-switch">
-          <label for="delay-network-check" class="param-label">
-              <span class="param-label-background"></span>
-          </label>
+        <select id="refresh-time-select" class="refresh-time-select">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+        </select>
       </div>
     </div>
   `;
