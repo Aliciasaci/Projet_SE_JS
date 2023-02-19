@@ -1,6 +1,6 @@
 import { renderCalculatorBody, calculate } from "./Calculatrice.js";
-import { renderVibrationBody, vibrate, renderParamsBody, renderTimeParams, renderDateParams, renderBatteryParams, renderNetworkParams, displayEtatVibration
-} from "./Params.js";
+import { renderVibrationBody, vibrate, renderParamsBody, renderTimeParams, renderDateParams, renderBatteryParams, renderNetworkParams, displayEtatVibration,
+    displayCheckedValues, dateCheckListeners } from "./Params.js";
 import { render as renderTicTacToe, init as initTicTacToe } from "./tictactoe.js";
 import { setTheme } from "./Theme.js";
 import { renderClock, openTab, setClock, setDigitalClockTopBar, startPauseStopWatch, reset, lap, startPauseTimer, resetTimer  } from "./clock.js";
@@ -26,6 +26,7 @@ const windowContent = document.querySelector(".window-content");
 const morpionIcon = document.querySelector("#tictactoe-icon");
 const clockIcon = document.querySelector("#clock-icon");
 const windowBar = document.querySelector(".window-upper-btns");
+const navDate = document.querySelector(".dateTime");
 
 let morpionPanel = null;
 let calculatorPanel = null;
@@ -110,6 +111,15 @@ window.addEventListener("load", () => {
     setDigitalClockTopBar();
     setInterval(setDigitalClockTopBar, 1000);
     //* settings elements to be displayed in top bar
+    let dayDisplayCheck = sessionStorage.getItem("date-display-check");
+    console.log("date-display-check is " + sessionStorage.getItem("date-display-check") + dayDisplayCheck);
+    if (dayDisplayCheck === "false") {
+        console.log("date-display-check is undefined or false");
+        navDate.innerHTML = "";
+    } else {
+        console.log("date-display-check is true???");
+        navDate.innerHTML = displayCheckedValues(sessionStorage.getItem("day-display-check"), sessionStorage.getItem("month-display-check"), sessionStorage.getItem("year-display-check"));
+    }
 
 
     //*render content of window
@@ -355,6 +365,7 @@ window.addEventListener("load", () => {
                                 document.querySelector("#date-wrapper").style.display = "block";
                             } else {
                                 windowContent.insertAdjacentHTML("beforeend",  renderDateParams());
+                                dateCheckListeners();
                                 openedParams.push("date-wrapper");
                                 saveCheckboxState();
                             }

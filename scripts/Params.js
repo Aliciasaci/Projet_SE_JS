@@ -1,6 +1,11 @@
 let vibrationActivated = true;
 const backgroundWindow = document.querySelector(".window");
 const paramsBody = document.querySelector("#params");
+let dateDisplay = sessionStorage.getItem("date-display-check");
+const date = new Date();
+let day = date.getDate();
+let month = date.toLocaleString("fr", { month: "short" });
+let year = date.getFullYear();
 
 export function renderParamsBody() {
   return `
@@ -138,6 +143,7 @@ export function renderTimeParams() {
 }
 
 export function displayTimeTopBar() {
+  const navBarTime = document.querySelector('#dateTime');
     if (paramTime) {
       paramTime.addEventListener("click", function() {
           paramsBody.style.display = "none";
@@ -150,7 +156,7 @@ export function displayTimeTopBar() {
               if (hourParamBtn.checked == true) {
                   // document.getElementById(clock-nav).append(`<span id="digital-clock-hour"></span><span>:</span>`);
                   hourNavDisplay.style.display = "block";
-                  hourNavDisplay.nextElementSibling.style.display = "block";
+                  hourNavDisplay.nextElementSibling.style.display = "block"; 
               } else {
                   // hourNavDisplay.remove();
                   hourNavDisplay.style.display = "none";
@@ -178,6 +184,66 @@ export function displayTimeTopBar() {
           })
       })
   }
+}
+
+export function displayCheckedValues(dateCheck, monthCheck, yearCheck) {
+  let a = `${day} `;
+  if ((dateCheck === undefined) || (dateCheck === "false")) a = "";
+  let b = `${month} `;
+  if ((monthCheck === undefined) || (monthCheck === "false")) b = "";
+  let c = `${year}`;
+  if ((yearCheck === undefined) || (yearCheck === "false")) c = "";
+  return `${a}${b}${c}`;
+}
+
+export function dateCheckListeners() {
+  const dayCheck = document.querySelector("#day-display-check");
+  const monthCheck = document.querySelector("#month-display-check");
+  const yearCheck = document.querySelector("#year-display-check");
+
+  let dayDisplay = sessionStorage.getItem("day-display-check");
+  let monthDisplay = sessionStorage.getItem("month-display-check");
+  let yearDisplay = sessionStorage.getItem("year-display-check");
+
+  if (dayCheck) {
+    dayCheck.addEventListener("change", function () {
+      dayDisplay === "true" ? (dayDisplay = "false") : (dayDisplay = "true");
+      displayDate(dayDisplay, monthDisplay, yearDisplay);
+    });
+  }
+  if (monthCheck) {
+    monthCheck.addEventListener("change", function () {
+      monthDisplay === "true" ? (monthDisplay = "false") : (monthDisplay = "true");
+      displayDate(dayDisplay, monthDisplay, yearDisplay);
+    });
+  }
+  if (yearCheck) {
+    yearCheck.addEventListener("change", function () {
+      yearDisplay === "true" ? (yearDisplay = "false") : (yearDisplay = "true");
+      displayDate(dayDisplay, monthDisplay, yearDisplay);
+    });
+  }
+
+  const dateCheck = document.querySelector("#date-display-check");
+  const dateField = document.querySelector(".dateTime");
+
+  if (dateCheck) {
+    dateCheck.addEventListener("change", function () {
+      if (dateDisplay === "false") {
+        dateDisplay === "true" ? (dateDisplay = "false") : (dateDisplay = "true");
+        displayDate(dayDisplay, monthDisplay, yearDisplay);
+      } else {
+        dateField.innerHTML = "";
+        dateDisplay === "true" ? (dateDisplay = "false") : (dateDisplay = "true");
+      }
+    });
+  }
+}
+
+function displayDate(dayCheck, monthCheck, yearCheck) {
+  const dateField = document.querySelector(".dateTime");
+  if (dateDisplay === "true") dateField.innerHTML = displayCheckedValues(dayCheck, monthCheck, yearCheck);
+
 }
 
 export function renderDateParams() {
