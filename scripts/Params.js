@@ -4,7 +4,7 @@ const paramsBody = document.querySelector("#params");
 let dateDisplay = sessionStorage.getItem("date-display-check");
 const date = new Date();
 let day = date.getDate();
-let month = date.toLocaleString("fr", { month: "short" });
+let month = date.toLocaleString("fr", { month: "long" });
 let year = date.getFullYear();
 
 export function renderParamsBody() {
@@ -188,11 +188,11 @@ export function displayTimeTopBar() {
 
 export function displayCheckedValues(dateCheck, monthCheck, yearCheck) {
   let a = `${day} `;
-  if ((dateCheck === undefined) || (dateCheck === "false")) a = "";
+  if ((dateCheck === null) || (dateCheck === "false")) a = "";
   let b = `${month} `;
-  if ((monthCheck === undefined) || (monthCheck === "false")) b = "";
+  if ((monthCheck === null) || (monthCheck === "false")) b = "";
   let c = `${year}`;
-  if ((yearCheck === undefined) || (yearCheck === "false")) c = "";
+  if ((yearCheck === null) || (yearCheck === "false")) c = "";
   return `${a}${b}${c}`;
 }
 
@@ -229,7 +229,7 @@ export function dateCheckListeners() {
 
   if (dateCheck) {
     dateCheck.addEventListener("change", function () {
-      if (dateDisplay === "false") {
+      if (dateDisplay === "false" || dateDisplay === null) {
         dateDisplay === "true" ? (dateDisplay = "false") : (dateDisplay = "true");
         displayDate(dayDisplay, monthDisplay, yearDisplay);
       } else {

@@ -112,7 +112,7 @@ window.addEventListener("load", () => {
     setInterval(setDigitalClockTopBar, 1000);
     //* settings elements to be displayed in top bar
     let dayDisplayCheck = sessionStorage.getItem("date-display-check");
-    if (dayDisplayCheck === "false") {
+    if (dayDisplayCheck === "false" || dayDisplayCheck === null) {
         navDate.innerHTML = "";
     } else {
         navDate.innerHTML = displayCheckedValues(sessionStorage.getItem("day-display-check"), sessionStorage.getItem("month-display-check"), sessionStorage.getItem("year-display-check"));

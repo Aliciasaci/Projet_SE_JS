@@ -199,6 +199,11 @@ body {
           }
         }
 
+        .dateTime {
+          white-space: nowrap;
+          font-size: 0.9rem;
+        }
+
         #vibration-icon-on,
         #vibration-icon-off {
           //par défaut, la vibration est désactivée et est non affichée
