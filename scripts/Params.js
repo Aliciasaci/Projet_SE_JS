@@ -1,7 +1,7 @@
 let vibrationActivated = true;
 const backgroundWindow = document.querySelector(".window");
 const paramsBody = document.querySelector("#params");
-let dateDisplay = sessionStorage.getItem("date-display-check");
+let dateDisplay = localStorage.getItem("date-display-check");
 const date = new Date();
 let day = date.getDate();
 let month = date.toLocaleString("fr", { month: "long" });
@@ -201,9 +201,9 @@ export function dateCheckListeners() {
   const monthCheck = document.querySelector("#month-display-check");
   const yearCheck = document.querySelector("#year-display-check");
 
-  let dayDisplay = sessionStorage.getItem("day-display-check");
-  let monthDisplay = sessionStorage.getItem("month-display-check");
-  let yearDisplay = sessionStorage.getItem("year-display-check");
+  let dayDisplay = localStorage.getItem("day-display-check");
+  let monthDisplay = localStorage.getItem("month-display-check");
+  let yearDisplay = localStorage.getItem("year-display-check");
 
   if (dayCheck) {
     dayCheck.addEventListener("change", function () {

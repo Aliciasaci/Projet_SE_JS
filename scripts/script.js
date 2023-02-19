@@ -66,7 +66,7 @@ window.addEventListener("load", () => {
     });
 
     /**
-     * * Save the state of the checkbox to session storage
+     * * Save the state of the checkbox to local storage
      */
     function saveCheckboxState() {
         //* get all checkbox elements on the page
@@ -76,8 +76,8 @@ window.addEventListener("load", () => {
             checkbox.addEventListener("change", function() {
                 //* get the current state of the checkbox
                 let isChecked = checkbox.checked;
-                //* save the state to session storage using the checkbox's id as the key
-                sessionStorage.setItem(checkbox.id, isChecked);
+                //* save the state to local storage using the checkbox's id as the key
+                localStorage.setItem(checkbox.id, isChecked);
                 if (checkbox.id == "mode" && isChecked == true) {
                     setTheme("dark");
                 } else {
@@ -86,9 +86,9 @@ window.addEventListener("load", () => {
             });
         });
 
-        //* retrieve the saved states from session storage
+        //* retrieve the saved states from local storage
         checkboxes.forEach(function(checkbox) {
-        let savedState = sessionStorage.getItem(checkbox.id);
+        let savedState = localStorage.getItem(checkbox.id);
             //* update the checkbox state and set the theme accordingly if theme checkbox is checked
             if (checkbox.id == "mode") {
                 checkbox.checked = savedState === "true";
@@ -111,11 +111,11 @@ window.addEventListener("load", () => {
     setDigitalClockTopBar();
     setInterval(setDigitalClockTopBar, 1000);
     //* settings elements to be displayed in top bar
-    let dayDisplayCheck = sessionStorage.getItem("date-display-check");
+    let dayDisplayCheck = localStorage.getItem("date-display-check");
     if (dayDisplayCheck === "false" || dayDisplayCheck === null) {
         navDate.innerHTML = "";
     } else {
-        navDate.innerHTML = displayCheckedValues(sessionStorage.getItem("day-display-check"), sessionStorage.getItem("month-display-check"), sessionStorage.getItem("year-display-check"));
+        navDate.innerHTML = displayCheckedValues(localStorage.getItem("day-display-check"), localStorage.getItem("month-display-check"), localStorage.getItem("year-display-check"));
     }
 
 
