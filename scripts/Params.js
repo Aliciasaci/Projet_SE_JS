@@ -27,7 +27,7 @@ export function renderParamsBody() {
               <img src="assets/params_icons/signal_3.png" />
               <span>Réseau</span>
           </li>
-          <li>
+          <li id="params-lockscreen">
               <img src="assets/params_icons/lock_3.png" />
               <span>Verouillage</span>
           </li>
@@ -60,16 +60,21 @@ export function renderVibrationBody() {
 }
 
 export function vibrate() {
-
   const vibrationWrapper = document.querySelector("#vibration-wrapper");
   if (vibrationWrapper) {
-
     //*Afficher état vibration
-    const VibrationDisplayBtn = document.querySelector("#vibration-display-check");
-    const VibrationActivateCheck = document.querySelector("#vibration-activate-check")
+    const VibrationDisplayBtn = document.querySelector(
+      "#vibration-display-check"
+    );
+    const VibrationActivateCheck = document.querySelector(
+      "#vibration-activate-check"
+    );
     if (VibrationDisplayBtn) {
       VibrationDisplayBtn.addEventListener("change", function () {
-          displayEtatVibration(VibrationDisplayBtn, VibrationActivateCheck);
+        displayEtatVibration(
+          VibrationDisplayBtn.checked,
+          VibrationActivateCheck.checked
+        );
       });
     }
 
@@ -79,26 +84,31 @@ export function vibrate() {
     );
     if (VibrationActivateCheck) {
       VibrationActivateCheck.addEventListener("change", function () {
-        displayEtatVibration(VibrationDisplayBtn, VibrationActivateCheck);
+        displayEtatVibration(
+          VibrationDisplayBtn.checked,
+          VibrationActivateCheck.checked
+        );
       });
     }
   }
 }
 
-export function displayEtatVibration(VibrationDisplayBtn, VibrationActivateCheck) {
+export function displayEtatVibration(
+  VibrationDisplayChecked,
+  VibrationActivateChecked
+) {
   const vibrationIconOn = document.querySelector("#vibration-icon-on");
   const vibrationIconOff = document.querySelector("#vibration-icon-off");
 
   if (vibrationIconOn && vibrationIconOff) {
-    if (!VibrationDisplayBtn.checked) {
+    if (!VibrationDisplayChecked) {
       //si masquer l'état de vibration, masquer les deux icones;
       vibrationIconOn.style.display = "none";
       vibrationIconOff.style.display = "none";
-      VibrationDisplayBtn.style.background = "rgb(214, 133, 224, 0.7)";
     } else {
       //si afficher état de vibration, conditionner sur l'activation de vibration et afficher la bonne icone.
       //TODO Améliorer l'affichage */
-      if (VibrationActivateCheck.checked) {
+      if (VibrationActivateChecked) {
         console.log(vibrationActivated);
         vibrationIconOn.style.display = "block";
         vibrationIconOff.style.display = "none";
@@ -106,7 +116,6 @@ export function displayEtatVibration(VibrationDisplayBtn, VibrationActivateCheck
         vibrationIconOff.style.display = "block";
         vibrationIconOn.style.display = "none";
       }
-      VibrationDisplayBtn.style.background = "rgb(123, 155, 216)";
     }
   }
 }
@@ -138,40 +147,39 @@ export function renderTimeParams() {
 }
 
 export function displayTimeTopBar() {
-  const hourParamBtn = document.querySelector('#hour-display-check');
-  const minParamBtn = document.querySelector('#min-display-check');
-  const secParamBtn = document.querySelector('#sec-display-check');
-  const hourNavDisplay = document.querySelector('#digital-clock-hour');
-  const minNavDisplay = document.querySelector('#digital-clock-min');
-  const secNavDisplay = document.querySelector('#digital-clock-sec');
-  hourParamBtn.addEventListener("click", function() {
+  const hourParamBtn = document.querySelector("#hour-display-check");
+  const minParamBtn = document.querySelector("#min-display-check");
+  const secParamBtn = document.querySelector("#sec-display-check");
+  const hourNavDisplay = document.querySelector("#digital-clock-hour");
+  const minNavDisplay = document.querySelector("#digital-clock-min");
+  const secNavDisplay = document.querySelector("#digital-clock-sec");
+  hourParamBtn.addEventListener("click", function () {
     if (hourParamBtn.checked == true) {
-        // document.getElementById(clock-nav).append(`<span id="digital-clock-hour"></span><span>:</span>`);
-        hourNavDisplay.style.display = "block";
-        hourNavDisplay.nextElementSibling.style.display = "block";
+      // document.getElementById(clock-nav).append(`<span id="digital-clock-hour"></span><span>:</span>`);
+      hourNavDisplay.style.display = "block";
+      hourNavDisplay.nextElementSibling.style.display = "block";
     } else {
-        // hourNavDisplay.remove();
-        hourNavDisplay.style.display = "none";
-        hourNavDisplay.nextElementSibling.style.display = "none";
+      // hourNavDisplay.remove();
+      hourNavDisplay.style.display = "none";
+      hourNavDisplay.nextElementSibling.style.display = "none";
     }
-  })
-  minParamBtn.addEventListener("click", function() {
+  });
+  minParamBtn.addEventListener("click", function () {
     if (minParamBtn.checked == true) {
-
-        minNavDisplay.style.display = "block";
-        minNavDisplay.nextElementSibling.style.display = "block";
+      minNavDisplay.style.display = "block";
+      minNavDisplay.nextElementSibling.style.display = "block";
     } else {
-        minNavDisplay.style.display = "none";
-        minNavDisplay.nextElementSibling.style.display = "none";
+      minNavDisplay.style.display = "none";
+      minNavDisplay.nextElementSibling.style.display = "none";
     }
-  })
-  secParamBtn.addEventListener("click", function() {
+  });
+  secParamBtn.addEventListener("click", function () {
     if (secParamBtn.checked == true) {
-        secNavDisplay.style.display = "block";
+      secNavDisplay.style.display = "block";
     } else {
-        secNavDisplay.style.display = "none";
+      secNavDisplay.style.display = "none";
     }
-  })
+  });
 }
 
 export function renderDateParams() {
@@ -222,11 +230,11 @@ export function renderBatteryParams() {
 
 /**
  * * Save the state of the checkbox for battery settings in the local storage
- * @param {boolean} checkbox 
- * @param {string} batteryNavDisplay 
+ * @param {boolean} checkbox
+ * @param {string} batteryNavDisplay
  */
 export function saveCheckboxBatteryState(checkbox, batteryNavDisplay) {
-  checkbox.addEventListener('change', function() {
+  checkbox.addEventListener("change", function () {
     let isChecked = checkbox.checked;
     localStorage.setItem("checkbox-battery", isChecked);
     if (checkbox.id == "battery-display-check" && isChecked == true) {
@@ -239,8 +247,8 @@ export function saveCheckboxBatteryState(checkbox, batteryNavDisplay) {
 
 /**
  * * Retrieve the state of the checkbox for battery settings in the local storage
- * @param {string} batteryNavDisplay 
- * @param {boolean} checkbox 
+ * @param {string} batteryNavDisplay
+ * @param {boolean} checkbox
  */
 export function retrieveCheckboxBatteryState(batteryNavDisplay, checkbox) {
   let savedState = localStorage.getItem("checkbox-battery");
@@ -255,6 +263,44 @@ export function retrieveCheckboxBatteryState(batteryNavDisplay, checkbox) {
     }
     batteryNavDisplay.style.display = "none";
   }
+}
+
+/**
+ * * Save the state of the checkbox for battery settings in the local storage
+ * @param {boolean} checkbox
+ * @param {string} batteryNavDisplay
+ */
+export function saveCheckboxDisplayState(checkboxDisplay, checkboxActivate) {
+  checkboxDisplay.addEventListener("change", function () {
+    let isChecked = checkboxDisplay.checked;
+    localStorage.setItem("checkbox-display-vibration", isChecked);
+    isChecked = checkboxActivate.checked;
+    localStorage.setItem("checkbox-activate-vibration", isChecked);
+  });
+  checkboxActivate.addEventListener("change", function () {
+    let isChecked = checkboxDisplay.checked;
+    localStorage.setItem("checkbox-display-vibration", isChecked);
+    isChecked = checkboxActivate.checked;
+    localStorage.setItem("checkbox-activate-vibration", isChecked);
+  });
+}
+
+/**
+ * * Retrieve the state of the checkbox for battery settings in the local storage
+ * @param {string} batteryNavDisplay
+ * @param {boolean} checkbox
+ */
+export function retrieveCheckboxDisplayState(
+  checkboxDisplay,
+  checkboxActivate
+) {
+  let savedStateDisplay = localStorage.getItem("checkbox-display-vibration");
+  let savedStateActivate = localStorage.getItem("checkbox-activate-vibration");
+
+  checkboxActivate.checked = savedStateActivate;
+  checkboxDisplay.checked = saveCheckboxDisplayState;
+
+  displayEtatVibration(savedStateDisplay, savedStateActivate);
 }
 
 export function renderNetworkParams() {
@@ -281,4 +327,62 @@ export function renderNetworkParams() {
       </div>
     </div>
   `;
+}
+
+export function renderLockscreenParams() {
+  return `
+    <div id="lockscreen-wrapper">
+      <h1>Verouillage de l'appareil</h1>
+      <div class="lockscreen-param-activate">Activer le verouillage de l'appareil
+          <input type="checkbox" id="lockscreen-display-check" name="params" class="param-switch">
+          <label for="lockscreen-display-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>
+      </div>
+      <div><button id="lockscreen-password">Saisir mot de passe</button></div>
+    </div>  `;
+}
+
+export function lockscreen() {
+  const lockscreenDisplayCheck = document.querySelector(
+    "#lockscreen-display-check"
+  );
+  lockscreenDisplayCheck.addEventListener("change", function () {
+    if(lockscreenDisplayCheck.checked)
+    {
+      if (localStorage.getItem("lockscreen-password")) {
+        localStorage.setItem("lockscreen", "activated");
+        alert("L'écran de verouillage est activé");
+      } else {
+        setLockscreenPassword();
+        localStorage.setItem("lockscreen", "activated");
+      }  
+    }
+    else{
+      alert("L'écran de verouillage est désactivé");
+      localStorage.setItem("lockscreen", "deactivated");
+    }
+  });
+}
+
+export function setLockscreenPassword() {
+  const passwordValidateBtn = document.querySelector("#password-validate-btn");
+  const passwordPannel = document.querySelector("#password-choice-pannel");
+  const passwordValue = document.querySelector("#password");
+  passwordValue.value = "";
+  passwordPannel.style.display = "flex";
+  if (passwordValidateBtn) {
+    passwordValidateBtn.addEventListener("click", function () {
+      if (!passwordValue.value) {
+        alert("Hey !! faudra saisir un mot de passe ;)");
+      } else {
+        localStorage.setItem("lockscreen-password", passwordValue.value);
+        alert(
+          "Whouhoo ! Vous venez de définir un nouveau mot de passe d'écran de verouillage qui est le suivant : " +
+            passwordValue.value
+        );
+        passwordPannel.style.display = "none";
+      }
+    });
+  }
 }

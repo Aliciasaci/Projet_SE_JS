@@ -310,6 +310,7 @@ body main input[type=text] {
   background-color: #fff;
   color: #333;
   font-size: 14px;
+  display: none;
 }
 body main #app_list {
   width: 100%;
@@ -1023,7 +1024,8 @@ body #vibration-wrapper,
 body #time-wrapper,
 body #date-wrapper,
 body #battery-wrapper,
-body #network-wrapper {
+body #network-wrapper,
+body #lockscreen-wrapper {
   background: rgba(255, 255, 255, 0.7);
   border-radius: 10px;
   width: 42rem;
@@ -1036,7 +1038,8 @@ body #vibration-wrapper div,
 body #time-wrapper div,
 body #date-wrapper div,
 body #battery-wrapper div,
-body #network-wrapper div {
+body #network-wrapper div,
+body #lockscreen-wrapper div {
   display: flex;
   justify-content: space-between;
   margin: 1rem 0 1rem 0;
@@ -1045,7 +1048,8 @@ body #vibration-wrapper button,
 body #time-wrapper button,
 body #date-wrapper button,
 body #battery-wrapper button,
-body #network-wrapper button {
+body #network-wrapper button,
+body #lockscreen-wrapper button {
   background: rgba(214, 133, 224, 0.7);
   border-radius: 99px;
   box-sizing: border-box;
@@ -1063,7 +1067,8 @@ body #vibration-wrapper button:hover,
 body #time-wrapper button:hover,
 body #date-wrapper button:hover,
 body #battery-wrapper button:hover,
-body #network-wrapper button:hover {
+body #network-wrapper button:hover,
+body #lockscreen-wrapper button:hover {
   background-color: #ebc2f0;
 }
 body .param-title {
@@ -1073,4 +1078,44 @@ body .param-title {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+body #password-choice-pannel {
+  display: none;
+  width: 25rem;
+  height: 15rem;
+  position: absolute;
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border: 2px solid rgba(156, 102, 153, 0.441);
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  z-index: 999;
+}
+body #password-choice-pannel h3 {
+  text-align: center;
+  color: #7e313f;
+}
+body #password-choice-pannel input {
+  padding: 10px;
+  border-radius: 5px;
+  width: 13rem;
+  margin: auto;
+  border: 2px solid pink;
+}
+body #password-choice-pannel button {
+  width: 4rem;
+  padding: 10px;
+  border-style: none;
+  margin: auto;
+  margin-top: -1.5em;
+  border: 2px solid pink;
+  background-color: rgba(206, 109, 125, 0.803);
+  color: white;
+  cursor: pointer;
+}
+body #password-choice-pannel button:hover {
+  background-color: rgba(195, 145, 154, 0.803);
 }/*# sourceMappingURL=style.css.map */
