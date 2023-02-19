@@ -274,7 +274,7 @@ export function renderDateParams() {
 export function renderBatteryParams() {
   return `
     <div id="battery-wrapper">
-      <h1>Paramètres de battery</h1>
+      <h1>Paramètres de batterie</h1>
       <div class="battery-param-display">Afficher la batterie
           <input type="checkbox" id="battery-display-check" name="params" class="param-switch">
           <label for="battery-display-check" class="param-label">
