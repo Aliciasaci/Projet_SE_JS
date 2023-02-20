@@ -1,7 +1,4 @@
 
-const switchModeBtn = document.querySelector("#switch-mode-btn");
-const backgroundWindow = document.querySelector(".window");
-
 //* set the theme
 export function setTheme(theme) {
   if (theme == "dark") {

@@ -1,6 +1,11 @@
 let vibrationActivated = true;
 const backgroundWindow = document.querySelector(".window");
 const paramsBody = document.querySelector("#params");
+let dateDisplay = localStorage.getItem("date-display-check");
+const date = new Date();
+let day = date.getDate();
+let month = date.toLocaleString("fr", { month: "long" });
+let year = date.getFullYear();
 
 export function renderParamsBody() {
   return `
@@ -8,31 +13,31 @@ export function renderParamsBody() {
       <h2 class="param-title">Paramètres</h2>
       <ul id="params-icons">
           <li id="params-time">
-              <img src="assets/params_icons/clock.svg" />
-              <span>Paramètres d'horloge</span>
+              <img src="assets/params_icons/clock_3.png" />
+              <span>Horloge</span>
           </li>
           <li id="params-date">
-              <img src="assets/params_icons/calendar.svg" />
+              <img src="assets/params_icons/calendar_3.png" />
               <span>Date</span>
           </li>
           <li id="params-vibration">
-              <img src="assets/params_icons/vibrate.svg" />
+              <img src="assets/params_icons/vibration_3.png" />
               <span>Vibration</span>
           </li>
           <li id="params-battery">
-              <img src="assets/params_icons/battery.svg" />
+              <img src="assets/params_icons/battery_3.png" />
               <span>Batterie</span>
           </li>
           <li id="params-network">
-              <img src="assets/params_icons/network.svg" />
+              <img src="assets/params_icons/signal_3.png" />
               <span>Réseau</span>
           </li>
           <li>
-              <img src="assets/params_icons/lock.svg" />
-              <span>Écran de verouillage</span>
+              <img src="assets/params_icons/lock_3.png" />
+              <span>Verouillage</span>
           </li>
           <li>
-              <img src="assets/params_icons/theme.svg" />
+              <img src="assets/params_icons/dark-mode_3.png" />
               <span>Thèmes</span>
           </li>
       </ul>
@@ -60,19 +65,16 @@ export function renderVibrationBody() {
 }
 
 export function vibrate() {
+
   const vibrationWrapper = document.querySelector("#vibration-wrapper");
   if (vibrationWrapper) {
-    // backgroundWindow.append(vibrationWrapper);
-    // vibrationWrapper.style.display = "block";
-    // paramsBody.style.display = "none";
 
     //*Afficher état vibration
-    const VibrationDisplayBtn = document.querySelector(
-      "#vibration-display-btn"
-    );
+    const VibrationDisplayBtn = document.querySelector("#vibration-display-check");
+    const VibrationActivateCheck = document.querySelector("#vibration-activate-check")
     if (VibrationDisplayBtn) {
-      VibrationDisplayBtn.addEventListener("click", function () {
-        displayEtatVibration(VibrationDisplayBtn);
+      VibrationDisplayBtn.addEventListener("change", function () {
+          displayEtatVibration(VibrationDisplayBtn, VibrationActivateCheck);
       });
     }
 
@@ -80,29 +82,28 @@ export function vibrate() {
     const VibrationActivateBtn = document.querySelector(
       "#vibration-activate-btn"
     );
-    if (VibrationActivateBtn) {
-      VibrationActivateBtn.addEventListener("click", function () {
-        etatVibration(VibrationActivateBtn);
+    if (VibrationActivateCheck) {
+      VibrationActivateCheck.addEventListener("change", function () {
+        displayEtatVibration(VibrationDisplayBtn, VibrationActivateCheck);
       });
     }
   }
 }
 
-function displayEtatVibration(VibrationDisplayBtn) {
+export function displayEtatVibration(VibrationDisplayBtn, VibrationActivateCheck) {
   const vibrationIconOn = document.querySelector("#vibration-icon-on");
   const vibrationIconOff = document.querySelector("#vibration-icon-off");
 
   if (vibrationIconOn && vibrationIconOff) {
-    if (VibrationDisplayBtn.innerHTML == "Masquer") {
+    if (!VibrationDisplayBtn.checked) {
       //si masquer l'état de vibration, masquer les deux icones;
       vibrationIconOn.style.display = "none";
       vibrationIconOff.style.display = "none";
-      VibrationDisplayBtn.innerHTML = "Afficher";
       VibrationDisplayBtn.style.background = "rgb(214, 133, 224, 0.7)";
     } else {
       //si afficher état de vibration, conditionner sur l'activation de vibration et afficher la bonne icone.
       //TODO Améliorer l'affichage */
-      if (vibrationActivated == true) {
+      if (VibrationActivateCheck.checked) {
         console.log(vibrationActivated);
         vibrationIconOn.style.display = "block";
         vibrationIconOff.style.display = "none";
@@ -110,31 +111,8 @@ function displayEtatVibration(VibrationDisplayBtn) {
         vibrationIconOff.style.display = "block";
         vibrationIconOn.style.display = "none";
       }
-      VibrationDisplayBtn.innerHTML = "Masquer";
       VibrationDisplayBtn.style.background = "rgb(123, 155, 216)";
     }
-  }
-}
-
-function etatVibration(VibrationActivateBtn) {
-  //* Activer ou non le retour haptique de vibration
-  if (VibrationActivateBtn) {
-    VibrationActivateBtn.addEventListener("click", function () {
-      if (VibrationActivateBtn.innerHTML == "Activer") {
-        if (confirm("Activer le retour haptique de vibration ?")) {
-          VibrationActivateBtn.innerHTML = "Désactiver";
-          VibrationActivateBtn.style.background = "rgb(123, 155, 216)";
-          vibrationActivated = true;
-        }
-      } else {
-        VibrationActivateBtn.innerHTML = "Activer";
-        vibrationActivated = false;
-        VibrationActivateBtn.style.background = "rgb(214, 133, 224, 0.7)";
-      }
-      //TODO activer le retour haptique sur tout le système
-      //TODO CODE vibration à chaque clique
-      //TODO stocker l'état de vibration à true ou false
-    });
   }
 }
 
@@ -162,6 +140,103 @@ export function renderTimeParams() {
       </div>
     </div>
   `;
+}
+
+export function displayTimeTopBar() {
+  const hourParamBtn = document.querySelector('#hour-display-check');
+  const minParamBtn = document.querySelector('#min-display-check');
+  const secParamBtn = document.querySelector('#sec-display-check');
+  const hourNavDisplay = document.querySelector('#digital-clock-hour');
+  const minNavDisplay = document.querySelector('#digital-clock-min');
+  const secNavDisplay = document.querySelector('#digital-clock-sec');
+  hourParamBtn.addEventListener("click", function() {
+    if (hourParamBtn.checked == true) {
+        // document.getElementById(clock-nav).append(`<span id="digital-clock-hour"></span><span>:</span>`);
+        hourNavDisplay.style.display = "block";
+        hourNavDisplay.nextElementSibling.style.display = "block";
+    } else {
+        // hourNavDisplay.remove();
+        hourNavDisplay.style.display = "none";
+        hourNavDisplay.nextElementSibling.style.display = "none";
+    }
+  })
+  minParamBtn.addEventListener("click", function() {
+    if (minParamBtn.checked == true) {
+
+        minNavDisplay.style.display = "block";
+        minNavDisplay.nextElementSibling.style.display = "block";
+    } else {
+        minNavDisplay.style.display = "none";
+        minNavDisplay.nextElementSibling.style.display = "none";
+    }
+  })
+  secParamBtn.addEventListener("click", function() {
+    if (secParamBtn.checked == true) {
+        secNavDisplay.style.display = "block";
+    } else {
+        secNavDisplay.style.display = "none";
+    }
+  })
+}
+
+export function displayCheckedValues(dateCheck, monthCheck, yearCheck) {
+  let a = `${day} `;
+  if ((dateCheck === null) || (dateCheck === "false")) a = "";
+  let b = `${month} `;
+  if ((monthCheck === null) || (monthCheck === "false")) b = "";
+  let c = `${year}`;
+  if ((yearCheck === null) || (yearCheck === "false")) c = "";
+  return `${a}${b}${c}`;
+}
+
+export function dateCheckListeners() {
+  const dayCheck = document.querySelector("#day-display-check");
+  const monthCheck = document.querySelector("#month-display-check");
+  const yearCheck = document.querySelector("#year-display-check");
+
+  let dayDisplay = localStorage.getItem("day-display-check");
+  let monthDisplay = localStorage.getItem("month-display-check");
+  let yearDisplay = localStorage.getItem("year-display-check");
+
+  if (dayCheck) {
+    dayCheck.addEventListener("change", function () {
+      dayDisplay === "true" ? (dayDisplay = "false") : (dayDisplay = "true");
+      displayDate(dayDisplay, monthDisplay, yearDisplay);
+    });
+  }
+  if (monthCheck) {
+    monthCheck.addEventListener("change", function () {
+      monthDisplay === "true" ? (monthDisplay = "false") : (monthDisplay = "true");
+      displayDate(dayDisplay, monthDisplay, yearDisplay);
+    });
+  }
+  if (yearCheck) {
+    yearCheck.addEventListener("change", function () {
+      yearDisplay === "true" ? (yearDisplay = "false") : (yearDisplay = "true");
+      displayDate(dayDisplay, monthDisplay, yearDisplay);
+    });
+  }
+
+  const dateCheck = document.querySelector("#date-display-check");
+  const dateField = document.querySelector(".dateTime");
+
+  if (dateCheck) {
+    dateCheck.addEventListener("change", function () {
+      if (dateDisplay === "false" || dateDisplay === null) {
+        dateDisplay === "true" ? (dateDisplay = "false") : (dateDisplay = "true");
+        displayDate(dayDisplay, monthDisplay, yearDisplay);
+      } else {
+        dateField.innerHTML = "";
+        dateDisplay === "true" ? (dateDisplay = "false") : (dateDisplay = "true");
+      }
+    });
+  }
+}
+
+function displayDate(dayCheck, monthCheck, yearCheck) {
+  const dateField = document.querySelector(".dateTime");
+  if (dateDisplay === "true") dateField.innerHTML = displayCheckedValues(dayCheck, monthCheck, yearCheck);
+
 }
 
 export function renderDateParams() {
@@ -208,6 +283,43 @@ export function renderBatteryParams() {
       </div>
     </div>
   `;
+}
+
+/**
+ * * Save the state of the checkbox for battery settings in the local storage
+ * @param {boolean} checkbox 
+ * @param {string} batteryNavDisplay 
+ */
+export function saveCheckboxBatteryState(checkbox, batteryNavDisplay) {
+  checkbox.addEventListener('change', function() {
+    let isChecked = checkbox.checked;
+    localStorage.setItem("checkbox-battery", isChecked);
+    if (checkbox.id == "battery-display-check" && isChecked == true) {
+      batteryNavDisplay.style.display = "block";
+    } else {
+      batteryNavDisplay.style.display = "none";
+    }
+  });
+}
+
+/**
+ * * Retrieve the state of the checkbox for battery settings in the local storage
+ * @param {string} batteryNavDisplay 
+ * @param {boolean} checkbox 
+ */
+export function retrieveCheckboxBatteryState(batteryNavDisplay, checkbox) {
+  let savedState = localStorage.getItem("checkbox-battery");
+  if (savedState == "true") {
+    if (checkbox) {
+      checkbox.checked = true;
+    }
+    batteryNavDisplay.style.display = "block";
+  } else {
+    if (checkbox) {
+      checkbox.checked = false;
+    }
+    batteryNavDisplay.style.display = "none";
+  }
 }
 
 export function renderNetworkParams() {
