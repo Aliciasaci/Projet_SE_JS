@@ -1,6 +1,6 @@
 import { renderCalculatorBody, calculate } from "./Calculatrice.js";
 import { renderVibrationBody, vibrate, renderParamsBody, renderTimeParams, renderDateParams, renderBatteryParams, renderNetworkParams, displayEtatVibration, displayTimeTopBar,
-saveCheckboxBatteryState, retrieveCheckboxBatteryState, displayCheckedValues, dateCheckListeners} from "./Params.js";
+saveCheckboxBatteryState, retrieveCheckboxBatteryState, displayCheckedValues, dateCheckListeners, getNetworkLatency } from "./Params.js";
 import { render as renderTicTacToe, init as initTicTacToe } from "./tictactoe.js";
 import { setTheme } from "./Theme.js";
 import { renderClock, openTab, setClock, setDigitalClockTopBar, startPauseStopWatch, reset, lap, startPauseTimer, resetTimer  } from "./clock.js";
@@ -436,12 +436,10 @@ window.addEventListener("load", () => {
                                 const refreshTimeSelect = document.getElementById('refresh-time-select');
                                 refreshTimeSelect.addEventListener('change', () => {
                                     clearInterval();
-                                    networkLatencyRefreshTime = refreshTimeSelect.value;
-                                    console.log(networkLatencyRefreshTime)
+                                    let networkLatencyRefreshTime = refreshTimeSelect.value;
                                     //* Passe updated network latency refresh time
-                                    // setInterval(getNetworkLatency, networkLatencyRefreshTime * 1000);
-                                    startLatency();
-                                    stopLatency();
+                                    clearTimeout();
+                                    getNetworkLatency(networkLatencyRefreshTime);
                                 });
                             }
                         break;
@@ -450,32 +448,6 @@ window.addEventListener("load", () => {
             }
         });
     }
-
-    //* Init network latency refresh time
-    let networkLatencyRefreshTime = 10;
-    let latencyInterval = null;
-
-    function getNetworkLatency() {
-        const startTime = window.performance.now(); //* Get accurate start time of network latency since page load
-        //* Make request to server
-        fetch(window.location.href).then(response => {
-            const endTime = window.performance.now(); //* Get the time at which the response from the server was received
-            const latency = endTime - startTime; //* Calculate the latency to get the time it took for the response to be received
-            console.log(`Latency: ${latency}ms`);
-        }).catch(error => console.error(error));  
-    }
-
-    function startLatency() {
-        latencyInterval = setInterval(getNetworkLatency, networkLatencyRefreshTime * 1000);
-    }
-
-    function stopLatency() {
-        clearInterval(latencyInterval);
-        latencyInterval = null;
-    }
-
-    startLatency();
-
 
     //* close window and app at clic on x
     closeWindowButton.addEventListener("click", function () {
