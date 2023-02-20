@@ -446,9 +446,9 @@ window.addEventListener("load", () => {
         openedParams.forEach ((param) => {
             windowContent.removeChild(document.querySelector(`#${param}`));
             temp2 = openedParams.filter((param) => param !== param);
+            openedParams = temp2;
         });
-        }
-        openedParams = temp2;
+        } 
     }
     openedApps = temp;
     });
