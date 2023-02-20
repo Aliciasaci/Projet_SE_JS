@@ -96,12 +96,8 @@ window.addEventListener("load", () => {
             //* set the theme if theme checkbox is checked
             if (checkbox.id == "mode" && isChecked == true) {
                 setTheme("dark");
-                backgroundWindow.classList.add("darkglass");
-                backgroundWindow.style.color = "white";
             } else {
                 setTheme("light");
-                if (backgroundWindow.classList.contains("darkglass")) backgroundWindow.classList.remove("darkglass");
-                backgroundWindow.style.color = "black";
             }
         });
     }
@@ -117,11 +113,6 @@ window.addEventListener("load", () => {
         if (checkbox.id == "mode") {
             checkbox.checked = savedState === "true";
             setTheme(savedState === "true" ? "dark" : "light");
-            if (savedState === "true") {
-                backgroundWindow.classList.add("darkglass");
-            } else {
-                if (backgroundWindow.classList.contains("darkglass")) backgroundWindow.classList.remove("darkglass");
-            }
         } else {
             checkbox.checked = savedState === "true";
         }   
@@ -372,6 +363,7 @@ window.addEventListener("load", () => {
                             } else {
                                 windowContent.insertAdjacentHTML("beforeend",  renderVibrationBody());
                                 openedParams.push("vibration-wrapper");
+                                saveCheckboxState();
                                 vibrate();
                             }
                         break;
@@ -380,6 +372,7 @@ window.addEventListener("load", () => {
                                 document.querySelector("#time-wrapper").style.display = "block";
                             } else {
                                 windowContent.insertAdjacentHTML("beforeend",  renderTimeParams());
+                                saveCheckboxState();
                                 openedParams.push("time-wrapper");
                                 displayTimeTopBar();
                             }
@@ -411,6 +404,7 @@ window.addEventListener("load", () => {
                                 document.querySelector("#network-wrapper").style.display = "block";
                             } else {
                                 windowContent.insertAdjacentHTML("beforeend",  renderNetworkParams());
+                                saveCheckboxState();
                                 openedParams.push("network-wrapper");
                             }
                         break;
