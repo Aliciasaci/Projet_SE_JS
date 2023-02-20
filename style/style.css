@@ -1028,6 +1028,7 @@ body #time-wrapper,
 body #date-wrapper,
 body #battery-wrapper,
 body #network-wrapper {
+  background: rgba(255, 255, 255, 0.7);
   border-radius: 10px;
   width: 42rem;
   margin: auto;
@@ -1069,11 +1070,8 @@ body #battery-wrapper button:hover,
 body #network-wrapper button:hover {
   background-color: #ebc2f0;
 }
-body .params-bg {
-  background: rgba(255, 255, 255, 0.7);
-  color: #0a0027;
-}
 body .param-title {
+  color: #3e3e3e;
   margin: auto;
   margin-top: auto;
   display: flex;
