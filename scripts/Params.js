@@ -46,7 +46,7 @@ export function renderParamsBody() {
 
 export function renderVibrationBody() {
   return `
-    <div id="vibration-wrapper" class="params-bg">
+    <div id="vibration-wrapper">
       <h1>Paramètres de vibrations</h1>
       <div class="vibration-param-display">Afficher l'état de vibration
           <input type="checkbox" id="vibration-display-check" name="params" class="param-switch">
@@ -118,7 +118,7 @@ export function displayEtatVibration(VibrationDisplayBtn, VibrationActivateCheck
 
 export function renderTimeParams() {
   return `
-    <div id="time-wrapper" class="params-bg">
+    <div id="time-wrapper">
       <h1>Paramètres d'horloge</h1>
       <div class="time-param-display">Afficher l'heure
           <input type="checkbox" id="hour-display-check" name="params" class="param-switch">
@@ -241,7 +241,7 @@ function displayDate(dayCheck, monthCheck, yearCheck) {
 
 export function renderDateParams() {
   return `
-    <div id="date-wrapper" class="params-bg">
+    <div id="date-wrapper">
       <h1>Paramètres de date</h1>
       <div class="date-param-display">Afficher la date
           <input type="checkbox" id="date-display-check" name="params" class="param-switch">
@@ -273,7 +273,7 @@ export function renderDateParams() {
 
 export function renderBatteryParams() {
   return `
-    <div id="battery-wrapper" class="params-bg">
+    <div id="battery-wrapper">
       <h1>Paramètres de battery</h1>
       <div class="battery-param-display">Afficher la batterie
           <input type="checkbox" id="battery-display-check" name="params" class="param-switch">
@@ -324,7 +324,7 @@ export function retrieveCheckboxBatteryState(batteryNavDisplay, checkbox) {
 
 export function renderNetworkParams() {
   return `
-    <div id="network-wrapper" class="params-bg">
+    <div id="network-wrapper">
       <h1>Paramètres de latence réseau</h1>
       <div class="network-param-display">Afficher la latence réseau
           <input type="checkbox" id="battery-display-check" name="params" class="param-switch">
@@ -347,37 +347,3 @@ export function renderNetworkParams() {
     </div>
   `;
 }
-
-export function renderAppParams() {
-  return `
-    <div id="theme-wrapper" class="params-bg">
-      <h1>Paramètres de thème</h1>
-      <div class="theme-param-display">Changer le theme de l'application calculatrice
-          <input type="checkbox" id="calc-theme-check" name="params" class="param-switch">
-          <label for="calc-theme-check" class="param-label">
-              <span class="param-label-background"></span>
-          </label>
-      </div>
-      <div class="theme-param-display">Changer le theme de l'application horloge
-          <input type="checkbox" id="clock-theme-check" name="params" class="param-switch">
-          <label for="clock-theme-check" class="param-label">
-              <span class="param-label-background"></span>
-          </label>
-      </div>
-      <div class="theme-param-display">Changer le theme de l'application morpion
-          <input type="checkbox" id="titac-theme-check" name="params" class="param-switch">
-          <label for="tictac-theme-check" class="param-label">
-              <span class="param-label-background"></span>
-          </label>
-      </div>
-      <div class="theme-param-display">Changer le thème de l'application paramètres
-          <input type="checkbox" id="params-theme-check" name="params" class="param-switch">
-          <label for="params-theme-check" class="param-label">
-            <span class="param-label-background"></span>
-          </label>
-      </div>
-    </div>
-  `;
-}
-
-
