@@ -32,6 +32,9 @@ import {
   startPauseTimer,
   resetTimer,
 } from "./clock.js";
+import {
+  lockscreenAtStart 
+} from "./Options.js"
 
 //*variables
 const calculatorIcon = document.querySelector("#calculator-icon");
@@ -39,11 +42,9 @@ const backgroundWindow = document.querySelector(".window");
 const closeWindowButton = document.querySelector(".fa-xmark");
 const reduceWindowButton = document.querySelector(".fa-minus");
 const paramsIcon = document.querySelector("#params-icon");
-const paramsBody = document.querySelector("#params"); //c'est pas présent dans le DOM ça
 const calculatorIconSmall = document.querySelector("#calculator-icon-small");
 const paramsIconSmall = document.querySelector("#params-icon-small");
 const clockIconSmall = document.querySelector("#clock-icon-small");
-const header = document.querySelector("header");
 const main = document.querySelector("main");
 const morpionsIconSmall = document.querySelector("#morpions-icon-small");
 const windowContent = document.querySelector(".window-content");
@@ -65,97 +66,20 @@ passwordValue.value = null;
 
 // if page fully loaded
 window.addEventListener("load", () => {
-  // const ping = (url, timeout = 60000) => {
-  //   return new Promise((resolve, reject) => {
-  //     const urlRule = new RegExp(
-  //       "(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]"
-  //     );
-  //     if (!urlRule.test(url)) reject("invalid url");
-  //     try {
-  //       var obj = {
-  //         method: "GET",
-  //         headers: {
-  //           mode: "no-cors",
-  //         },
-  //       };
-  //       fetch(url, obj)
-  //         .then(() => resolve(true))
-  //         .catch(() => resolve(false));
-  //       setTimeout(() => {
-  //         resolve(false);
-  //       }, timeout);
-  //     } catch (e) {
-  //       reject(e);
-  //     }
-  //   });
-  // };
-
-  //*landing page code
 
   //*Starting animation
   const enterBtn = document.querySelector(".open_systeme_button");
-  const startingPage = document.querySelector("#starting-page");
-  let loggedIn = false;
-
-  function enterScreen() {
-    var audio = new Audio("../assets/sounds/Bling.m4a");
-    audio.play();
-
-    let animation = startingPage.animate([{ opacity: 1 }, { opacity: 0 }], {
-      duration: 1000,
-      easing: "linear",
-    });
-    animation.finished.then(() => {
-      //*at click on button, display the elements.
-      if (header) {
-        header.style.display = "block";
-      }
-
-      if (startingPage) {
-        startingPage.style.display = "none";
-      }
-    });
-    loggedIn = true;
-  }
 
   enterBtn.addEventListener("click", function () {
     //*if lockscreen activated
-    console.log(localStorage.getItem("lockscreen"));
-    if (localStorage.getItem("lockscreen") == "activated") {
-      document.querySelector("#password-choice-pannel").style.display = "flex";
-      let insertedPasswordBtn = document.querySelector(
-        "#password-validate-btn"
-      );
-      insertedPasswordBtn.addEventListener("click", function () {
-        let insertedPasswordInput = document.querySelector("#password");
-        if (insertedPasswordInput.value) {
-          console.log(
-            localStorage.getItem("lockscreen-password"),
-            insertedPasswordInput.value
-          );
-        }
-
-        if (
-          localStorage.getItem("lockscreen-password") ==
-          insertedPasswordInput.value
-        ) {
-          alert("SUCCESS");
-          document.querySelector("#password-choice-pannel").style.display =
-            "none";
-          enterScreen();
-        }
-      });
-    } else {
-      enterScreen();
-    }
-    // if (localStorage.getItem("lockscreen-password" != null)) {
-    //   document.querySelector("#password-choice-pannel").display = "block";
-    // }
+    lockscreenAtStart();
+    if (main) {
+      main.style.display = "block";
+    }  
   });
 
-  /**
-   * * Display saved settings of the system
-   */
+  
+  //* Display saved settings of the system
   //* saved theme display
   saveCheckboxThemeState();
   retrieveCheckboxThemeState();
@@ -672,173 +596,4 @@ window.addEventListener("load", () => {
     }
   };
 
-  //*code du drag
-  const dragElement = (elmnt) => {
-    let pos1 = 0,
-      pos2 = 0,
-      pos3 = 0,
-      pos4 = 0;
-    elmnt.onmousedown = dragMouseDown;
-
-    function dragMouseDown(e) {
-      e = e || window.event;
-      e.preventDefault();
-      // get the mouse cursor position at startup:
-      pos3 = e.clientX;
-      pos4 = e.clientY;
-      document.onmouseup = closeDragElement;
-      // call a function whenever the cursor moves:
-      document.onmousemove = elementDrag;
-    }
-
-    function elementDrag(e) {
-      e = e || window.event;
-      e.preventDefault();
-      // calculate the new cursor position:
-      pos1 = pos3 - e.clientX;
-      pos2 = pos4 - e.clientY;
-      pos3 = e.clientX;
-      pos4 = e.clientY;
-      // set the element's new position:
-      elmnt.style.top = elmnt.offsetTop - pos2 + "px";
-      elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
-    }
-
-    function closeDragElement() {
-      // stop moving when mouse button is released:
-      document.onmouseup = null;
-      document.onmousemove = null;
-    }
-  };
-
-  if (enterBtn) {
-    //enterBtn.style.display = "none"; //pourquoi ?
-  }
-
-  if (main) {
-    main.style.display = "block";
-  }
-
-  dragElement(backgroundWindow);
-
-  let isDragging = false;
-
-  document.addEventListener("mousedown", function (event) {
-    let dragElement = event.target.closest(".draggable");
-
-    if (!dragElement) return;
-
-    event.preventDefault();
-
-    dragElement.ondragstart = function () {
-      return false;
-    };
-
-    let coords, shiftX, shiftY;
-
-    startDrag(dragElement, event.clientX, event.clientY);
-
-    function onMouseUp(event) {
-      finishDrag();
-    }
-
-    function onMouseMove(event) {
-      moveAt(event.clientX, event.clientY);
-    }
-
-    // on drag start:
-    //   remember the initial shift
-    //   move the element position:fixed and a direct child of body
-    function startDrag(element, clientX, clientY) {
-      if (isDragging) {
-        return;
-      }
-
-      isDragging = true;
-
-      document.addEventListener("mousemove", onMouseMove);
-      element.addEventListener("mouseup", onMouseUp);
-
-      shiftX = clientX - element.getBoundingClientRect().left;
-      shiftY = clientY - element.getBoundingClientRect().top;
-
-      element.style.position = "fixed";
-
-      moveAt(clientX, clientY);
-    }
-
-    // switch to absolute coordinates at the end, to fix the element in the document
-    function finishDrag() {
-      if (!isDragging) {
-        return;
-      }
-
-      isDragging = false;
-
-      dragElement.style.top =
-        parseInt(dragElement.style.top) + window.pageYOffset + "px";
-      dragElement.style.position = "absolute";
-
-      document.removeEventListener("mousemove", onMouseMove);
-      dragElement.removeEventListener("mouseup", onMouseUp);
-    }
-
-    function moveAt(clientX, clientY) {
-      // new window-relative coordinates
-      let newX = clientX - shiftX;
-      let newY = clientY - shiftY;
-
-      // check if the new coordinates are below the bottom window edge
-      let newBottom = newY + dragElement.offsetHeight; // new bottom
-
-      // below the window? let's scroll the page
-      if (newBottom > document.documentElement.clientHeight) {
-        // window-relative coordinate of document end
-        let docBottom = document.documentElement.getBoundingClientRect().bottom;
-
-        // scroll the document down by 10px has a problem
-        // it can scroll beyond the end of the document
-        // Math.min(how much left to the end, 10)
-        let scrollY = Math.min(docBottom - newBottom, 10);
-
-        // calculations are imprecise, there may be rounding errors that lead to scrolling up
-        // that should be impossible, fix that here
-        if (scrollY < 0) scrollY = 0;
-
-        window.scrollBy(0, scrollY);
-
-        // a swift mouse move make put the cursor beyond the document end
-        // if that happens -
-        // limit the new Y by the maximally possible (right at the bottom of the document)
-        newY = Math.min(
-          newY,
-          document.documentElement.clientHeight - dragElement.offsetHeight
-        );
-      }
-
-      // check if the new coordinates are above the top window edge (similar logic)
-      if (newY < 0) {
-        // scroll up
-        let scrollY = Math.min(-newY, 10);
-        if (scrollY < 0) scrollY = 0; // check precision errors
-
-        window.scrollBy(0, -scrollY);
-        // a swift mouse move can put the cursor beyond the document start
-        newY = Math.max(newY, 0); // newY may not be below 0
-      }
-
-      // limit the new X within the window boundaries
-      // there's no scroll here so it's simple
-      if (newX < 0) newX = 0;
-      if (
-        newX >
-        document.documentElement.clientWidth - dragElement.offsetWidth
-      ) {
-        newX = document.documentElement.clientWidth - dragElement.offsetWidth;
-      }
-
-      dragElement.style.left = newX + "px";
-      dragElement.style.top = newY + "px";
-    }
-  });
 });

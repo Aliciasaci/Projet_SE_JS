@@ -448,7 +448,7 @@ body {
     }
 
     .darkglass {
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(39, 36, 36, 0.73);
       border: 1px solid rgba(0, 0, 0, 0.493);
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.438);
     }
@@ -751,8 +751,9 @@ body {
             }
 
             .result td {
-              // border-radius: 5px;
+              border-radius: 5px;
               input {
+                display: block;
                 width: 100%;
                 background: none;
                 border: none;

@@ -390,7 +390,7 @@ body main .glass {
   border: 1px solid rgba(255, 255, 255, 0.47);
 }
 body main .darkglass {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(39, 36, 36, 0.73);
   border: 1px solid rgba(0, 0, 0, 0.493);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.438);
 }
@@ -657,7 +657,11 @@ body main .window .window-content .calculator-wrapper #calculator {
     margin: auto;
   }
 }
+body main .window .window-content .calculator-wrapper #calculator .result td {
+  border-radius: 5px;
+}
 body main .window .window-content .calculator-wrapper #calculator .result td input {
+  display: block;
   width: 100%;
   background: none;
   border: none;
