@@ -451,6 +451,7 @@ body {
       background: rgba(39, 36, 36, 0.73);
       border: 1px solid rgba(0, 0, 0, 0.493);
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.438);
+      backdrop-filter: blur(5px);
     }
 
     .darkbtn {
@@ -576,16 +577,18 @@ body {
 
         #tictac {
           height: inherit;
-          // background: url(../assets/light_background_3.jpg) no-repeat center
-          //   center;
-          // background-size: cover;
           overflow: hidden;
 
           .wrapper {
             margin-top: 2%;
             font-weight: 700;
+            display: flex;
+            width: 30rem;
+            flex-direction: column;
 
             .score-wrapper {
+              width: 80%;
+              margin: auto;
               display: flex;
               justify-content: space-between;
               flex-direction: row;
@@ -595,7 +598,7 @@ body {
                 font-size: 3vmin;
                 text-align: center;
                 margin: 0 1vh;
-                padding: 1.75vh;
+                padding: 2vh;
                 border-radius: 8px;
                 background-color: #0a0027;
                 box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
@@ -608,18 +611,20 @@ body {
             }
 
             .container {
-              width: 40vmin;
-              height: 33vmin;
+              // width: 40vmin;
+              // height: 33vmin;
+              width: 80%;
+              height: 80%;
               display: flex;
               flex-wrap: wrap;
               gap: 1vmin;
               margin: auto;
-              margin-top: 1.5vmin;
+              margin-top: 1rem;
               justify-content: center;
 
               .button-option {
-                height: 10vmin;
-                width: 10vmin;
+                height: 5rem;
+                width: 26%;
                 font-size: 8.5vmin;
                 color: #12043d;
                 border-radius: 10px;
@@ -637,6 +642,7 @@ body {
               align-items: center;
               width: 50%;
               margin: auto;
+              margin-top: 1rem;
             }
           }
 
