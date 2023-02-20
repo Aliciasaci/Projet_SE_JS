@@ -20,7 +20,7 @@ import {
   render as renderTicTacToe,
   init as initTicTacToe,
 } from "./tictactoe.js";
-import { setTheme } from "./Theme.js";
+import { setTheme, setAppsToDarkTheme } from "./Theme.js";
 import {
   renderClock,
   openTab,
@@ -32,9 +32,7 @@ import {
   startPauseTimer,
   resetTimer,
 } from "./clock.js";
-import {
-  lockscreenAtStart 
-} from "./Options.js"
+import { lockscreenAtStart } from "./Options.js";
 
 //*variables
 const calculatorIcon = document.querySelector("#calculator-icon");
@@ -63,10 +61,10 @@ let displayedApp = "";
 let openedApps = [];
 let openedParams = [];
 passwordValue.value = null;
+let currentThemeChoice = null;
 
 // if page fully loaded
 window.addEventListener("load", () => {
-
   //*Starting animation
   const enterBtn = document.querySelector(".open_systeme_button");
 
@@ -75,10 +73,9 @@ window.addEventListener("load", () => {
     lockscreenAtStart();
     if (main) {
       main.style.display = "block";
-    }  
+    }
   });
 
-  
   //* Display saved settings of the system
   //* saved theme display
   saveCheckboxThemeState();
@@ -120,6 +117,12 @@ window.addEventListener("load", () => {
     if (checkbox.id == "mode") {
       checkbox.checked = savedState === "true";
       setTheme(savedState === "true" ? "dark" : "light");
+      if (savedState === "true") {
+        currentThemeChoice = "dark";
+      } else {
+        currentThemeChoice = "else";
+      }
+      setAppsToDarkTheme(currentThemeChoice)
     } else {
       checkbox.checked = savedState === "true";
     }
@@ -222,6 +225,9 @@ window.addEventListener("load", () => {
     }
     displayedApp = content;
     openedApps.push(content);
+    if (currentThemeChoice) {
+      setAppsToDarkTheme(currentThemeChoice);
+    }
   };
 
   let drag = false;
@@ -404,7 +410,7 @@ window.addEventListener("load", () => {
                 saveCheckboxBatteryState(checkbox, batteryNavDisplay);
                 retrieveCheckboxBatteryState(batteryNavDisplay, checkbox);
               }
-              break;
+             break; 
             case "params-network":
               if (
                 openedParams !== undefined &&
@@ -419,6 +425,7 @@ window.addEventListener("load", () => {
                 );
                 openedParams.push("network-wrapper");
               }
+              setAppsToDarkTheme(currentThemeChoice)
               break;
             case "params-lockscreen":
               if (
@@ -595,5 +602,4 @@ window.addEventListener("load", () => {
         break;
     }
   };
-
 });
