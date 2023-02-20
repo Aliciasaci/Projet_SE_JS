@@ -1070,6 +1070,18 @@ body #battery-wrapper button:hover,
 body #network-wrapper button:hover {
   background-color: #ebc2f0;
 }
+body #vibration-wrapper select,
+body #time-wrapper select,
+body #date-wrapper select,
+body #battery-wrapper select,
+body #network-wrapper select {
+  font-size: 12px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+}
 body .param-title {
   color: #3e3e3e;
   margin: auto;
