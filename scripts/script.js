@@ -33,6 +33,7 @@ const minNav = document.querySelector('#digital-clock-min');
 const secNav = document.querySelector('#digital-clock-sec');
 let batteryNavDisplay = document.querySelector('#battery-nav');
 const navDate = document.querySelector(".dateTime");
+let theme = localStorage.getItem("mode");
 
 let morpionPanel = null;
 let calculatorPanel = null;
@@ -95,8 +96,12 @@ window.addEventListener("load", () => {
             //* set the theme if theme checkbox is checked
             if (checkbox.id == "mode" && isChecked == true) {
                 setTheme("dark");
+                backgroundWindow.classList.add("darkglass");
+                backgroundWindow.style.color = "white";
             } else {
                 setTheme("light");
+                if (backgroundWindow.classList.contains("darkglass")) backgroundWindow.classList.remove("darkglass");
+                backgroundWindow.style.color = "black";
             }
         });
     }
@@ -112,6 +117,11 @@ window.addEventListener("load", () => {
         if (checkbox.id == "mode") {
             checkbox.checked = savedState === "true";
             setTheme(savedState === "true" ? "dark" : "light");
+            if (savedState === "true") {
+                backgroundWindow.classList.add("darkglass");
+            } else {
+                if (backgroundWindow.classList.contains("darkglass")) backgroundWindow.classList.remove("darkglass");
+            }
         } else {
             checkbox.checked = savedState === "true";
         }   
@@ -228,7 +238,6 @@ window.addEventListener("load", () => {
                     let hourValue = idHour.value;
                     let minValue = idMin.value;
                     let secValue = idSec.value;
-                    console.log(hourValue, minValue, secValue)
                     startPauseTimer(hourValue, minValue, secValue);
                 });
                 let resetBtn = document.querySelector("#reset-timer");
@@ -288,7 +297,6 @@ window.addEventListener("load", () => {
                     backgroundWindow.style.display = "block";
                     morpionPanel.style.display = "block";
                 } else if (openedApps.includes("tictactoe")) {
-                    console.log("tictactoe already opened");
                     backgroundWindow.style.display = "block";
                     morpionPanel.style.display = "block";
                     displayedApp = "tictactoe";
@@ -314,7 +322,6 @@ window.addEventListener("load", () => {
                     backgroundWindow.style.display = "block";
                     clockPanel.style.display = "block";
                 } else if (openedApps.includes("clock")) {
-                    console.log("clock already opened");
                     backgroundWindow.style.display = "block";
                     clockPanel.style.display = "block";
                     displayedApp = "clock";
@@ -340,7 +347,6 @@ window.addEventListener("load", () => {
                     backgroundWindow.style.display = "block";
                     paramsPanel.style.display = "block";
                 } else if (openedApps.includes("params")) {
-                    console.log("params already opened");
                     backgroundWindow.style.display = "block";
                     paramsPanel.style.display = "block";
                     displayedApp = "params";
@@ -721,7 +727,6 @@ window.addEventListener("beforeunload", () => {
             //checkbox.addEventListener("change", function() {
                 let isChecked = checkbox.checked;
                 localStorage.setItem(checkbox.id, isChecked);
-                console.log("saving checkbox state");
             //});
         });
     }
