@@ -1228,6 +1228,15 @@ body {
         background-color: lighten(rgb(214, 133, 224), 15%);
       }
     }
+
+    select {
+      font-size: 12px; 
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #fff;
+      color: #333;
+    }
   }
 
   .param-title {

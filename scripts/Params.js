@@ -274,7 +274,7 @@ export function renderDateParams() {
 export function renderBatteryParams() {
   return `
     <div id="battery-wrapper">
-      <h1>Paramètres de battery</h1>
+      <h1>Paramètres de batterie</h1>
       <div class="battery-param-display">Afficher la batterie
           <input type="checkbox" id="battery-display-check" name="params" class="param-switch">
           <label for="battery-display-check" class="param-label">
@@ -327,23 +327,45 @@ export function renderNetworkParams() {
     <div id="network-wrapper">
       <h1>Paramètres de latence réseau</h1>
       <div class="network-param-display">Afficher la latence réseau
-          <input type="checkbox" id="battery-display-check" name="params" class="param-switch">
-          <label for="battery-display-check" class="param-label">
-              <span class="param-label-background"></span>
-          </label>
+        <input type="checkbox" id="battery-display-check" name="params" class="param-switch">
+        <label for="battery-display-check" class="param-label">
+          <span class="param-label-background"></span>
+        </label>
       </div>
       <div class="network-param-display">Configurer le nom de domaine du serveur de ping
-          <input type="checkbox" id="domain-config-check" name="params" class="param-switch">
-          <label for="domain-config-check" class="param-label">
-              <span class="param-label-background"></span>
-          </label>
+        <input type="checkbox" id="domain-config-check" name="params" class="param-switch">
+        <label for="domain-config-check" class="param-label">
+          <span class="param-label-background"></span>
+        </label>
       </div>
       <div class="network-param-display">Configurer le délai de rafraichissement en secondes
-          <input type="checkbox" id="delay-network-check" name="params" class="param-switch">
-          <label for="delay-network-check" class="param-label">
-              <span class="param-label-background"></span>
-          </label>
+        <select id="refresh-time-select" class="refresh-time-select">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+        </select>
       </div>
     </div>
   `;
+}
+
+/**
+ * * Get the network latency and configure with the refresh time
+ * @param {integer} refreshTime 
+ */
+export function getNetworkLatency(refreshTime) {
+  const startTime = window.performance.now(); //* Get accurate start time of network latency since page load
+  //* Make request to server
+  fetch(window.location.href)
+    .then(response => response.text())
+    .then(text => {
+      const endTime = window.performance.now(); //* Get the time at which the response from the server was received
+      const latency = Math.round(endTime - startTime); //* Calculate the latency to get the time it took for the response to be received
+      console.log(latency);
+    })
+    .catch(error => console.error(error));
+  //* Call the function again after the specified refresh time changed
+  // setTimeout(() => {
+  //   getNetworkLatency(refreshTime);
+  // }, refreshTime * 1000);
 }

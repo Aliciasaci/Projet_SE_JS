@@ -1,6 +1,6 @@
 import { renderCalculatorBody, calculate } from "./Calculatrice.js";
 import { renderVibrationBody, vibrate, renderParamsBody, renderTimeParams, renderDateParams, renderBatteryParams, renderNetworkParams, displayEtatVibration, displayTimeTopBar,
-saveCheckboxBatteryState, retrieveCheckboxBatteryState, displayCheckedValues, dateCheckListeners} from "./Params.js";
+saveCheckboxBatteryState, retrieveCheckboxBatteryState, displayCheckedValues, dateCheckListeners, getNetworkLatency } from "./Params.js";
 import { render as renderTicTacToe, init as initTicTacToe } from "./tictactoe.js";
 import { setTheme } from "./Theme.js";
 import { renderClock, openTab, setClock, setDigitalClockTopBar, startPauseStopWatch, reset, lap, startPauseTimer, resetTimer  } from "./clock.js";
@@ -79,6 +79,17 @@ window.addEventListener("load", () => {
     retrieveCheckboxThemeState();
     //* saved battery display
     retrieveCheckboxBatteryState(batteryNavDisplay);
+    //* settings elements to be displayed in top bar
+    //* battery level
+    if (navigator.getBattery) { //* check if the browser supports the Battery Status API
+        navigator.getBattery().then(function(battery) {
+            let level = battery.level * 100; //* get the current battery level and multiply by 100 to get a percentage
+            document.getElementById("battery-level").innerText = level + "%";
+            if (level < 99) {
+                document.getElementById("battery-level").style.color = "yellow";
+            }
+        });
+    }
 
     /**
      * * Save the state of the theme checkbox to local storage
@@ -249,7 +260,6 @@ window.addEventListener("load", () => {
     openedApps.push(content);
     };
 
-    
     let drag = false;
     //*at click on calculator, display modal
     if (calculatorIcon) {
@@ -406,6 +416,34 @@ window.addEventListener("load", () => {
                             } else {
                                 windowContent.insertAdjacentHTML("beforeend",  renderNetworkParams());
                                 openedParams.push("network-wrapper");
+                                let select = document.querySelector('.refresh-time-select');
+                                let options = document.querySelectorAll('.refresh-time-select option');
+                                select.addEventListener('mousedown', function(event) {
+                                    event.stopPropagation();
+                                });
+                                select.addEventListener('mouseup', function(event) {
+                                    event.stopPropagation();
+                                });
+                                options.forEach(function(option) {
+                                    option.addEventListener('mousedown', function(event) {
+                                        event.stopPropagation();
+                                    });
+                                    option.addEventListener('mouseup', function(event) {
+                                        event.stopPropagation();
+                                    });
+                                });
+
+                                const refreshTimeSelect = document.getElementById('refresh-time-select');
+                                refreshTimeSelect.addEventListener('change', () => {
+                                    clearInterval();
+                                    let networkLatencyRefreshTime = refreshTimeSelect.value;
+                                    //* Passe updated network latency refresh time
+                                    clearTimeout();
+                                    // getNetworkLatency(networkLatencyRefreshTime);
+                                    setTimeout(() => {
+                                        getNetworkLatency(networkLatencyRefreshTime);
+                                      }, networkLatencyRefreshTime * 1000);
+                                });
                             }
                         break;
                     }
