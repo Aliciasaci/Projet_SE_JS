@@ -33,6 +33,7 @@ const minNav = document.querySelector('#digital-clock-min');
 const secNav = document.querySelector('#digital-clock-sec');
 let batteryNavDisplay = document.querySelector('#battery-nav');
 const navDate = document.querySelector(".dateTime");
+let theme = localStorage.getItem("mode");
 
 let morpionPanel = null;
 let calculatorPanel = null;
@@ -239,7 +240,6 @@ window.addEventListener("load", () => {
                     let hourValue = idHour.value;
                     let minValue = idMin.value;
                     let secValue = idSec.value;
-                    console.log(hourValue, minValue, secValue)
                     startPauseTimer(hourValue, minValue, secValue);
                 });
                 let resetBtn = document.querySelector("#reset-timer");
@@ -298,7 +298,6 @@ window.addEventListener("load", () => {
                     backgroundWindow.style.display = "block";
                     morpionPanel.style.display = "block";
                 } else if (openedApps.includes("tictactoe")) {
-                    console.log("tictactoe already opened");
                     backgroundWindow.style.display = "block";
                     morpionPanel.style.display = "block";
                     displayedApp = "tictactoe";
@@ -324,7 +323,6 @@ window.addEventListener("load", () => {
                     backgroundWindow.style.display = "block";
                     clockPanel.style.display = "block";
                 } else if (openedApps.includes("clock")) {
-                    console.log("clock already opened");
                     backgroundWindow.style.display = "block";
                     clockPanel.style.display = "block";
                     displayedApp = "clock";
@@ -350,7 +348,6 @@ window.addEventListener("load", () => {
                     backgroundWindow.style.display = "block";
                     paramsPanel.style.display = "block";
                 } else if (openedApps.includes("params")) {
-                    console.log("params already opened");
                     backgroundWindow.style.display = "block";
                     paramsPanel.style.display = "block";
                     displayedApp = "params";
@@ -376,6 +373,7 @@ window.addEventListener("load", () => {
                             } else {
                                 windowContent.insertAdjacentHTML("beforeend",  renderVibrationBody());
                                 openedParams.push("vibration-wrapper");
+                                saveCheckboxState();
                                 vibrate();
                             }
                         break;
@@ -384,6 +382,7 @@ window.addEventListener("load", () => {
                                 document.querySelector("#time-wrapper").style.display = "block";
                             } else {
                                 windowContent.insertAdjacentHTML("beforeend",  renderTimeParams());
+                                saveCheckboxState();
                                 openedParams.push("time-wrapper");
                                 displayTimeTopBar();
                             }
@@ -415,6 +414,7 @@ window.addEventListener("load", () => {
                                 document.querySelector("#network-wrapper").style.display = "block";
                             } else {
                                 windowContent.insertAdjacentHTML("beforeend",  renderNetworkParams());
+                                saveCheckboxState();
                                 openedParams.push("network-wrapper");
                                 let select = document.querySelector('.refresh-time-select');
                                 let options = document.querySelectorAll('.refresh-time-select option');
@@ -484,9 +484,9 @@ window.addEventListener("load", () => {
         openedParams.forEach ((param) => {
             windowContent.removeChild(document.querySelector(`#${param}`));
             temp2 = openedParams.filter((param) => param !== param);
+            openedParams = temp2;
         });
-        }
-        openedParams = temp2;
+        } 
     }
     openedApps = temp;
     });
@@ -759,7 +759,6 @@ window.addEventListener("beforeunload", () => {
             //checkbox.addEventListener("change", function() {
                 let isChecked = checkbox.checked;
                 localStorage.setItem(checkbox.id, isChecked);
-                console.log("saving checkbox state");
             //});
         });
     }
