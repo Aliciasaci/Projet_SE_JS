@@ -357,14 +357,15 @@ export function getNetworkLatency(refreshTime) {
   const startTime = window.performance.now(); //* Get accurate start time of network latency since page load
   //* Make request to server
   fetch(window.location.href)
-    .then(response => {
+    .then(response => response.text())
+    .then(text => {
       const endTime = window.performance.now(); //* Get the time at which the response from the server was received
-      const latency = endTime - startTime; //* Calculate the latency to get the time it took for the response to be received
-      console.log(`Latency: ${latency}ms`);
+      const latency = Math.round(endTime - startTime); //* Calculate the latency to get the time it took for the response to be received
+      console.log(latency);
     })
     .catch(error => console.error(error));
   //* Call the function again after the specified refresh time changed
-  setTimeout(() => {
-    getNetworkLatency(refreshTime);
-  }, refreshTime * 1000);
+  // setTimeout(() => {
+  //   getNetworkLatency(refreshTime);
+  // }, refreshTime * 1000);
 }

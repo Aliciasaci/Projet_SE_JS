@@ -439,7 +439,10 @@ window.addEventListener("load", () => {
                                     let networkLatencyRefreshTime = refreshTimeSelect.value;
                                     //* Passe updated network latency refresh time
                                     clearTimeout();
-                                    getNetworkLatency(networkLatencyRefreshTime);
+                                    // getNetworkLatency(networkLatencyRefreshTime);
+                                    setTimeout(() => {
+                                        getNetworkLatency(networkLatencyRefreshTime);
+                                      }, networkLatencyRefreshTime * 1000);
                                 });
                             }
                         break;
