@@ -103,13 +103,13 @@ Le projet javascript est utilisable comme un système d'exploitation classique.
 <p align="right">(<a href="#readme-top">retour en haut de page</a>)</p>
 
 
-[contributors-shield]: https://img.shields.io/github/contributors/maithi-trandiep/Project-GIT.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/Aliciasaci/Projet_SE_JS/.svg?style=for-the-badge
 [contributors-url]: https://github.com/Aliciasaci/Projet_SE_JS/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/maithi-trandiep/Project-GIT.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/Aliciasaci/Projet_SE_JS/.svg?style=for-the-badge
 [forks-url]: https://github.com/Aliciasaci/Projet_SE_JS/network/members
-[stars-shield]: https://img.shields.io/github/stars/maithi-trandiep/Project-GIT.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/Aliciasaci/Projet_SE_JS/.svg?style=for-the-badge
 [stars-url]: https://github.com/Aliciasaci/Projet_SE_JS/stargazers
-[issues-shield]: https://img.shields.io/github/issues/maithi-trandiep/Project-GIT.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/Aliciasaci/Projet_SE_JS/.svg?style=for-the-badge
 [issues-url]: https://github.com/Aliciasaci/Projet_SE_JS/issues
 [product-screenshot]: readme/screenshotJS.png
 [Javascript-img]: https://img.shields.io/badge/-Javascript-F7DF1E?logo=javascript&logoColor=white&style=for-the-badge
