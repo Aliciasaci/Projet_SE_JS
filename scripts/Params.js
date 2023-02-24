@@ -44,8 +44,7 @@ export function renderParamsBody() {
     </div>`;
 }
 
-export function renderVibrationBody() {
-  return `
+export function renderVibrationBody() {  return `
     <div id="vibration-wrapper">
       <h1>Paramètres de vibrations</h1>
       <div class="vibration-param-display">Afficher l'état de vibration
@@ -86,6 +85,8 @@ export function vibrate() {
       VibrationActivateCheck.addEventListener("change", function () {
         displayEtatVibration(VibrationDisplayBtn, VibrationActivateCheck);
       });
+
+
     }
   }
 }
@@ -102,7 +103,6 @@ export function displayEtatVibration(VibrationDisplayBtn, VibrationActivateCheck
       VibrationDisplayBtn.style.background = "rgb(214, 133, 224, 0.7)";
     } else {
       //si afficher état de vibration, conditionner sur l'activation de vibration et afficher la bonne icone.
-      //TODO Améliorer l'affichage */
       if (VibrationActivateCheck.checked) {
         console.log(vibrationActivated);
         vibrationIconOn.style.display = "block";
