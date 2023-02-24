@@ -33,6 +33,7 @@ export function setTheme(theme) {
     document.body.style.backgroundImage = "url('assets/bg_6.jpg')";
   }
 }
+
 export function setAppsToDarkTheme(theme) {
   setCalcToDarkTheme(theme);
   setClockToDarkTheme(theme);
