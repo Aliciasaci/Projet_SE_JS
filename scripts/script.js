@@ -7,6 +7,7 @@ import {
   renderDateParams,
   renderBatteryParams,
   renderNetworkParams,
+  displayEtatVibration,
   displayTimeTopBar,
   saveCheckboxBatteryState,
   retrieveCheckboxBatteryState,

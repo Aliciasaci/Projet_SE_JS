@@ -1108,7 +1108,12 @@ body .param-title {
   align-items: center;
   justify-content: center;
 }
+<<<<<<< HEAD
 body #password-choice-pannel {
+=======
+
+#server-ping-modal {
+>>>>>>> feature/delay-network
   display: none;
   width: 25rem;
   height: 15rem;
@@ -1123,18 +1128,30 @@ body #password-choice-pannel {
   flex-wrap: wrap;
   z-index: 999;
 }
+<<<<<<< HEAD
 body #password-choice-pannel h3 {
   text-align: center;
   color: #7e313f;
 }
 body #password-choice-pannel input {
+=======
+#server-ping-modal h3 {
+  text-align: center;
+  color: #7e313f;
+}
+#server-ping-modal input {
+>>>>>>> feature/delay-network
   padding: 10px;
   border-radius: 5px;
   width: 13rem;
   margin: auto;
   border: 2px solid pink;
 }
+<<<<<<< HEAD
 body #password-choice-pannel button {
+=======
+#server-ping-modal button {
+>>>>>>> feature/delay-network
   width: 4rem;
   padding: 10px;
   border-style: none;
@@ -1145,6 +1162,10 @@ body #password-choice-pannel button {
   color: white;
   cursor: pointer;
 }
+<<<<<<< HEAD
 body #password-choice-pannel button:hover {
+=======
+#server-ping-modal button:hover {
+>>>>>>> feature/delay-network
   background-color: rgba(195, 145, 154, 0.803);
 }/*# sourceMappingURL=style.css.map */
