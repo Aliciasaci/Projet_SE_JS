@@ -1093,9 +1093,41 @@ body .param-title {
 
 #server-ping-modal {
   display: none;
-  width: 23rem;
-  height: 13rem;
+  width: 25rem;
+  height: 15rem;
   position: absolute;
-  border: 2px solid pink;
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border: 2px solid rgba(156, 102, 153, 0.441);
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
   z-index: 999;
+}
+#server-ping-modal h3 {
+  text-align: center;
+  color: #7e313f;
+}
+#server-ping-modal input {
+  padding: 10px;
+  border-radius: 5px;
+  width: 13rem;
+  margin: auto;
+  border: 2px solid pink;
+}
+#server-ping-modal button {
+  width: 4rem;
+  padding: 10px;
+  border-style: none;
+  margin: auto;
+  margin-top: -1.5em;
+  border: 2px solid pink;
+  background-color: rgba(206, 109, 125, 0.803);
+  color: white;
+  cursor: pointer;
+}
+#server-ping-modal button:hover {
+  background-color: rgba(195, 145, 154, 0.803);
 }/*# sourceMappingURL=style.css.map */

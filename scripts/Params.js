@@ -380,7 +380,6 @@ export function latency() {
   });
 
   let interval = setInterval(() => {
-    console.log(localStorage.getItem("refresh-time"));
     getNetworkLatency();
   }, parseInt(localStorage.getItem("refresh-time")) * 1000);
 
@@ -409,6 +408,18 @@ export function latency() {
   domaineConfigCheck.addEventListener("change", () => {
     if (domaineConfigCheck.checked) {
       document.querySelector("#server-ping-modal").style.display = "flex";
+
+      const pingValidateBtn = document.querySelector("#ping-validate-btn");
+      if (pingValidateBtn) {
+        pingValidateBtn.addEventListener("click", () => {
+          let domaineToPing = document.querySelector("#ping-domaine").value;
+          if (domaineToPing != null) {
+            localStorage.setItem("domaine-ping", domaineToPing);
+            alert("Nouveau domaine à ping : "+ domaineToPing);
+            console.log(domaineToPing);
+          }
+        });
+      }
     } else {
       document.querySelector("#server-ping-modal").style.display = "none";
     }
@@ -422,20 +433,32 @@ export function latency() {
 export function getNetworkLatency() {
   const startTime = window.performance.now(); //* Get accurate start time of network latency since page load
   //* Make request to server
-  fetch(window.location.href)
-    .then((response) => response.text())
-    .then((text) => {
-      const endTime = window.performance.now(); //* Get the time at which the response from the server was received
-      const latency = Math.round(endTime - startTime); //* Calculate the latency to get the time it took for the response to be received
-      console.log(latency);
-      localStorage.setItem("latency", latency);
-    })
-    .catch((error) => console.error(error));
 
-  if (localStorage.getItem("network-display-check") == "true") {
-    document.querySelector("#network-latency").innerHTML =
-      localStorage.getItem("latency") + "ms";
-  } else {
-    document.querySelector("#network-latency").innerHTML = "";
+  let domaineToPing =  window.location.href;
+  let storedDomaineToPing = localStorage.getItem("domaine-ping");
+  if(storedDomaineToPing){
+    domaineToPing = storedDomaineToPing;
+  }
+  
+  if (domaineToPing != null) {
+    fetch(domaineToPing)
+      .then((response) => response.text())
+      .then(() => {
+        const endTime = window.performance.now(); //* Get the time at which the response from the server was received
+        const latency = Math.round(endTime - startTime); //* Calculate the latency to get the time it took for the response to be received
+        localStorage.setItem("latency", latency);
+      })
+      .catch((error) => {
+        alert("Une erreur est parvenue :( 1. Assuez-vous que votre nom de domaine est bien correcte 2. Des problèmes de permissions peuvent être à l'origin du problème ");
+        localStorage.setItem("domaine-ping", " ");
+        console.error(error);
+      });
+
+    if (localStorage.getItem("network-display-check") == "true") {
+      document.querySelector("#network-latency").innerHTML =
+        localStorage.getItem("latency") + "ms";
+    } else {
+      document.querySelector("#network-latency").innerHTML = "";
+    }
   }
 }
