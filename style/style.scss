@@ -1024,7 +1024,7 @@ body {
               font-size: 15px;
             }
 
-            .stopwatch-btn{
+            .stopwatch-btn {
               display: flex;
             }
             .stopwatch-wrapper,
@@ -1230,7 +1230,7 @@ body {
     }
 
     select {
-      font-size: 12px; 
+      font-size: 12px;
       padding: 6px;
       border: 1px solid #ccc;
       border-radius: 4px;
@@ -1247,6 +1247,15 @@ body {
     align-items: center;
     justify-content: center;
   }
+}
+
+#server-ping-modal {
+  display: none;
+  width: 23rem;
+  height: 13rem;
+  position: absolute;
+  border: 2px solid pink;
+  z-index: 999;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");

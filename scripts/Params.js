@@ -350,6 +350,9 @@ export function renderNetworkParams() {
       <div class="network-param-display">Configurer le délai de rafraichissement en secondes
         <select class="refresh-time-select">
           <option selected value="1">1</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
           <option value="20">20</option>
           <option value="30">30</option>
         </select>
@@ -382,10 +385,9 @@ export function latency() {
   }, parseInt(localStorage.getItem("refresh-time")) * 1000);
 
   const refreshTimeSelect = document.querySelector(".refresh-time-select");
-  console.log(refreshTimeSelect);
   refreshTimeSelect.addEventListener("change", () => {
     clearInterval(interval);
-    localStorage.setItem("refresh-time",refreshTimeSelect.value);
+    localStorage.setItem("refresh-time", refreshTimeSelect.value);
     interval = setInterval(() => {
       console.log(localStorage.getItem("refresh-time"));
       getNetworkLatency();
@@ -394,15 +396,24 @@ export function latency() {
 
   let networkCheck = document.querySelector("#network-display-check");
 
-  networkCheck.addEventListener("change", () =>
-  {
+  networkCheck.addEventListener("change", () => {
     if (networkCheck.checked) {
       document.querySelector("#network-latency").innerHTML =
         localStorage.getItem("latency") + "ms";
     } else {
       document.querySelector("#network-latency").innerHTML = "";
     }
-  })
+  });
+
+  let domaineConfigCheck = document.querySelector("#domain-config-check");
+  domaineConfigCheck.addEventListener("change", () => {
+    if (domaineConfigCheck.checked) {
+      document.querySelector("#server-ping-modal").style.display = "flex";
+    } else {
+      document.querySelector("#server-ping-modal").style.display = "none";
+      console.log("display : none");
+    }
+  });
 }
 
 /**
@@ -422,11 +433,10 @@ export function getNetworkLatency() {
     })
     .catch((error) => console.error(error));
 
-    if (localStorage.getItem("network-display-check") == "true") {
-      document.querySelector("#network-latency").innerHTML =
-        localStorage.getItem("latency") + "ms";
-    } else {
-      document.querySelector("#network-latency").innerHTML = "";
-    }
-
+  if (localStorage.getItem("network-display-check") == "true") {
+    document.querySelector("#network-latency").innerHTML =
+      localStorage.getItem("latency") + "ms";
+  } else {
+    document.querySelector("#network-latency").innerHTML = "";
+  }
 }

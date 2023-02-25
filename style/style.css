@@ -1089,4 +1089,13 @@ body .param-title {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#server-ping-modal {
+  display: none;
+  width: 23rem;
+  height: 13rem;
+  position: absolute;
+  border: 2px solid pink;
+  z-index: 999;
 }/*# sourceMappingURL=style.css.map */

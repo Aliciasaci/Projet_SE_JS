@@ -468,12 +468,8 @@ window.addEventListener("load", () => {
               }
               break;
             case "params-network":
-              if (
-                openedParams !== undefined &&
-                openedParams.includes("network-wrapper")
-              ) {
-                document.querySelector("#network-wrapper").style.display =
-                  "block";
+              if (openedParams !== undefined &&openedParams.includes("network-wrapper")) {
+                document.querySelector("#network-wrapper").style.display ="block";
               } else {
                 windowContent.insertAdjacentHTML(
                   "beforeend",
