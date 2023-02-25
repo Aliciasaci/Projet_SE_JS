@@ -1108,12 +1108,7 @@ body .param-title {
   align-items: center;
   justify-content: center;
 }
-<<<<<<< HEAD
 body #password-choice-pannel {
-=======
-
-#server-ping-modal {
->>>>>>> feature/delay-network
   display: none;
   width: 25rem;
   height: 15rem;
@@ -1128,30 +1123,18 @@ body #password-choice-pannel {
   flex-wrap: wrap;
   z-index: 999;
 }
-<<<<<<< HEAD
 body #password-choice-pannel h3 {
   text-align: center;
   color: #7e313f;
 }
 body #password-choice-pannel input {
-=======
-#server-ping-modal h3 {
-  text-align: center;
-  color: #7e313f;
-}
-#server-ping-modal input {
->>>>>>> feature/delay-network
   padding: 10px;
   border-radius: 5px;
   width: 13rem;
   margin: auto;
   border: 2px solid pink;
 }
-<<<<<<< HEAD
 body #password-choice-pannel button {
-=======
-#server-ping-modal button {
->>>>>>> feature/delay-network
   width: 4rem;
   padding: 10px;
   border-style: none;
@@ -1162,10 +1145,47 @@ body #password-choice-pannel button {
   color: white;
   cursor: pointer;
 }
-<<<<<<< HEAD
 body #password-choice-pannel button:hover {
-=======
+  background-color: rgba(195, 145, 154, 0.803);
+}
+
+#server-ping-modal {
+  display: none;
+  width: 25rem;
+  height: 15rem;
+  position: absolute;
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border: 2px solid rgba(156, 102, 153, 0.441);
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  z-index: 999;
+}
+#server-ping-modal h3 {
+  text-align: center;
+  color: #7e313f;
+}
+#server-ping-modal input {
+  padding: 10px;
+  border-radius: 5px;
+  width: 13rem;
+  margin: auto;
+  border: 2px solid pink;
+}
+#server-ping-modal button {
+  width: 4rem;
+  padding: 10px;
+  border-style: none;
+  margin: auto;
+  margin-top: -1.5em;
+  border: 2px solid pink;
+  background-color: rgba(206, 109, 125, 0.803);
+  color: white;
+  cursor: pointer;
+}
 #server-ping-modal button:hover {
->>>>>>> feature/delay-network
   background-color: rgba(195, 145, 154, 0.803);
 }/*# sourceMappingURL=style.css.map */

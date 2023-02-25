@@ -44,6 +44,7 @@ export function renderParamsBody() {
     </div>`;
 }
 
+//*******CODE VIBRATION */
 export function renderVibrationBody() {
   return `
     <div id="vibration-wrapper">
@@ -66,6 +67,8 @@ export function renderVibrationBody() {
 
 export function vibrate() {
   const vibrationWrapper = document.querySelector("#vibration-wrapper");
+  const allDom = document.querySelector("*");
+
   if (vibrationWrapper) {
     //*Afficher état vibration
     const VibrationDisplayBtn = document.querySelector(
@@ -76,41 +79,56 @@ export function vibrate() {
     );
     if (VibrationDisplayBtn) {
       VibrationDisplayBtn.addEventListener("change", function () {
-        displayEtatVibration(VibrationDisplayBtn, VibrationActivateCheck);
-      });
-    }
-
-    //*Activer la vibration
-    const VibrationActivateBtn = document.querySelector(
-      "#vibration-activate-btn"
-    );
-    if (VibrationActivateCheck) {
-      VibrationActivateCheck.addEventListener("change", function () {
-        displayEtatVibration(
-          VibrationDisplayBtn.checked,
-          VibrationActivateCheck.checked
+        localStorage.setItem(
+          "vibration-display-check",
+          VibrationDisplayBtn.checked
         );
+        displayEtatVibration();
+      });
+
+      //*Activer la vibration
+      if (VibrationActivateCheck) {
+        VibrationActivateCheck.addEventListener("change", function () {
+          localStorage.setItem(
+            "vibration-activate-check",
+            VibrationActivateCheck.checked
+          );
+          displayEtatVibration();
+        });
+      }
+
+      allDom.addEventListener("click", () => {
+        if (localStorage.getItem("vibration-activate-check") == "true") {
+          startVibrate();
+        }
+
+        displayEtatVibration();
       });
     }
   }
 }
 
-export function displayEtatVibration(
-  VibrationDisplayBtn,
-  VibrationActivateCheck
-) {
+function startVibrate() {
+  console.log("Vibration");
+  navigator.vibrate(200);
+  window.navigator.vibrate(200);
+}
+
+export function displayEtatVibration() {
+  let VibrationDisplayBtn = localStorage.getItem("vibration-display-check");
+  let VibrationActivateCheck = localStorage.getItem("vibration-activate-check");
   const vibrationIconOn = document.querySelector("#vibration-icon-on");
   const vibrationIconOff = document.querySelector("#vibration-icon-off");
 
+
   if (vibrationIconOn && vibrationIconOff) {
-    if (!VibrationDisplayChecked) {
+    if (VibrationDisplayBtn == "false") {
       //si masquer l'état de vibration, masquer les deux icones;
       vibrationIconOn.style.display = "none";
       vibrationIconOff.style.display = "none";
     } else {
       //si afficher état de vibration, conditionner sur l'activation de vibration et afficher la bonne icone.
-      if (VibrationActivateCheck.checked) {
-        console.log(vibrationActivated);
+      if (VibrationActivateCheck == "true") {
         vibrationIconOn.style.display = "block";
         vibrationIconOff.style.display = "none";
       } else {

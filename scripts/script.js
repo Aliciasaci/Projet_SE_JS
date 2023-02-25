@@ -92,6 +92,19 @@ window.addEventListener("load", () => {
   //* savec vibration display
   retrieveCheckboxDisplayState(vibrationIconOn, vibrationIconOff);
 
+  //* settings elements to be displayed in top bar
+  //* battery level
+  if (navigator.getBattery) {
+    //* check if the browser supports the Battery Status API
+    navigator.getBattery().then(function (battery) {
+      let level = battery.level * 100; //* get the current battery level and multiply by 100 to get a percentage
+      document.getElementById("battery-level").innerText = level + "%";
+      if (level < 99) {
+        document.getElementById("battery-level").style.color = "yellow";
+      }
+    });
+  }
+
   /**
    * * Save the state of the theme checkbox to local storage
    */
@@ -202,6 +215,10 @@ window.addEventListener("load", () => {
     });
   }
   saveCheckboxState();
+  
+  //* Display or not vibration state 
+  displayEtatVibration();
+  
   //* time to be displayed in top bar
   setDigitalClockTopBar();
   setInterval(setDigitalClockTopBar, 1000);
@@ -437,14 +454,7 @@ window.addEventListener("load", () => {
                   renderVibrationBody()
                 );
                 openedParams.push("vibration-wrapper");
-                let checkboxDisplay = document.querySelector(
-                  "#vibration-display-check"
-                );
-                let checkboxActivate = document.querySelector(
-                  "#vibration-activate-check"
-                );
-                saveCheckboxDisplayState(checkboxDisplay, checkboxActivate);
-                retrieveCheckboxDisplayState(checkboxDisplay, checkboxActivate);
+                saveCheckboxState();
                 vibrate();
               }
               break;
@@ -474,6 +484,8 @@ window.addEventListener("load", () => {
                   "beforeend",
                   renderDateParams()
                 );
+                dateCheckListeners();
+                saveCheckboxState();
                 openedParams.push("date-wrapper");
               }
               break;
@@ -886,17 +898,18 @@ window.addEventListener("load", () => {
     };
   });
 });
-// window.addEventListener("beforeunload", () => {
-//     function saveCheckboxState() {
-//         //* get all checkbox elements on the page
-//         let checkboxes = document.querySelectorAll("input[type=checkbox]");
-//         //* add an event listener for the change event to each checkbox
-//         checkboxes.forEach(function(checkbox) {
-//             //checkbox.addEventListener("change", function() {
-//                 let isChecked = checkbox.checked;
-//                 localStorage.setItem(checkbox.id, isChecked);
-//             //});
-//         });
-//     }
-//     saveCheckboxState();
-// });
+window.addEventListener("beforeunload", () => {
+    function saveCheckboxState() {
+        //* get all checkbox elements on the page
+        let checkboxes = document.querySelectorAll("input[type=checkbox]");
+        //* add an event listener for the change event to each checkbox
+        checkboxes.forEach(function(checkbox) {
+            //checkbox.addEventListener("change", function() {
+                let isChecked = checkbox.checked;
+                localStorage.setItem(checkbox.id, isChecked);
+                console.log("saving checkbox state");
+            //});
+        });
+    }
+    saveCheckboxState();
+});
