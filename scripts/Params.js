@@ -411,7 +411,6 @@ export function latency() {
       document.querySelector("#server-ping-modal").style.display = "flex";
     } else {
       document.querySelector("#server-ping-modal").style.display = "none";
-      console.log("display : none");
     }
   });
 }
