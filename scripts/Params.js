@@ -4,7 +4,7 @@ const paramsBody = document.querySelector("#params");
 let dateDisplay = localStorage.getItem("date-display-check");
 const date = new Date();
 let day = date.getDate();
-let month = date.toLocaleString("fr", { month: "long" });
+let month = date.toLocaleString("fr", { month: "short" });
 let year = date.getFullYear();
 
 export function renderParamsBody() {
