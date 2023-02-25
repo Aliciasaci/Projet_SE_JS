@@ -44,7 +44,9 @@ export function renderParamsBody() {
     </div>`;
 }
 
-export function renderVibrationBody() {  return `
+//*******CODE VIBRATION */
+export function renderVibrationBody() {
+  return `
     <div id="vibration-wrapper">
       <h1>Paramètres de vibrations</h1>
       <div class="vibration-param-display">Afficher l'état de vibration
@@ -64,54 +66,75 @@ export function renderVibrationBody() {  return `
 }
 
 export function vibrate() {
-
   const vibrationWrapper = document.querySelector("#vibration-wrapper");
-  if (vibrationWrapper) {
+  const allDom = document.querySelector("*");
 
+  if (vibrationWrapper) {
     //*Afficher état vibration
-    const VibrationDisplayBtn = document.querySelector("#vibration-display-check");
-    const VibrationActivateCheck = document.querySelector("#vibration-activate-check")
+    const VibrationDisplayBtn = document.querySelector(
+      "#vibration-display-check"
+    );
+    const VibrationActivateCheck = document.querySelector(
+      "#vibration-activate-check"
+    );
     if (VibrationDisplayBtn) {
       VibrationDisplayBtn.addEventListener("change", function () {
-          displayEtatVibration(VibrationDisplayBtn, VibrationActivateCheck);
-      });
-    }
-
-    //*Activer la vibration
-    const VibrationActivateBtn = document.querySelector(
-      "#vibration-activate-btn"
-    );
-    if (VibrationActivateCheck) {
-      VibrationActivateCheck.addEventListener("change", function () {
-        displayEtatVibration(VibrationDisplayBtn, VibrationActivateCheck);
+        localStorage.setItem(
+          "vibration-display-check",
+          VibrationDisplayBtn.checked
+        );
+        displayEtatVibration();
       });
 
+      //*Activer la vibration
+      if (VibrationActivateCheck) {
+        VibrationActivateCheck.addEventListener("change", function () {
+          localStorage.setItem(
+            "vibration-activate-check",
+            VibrationActivateCheck.checked
+          );
+          displayEtatVibration();
+        });
+      }
 
+      allDom.addEventListener("click", () => {
+        if (localStorage.getItem("vibration-activate-check") == "true") {
+          startVibrate();
+        }
+
+        displayEtatVibration();
+      });
     }
   }
 }
 
-export function displayEtatVibration(VibrationDisplayBtn, VibrationActivateCheck) {
+function startVibrate() {
+  console.log("Vibration");
+  navigator.vibrate(200);
+  window.navigator.vibrate(200);
+}
+
+export function displayEtatVibration() {
+  let VibrationDisplayBtn = localStorage.getItem("vibration-display-check");
+  let VibrationActivateCheck = localStorage.getItem("vibration-activate-check");
   const vibrationIconOn = document.querySelector("#vibration-icon-on");
   const vibrationIconOff = document.querySelector("#vibration-icon-off");
 
+
   if (vibrationIconOn && vibrationIconOff) {
-    if (!VibrationDisplayBtn.checked) {
+    if (VibrationDisplayBtn == "false") {
       //si masquer l'état de vibration, masquer les deux icones;
       vibrationIconOn.style.display = "none";
       vibrationIconOff.style.display = "none";
-      VibrationDisplayBtn.style.background = "rgb(214, 133, 224, 0.7)";
     } else {
       //si afficher état de vibration, conditionner sur l'activation de vibration et afficher la bonne icone.
-      if (VibrationActivateCheck.checked) {
-        console.log(vibrationActivated);
+      if (VibrationActivateCheck == "true") {
         vibrationIconOn.style.display = "block";
         vibrationIconOff.style.display = "none";
       } else {
         vibrationIconOff.style.display = "block";
         vibrationIconOn.style.display = "none";
       }
-      VibrationDisplayBtn.style.background = "rgb(123, 155, 216)";
     }
   }
 }
@@ -143,49 +166,48 @@ export function renderTimeParams() {
 }
 
 export function displayTimeTopBar() {
-  const hourParamBtn = document.querySelector('#hour-display-check');
-  const minParamBtn = document.querySelector('#min-display-check');
-  const secParamBtn = document.querySelector('#sec-display-check');
-  const hourNavDisplay = document.querySelector('#digital-clock-hour');
-  const minNavDisplay = document.querySelector('#digital-clock-min');
-  const secNavDisplay = document.querySelector('#digital-clock-sec');
-  hourParamBtn.addEventListener("click", function() {
+  const hourParamBtn = document.querySelector("#hour-display-check");
+  const minParamBtn = document.querySelector("#min-display-check");
+  const secParamBtn = document.querySelector("#sec-display-check");
+  const hourNavDisplay = document.querySelector("#digital-clock-hour");
+  const minNavDisplay = document.querySelector("#digital-clock-min");
+  const secNavDisplay = document.querySelector("#digital-clock-sec");
+  hourParamBtn.addEventListener("click", function () {
     if (hourParamBtn.checked == true) {
-        // document.getElementById(clock-nav).append(`<span id="digital-clock-hour"></span><span>:</span>`);
-        hourNavDisplay.style.display = "block";
-        hourNavDisplay.nextElementSibling.style.display = "block";
+      // document.getElementById(clock-nav).append(`<span id="digital-clock-hour"></span><span>:</span>`);
+      hourNavDisplay.style.display = "block";
+      hourNavDisplay.nextElementSibling.style.display = "block";
     } else {
-        // hourNavDisplay.remove();
-        hourNavDisplay.style.display = "none";
-        hourNavDisplay.nextElementSibling.style.display = "none";
+      // hourNavDisplay.remove();
+      hourNavDisplay.style.display = "none";
+      hourNavDisplay.nextElementSibling.style.display = "none";
     }
-  })
-  minParamBtn.addEventListener("click", function() {
+  });
+  minParamBtn.addEventListener("click", function () {
     if (minParamBtn.checked == true) {
-
-        minNavDisplay.style.display = "block";
-        minNavDisplay.nextElementSibling.style.display = "block";
+      minNavDisplay.style.display = "block";
+      minNavDisplay.nextElementSibling.style.display = "block";
     } else {
-        minNavDisplay.style.display = "none";
-        minNavDisplay.nextElementSibling.style.display = "none";
+      minNavDisplay.style.display = "none";
+      minNavDisplay.nextElementSibling.style.display = "none";
     }
-  })
-  secParamBtn.addEventListener("click", function() {
+  });
+  secParamBtn.addEventListener("click", function () {
     if (secParamBtn.checked == true) {
-        secNavDisplay.style.display = "block";
+      secNavDisplay.style.display = "block";
     } else {
-        secNavDisplay.style.display = "none";
+      secNavDisplay.style.display = "none";
     }
-  })
+  });
 }
 
 export function displayCheckedValues(dateCheck, monthCheck, yearCheck) {
   let a = `${day} `;
-  if ((dateCheck === null) || (dateCheck === "false")) a = "";
+  if (dateCheck === null || dateCheck === "false") a = "";
   let b = `${month} `;
-  if ((monthCheck === null) || (monthCheck === "false")) b = "";
+  if (monthCheck === null || monthCheck === "false") b = "";
   let c = `${year}`;
-  if ((yearCheck === null) || (yearCheck === "false")) c = "";
+  if (yearCheck === null || yearCheck === "false") c = "";
   return `${a}${b}${c}`;
 }
 
@@ -206,7 +228,9 @@ export function dateCheckListeners() {
   }
   if (monthCheck) {
     monthCheck.addEventListener("change", function () {
-      monthDisplay === "true" ? (monthDisplay = "false") : (monthDisplay = "true");
+      monthDisplay === "true"
+        ? (monthDisplay = "false")
+        : (monthDisplay = "true");
       displayDate(dayDisplay, monthDisplay, yearDisplay);
     });
   }
@@ -223,11 +247,15 @@ export function dateCheckListeners() {
   if (dateCheck) {
     dateCheck.addEventListener("change", function () {
       if (dateDisplay === "false" || dateDisplay === null) {
-        dateDisplay === "true" ? (dateDisplay = "false") : (dateDisplay = "true");
+        dateDisplay === "true"
+          ? (dateDisplay = "false")
+          : (dateDisplay = "true");
         displayDate(dayDisplay, monthDisplay, yearDisplay);
       } else {
         dateField.innerHTML = "";
-        dateDisplay === "true" ? (dateDisplay = "false") : (dateDisplay = "true");
+        dateDisplay === "true"
+          ? (dateDisplay = "false")
+          : (dateDisplay = "true");
       }
     });
   }
@@ -235,8 +263,8 @@ export function dateCheckListeners() {
 
 function displayDate(dayCheck, monthCheck, yearCheck) {
   const dateField = document.querySelector(".dateTime");
-  if (dateDisplay === "true") dateField.innerHTML = displayCheckedValues(dayCheck, monthCheck, yearCheck);
-
+  if (dateDisplay === "true")
+    dateField.innerHTML = displayCheckedValues(dayCheck, monthCheck, yearCheck);
 }
 
 export function renderDateParams() {
@@ -287,11 +315,11 @@ export function renderBatteryParams() {
 
 /**
  * * Save the state of the checkbox for battery settings in the local storage
- * @param {boolean} checkbox 
- * @param {string} batteryNavDisplay 
+ * @param {boolean} checkbox
+ * @param {string} batteryNavDisplay
  */
 export function saveCheckboxBatteryState(checkbox, batteryNavDisplay) {
-  checkbox.addEventListener('change', function() {
+  checkbox.addEventListener("change", function () {
     let isChecked = checkbox.checked;
     localStorage.setItem("checkbox-battery", isChecked);
     if (checkbox.id == "battery-display-check" && isChecked == true) {
@@ -304,8 +332,8 @@ export function saveCheckboxBatteryState(checkbox, batteryNavDisplay) {
 
 /**
  * * Retrieve the state of the checkbox for battery settings in the local storage
- * @param {string} batteryNavDisplay 
- * @param {boolean} checkbox 
+ * @param {string} batteryNavDisplay
+ * @param {boolean} checkbox
  */
 export function retrieveCheckboxBatteryState(batteryNavDisplay, checkbox) {
   let savedState = localStorage.getItem("checkbox-battery");
@@ -351,19 +379,19 @@ export function renderNetworkParams() {
 
 /**
  * * Get the network latency and configure with the refresh time
- * @param {integer} refreshTime 
+ * @param {integer} refreshTime
  */
 export function getNetworkLatency(refreshTime) {
   const startTime = window.performance.now(); //* Get accurate start time of network latency since page load
   //* Make request to server
   fetch(window.location.href)
-    .then(response => response.text())
-    .then(text => {
+    .then((response) => response.text())
+    .then((text) => {
       const endTime = window.performance.now(); //* Get the time at which the response from the server was received
       const latency = Math.round(endTime - startTime); //* Calculate the latency to get the time it took for the response to be received
       console.log(latency);
     })
-    .catch(error => console.error(error));
+    .catch((error) => console.error(error));
   //* Call the function again after the specified refresh time changed
   // setTimeout(() => {
   //   getNetworkLatency(refreshTime);
