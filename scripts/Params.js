@@ -179,8 +179,28 @@ export function displayTimeTopBar() {
   })
 }
 
+function getFrenchDay(day) {
+  switch (day) {
+    case 0:
+      return "Dim.";
+    case 1:
+      return "Lun.";
+    case 2:
+      return "Mar.";
+    case 3:
+      return "Mer.";
+    case 4:
+      return "Jeu.";
+    case 5:
+      return "Ven.";
+    case 6:
+      return "Sam.";
+  }
+}
+
 export function displayCheckedValues(dateCheck, monthCheck, yearCheck) {
-  let a = `${day} `;
+  let dayLetter = getFrenchDay(new Date().getDay());
+  let a = `${dayLetter} ${day} `;
   if ((dateCheck === null) || (dateCheck === "false")) a = "";
   let b = `${month} `;
   if ((monthCheck === null) || (monthCheck === "false")) b = "";
