@@ -12,13 +12,14 @@ import {
   retrieveCheckboxBatteryState,
   displayCheckedValues,
   dateCheckListeners,
-  retrieveCheckboxDisplayState
+  retrieveCheckboxDisplayState,
+  renderLockscreenParams, lockscreen, setLockscreenPassword 
 } from "./Params.js";
 import {
   render as renderTicTacToe,
   init as initTicTacToe,
 } from "./tictactoe.js";
-import { setTheme } from "./Theme.js";
+import { setTheme, setAppsToDarkTheme } from "./Theme.js";
 import {
   renderClock,
   openTab,
@@ -30,6 +31,7 @@ import {
   startPauseTimer,
   resetTimer,
 } from "./clock.js";
+import { lockscreenAtStart } from "./Options.js";
 
 //*variables
 const calculatorIcon = document.querySelector("#calculator-icon");
@@ -126,7 +128,7 @@ window.addEventListener("load", () => {
       } else {
         currentThemeChoice = "else";
       }
-      // setAppsToDarkTheme(currentThemeChoice);
+      setAppsToDarkTheme(currentThemeChoice);
     } else {
       checkbox.checked = savedState === "true";
       /**
@@ -138,7 +140,7 @@ window.addEventListener("load", () => {
       //* saved battery display
       retrieveCheckboxBatteryState(batteryNavDisplay);
       //* settings elements to be displayed in top bar
-      //* battery level 
+      //* battery level
       if (navigator.getBattery) {
         //* check if the browser supports the Battery Status API
         navigator.getBattery().then(function (battery) {
@@ -507,7 +509,7 @@ window.addEventListener("load", () => {
                 );
                 openedParams.push("network-wrapper");
               }
-              // setAppsToDarkTheme(currentThemeChoice);
+              setAppsToDarkTheme(currentThemeChoice);
               break;
             case "params-lockscreen":
               if (
