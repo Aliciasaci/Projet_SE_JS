@@ -13,7 +13,7 @@ import {
   retrieveCheckboxBatteryState,
   displayCheckedValues,
   dateCheckListeners,
-  renderLockscreenParams, lockscreen, setLockscreenPassword, latency , startVibrate
+  renderLockscreenParams, lockscreen, setLockscreenPassword, latency , startVibrate, displayLatency
 } from "./Params.js";
 import {
   render as renderTicTacToe,
@@ -226,6 +226,9 @@ window.addEventListener("load", () => {
   
   //* Display or not vibration state 
   displayEtatVibration();
+
+  //* Display or not latency
+  latency();
   
   //* time to be displayed in top bar
   setDigitalClockTopBar();
@@ -528,6 +531,7 @@ window.addEventListener("load", () => {
                   renderNetworkParams()
                 );
                 latency();
+                saveCheckboxState();
                 openedParams.push("network-wrapper");
               }
               setAppsToDarkTheme(currentThemeChoice);

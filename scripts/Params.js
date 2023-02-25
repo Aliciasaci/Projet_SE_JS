@@ -96,7 +96,6 @@ export function vibrate() {
           displayEtatVibration();
         });
       }
-
     }
   }
 }
@@ -112,7 +111,6 @@ export function displayEtatVibration() {
   let VibrationActivateCheck = localStorage.getItem("vibration-activate-check");
   const vibrationIconOn = document.querySelector("#vibration-icon-on");
   const vibrationIconOff = document.querySelector("#vibration-icon-off");
-
 
   if (vibrationIconOn && vibrationIconOff) {
     if (VibrationDisplayBtn == "false") {
@@ -131,7 +129,6 @@ export function displayEtatVibration() {
     }
   }
 }
-
 
 //*******CODE TIME */
 
@@ -196,7 +193,6 @@ export function displayTimeTopBar() {
     }
   });
 }
-
 
 //*******CODE DATE */
 
@@ -298,7 +294,6 @@ export function renderDateParams() {
   `;
 }
 
-
 //*******CODE BATTERY */
 
 export function renderBatteryParams() {
@@ -358,8 +353,6 @@ export function retrieveCheckboxBatteryState(batteryNavDisplay, checkbox) {
  * @param {string} batteryNavDisplay
  */
 
-
-
 //************************CODE LATENCY */
 export function renderNetworkParams() {
   return `
@@ -391,69 +384,90 @@ export function renderNetworkParams() {
   `;
 }
 
+export function displayLatency() {
+  let displayActivated = localStorage.getItem("network-display-check");
+  if (displayActivated == "true") {
+    document.querySelector("#network-latency").innerHTML =
+      localStorage.getItem("latency") + "ms";
+  } else {
+    document.querySelector("#network-latency").innerHTML = "";
+  }
+}
+
 export function latency() {
   let select = document.querySelector(".refresh-time-select");
   let options = document.querySelectorAll(".refresh-time-select option");
-  select.addEventListener("mousedown", function (event) {
-    event.stopPropagation();
-  });
-  select.addEventListener("mouseup", function (event) {
-    event.stopPropagation();
-  });
-  options.forEach(function (option) {
-    option.addEventListener("mousedown", function (event) {
+  if(select && options){
+    select.addEventListener("mousedown", function (event) {
       event.stopPropagation();
     });
-    option.addEventListener("mouseup", function (event) {
+    select.addEventListener("mouseup", function (event) {
       event.stopPropagation();
     });
-  });
+    options.forEach(function (option) {
+      option.addEventListener("mousedown", function (event) {
+        event.stopPropagation();
+      });
+      option.addEventListener("mouseup", function (event) {
+        event.stopPropagation();
+      });
+    });
+  
+  }
+  localStorage.setItem("refresh-time", 1);
 
   let interval = setInterval(() => {
     getNetworkLatency();
   }, parseInt(localStorage.getItem("refresh-time")) * 1000);
 
   const refreshTimeSelect = document.querySelector(".refresh-time-select");
-  refreshTimeSelect.addEventListener("change", () => {
-    clearInterval(interval);
-    localStorage.setItem("refresh-time", refreshTimeSelect.value);
-    interval = setInterval(() => {
-      console.log(localStorage.getItem("refresh-time"));
-      getNetworkLatency();
-    }, parseInt(localStorage.getItem("refresh-time")) * 1000);
-  });
+  if(refreshTimeSelect){
+    console.log(refreshTimeSelect);
+    refreshTimeSelect.addEventListener("change", () => {
+      clearInterval(interval);
+      localStorage.setItem("refresh-time", refreshTimeSelect.value);
+      interval = setInterval(() => {
+        getNetworkLatency();
+      }, parseInt(localStorage.getItem("refresh-time")) * 1000);
+    }); 
+  }
+
 
   let networkCheck = document.querySelector("#network-display-check");
 
-  networkCheck.addEventListener("change", () => {
-    if (networkCheck.checked) {
-      document.querySelector("#network-latency").innerHTML =
-        localStorage.getItem("latency") + "ms";
-    } else {
-      document.querySelector("#network-latency").innerHTML = "";
-    }
-  });
+  if(networkCheck)
+  {
+    networkCheck.addEventListener("change", () => {
+      localStorage.setItem("network-display-check",networkCheck.checked)
+      displayLatency();
+    }); 
+  }
 
   let domaineConfigCheck = document.querySelector("#domain-config-check");
-  domaineConfigCheck.addEventListener("change", () => {
-    if (domaineConfigCheck.checked) {
-      document.querySelector("#server-ping-modal").style.display = "flex";
-
-      const pingValidateBtn = document.querySelector("#ping-validate-btn");
-      if (pingValidateBtn) {
-        pingValidateBtn.addEventListener("click", () => {
-          let domaineToPing = document.querySelector("#ping-domaine").value;
-          if (domaineToPing != null) {
-            localStorage.setItem("domaine-ping", domaineToPing);
-            alert("Nouveau domaine à ping : " + domaineToPing);
-            console.log(domaineToPing);
-          }
-        });
+  if(domaineConfigCheck)
+  {
+    domaineConfigCheck.addEventListener("change", () => {
+      if (domaineConfigCheck.checked) {
+        document.querySelector("#server-ping-modal").style.display = "flex";
+  
+        const pingValidateBtn = document.querySelector("#ping-validate-btn");
+        if (pingValidateBtn) {
+          pingValidateBtn.addEventListener("click", () => {
+            let domaineToPing = document.querySelector("#ping-domaine").value;
+            if (domaineToPing != null) {
+              localStorage.setItem("domaine-ping", domaineToPing);
+              alert("Nouveau domaine à ping : " + domaineToPing);
+              console.log(domaineToPing);
+            }
+          });
+        }
+      } else {
+        document.querySelector("#server-ping-modal").style.display = "none";
       }
-    } else {
-      document.querySelector("#server-ping-modal").style.display = "none";
-    }
-  });
+    });
+  }
+
+
 }
 
 /**
@@ -486,15 +500,11 @@ export function getNetworkLatency() {
         console.error(error);
       });
 
-    if (localStorage.getItem("network-display-check") == "true") {
-      document.querySelector("#network-latency").innerHTML =
-        localStorage.getItem("latency") + "ms";
-    } else {
-      document.querySelector("#network-latency").innerHTML = "";
-    }
+    displayLatency();
   }
 }
 
+//************************CODE LOCKSCREEN */
 export function renderLockscreenParams() {
   return `
     <div id="lockscreen-wrapper">
