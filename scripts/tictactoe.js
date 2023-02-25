@@ -38,8 +38,6 @@ export const render = () => {
     `;
 };
 
-let darkMode = false;
-const switchModeBtn = document.querySelector("#switch-mode-btn");
 let scoreboard = {
   player: 0,
   computer: 0,

@@ -345,7 +345,6 @@ body {
       background-color: #fff;
       color: #333;
       font-size: 14px;
-      display: none;
     }
 
     display: none;
@@ -453,10 +452,9 @@ body {
     }
 
     .darkglass {
-      background: rgba(39, 36, 36, 0.73);
+      background: rgba(0, 0, 0, 0.4);
       border: 1px solid rgba(0, 0, 0, 0.493);
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.438);
-      backdrop-filter: blur(5px);
     }
 
     .darkbtn {
@@ -582,18 +580,16 @@ body {
 
         #tictac {
           height: inherit;
+          // background: url(../assets/light_background_3.jpg) no-repeat center
+          //   center;
+          // background-size: cover;
           overflow: hidden;
 
           .wrapper {
             margin-top: 2%;
             font-weight: 700;
-            display: flex;
-            width: 30rem;
-            flex-direction: column;
 
             .score-wrapper {
-              width: 80%;
-              margin: auto;
               display: flex;
               justify-content: space-between;
               flex-direction: row;
@@ -603,7 +599,7 @@ body {
                 font-size: 3vmin;
                 text-align: center;
                 margin: 0 1vh;
-                padding: 2vh;
+                padding: 1.75vh;
                 border-radius: 8px;
                 background-color: #0a0027;
                 box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
@@ -616,20 +612,18 @@ body {
             }
 
             .container {
-              // width: 40vmin;
-              // height: 33vmin;
-              width: 80%;
-              height: 80%;
+              width: 40vmin;
+              height: 33vmin;
               display: flex;
               flex-wrap: wrap;
               gap: 1vmin;
               margin: auto;
-              margin-top: 1rem;
+              margin-top: 1.5vmin;
               justify-content: center;
 
               .button-option {
-                height: 5rem;
-                width: 26%;
+                height: 10vmin;
+                width: 10vmin;
                 font-size: 8.5vmin;
                 color: #12043d;
                 border-radius: 10px;
@@ -647,7 +641,6 @@ body {
               align-items: center;
               width: 50%;
               margin: auto;
-              margin-top: 1rem;
             }
           }
 
@@ -762,9 +755,8 @@ body {
             }
 
             .result td {
-              border-radius: 5px;
+              // border-radius: 5px;
               input {
-                display: block;
                 width: 100%;
                 background: none;
                 border: none;
@@ -824,7 +816,7 @@ body {
 
             li {
               padding: 0 10px 0 10px;
-              color: rgb(145, 145, 145);
+              color: rgb(56, 56, 56);
               width: 100%;
             }
 
@@ -1032,7 +1024,7 @@ body {
               font-size: 15px;
             }
 
-            .stopwatch-btn {
+            .stopwatch-btn{
               display: flex;
             }
             .stopwatch-wrapper,
@@ -1202,8 +1194,7 @@ body {
   #time-wrapper,
   #date-wrapper,
   #battery-wrapper,
-  #network-wrapper,
-  #lockscreen-wrapper {
+  #network-wrapper {
     // display: none;
     background: rgba(255, 255, 255, 0.7);
     border-radius: 10px;
@@ -1239,7 +1230,7 @@ body {
     }
 
     select {
-      font-size: 12px;
+      font-size: 12px; 
       padding: 6px;
       border: 1px solid #ccc;
       border-radius: 4px;
@@ -1255,92 +1246,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  #password-choice-pannel {
-    display: none;
-    width: 25rem;
-    height: 15rem;
-    position: absolute;
-    backdrop-filter: blur(5px);
-    border: 2px solid rgba(156, 102, 153, 0.441);
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.5);
-    flex-direction: column;
-    justify-content: center;
-    flex-wrap: wrap;
-    z-index: 999;
-
-    h3 {
-      text-align: center;
-      color: #7e313f;
-    }
-
-    input {
-      padding: 10px;
-      border-radius: 5px;
-      width: 13rem;
-      margin: auto;
-      border: 2px solid pink;
-    }
-
-    button {
-      width: 4rem;
-      padding: 10px;
-      border-style: none;
-      margin: auto;
-      margin-top: -1.5em;
-      border: 2px solid pink;
-      background-color: rgba(206, 109, 125, 0.803);
-      color: white;
-      cursor: pointer;
-      &:hover {
-        background-color: rgba(195, 145, 154, 0.803);
-      }
-    }
-  }
-}
-
-#server-ping-modal {
-  display: none;
-  width: 25rem;
-  height: 15rem;
-  position: absolute;
-  backdrop-filter: blur(5px);
-  border: 2px solid rgba(156, 102, 153, 0.441);
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.5);
-  flex-direction: column;
-  justify-content: center;
-  flex-wrap: wrap;
-  z-index: 999;
-
-  h3 {
-    text-align: center;
-    color: #7e313f;
-  }
-
-  input {
-    padding: 10px;
-    border-radius: 5px;
-    width: 13rem;
-    margin: auto;
-    border: 2px solid pink;
-  }
-
-  button {
-    width: 4rem;
-    padding: 10px;
-    border-style: none;
-    margin: auto;
-    margin-top: -1.5em;
-    border: 2px solid pink;
-    background-color: rgba(206, 109, 125, 0.803);
-    color: white;
-    cursor: pointer;
-    &:hover {
-      background-color: rgba(195, 145, 154, 0.803);
-    }
   }
 }
 
