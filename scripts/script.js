@@ -13,8 +13,7 @@ import {
   retrieveCheckboxBatteryState,
   displayCheckedValues,
   dateCheckListeners,
-  retrieveCheckboxDisplayState,
-  renderLockscreenParams, lockscreen, setLockscreenPassword 
+  renderLockscreenParams, lockscreen, setLockscreenPassword, latency , startVibrate
 } from "./Params.js";
 import {
   render as renderTicTacToe,
@@ -89,8 +88,17 @@ window.addEventListener("load", () => {
   retrieveCheckboxThemeState();
   //* saved battery display
   retrieveCheckboxBatteryState(batteryNavDisplay);
-  //* savec vibration display
-  retrieveCheckboxDisplayState(vibrationIconOn, vibrationIconOff);
+
+
+  //* Setup vibration 
+  const allDom = document.querySelector("*");
+  allDom.addEventListener("click", () => {
+    if (localStorage.getItem("vibration-activate-check") == "true") {
+      startVibrate();
+    }
+
+    displayEtatVibration();
+  });
 
   //* settings elements to be displayed in top bar
   //* battery level
@@ -413,7 +421,6 @@ window.addEventListener("load", () => {
   if (paramsIcon) {
     paramsIcon.addEventListener("mousedown", () => (drag = false));
     paramsIcon.addEventListener("mousemove", () => (drag = true));
-
     paramsIcon.addEventListener("mouseup", function () {
       if (drag) {
         return;
@@ -520,13 +527,14 @@ window.addEventListener("load", () => {
                   "beforeend",
                   renderNetworkParams()
                 );
+                latency();
                 openedParams.push("network-wrapper");
               }
               setAppsToDarkTheme(currentThemeChoice);
               break;
             case "params-lockscreen":
               if (
-                openedParams !== undefined &&
+                openedParams != undefined &&
                 openedParams.includes("lockscreen-wrapper")
               ) {
                 document.querySelector("#lockscreen-wrapper").style.display =
@@ -560,191 +568,191 @@ window.addEventListener("load", () => {
     });
   }
 
-  //* close window and app at clic on x
-  closeWindowButton.addEventListener("click", function () {
-    //*at click on clock, display modal
-    if (clockIcon) {
-      clockIcon.addEventListener("mousedown", () => (drag = false));
-      clockIcon.addEventListener("mousemove", () => (drag = true));
+  // //* close window and app at clic on x
+  // closeWindowButton.addEventListener("click", function () {
+  //   //*at click on clock, display modal
+  //   if (clockIcon) {
+  //     clockIcon.addEventListener("mousedown", () => (drag = false));
+  //     clockIcon.addEventListener("mousemove", () => (drag = true));
 
-      clockIcon.addEventListener("mouseup", function () {
-        if (drag) {
-          return;
-        } else {
-          if (displayedApp == "clock") {
-            backgroundWindow.style.display = "block";
-            clockPanel.style.display = "block";
-          } else if (openedApps.includes("clock")) {
-            backgroundWindow.style.display = "block";
-            clockPanel.style.display = "block";
-            displayedApp = "clock";
-          } else {
-            renderWindowContent("clock");
-            clockPanel = document.querySelector("#clock");
-            backgroundWindow.style.display = "block";
-          }
-        }
-      });
-    }
+  //     clockIcon.addEventListener("mouseup", function () {
+  //       if (drag) {
+  //         return;
+  //       } else {
+  //         if (displayedApp == "clock") {
+  //           backgroundWindow.style.display = "block";
+  //           clockPanel.style.display = "block";
+  //         } else if (openedApps.includes("clock")) {
+  //           backgroundWindow.style.display = "block";
+  //           clockPanel.style.display = "block";
+  //           displayedApp = "clock";
+  //         } else {
+  //           renderWindowContent("clock");
+  //           clockPanel = document.querySelector("#clock");
+  //           backgroundWindow.style.display = "block";
+  //         }
+  //       }
+  //     });
+  //   }
 
-    //*at click on params, display modal
-    if (paramsIcon) {
-      paramsIcon.addEventListener("mousedown", () => (drag = false));
-      paramsIcon.addEventListener("mousemove", () => (drag = true));
+    // //*at click on params, display modal
+    // if (paramsIcon) {
+    //   paramsIcon.addEventListener("mousedown", () => (drag = false));
+    //   paramsIcon.addEventListener("mousemove", () => (drag = true));
 
-      paramsIcon.addEventListener("mouseup", function () {
-        if (drag) {
-          return;
-        } else {
-          if (displayedApp == "params") {
-            backgroundWindow.style.display = "block";
-            paramsPanel.style.display = "block";
-          } else if (openedApps.includes("params")) {
-            backgroundWindow.style.display = "block";
-            paramsPanel.style.display = "block";
-            displayedApp = "params";
-          } else {
-            renderWindowContent("params");
-            paramsPanel = document.querySelector("#params");
-            backgroundWindow.style.display = "block";
-            paramsPanel.style.display = "block"; //*investiguer prq ça necessite 2 clique
-          }
-        }
+    //   paramsIcon.addEventListener("mouseup", function () {
+    //     if (drag) {
+    //       return;
+    //     } else {
+    //       if (displayedApp == "params") {
+    //         backgroundWindow.style.display = "block";
+    //         paramsPanel.style.display = "block";
+    //       } else if (openedApps.includes("params")) {
+    //         backgroundWindow.style.display = "block";
+    //         paramsPanel.style.display = "block";
+    //         displayedApp = "params";
+    //       } else {
+    //         renderWindowContent("params");
+    //         paramsPanel = document.querySelector("#params");
+    //         backgroundWindow.style.display = "block";
+    //         paramsPanel.style.display = "block"; //*investiguer prq ça necessite 2 clique
+    //       }
+    //     }
 
-        //* display param options
-        const paramOptions = document.getElementById("params-icons").children;
-        for (const param of paramOptions) {
-          param.addEventListener("click", function () {
-            let paramId = param.getAttribute("id");
-            //windowContent.innerHTML = "";   //remettre le contenu de windows à rien. pas sure que ce soit la meilleure manière de faire ça.
-            paramsPanel.style.display = "none";
-            switch (paramId) {
-              case "params-vibration":
-                if (
-                  openedParams !== undefined &&
-                  openedParams.includes("vibration-wrapper")
-                ) {
-                  document.querySelector("#vibration-wrapper").style.display =
-                    "block";
-                } else {
-                  windowContent.insertAdjacentHTML(
-                    "beforeend",
-                    renderVibrationBody()
-                  );
-                  openedParams.push("vibration-wrapper");
-                  saveCheckboxState();
-                  vibrate();
-                }
-                break;
-              case "params-time":
-                if (
-                  openedParams !== undefined &&
-                  openedParams.includes("time-wrapper")
-                ) {
-                  document.querySelector("#time-wrapper").style.display =
-                    "block";
-                } else {
-                  windowContent.insertAdjacentHTML(
-                    "beforeend",
-                    renderTimeParams()
-                  );
-                  saveCheckboxState();
-                  openedParams.push("time-wrapper");
-                  displayTimeTopBar();
-                }
-                break;
-              case "params-date":
-                if (
-                  openedParams !== undefined &&
-                  openedParams.includes("date-wrapper")
-                ) {
-                  document.querySelector("#date-wrapper").style.display =
-                    "block";
-                } else {
-                  windowContent.insertAdjacentHTML(
-                    "beforeend",
-                    renderDateParams()
-                  );
-                  dateCheckListeners();
-                  saveCheckboxState();
-                  openedParams.push("date-wrapper");
-                }
-                break;
-              case "params-battery":
-                if (
-                  openedParams !== undefined &&
-                  openedParams.includes("battery-wrapper")
-                ) {
-                  document.querySelector("#battery-wrapper").style.display =
-                    "block";
-                } else {
-                  windowContent.insertAdjacentHTML(
-                    "beforeend",
-                    renderBatteryParams()
-                  );
-                  openedParams.push("battery-wrapper");
-                  let checkbox = document.querySelector(
-                    "#battery-display-check"
-                  );
-                  let batteryNavDisplay =
-                    document.querySelector("#battery-nav");
-                  saveCheckboxBatteryState(checkbox, batteryNavDisplay);
-                  retrieveCheckboxBatteryState(batteryNavDisplay, checkbox);
-                }
-                break;
-              case "params-network":
-                if (
-                  openedParams !== undefined &&
-                  openedParams.includes("network-wrapper")
-                ) {
-                  document.querySelector("#network-wrapper").style.display =
-                    "block";
-                } else {
-                  windowContent.insertAdjacentHTML(
-                    "beforeend",
-                    renderNetworkParams()
-                  );
-                  saveCheckboxState();
-                  openedParams.push("network-wrapper");
-                  let select = document.querySelector(".refresh-time-select");
-                  let options = document.querySelectorAll(
-                    ".refresh-time-select option"
-                  );
-                  select.addEventListener("mousedown", function (event) {
-                    event.stopPropagation();
-                  });
-                  select.addEventListener("mouseup", function (event) {
-                    event.stopPropagation();
-                  });
-                  options.forEach(function (option) {
-                    option.addEventListener("mousedown", function (event) {
-                      event.stopPropagation();
-                    });
-                    option.addEventListener("mouseup", function (event) {
-                      event.stopPropagation();
-                    });
-                  });
+    //     //* display param options
+    //     const paramOptions = document.getElementById("params-icons").children;
+    //     for (const param of paramOptions) {
+    //       param.addEventListener("click", function () {
+    //         let paramId = param.getAttribute("id");
+    //         //windowContent.innerHTML = "";   //remettre le contenu de windows à rien. pas sure que ce soit la meilleure manière de faire ça.
+    //         paramsPanel.style.display = "none";
+    //         switch (paramId) {
+    //           case "params-vibration":
+    //             if (
+    //               openedParams !== undefined &&
+    //               openedParams.includes("vibration-wrapper")
+    //             ) {
+    //               document.querySelector("#vibration-wrapper").style.display =
+    //                 "block";
+    //             } else {
+    //               windowContent.insertAdjacentHTML(
+    //                 "beforeend",
+    //                 renderVibrationBody()
+    //               );
+    //               openedParams.push("vibration-wrapper");
+    //               saveCheckboxState();
+    //               vibrate();
+    //             }
+    //             break;
+    //           case "params-time":
+    //             if (
+    //               openedParams !== undefined &&
+    //               openedParams.includes("time-wrapper")
+    //             ) {
+    //               document.querySelector("#time-wrapper").style.display =
+    //                 "block";
+    //             } else {
+    //               windowContent.insertAdjacentHTML(
+    //                 "beforeend",
+    //                 renderTimeParams()
+    //               );
+    //               saveCheckboxState();
+    //               openedParams.push("time-wrapper");
+    //               displayTimeTopBar();
+    //             }
+    //             break;
+    //           case "params-date":
+    //             if (
+    //               openedParams !== undefined &&
+    //               openedParams.includes("date-wrapper")
+    //             ) {
+    //               document.querySelector("#date-wrapper").style.display =
+    //                 "block";
+    //             } else {
+    //               windowContent.insertAdjacentHTML(
+    //                 "beforeend",
+    //                 renderDateParams()
+    //               );
+    //               dateCheckListeners();
+    //               saveCheckboxState();
+    //               openedParams.push("date-wrapper");
+    //             }
+    //             break;
+    //           case "params-battery":
+    //             if (
+    //               openedParams !== undefined &&
+    //               openedParams.includes("battery-wrapper")
+    //             ) {
+    //               document.querySelector("#battery-wrapper").style.display =
+    //                 "block";
+    //             } else {
+    //               windowContent.insertAdjacentHTML(
+    //                 "beforeend",
+    //                 renderBatteryParams()
+    //               );
+    //               openedParams.push("battery-wrapper");
+    //               let checkbox = document.querySelector(
+    //                 "#battery-display-check"
+    //               );
+    //               let batteryNavDisplay =
+    //                 document.querySelector("#battery-nav");
+    //               saveCheckboxBatteryState(checkbox, batteryNavDisplay);
+    //               retrieveCheckboxBatteryState(batteryNavDisplay, checkbox);
+    //             }
+    //             break;
+    //           case "params-network":
+    //             if (
+    //               openedParams !== undefined &&
+    //               openedParams.includes("network-wrapper")
+    //             ) {
+    //               document.querySelector("#network-wrapper").style.display =
+    //                 "block";
+    //             } else {
+    //               windowContent.insertAdjacentHTML(
+    //                 "beforeend",
+    //                 renderNetworkParams()
+    //               );
+    //               saveCheckboxState();
+    //               openedParams.push("network-wrapper");
+    //               let select = document.querySelector(".refresh-time-select");
+    //               let options = document.querySelectorAll(
+    //                 ".refresh-time-select option"
+    //               );
+    //               select.addEventListener("mousedown", function (event) {
+    //                 event.stopPropagation();
+    //               });
+    //               select.addEventListener("mouseup", function (event) {
+    //                 event.stopPropagation();
+    //               });
+    //               options.forEach(function (option) {
+    //                 option.addEventListener("mousedown", function (event) {
+    //                   event.stopPropagation();
+    //                 });
+    //                 option.addEventListener("mouseup", function (event) {
+    //                   event.stopPropagation();
+    //                 });
+    //               });
 
-                  const refreshTimeSelect = document.getElementById(
-                    "refresh-time-select"
-                  );
-                  refreshTimeSelect.addEventListener("change", () => {
-                    clearInterval();
-                    let networkLatencyRefreshTime = refreshTimeSelect.value;
-                    //* Passe updated network latency refresh time
-                    clearTimeout();
-                    // getNetworkLatency(networkLatencyRefreshTime);
-                    setTimeout(() => {
-                      getNetworkLatency(networkLatencyRefreshTime);
-                    }, networkLatencyRefreshTime * 1000);
-                  });
-                }
-                break;
-            }
-          });
-        }
-      });
-    }
+    //               const refreshTimeSelect = document.getElementById(
+    //                 "refresh-time-select"
+    //               );
+    //               refreshTimeSelect.addEventListener("change", () => {
+    //                 clearInterval();
+    //                 let networkLatencyRefreshTime = refreshTimeSelect.value;
+    //                 //* Passe updated network latency refresh time
+    //                 clearTimeout();
+    //                 // getNetworkLatency(networkLatencyRefreshTime);
+    //                 setTimeout(() => {
+    //                   getNetworkLatency(networkLatencyRefreshTime);
+    //                 }, networkLatencyRefreshTime * 1000);
+    //               });
+    //             }
+    //             break;
+    //         }
+    //       });
+    //     }
+    //   });
+    // }
 
     //* close window and app at clic on x
     closeWindowButton.addEventListener("click", function () {
@@ -789,7 +797,7 @@ window.addEventListener("load", () => {
         openedParams = temp2;
         paramsIconSmall.style.display = "none";
         displayedApp = "";
-        windowContent.removeChild(paramsPanel);
+        // windowContent.removeChild(paramsPanel);
         temp = openedApps.filter((app) => app !== "params");
         if (openedParams !== undefined) {
           openedParams.forEach((param) => {
@@ -897,7 +905,7 @@ window.addEventListener("load", () => {
       }
     };
   });
-});
+
 window.addEventListener("beforeunload", () => {
     function saveCheckboxState() {
         //* get all checkbox elements on the page

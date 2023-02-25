@@ -97,18 +97,11 @@ export function vibrate() {
         });
       }
 
-      allDom.addEventListener("click", () => {
-        if (localStorage.getItem("vibration-activate-check") == "true") {
-          startVibrate();
-        }
-
-        displayEtatVibration();
-      });
     }
   }
 }
 
-function startVibrate() {
+export function startVibrate() {
   console.log("Vibration");
   navigator.vibrate(200);
   window.navigator.vibrate(200);
@@ -138,6 +131,9 @@ export function displayEtatVibration() {
     }
   }
 }
+
+
+//*******CODE TIME */
 
 export function renderTimeParams() {
   return `
@@ -200,6 +196,9 @@ export function displayTimeTopBar() {
     }
   });
 }
+
+
+//*******CODE DATE */
 
 export function displayCheckedValues(dateCheck, monthCheck, yearCheck) {
   let a = `${day} `;
@@ -299,6 +298,9 @@ export function renderDateParams() {
   `;
 }
 
+
+//*******CODE BATTERY */
+
 export function renderBatteryParams() {
   return `
     <div id="battery-wrapper">
@@ -355,39 +357,10 @@ export function retrieveCheckboxBatteryState(batteryNavDisplay, checkbox) {
  * @param {boolean} checkbox
  * @param {string} batteryNavDisplay
  */
-export function saveCheckboxDisplayState(checkboxDisplay, checkboxActivate) {
-  checkboxDisplay.addEventListener("change", function () {
-    let isChecked = checkboxDisplay.checked;
-    localStorage.setItem("checkbox-display-vibration", isChecked);
-    isChecked = checkboxActivate.checked;
-    localStorage.setItem("checkbox-activate-vibration", isChecked);
-  });
-  checkboxActivate.addEventListener("change", function () {
-    let isChecked = checkboxDisplay.checked;
-    localStorage.setItem("checkbox-display-vibration", isChecked);
-    isChecked = checkboxActivate.checked;
-    localStorage.setItem("checkbox-activate-vibration", isChecked);
-  });
-}
 
-/**
- * * Retrieve the state of the checkbox for battery settings in the local storage
- * @param {string} batteryNavDisplay
- * @param {boolean} checkbox
- */
-export function retrieveCheckboxDisplayState(
-  checkboxDisplay,
-  checkboxActivate
-) {
-  let savedStateDisplay = localStorage.getItem("checkbox-display-vibration");
-  let savedStateActivate = localStorage.getItem("checkbox-activate-vibration");
 
-  checkboxActivate.checked = savedStateActivate;
-  checkboxDisplay.checked = saveCheckboxDisplayState;
 
-  displayEtatVibration(savedStateDisplay, savedStateActivate);
-}
-
+//************************CODE LATENCY */
 export function renderNetworkParams() {
   return `
     <div id="network-wrapper">
