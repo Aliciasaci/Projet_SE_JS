@@ -10,17 +10,15 @@ import {
   displayTimeTopBar,
   saveCheckboxBatteryState,
   retrieveCheckboxBatteryState,
-  saveCheckboxDisplayState,
-  retrieveCheckboxDisplayState,
-  renderLockscreenParams,
-  lockscreen,
-  setLockscreenPassword,
+  displayCheckedValues,
+  dateCheckListeners,
+  retrieveCheckboxDisplayState
 } from "./Params.js";
 import {
   render as renderTicTacToe,
   init as initTicTacToe,
 } from "./tictactoe.js";
-import { setTheme, setAppsToDarkTheme } from "./Theme.js";
+import { setTheme } from "./Theme.js";
 import {
   renderClock,
   openTab,
@@ -32,7 +30,6 @@ import {
   startPauseTimer,
   resetTimer,
 } from "./clock.js";
-import { lockscreenAtStart } from "./Options.js";
 
 //*variables
 const calculatorIcon = document.querySelector("#calculator-icon");
@@ -52,6 +49,13 @@ const passwordValue = document.querySelector("#password");
 let batteryNavDisplay = document.querySelector("#battery-nav");
 let vibrationIconOn = document.querySelector("#vibration-icon-on");
 let vibrationIconOff = document.querySelector("#vibration-icon-off");
+const windowBar = document.querySelector(".window-upper-btns");
+const batteryNav = document.querySelector("#battery-nav");
+const hourNav = document.querySelector("#digital-clock-hour");
+const minNav = document.querySelector("#digital-clock-min");
+const secNav = document.querySelector("#digital-clock-sec");
+const navDate = document.querySelector(".dateTime");
+let theme = localStorage.getItem("mode");
 
 let morpionPanel = null;
 let calculatorPanel = null;
@@ -122,15 +126,93 @@ window.addEventListener("load", () => {
       } else {
         currentThemeChoice = "else";
       }
-      setAppsToDarkTheme(currentThemeChoice)
+      // setAppsToDarkTheme(currentThemeChoice);
     } else {
       checkbox.checked = savedState === "true";
+      /**
+       * * Display saved settings of the system
+       */
+      //* saved theme display
+      saveCheckboxThemeState();
+      retrieveCheckboxThemeState();
+      //* saved battery display
+      retrieveCheckboxBatteryState(batteryNavDisplay);
+      //* settings elements to be displayed in top bar
+      //* battery level 
+      if (navigator.getBattery) {
+        //* check if the browser supports the Battery Status API
+        navigator.getBattery().then(function (battery) {
+          let level = battery.level * 100; //* get the current battery level and multiply by 100 to get a percentage
+          document.getElementById("battery-level").innerText = level + "%";
+          if (level < 99) {
+            document.getElementById("battery-level").style.color = "yellow";
+          }
+        });
+      }
+    }
+    /**
+     * * Save the state of the theme checkbox to local storage
+     */
+    function saveCheckboxThemeState() {
+      //* get all checkbox elements on the page
+      let checkbox = document.querySelector("#mode");
+      //* add an event listener for the change event to each checkbox
+      checkbox.addEventListener("change", function () {
+        //* get the current state of the checkbox
+        let isChecked = checkbox.checked;
+        //* save the state to session storage using the checkbox's id as the key
+        localStorage.setItem(checkbox.id, isChecked);
+        //* set the theme if theme checkbox is checked
+        if (checkbox.id == "mode" && isChecked == true) {
+          setTheme("dark");
+        } else {
+          setTheme("light");
+        }
+      });
     }
   }
 
   //* time to be displayed in top bar
   setDigitalClockTopBar();
   setInterval(setDigitalClockTopBar, 1000);
+
+  function saveCheckboxState() {
+    //* get all checkbox elements on the page
+    let checkboxes = document.querySelectorAll("input[type=checkbox]");
+    //* add an event listener for the change event to each checkbox
+    checkboxes.forEach(function (checkbox) {
+      checkbox.addEventListener("change", function () {
+        let isChecked = checkbox.checked;
+        localStorage.setItem(checkbox.id, isChecked);
+      });
+    });
+
+    //* retrieve the saved states from local storage
+    checkboxes.forEach(function (checkbox) {
+      let savedState = localStorage.getItem(checkbox.id);
+      //* update the checkbox state and set the theme accordingly if theme checkbox is checked
+      if (checkbox.id == "mode") {
+        checkbox.checked = savedState === "true";
+      } else {
+        checkbox.checked = savedState === "true";
+      }
+    });
+  }
+  saveCheckboxState();
+  //* time to be displayed in top bar
+  setDigitalClockTopBar();
+  setInterval(setDigitalClockTopBar, 1000);
+  //* settings elements to be displayed in top bar
+  let dayDisplayCheck = localStorage.getItem("date-display-check");
+  if (dayDisplayCheck === "false" || dayDisplayCheck === null) {
+    navDate.innerHTML = "";
+  } else {
+    navDate.innerHTML = displayCheckedValues(
+      localStorage.getItem("day-display-check"),
+      localStorage.getItem("month-display-check"),
+      localStorage.getItem("year-display-check")
+    );
+  }
 
   //*render content of window
   const renderWindowContent = (content) => {
@@ -410,7 +492,7 @@ window.addEventListener("load", () => {
                 saveCheckboxBatteryState(checkbox, batteryNavDisplay);
                 retrieveCheckboxBatteryState(batteryNavDisplay, checkbox);
               }
-             break; 
+              break;
             case "params-network":
               if (
                 openedParams !== undefined &&
@@ -425,7 +507,7 @@ window.addEventListener("load", () => {
                 );
                 openedParams.push("network-wrapper");
               }
-              setAppsToDarkTheme(currentThemeChoice)
+              // setAppsToDarkTheme(currentThemeChoice);
               break;
             case "params-lockscreen":
               if (
@@ -465,141 +547,353 @@ window.addEventListener("load", () => {
 
   //* close window and app at clic on x
   closeWindowButton.addEventListener("click", function () {
-    backgroundWindow.style.display = "none";
-    let temp;
-    let temp2;
-    if (displayedApp === "tictactoe") {
-      morpionsIconSmall.style.display = "none";
-      displayedApp = "";
-      windowContent.removeChild(morpionPanel);
-      temp = openedApps.filter((app) => app !== "tictactoe");
-    }
-    if (displayedApp === "calculator") {
-      calculatorIconSmall.style.display = "none";
-      displayedApp = "";
-      windowContent.removeChild(calculatorPanel);
-      temp = openedApps.filter((app) => app !== "calculator");
-    }
-    if (displayedApp === "clock") {
-      clockIconSmall.style.display = "none";
-      displayedApp = "";
-      windowContent.removeChild(clockPanel);
-      temp = openedApps.filter((app) => app !== "clock");
-    }
-    if (displayedApp === "params") {
-      paramsIconSmall.style.display = "none";
-      displayedApp = "";
-      windowContent.removeChild(paramsPanel);
-      temp = openedApps.filter((app) => app !== "params");
-      if (openedParams !== undefined) {
-        openedParams.forEach((param) => {
-          windowContent.removeChild(document.querySelector(`#${param}`));
-          temp2 = openedParams.filter((param) => param !== param);
-        });
-      }
-      let PasswordChoicePannel = document.querySelector(
-        "#password-choice-pannel"
-      );
-      if (PasswordChoicePannel) {
-        PasswordChoicePannel.style.display = "none";
-      }
-      openedParams = temp2;
-    }
-    openedApps = temp;
-  });
+    //*at click on clock, display modal
+    if (clockIcon) {
+      clockIcon.addEventListener("mousedown", () => (drag = false));
+      clockIcon.addEventListener("mousemove", () => (drag = true));
 
-  //* reduce window and app at clic on -
-  reduceWindowButton.addEventListener("click", function () {
-    backgroundWindow.style.display = "none";
-    hideDisplayedApp(displayedApp);
-    if (displayedApp === "calculator") {
-      calculatorIconSmall.style.display = "block";
-    }
-    if (displayedApp === "tictactoe") {
-      morpionsIconSmall.style.display = "block";
-    }
-    if (displayedApp === "clock") {
-      clockIconSmall.style.display = "block";
-    }
-    if (displayedApp === "params") {
-      paramsIconSmall.style.display = "block";
-      openedParams.forEach((param) => {
-        document.querySelector(`#${param}`).style.display = "none";
+      clockIcon.addEventListener("mouseup", function () {
+        if (drag) {
+          return;
+        } else {
+          if (displayedApp == "clock") {
+            backgroundWindow.style.display = "block";
+            clockPanel.style.display = "block";
+          } else if (openedApps.includes("clock")) {
+            backgroundWindow.style.display = "block";
+            clockPanel.style.display = "block";
+            displayedApp = "clock";
+          } else {
+            renderWindowContent("clock");
+            clockPanel = document.querySelector("#clock");
+            backgroundWindow.style.display = "block";
+          }
+        }
       });
+    }
 
-      let PasswordChoicePannel = document.querySelector(
-        "#password-choice-pannel"
-      );
-      if (PasswordChoicePannel) {
-        PasswordChoicePannel.style.display = "none";
+    //*at click on params, display modal
+    if (paramsIcon) {
+      paramsIcon.addEventListener("mousedown", () => (drag = false));
+      paramsIcon.addEventListener("mousemove", () => (drag = true));
+
+      paramsIcon.addEventListener("mouseup", function () {
+        if (drag) {
+          return;
+        } else {
+          if (displayedApp == "params") {
+            backgroundWindow.style.display = "block";
+            paramsPanel.style.display = "block";
+          } else if (openedApps.includes("params")) {
+            backgroundWindow.style.display = "block";
+            paramsPanel.style.display = "block";
+            displayedApp = "params";
+          } else {
+            renderWindowContent("params");
+            paramsPanel = document.querySelector("#params");
+            backgroundWindow.style.display = "block";
+            paramsPanel.style.display = "block"; //*investiguer prq ça necessite 2 clique
+          }
+        }
+
+        //* display param options
+        const paramOptions = document.getElementById("params-icons").children;
+        for (const param of paramOptions) {
+          param.addEventListener("click", function () {
+            let paramId = param.getAttribute("id");
+            //windowContent.innerHTML = "";   //remettre le contenu de windows à rien. pas sure que ce soit la meilleure manière de faire ça.
+            paramsPanel.style.display = "none";
+            switch (paramId) {
+              case "params-vibration":
+                if (
+                  openedParams !== undefined &&
+                  openedParams.includes("vibration-wrapper")
+                ) {
+                  document.querySelector("#vibration-wrapper").style.display =
+                    "block";
+                } else {
+                  windowContent.insertAdjacentHTML(
+                    "beforeend",
+                    renderVibrationBody()
+                  );
+                  openedParams.push("vibration-wrapper");
+                  saveCheckboxState();
+                  vibrate();
+                }
+                break;
+              case "params-time":
+                if (
+                  openedParams !== undefined &&
+                  openedParams.includes("time-wrapper")
+                ) {
+                  document.querySelector("#time-wrapper").style.display =
+                    "block";
+                } else {
+                  windowContent.insertAdjacentHTML(
+                    "beforeend",
+                    renderTimeParams()
+                  );
+                  saveCheckboxState();
+                  openedParams.push("time-wrapper");
+                  displayTimeTopBar();
+                }
+                break;
+              case "params-date":
+                if (
+                  openedParams !== undefined &&
+                  openedParams.includes("date-wrapper")
+                ) {
+                  document.querySelector("#date-wrapper").style.display =
+                    "block";
+                } else {
+                  windowContent.insertAdjacentHTML(
+                    "beforeend",
+                    renderDateParams()
+                  );
+                  dateCheckListeners();
+                  saveCheckboxState();
+                  openedParams.push("date-wrapper");
+                }
+                break;
+              case "params-battery":
+                if (
+                  openedParams !== undefined &&
+                  openedParams.includes("battery-wrapper")
+                ) {
+                  document.querySelector("#battery-wrapper").style.display =
+                    "block";
+                } else {
+                  windowContent.insertAdjacentHTML(
+                    "beforeend",
+                    renderBatteryParams()
+                  );
+                  openedParams.push("battery-wrapper");
+                  let checkbox = document.querySelector(
+                    "#battery-display-check"
+                  );
+                  let batteryNavDisplay =
+                    document.querySelector("#battery-nav");
+                  saveCheckboxBatteryState(checkbox, batteryNavDisplay);
+                  retrieveCheckboxBatteryState(batteryNavDisplay, checkbox);
+                }
+                break;
+              case "params-network":
+                if (
+                  openedParams !== undefined &&
+                  openedParams.includes("network-wrapper")
+                ) {
+                  document.querySelector("#network-wrapper").style.display =
+                    "block";
+                } else {
+                  windowContent.insertAdjacentHTML(
+                    "beforeend",
+                    renderNetworkParams()
+                  );
+                  saveCheckboxState();
+                  openedParams.push("network-wrapper");
+                  let select = document.querySelector(".refresh-time-select");
+                  let options = document.querySelectorAll(
+                    ".refresh-time-select option"
+                  );
+                  select.addEventListener("mousedown", function (event) {
+                    event.stopPropagation();
+                  });
+                  select.addEventListener("mouseup", function (event) {
+                    event.stopPropagation();
+                  });
+                  options.forEach(function (option) {
+                    option.addEventListener("mousedown", function (event) {
+                      event.stopPropagation();
+                    });
+                    option.addEventListener("mouseup", function (event) {
+                      event.stopPropagation();
+                    });
+                  });
+
+                  const refreshTimeSelect = document.getElementById(
+                    "refresh-time-select"
+                  );
+                  refreshTimeSelect.addEventListener("change", () => {
+                    clearInterval();
+                    let networkLatencyRefreshTime = refreshTimeSelect.value;
+                    //* Passe updated network latency refresh time
+                    clearTimeout();
+                    // getNetworkLatency(networkLatencyRefreshTime);
+                    setTimeout(() => {
+                      getNetworkLatency(networkLatencyRefreshTime);
+                    }, networkLatencyRefreshTime * 1000);
+                  });
+                }
+                break;
+            }
+          });
+        }
+      });
+    }
+
+    //* close window and app at clic on x
+    closeWindowButton.addEventListener("click", function () {
+      backgroundWindow.style.display = "none";
+      let temp;
+      let temp2;
+      if (displayedApp === "tictactoe") {
+        morpionsIconSmall.style.display = "none";
+        displayedApp = "";
+        windowContent.removeChild(morpionPanel);
+        temp = openedApps.filter((app) => app !== "tictactoe");
       }
-    }
-    displayedApp = "";
-  });
+      if (displayedApp === "calculator") {
+        calculatorIconSmall.style.display = "none";
+        displayedApp = "";
+        windowContent.removeChild(calculatorPanel);
+        temp = openedApps.filter((app) => app !== "calculator");
+      }
+      if (displayedApp === "clock") {
+        clockIconSmall.style.display = "none";
+        displayedApp = "";
+        windowContent.removeChild(clockPanel);
+        temp = openedApps.filter((app) => app !== "clock");
+      }
+      if (displayedApp === "params") {
+        paramsIconSmall.style.display = "none";
+        displayedApp = "";
+        windowContent.removeChild(paramsPanel);
+        temp = openedApps.filter((app) => app !== "params");
+        if (openedParams !== undefined) {
+          openedParams.forEach((param) => {
+            windowContent.removeChild(document.querySelector(`#${param}`));
+            temp2 = openedParams.filter((param) => param !== param);
+          });
+        }
+        let PasswordChoicePannel = document.querySelector(
+          "#password-choice-pannel"
+        );
+        if (PasswordChoicePannel) {
+          PasswordChoicePannel.style.display = "none";
+        }
+        openedParams = temp2;
+        paramsIconSmall.style.display = "none";
+        displayedApp = "";
+        windowContent.removeChild(paramsPanel);
+        temp = openedApps.filter((app) => app !== "params");
+        if (openedParams !== undefined) {
+          openedParams.forEach((param) => {
+            windowContent.removeChild(document.querySelector(`#${param}`));
+            temp2 = openedParams.filter((param) => param !== param);
+            openedParams = temp2;
+          });
+        }
+      }
+      openedApps = temp;
+    });
 
-  //* at click on small icon of calc, display
-  calculatorIconSmall.addEventListener("click", function () {
-    if (backgroundWindow.style.display === "none") {
-      backgroundWindow.style.display = "block";
-      calculatorPanel.style.display = "flex";
-    } else if (displayedApp !== "calculator") {
+    //* reduce window and app at clic on -
+    reduceWindowButton.addEventListener("click", function () {
+      backgroundWindow.style.display = "none";
       hideDisplayedApp(displayedApp);
-      calculatorPanel.style.display = "flex";
-    }
-    displayedApp = "calculator";
-  });
+      if (displayedApp === "calculator") {
+        calculatorIconSmall.style.display = "block";
+      }
+      if (displayedApp === "tictactoe") {
+        morpionsIconSmall.style.display = "block";
+      }
+      if (displayedApp === "clock") {
+        clockIconSmall.style.display = "block";
+      }
+      if (displayedApp === "params") {
+        paramsIconSmall.style.display = "block";
+        openedParams.forEach((param) => {
+          document.querySelector(`#${param}`).style.display = "none";
+        });
 
-  //* at click on small icon of params, display
-  paramsIconSmall.addEventListener("click", function () {
-    if (backgroundWindow.style.display === "none") {
-      backgroundWindow.style.display = "block";
-      paramsPanel.style.display = "block";
-    } else if (displayedApp !== "params") {
-      hideDisplayedApp(displayedApp);
-      paramsPanel.style.display = "block";
-    }
-    displayedApp = "params";
-  });
+        let PasswordChoicePannel = document.querySelector(
+          "#password-choice-pannel"
+        );
+        if (PasswordChoicePannel) {
+          PasswordChoicePannel.style.display = "none";
+        }
+      }
+      displayedApp = "";
+    });
 
-  //* at click on small icon of clock, display
-  clockIconSmall.addEventListener("click", function () {
-    if (backgroundWindow.style.display === "none") {
-      backgroundWindow.style.display = "block";
-      clockPanel.style.display = "block";
-    } else if (displayedApp !== "clock") {
-      hideDisplayedApp(displayedApp);
-      clockPanel.style.display = "block";
-    }
-    displayedApp = "clock";
-  });
+    //* at click on small icon of calc, display
+    calculatorIconSmall.addEventListener("click", function () {
+      if (backgroundWindow.style.display === "none") {
+        backgroundWindow.style.display = "block";
+        calculatorPanel.style.display = "flex";
+      } else if (displayedApp !== "calculator") {
+        hideDisplayedApp(displayedApp);
+        calculatorPanel.style.display = "flex";
+      }
+      displayedApp = "calculator";
+    });
 
-  //* at click on small icon of morpion, display
-  morpionsIconSmall.addEventListener("click", function () {
-    if (backgroundWindow.style.display === "none") {
-      backgroundWindow.style.display = "block";
-      morpionPanel.style.display = "block";
-    } else if (displayedApp !== "tictactoe") {
-      hideDisplayedApp(displayedApp);
-      morpionPanel.style.display = "block";
-    }
-    displayedApp = "tictactoe";
-  });
+    //* at click on small icon of params, display
+    paramsIconSmall.addEventListener("click", function () {
+      if (backgroundWindow.style.display === "none") {
+        backgroundWindow.style.display = "block";
+        paramsPanel.style.display = "block";
+      } else if (displayedApp !== "params") {
+        hideDisplayedApp(displayedApp);
+        paramsPanel.style.display = "block";
+      }
+      displayedApp = "params";
+    });
 
-  const hideDisplayedApp = (displayedApp) => {
-    switch (displayedApp) {
-      case "tictactoe":
-        morpionPanel.style.display = "none";
-        break;
-      case "calculator":
-        calculatorPanel.style.display = "none";
-        break;
-      case "clock":
-        clockPanel.style.display = "none";
-        break;
-      case "params":
-        paramsPanel.style.display = "none";
-      default:
-        break;
-    }
-  };
+    //* at click on small icon of clock, display
+    clockIconSmall.addEventListener("click", function () {
+      if (backgroundWindow.style.display === "none") {
+        backgroundWindow.style.display = "block";
+        clockPanel.style.display = "block";
+      } else if (displayedApp !== "clock") {
+        hideDisplayedApp(displayedApp);
+        clockPanel.style.display = "block";
+      }
+      displayedApp = "clock";
+    });
+
+    //* at click on small icon of morpion, display
+    morpionsIconSmall.addEventListener("click", function () {
+      if (backgroundWindow.style.display === "none") {
+        backgroundWindow.style.display = "block";
+        morpionPanel.style.display = "block";
+      } else if (displayedApp !== "tictactoe") {
+        hideDisplayedApp(displayedApp);
+        morpionPanel.style.display = "block";
+      }
+      displayedApp = "tictactoe";
+    });
+
+    const hideDisplayedApp = (displayedApp) => {
+      switch (displayedApp) {
+        case "tictactoe":
+          morpionPanel.style.display = "none";
+          break;
+        case "calculator":
+          calculatorPanel.style.display = "none";
+          break;
+        case "clock":
+          clockPanel.style.display = "none";
+          break;
+        case "params":
+          paramsPanel.style.display = "none";
+        default:
+          break;
+      }
+    };
+  });
 });
+// window.addEventListener("beforeunload", () => {
+//     function saveCheckboxState() {
+//         //* get all checkbox elements on the page
+//         let checkboxes = document.querySelectorAll("input[type=checkbox]");
+//         //* add an event listener for the change event to each checkbox
+//         checkboxes.forEach(function(checkbox) {
+//             //checkbox.addEventListener("change", function() {
+//                 let isChecked = checkbox.checked;
+//                 localStorage.setItem(checkbox.id, isChecked);
+//             //});
+//         });
+//     }
+//     saveCheckboxState();
+// });

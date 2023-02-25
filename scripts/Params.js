@@ -1,6 +1,11 @@
 let vibrationActivated = true;
 const backgroundWindow = document.querySelector(".window");
 const paramsBody = document.querySelector("#params");
+let dateDisplay = localStorage.getItem("date-display-check");
+const date = new Date();
+let day = date.getDate();
+let month = date.toLocaleString("fr", { month: "long" });
+let year = date.getFullYear();
 
 export function renderParamsBody() {
   return `
@@ -182,6 +187,66 @@ export function displayTimeTopBar() {
   });
 }
 
+export function displayCheckedValues(dateCheck, monthCheck, yearCheck) {
+  let a = `${day} `;
+  if ((dateCheck === null) || (dateCheck === "false")) a = "";
+  let b = `${month} `;
+  if ((monthCheck === null) || (monthCheck === "false")) b = "";
+  let c = `${year}`;
+  if ((yearCheck === null) || (yearCheck === "false")) c = "";
+  return `${a}${b}${c}`;
+}
+
+export function dateCheckListeners() {
+  const dayCheck = document.querySelector("#day-display-check");
+  const monthCheck = document.querySelector("#month-display-check");
+  const yearCheck = document.querySelector("#year-display-check");
+
+  let dayDisplay = localStorage.getItem("day-display-check");
+  let monthDisplay = localStorage.getItem("month-display-check");
+  let yearDisplay = localStorage.getItem("year-display-check");
+
+  if (dayCheck) {
+    dayCheck.addEventListener("change", function () {
+      dayDisplay === "true" ? (dayDisplay = "false") : (dayDisplay = "true");
+      displayDate(dayDisplay, monthDisplay, yearDisplay);
+    });
+  }
+  if (monthCheck) {
+    monthCheck.addEventListener("change", function () {
+      monthDisplay === "true" ? (monthDisplay = "false") : (monthDisplay = "true");
+      displayDate(dayDisplay, monthDisplay, yearDisplay);
+    });
+  }
+  if (yearCheck) {
+    yearCheck.addEventListener("change", function () {
+      yearDisplay === "true" ? (yearDisplay = "false") : (yearDisplay = "true");
+      displayDate(dayDisplay, monthDisplay, yearDisplay);
+    });
+  }
+
+  const dateCheck = document.querySelector("#date-display-check");
+  const dateField = document.querySelector(".dateTime");
+
+  if (dateCheck) {
+    dateCheck.addEventListener("change", function () {
+      if (dateDisplay === "false" || dateDisplay === null) {
+        dateDisplay === "true" ? (dateDisplay = "false") : (dateDisplay = "true");
+        displayDate(dayDisplay, monthDisplay, yearDisplay);
+      } else {
+        dateField.innerHTML = "";
+        dateDisplay === "true" ? (dateDisplay = "false") : (dateDisplay = "true");
+      }
+    });
+  }
+}
+
+function displayDate(dayCheck, monthCheck, yearCheck) {
+  const dateField = document.querySelector(".dateTime");
+  if (dateDisplay === "true") dateField.innerHTML = displayCheckedValues(dayCheck, monthCheck, yearCheck);
+
+}
+
 export function renderDateParams() {
   return `
     <div id="date-wrapper">
@@ -217,7 +282,7 @@ export function renderDateParams() {
 export function renderBatteryParams() {
   return `
     <div id="battery-wrapper">
-      <h1>Paramètres de battery</h1>
+      <h1>Paramètres de batterie</h1>
       <div class="battery-param-display">Afficher la batterie
           <input type="checkbox" id="battery-display-check" name="params" class="param-switch">
           <label for="battery-display-check" class="param-label">
@@ -308,22 +373,23 @@ export function renderNetworkParams() {
     <div id="network-wrapper">
       <h1>Paramètres de latence réseau</h1>
       <div class="network-param-display">Afficher la latence réseau
-          <input type="checkbox" id="battery-display-check" name="params" class="param-switch">
-          <label for="battery-display-check" class="param-label">
-              <span class="param-label-background"></span>
-          </label>
+        <input type="checkbox" id="battery-display-check" name="params" class="param-switch">
+        <label for="battery-display-check" class="param-label">
+          <span class="param-label-background"></span>
+        </label>
       </div>
       <div class="network-param-display">Configurer le nom de domaine du serveur de ping
-          <input type="checkbox" id="domain-config-check" name="params" class="param-switch">
-          <label for="domain-config-check" class="param-label">
-              <span class="param-label-background"></span>
-          </label>
+        <input type="checkbox" id="domain-config-check" name="params" class="param-switch">
+        <label for="domain-config-check" class="param-label">
+          <span class="param-label-background"></span>
+        </label>
       </div>
       <div class="network-param-display">Configurer le délai de rafraichissement en secondes
-          <input type="checkbox" id="delay-network-check" name="params" class="param-switch">
-          <label for="delay-network-check" class="param-label">
-              <span class="param-label-background"></span>
-          </label>
+        <select id="refresh-time-select" class="refresh-time-select">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+        </select>
       </div>
     </div>
   `;

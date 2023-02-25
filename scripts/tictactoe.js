@@ -39,8 +39,12 @@ export const render = () => {
 };
 
 let darkMode = false;
-
 const switchModeBtn = document.querySelector("#switch-mode-btn");
+let scoreboard = {
+  player: 0,
+  computer: 0,
+  tie: 0,
+};
 
 export const init = () => {
 let btnRef = document.querySelectorAll(".button-option");
@@ -64,11 +68,7 @@ let playerTurn = true;
 //array to keep track of player moves
 let moves = [];
 
-let scoreboard = {
-  player: 0,
-  computer: 0,
-  tie: 0,
-};
+
 
 //array to keep track of winning combinations
 let winningCombos = [
@@ -190,11 +190,13 @@ const winFunc = (letter) => {
   } else {
     msgRef.innerHTML = "&#x1F3C6; <br> 'O' gagne !";
   }
+  localStorage.setItem("scoreboard", JSON.stringify(scoreboard));
 };
 
 const tieFunc = () => {
   showPopup();
   msgRef.innerHTML = "&#x1F975; <br> Match nul !";
+  localStorage.setItem("scoreboard", JSON.stringify(scoreboard));
 };
 
 const winChecker = () => {
@@ -292,21 +294,6 @@ restartBtn.addEventListener("click", () => {
   moves = [];
 });
 
-//save score in local storage
-window.addEventListener("beforeunload", () => {
-  localStorage.setItem("scoreboard", JSON.stringify(scoreboard));
-});
-
-//get score from local storage
-window.addEventListener("load", () => {
-  generateChoice();
-  console.log("is this called?");
-  let score = JSON.parse(localStorage.getItem("scoreboard"));
-  if (score) {
-    scoreboard = score;
-  }
-});
-
 window.setInterval(() => {
   scoreXRef.innerText = `X : ${scoreboard.player}`;
   scoreORef.innerHTML = `O : ${scoreboard.computer}`;
@@ -340,6 +327,10 @@ const generateChoice = () => {
     computer = true;
     hidePopup();
   });
+  let score = JSON.parse(localStorage.getItem("scoreboard"));
+  if (score) {
+    scoreboard = score;
+  }
 };
 
 generateChoice();

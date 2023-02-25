@@ -199,6 +199,11 @@ body {
           }
         }
 
+        .dateTime {
+          white-space: nowrap;
+          font-size: 0.9rem;
+        }
+
         #vibration-icon-on,
         #vibration-icon-off {
           //par défaut, la vibration est désactivée et est non affichée
@@ -1231,6 +1236,15 @@ body {
       &:hover {
         background-color: lighten(rgb(214, 133, 224), 15%);
       }
+    }
+
+    select {
+      font-size: 12px; 
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #fff;
+      color: #333;
     }
   }
 

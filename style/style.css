@@ -182,6 +182,10 @@ body header nav #right-menu-btns li {
 body header nav #right-menu-btns li img {
   width: 100%;
 }
+body header nav #right-menu-btns .dateTime {
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
 body header nav #right-menu-btns #vibration-icon-on,
 body header nav #right-menu-btns #vibration-icon-off {
   display: none;
@@ -1082,6 +1086,19 @@ body #battery-wrapper button:hover,
 body #network-wrapper button:hover,
 body #lockscreen-wrapper button:hover {
   background-color: #ebc2f0;
+}
+body #vibration-wrapper select,
+body #time-wrapper select,
+body #date-wrapper select,
+body #battery-wrapper select,
+body #network-wrapper select,
+body #lockscreen-wrapper select {
+  font-size: 12px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
 }
 body .param-title {
   color: #3e3e3e;
