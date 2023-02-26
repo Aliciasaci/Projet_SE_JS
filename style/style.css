@@ -314,6 +314,7 @@ body main input[type=text] {
   background-color: #fff;
   color: #333;
   font-size: 14px;
+  display: none;
 }
 body main #app_list {
   width: 100%;
@@ -393,9 +394,11 @@ body main .glass {
   border: 1px solid rgba(255, 255, 255, 0.47);
 }
 body main .darkglass {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(39, 36, 36, 0.73);
   border: 1px solid rgba(0, 0, 0, 0.493);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.438);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
 }
 body main .darkbtn {
   background-color: #0a0027;
@@ -515,8 +518,13 @@ body main .window .window-content #tictac {
 body main .window .window-content #tictac .wrapper {
   margin-top: 2%;
   font-weight: 700;
+  display: flex;
+  width: 30rem;
+  flex-direction: column;
 }
 body main .window .window-content #tictac .wrapper .score-wrapper {
+  width: 80%;
+  margin: auto;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -526,7 +534,7 @@ body main .window .window-content #tictac .wrapper .score-wrapper .score {
   font-size: 3vmin;
   text-align: center;
   margin: 0 1vh;
-  padding: 1.75vh;
+  padding: 2vh;
   border-radius: 8px;
   background-color: #0a0027;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
@@ -536,18 +544,18 @@ body main .window .window-content #tictac .wrapper .score-wrapper #scoreTie {
   color: #0a0027;
 }
 body main .window .window-content #tictac .wrapper .container {
-  width: 40vmin;
-  height: 33vmin;
+  width: 80%;
+  height: 80%;
   display: flex;
   flex-wrap: wrap;
   gap: 1vmin;
   margin: auto;
-  margin-top: 1.5vmin;
+  margin-top: 1rem;
   justify-content: center;
 }
 body main .window .window-content #tictac .wrapper .container .button-option {
-  height: 10vmin;
-  width: 10vmin;
+  height: 5rem;
+  width: 26%;
   font-size: 8.5vmin;
   color: #12043d;
   border-radius: 10px;
@@ -562,6 +570,7 @@ body main .window .window-content #tictac .wrapper .gamebtn {
   align-items: center;
   width: 50%;
   margin: auto;
+  margin-top: 1rem;
 }
 body main .window .window-content #tictac button:hover {
   cursor: pointer;
@@ -660,7 +669,11 @@ body main .window .window-content .calculator-wrapper #calculator {
     margin: auto;
   }
 }
+body main .window .window-content .calculator-wrapper #calculator .result td {
+  border-radius: 5px;
+}
 body main .window .window-content .calculator-wrapper #calculator .result td input {
+  display: block;
   width: 100%;
   background: none;
   border: none;
@@ -711,7 +724,7 @@ body main .window .window-content .calculator-wrapper #operations-pannel {
 }
 body main .window .window-content .calculator-wrapper #operations-pannel li {
   padding: 0 10px 0 10px;
-  color: rgb(56, 56, 56);
+  color: rgb(145, 145, 145);
   width: 100%;
 }
 body main .window .window-content .calculator-wrapper #operations-pannel:hover {
@@ -1027,7 +1040,8 @@ body #vibration-wrapper,
 body #time-wrapper,
 body #date-wrapper,
 body #battery-wrapper,
-body #network-wrapper {
+body #network-wrapper,
+body #lockscreen-wrapper {
   background: rgba(255, 255, 255, 0.7);
   border-radius: 10px;
   width: 42rem;
@@ -1040,7 +1054,8 @@ body #vibration-wrapper div,
 body #time-wrapper div,
 body #date-wrapper div,
 body #battery-wrapper div,
-body #network-wrapper div {
+body #network-wrapper div,
+body #lockscreen-wrapper div {
   display: flex;
   justify-content: space-between;
   margin: 1rem 0 1rem 0;
@@ -1049,7 +1064,8 @@ body #vibration-wrapper button,
 body #time-wrapper button,
 body #date-wrapper button,
 body #battery-wrapper button,
-body #network-wrapper button {
+body #network-wrapper button,
+body #lockscreen-wrapper button {
   background: rgba(214, 133, 224, 0.7);
   border-radius: 99px;
   box-sizing: border-box;
@@ -1067,14 +1083,16 @@ body #vibration-wrapper button:hover,
 body #time-wrapper button:hover,
 body #date-wrapper button:hover,
 body #battery-wrapper button:hover,
-body #network-wrapper button:hover {
+body #network-wrapper button:hover,
+body #lockscreen-wrapper button:hover {
   background-color: #ebc2f0;
 }
 body #vibration-wrapper select,
 body #time-wrapper select,
 body #date-wrapper select,
 body #battery-wrapper select,
-body #network-wrapper select {
+body #network-wrapper select,
+body #lockscreen-wrapper select {
   font-size: 12px;
   padding: 6px;
   border: 1px solid #ccc;
@@ -1089,4 +1107,85 @@ body .param-title {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+body #password-choice-pannel {
+  display: none;
+  width: 25rem;
+  height: 15rem;
+  position: absolute;
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border: 2px solid rgba(156, 102, 153, 0.441);
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  z-index: 999;
+}
+body #password-choice-pannel h3 {
+  text-align: center;
+  color: #7e313f;
+}
+body #password-choice-pannel input {
+  padding: 10px;
+  border-radius: 5px;
+  width: 13rem;
+  margin: auto;
+  border: 2px solid pink;
+}
+body #password-choice-pannel button {
+  width: 4rem;
+  padding: 10px;
+  border-style: none;
+  margin: auto;
+  margin-top: -1.5em;
+  border: 2px solid pink;
+  background-color: rgba(206, 109, 125, 0.803);
+  color: white;
+  cursor: pointer;
+}
+body #password-choice-pannel button:hover {
+  background-color: rgba(195, 145, 154, 0.803);
+}
+
+#server-ping-modal {
+  display: none;
+  width: 25rem;
+  height: 15rem;
+  position: absolute;
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border: 2px solid rgba(156, 102, 153, 0.441);
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  z-index: 999;
+}
+#server-ping-modal h3 {
+  text-align: center;
+  color: #7e313f;
+}
+#server-ping-modal input {
+  padding: 10px;
+  border-radius: 5px;
+  width: 13rem;
+  margin: auto;
+  border: 2px solid pink;
+}
+#server-ping-modal button {
+  width: 4rem;
+  padding: 10px;
+  border-style: none;
+  margin: auto;
+  margin-top: -1.5em;
+  border: 2px solid pink;
+  background-color: rgba(206, 109, 125, 0.803);
+  color: white;
+  cursor: pointer;
+}
+#server-ping-modal button:hover {
+  background-color: rgba(195, 145, 154, 0.803);
 }/*# sourceMappingURL=style.css.map */
