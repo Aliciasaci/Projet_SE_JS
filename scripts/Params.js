@@ -506,7 +506,7 @@ export function displayLatency() {
 export function latency() {
   let select = document.querySelector(".refresh-time-select");
   let options = document.querySelectorAll(".refresh-time-select option");
-  if (select && options) {
+  if(select && options){
     select.addEventListener("mousedown", function (event) {
       event.stopPropagation();
     });
@@ -521,47 +521,57 @@ export function latency() {
         event.stopPropagation();
       });
     });
+  
   }
-  localStorage.setItem("refresh-time", 1);
+
+  if(localStorage.getItem("interval-network-id"))
+  {
+    let interval = parseInt(localStorage.getItem("interval-network-id"));
+    clearInterval(interval);
+  }
 
   let interval = setInterval(() => {
     getNetworkLatency();
   }, parseInt(localStorage.getItem("refresh-time")) * 1000);
+  localStorage.setItem("interval-network-id", interval);
 
   const refreshTimeSelect = document.querySelector(".refresh-time-select");
-  if (refreshTimeSelect) {
-    console.log(refreshTimeSelect);
+  if(refreshTimeSelect){
     refreshTimeSelect.addEventListener("change", () => {
-      clearInterval(interval);
+      clearInterval(parseInt(localStorage.getItem("interval-network-id")));
       localStorage.setItem("refresh-time", refreshTimeSelect.value);
       interval = setInterval(() => {
         getNetworkLatency();
       }, parseInt(localStorage.getItem("refresh-time")) * 1000);
-    });
+      localStorage.setItem("interval-network-id", interval);
+    }); 
   }
+
 
   let networkCheck = document.querySelector("#network-display-check");
 
-  if (networkCheck) {
+  if(networkCheck)
+  {
     networkCheck.addEventListener("change", () => {
-      localStorage.setItem("network-display-check", networkCheck.checked);
+      localStorage.setItem("network-display-check",networkCheck.checked)
       displayLatency();
-    });
+    }); 
   }
 
   let domaineConfigCheck = document.querySelector("#domain-config-check");
-  if (domaineConfigCheck) {
+  if(domaineConfigCheck)
+  {
     domaineConfigCheck.addEventListener("change", () => {
       if (domaineConfigCheck.checked) {
         document.querySelector("#server-ping-modal").style.display = "flex";
-
+  
         const pingValidateBtn = document.querySelector("#ping-validate-btn");
         if (pingValidateBtn) {
           pingValidateBtn.addEventListener("click", () => {
             let domaineToPing = document.querySelector("#ping-domaine").value;
             if (domaineToPing != null) {
               localStorage.setItem("domaine-ping", domaineToPing);
-              alert("Nouveau domaine à ping : " + domaineToPing);
+              alert("Nouveau domaine Ã  ping : " + domaineToPing);
               console.log(domaineToPing);
             }
           });
@@ -571,6 +581,7 @@ export function latency() {
       }
     });
   }
+
 }
 
 /**
