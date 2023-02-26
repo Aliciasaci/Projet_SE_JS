@@ -314,7 +314,6 @@ body main input[type=text] {
   background-color: #fff;
   color: #333;
   font-size: 14px;
-  display: none;
 }
 body main #app_list {
   width: 100%;

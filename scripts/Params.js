@@ -161,41 +161,120 @@ export function renderTimeParams() {
   `;
 }
 
-export function displayTimeTopBar() {
-  const hourParamBtn = document.querySelector("#hour-display-check");
-  const minParamBtn = document.querySelector("#min-display-check");
-  const secParamBtn = document.querySelector("#sec-display-check");
+export function displayTimeTopBar(hourDisplay, minDisplay, secDisplay) {
   const hourNavDisplay = document.querySelector("#digital-clock-hour");
   const minNavDisplay = document.querySelector("#digital-clock-min");
   const secNavDisplay = document.querySelector("#digital-clock-sec");
-  hourParamBtn.addEventListener("click", function () {
-    if (hourParamBtn.checked == true) {
-      // document.getElementById(clock-nav).append(`<span id="digital-clock-hour"></span><span>:</span>`);
-      hourNavDisplay.style.display = "block";
-      hourNavDisplay.nextElementSibling.style.display = "block";
-    } else {
-      // hourNavDisplay.remove();
-      hourNavDisplay.style.display = "none";
-      hourNavDisplay.nextElementSibling.style.display = "none";
-    }
-  });
-  minParamBtn.addEventListener("click", function () {
-    if (minParamBtn.checked == true) {
-      minNavDisplay.style.display = "block";
-      minNavDisplay.nextElementSibling.style.display = "block";
-    } else {
-      minNavDisplay.style.display = "none";
-      minNavDisplay.nextElementSibling.style.display = "none";
-    }
-  });
-  secParamBtn.addEventListener("click", function () {
-    if (secParamBtn.checked == true) {
-      secNavDisplay.style.display = "block";
-    } else {
-      secNavDisplay.style.display = "none";
-    }
-  });
+
+  if (hourDisplay == "true") {
+    hourNavDisplay.style.display = "block";
+    hourNavDisplay.nextElementSibling.style.display = "block";
+  } else {
+    hourNavDisplay.style.display = "none";
+    hourNavDisplay.nextElementSibling.style.display = "none";
+  }
+
+  if (minDisplay == "true") {
+    minNavDisplay.style.display = "block";
+    minNavDisplay.nextElementSibling.style.display = "block";
+  } else {
+    minNavDisplay.style.display = "none";
+    minNavDisplay.nextElementSibling.style.display = "none";
+  }
+
+  if (secDisplay == "true") {
+    secNavDisplay.style.display = "block";
+  } else {
+    secNavDisplay.style.display = "none";
+  }
 }
+
+export function timeCheckListenners() {
+  const hourParamCheck = document.querySelector("#hour-display-check");
+  const minParamCheck = document.querySelector("#min-display-check");
+  const secParamCheck = document.querySelector("#sec-display-check");
+
+  let hourDisplay = localStorage.getItem("hour-display-check");
+  let minDisplay = localStorage.getItem("min-display-check");
+  let secDisplay = localStorage.getItem("sec-display-check");
+
+  if (hourParamCheck) {
+    hourParamCheck.addEventListener("change", function () {
+      console.log("test")
+      hourDisplay === "true" ? (hourDisplay = "false") : (hourDisplay = "true");
+      displayTimeTopBar(hourDisplay, minDisplay, secDisplay);
+    });
+  }
+
+  if (minParamCheck) {
+    minParamCheck.addEventListener("change", function () {
+      minDisplay === "true" ? (minDisplay = "false") : (minDisplay = "true");
+      displayTimeTopBar(hourDisplay, minDisplay, secDisplay);
+    });
+  }
+
+  if (secParamCheck) {
+    secParamCheck.addEventListener("change", function () {
+      secDisplay === "true" ? (secDisplay = "false") : (secDisplay = "true");
+      displayTimeTopBar(hourDisplay, minDisplay, secDisplay);
+    });
+  }
+}
+  
+  // hourParamBtn.addEventListener("change", function () {
+  //   localStorage.setItem("hour-display-check", hourParamBtn.checked);
+  //   if (hourParamBtn.checked == true) {
+  //     hourNavDisplay.style.display = "block";
+  //     hourNavDisplay.nextElementSibling.style.display = "block";
+  //   } else {
+  //     hourNavDisplay.style.display = "none";
+  //     hourNavDisplay.nextElementSibling.style.display = "none";
+  //   }
+  // });
+  // minParamBtn.addEventListener("change", function () {
+  //   localStorage.setItem("min-display-check", minParamBtn.checked);
+  //   if (minParamBtn.checked == true) {
+  //     minNavDisplay.style.display = "block";
+  //     minNavDisplay.nextElementSibling.style.display = "block";
+  //   } else {
+  //     minNavDisplay.style.display = "none";
+  //     minNavDisplay.nextElementSibling.style.display = "none";
+  //   }
+  // });
+  // secParamBtn.addEventListener("change", function () {
+  //   localStorage.setItem("sec-display-check", secParamBtn.checked);
+  //   if (secParamBtn.checked == true) {
+  //     secNavDisplay.style.display = "block";
+  //   } else {
+  //     secNavDisplay.style.display = "none";
+  //   }
+  // });
+  // hourParamBtn.addEventListener("click", function () {
+  //   if (hourParamBtn.checked == true) {
+  //     hourNavDisplay.style.display = "block";
+  //     hourNavDisplay.nextElementSibling.style.display = "block";
+  //   } else {
+  //     hourNavDisplay.style.display = "none";
+  //     hourNavDisplay.nextElementSibling.style.display = "none";
+  //   }
+  // });
+  // minParamBtn.addEventListener("click", function () {
+  //   if (minParamBtn.checked == true) {
+  //     minNavDisplay.style.display = "block";
+  //     minNavDisplay.nextElementSibling.style.display = "block";
+  //   } else {
+  //     minNavDisplay.style.display = "none";
+  //     minNavDisplay.nextElementSibling.style.display = "none";
+  //   }
+  // });
+  // secParamBtn.addEventListener("click", function () {
+  //   if (secParamBtn.checked == true) {
+  //     secNavDisplay.style.display = "block";
+  //   } else {
+  //     secNavDisplay.style.display = "none";
+  //   }
+  // });
+
 
 //*******CODE DATE */
 

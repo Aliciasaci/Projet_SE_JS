@@ -29,19 +29,20 @@ export function lockscreenAtStart() {
     let insertedPasswordBtn = document.querySelector("#password-validate-btn");
     insertedPasswordBtn.addEventListener("click", function () {
       let insertedPasswordInput = document.querySelector("#password");
-      if (
-        localStorage.getItem("lockscreen-password") ==
-        insertedPasswordInput.value
-      ) {
+      if (localStorage.getItem("lockscreen-password") == insertedPasswordInput.value) {
         document.querySelector("#password-choice-pannel").style.display =
           "none";
         enterScreen();
+      }else{
+        alert("Nay Nay Nay ! Code secret incorrecte. Essaie encore ;)")
       }
     });
   } else {
     enterScreen();
   }
 }
+
+
 
 //*code du drag
 const dragElement = (elmnt) => {
