@@ -31,7 +31,7 @@ export const render = () => {
 
       <div class="popup hide">
           <p id="message"></p>
-          <button class="button" id="play-again">Jouer</button>
+          <button class="button op" id="play-again">Jouer</button>
       </div>
 
   </div>

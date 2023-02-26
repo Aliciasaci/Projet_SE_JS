@@ -528,6 +528,7 @@ body main .window .window-content #tictac .wrapper .score-wrapper {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+  white-space: nowrap;
 }
 body main .window .window-content #tictac .wrapper .score-wrapper .score {
   color: white;
@@ -554,7 +555,7 @@ body main .window .window-content #tictac .wrapper .container {
   justify-content: center;
 }
 body main .window .window-content #tictac .wrapper .container .button-option {
-  height: 5rem;
+  height: 6rem;
   width: 26%;
   font-size: 8.5vmin;
   color: #12043d;
@@ -562,6 +563,14 @@ body main .window .window-content #tictac .wrapper .container .button-option {
 }
 body main .window .window-content #tictac .wrapper .container .button-option:hover {
   background: rgba(255, 255, 255, 0.5);
+}
+body main .window .window-content #tictac .wrapper .container .darkglass {
+  color: white;
+}
+body main .window .window-content #tictac .wrapper .container .darkglass:hover {
+  background-color: transparent;
+  background: rgba(28, 21, 37, 0.2);
+  border: 1px solid rgba(28, 21, 37, 0.29);
 }
 body main .window .window-content #tictac .wrapper .gamebtn {
   display: flex;
@@ -602,6 +611,15 @@ body main .window .window-content #tictac .choice .op:hover {
   border: 1px solid white;
   background: rgba(255, 255, 255, 0.3);
 }
+body main .window .window-content #tictac .choice .darkbtn {
+  background-color: #0a0027;
+  color: white;
+}
+body main .window .window-content #tictac .choice .darkbtn:hover {
+  background-color: transparent;
+  background: rgba(28, 21, 37, 0.2);
+  border: 1px solid rgba(28, 21, 37, 0.29);
+}
 body main .window .window-content #tictac .popup {
   background-size: cover;
   height: inherit;
@@ -628,6 +646,22 @@ body main .window .window-content #tictac .popup #play-again {
 body main .window .window-content #tictac .popup.hide {
   display: none;
   animation: fadeOut 0.5s ease-in-out;
+}
+body main .window .window-content #tictac .darkglass {
+  background: rgba(28, 21, 37, 0.4);
+  border: 1px solid rgba(28, 21, 37, 0.29);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.438);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+}
+body main .window .window-content #tictac .darkbtn {
+  background-color: #0a0027;
+  color: white;
+}
+body main .window .window-content #tictac .darkbtn:hover {
+  background-color: transparent;
+  background: rgba(28, 21, 37, 0.2);
+  border: 1px solid rgba(28, 21, 37, 0.29);
 }
 @keyframes fadeIn {
   0% {
@@ -1041,8 +1075,8 @@ body #time-wrapper,
 body #date-wrapper,
 body #battery-wrapper,
 body #network-wrapper,
-body #lockscreen-wrapper {
-  background: rgba(255, 255, 255, 0.7);
+body #lockscreen-wrapper,
+body #theme-wrapper {
   border-radius: 10px;
   width: 42rem;
   margin: auto;
@@ -1055,7 +1089,8 @@ body #time-wrapper div,
 body #date-wrapper div,
 body #battery-wrapper div,
 body #network-wrapper div,
-body #lockscreen-wrapper div {
+body #lockscreen-wrapper div,
+body #theme-wrapper div {
   display: flex;
   justify-content: space-between;
   margin: 1rem 0 1rem 0;
@@ -1065,7 +1100,8 @@ body #time-wrapper button,
 body #date-wrapper button,
 body #battery-wrapper button,
 body #network-wrapper button,
-body #lockscreen-wrapper button {
+body #lockscreen-wrapper button,
+body #theme-wrapper button {
   background: rgba(214, 133, 224, 0.7);
   border-radius: 99px;
   box-sizing: border-box;
@@ -1084,7 +1120,8 @@ body #time-wrapper button:hover,
 body #date-wrapper button:hover,
 body #battery-wrapper button:hover,
 body #network-wrapper button:hover,
-body #lockscreen-wrapper button:hover {
+body #lockscreen-wrapper button:hover,
+body #theme-wrapper button:hover {
   background-color: #ebc2f0;
 }
 body #vibration-wrapper select,
@@ -1092,7 +1129,8 @@ body #time-wrapper select,
 body #date-wrapper select,
 body #battery-wrapper select,
 body #network-wrapper select,
-body #lockscreen-wrapper select {
+body #lockscreen-wrapper select,
+body #theme-wrapper select {
   font-size: 12px;
   padding: 6px;
   border: 1px solid #ccc;
@@ -1100,13 +1138,23 @@ body #lockscreen-wrapper select {
   background-color: #fff;
   color: #333;
 }
+body .param-wrap {
+  background: rgba(255, 255, 255, 0.7);
+}
+body .darkparams {
+  background: rgba(22, 22, 22, 0.7);
+  color: #ccc;
+}
+body .darkcontent {
+  color: #ccc;
+}
 body .param-title {
-  color: #3e3e3e;
   margin: auto;
   margin-top: auto;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #3e3e3e;
 }
 body #password-choice-pannel {
   display: none;

@@ -32,6 +32,7 @@ export function setTheme(theme) {
 
     document.body.style.backgroundImage = "url('assets/bg_6.jpg')";
   }
+  setAppsToDarkTheme(theme);
 }
 
 export function setAppsToDarkTheme(theme) {
@@ -72,21 +73,51 @@ export function setClockToDarkTheme(theme){
 }
 
 export function setTicTacToDarkTheme(theme){
-  //*already good ? 
+  let tictacbuttons = document.querySelectorAll(".button-option");
+  let tictacOperations = document.querySelectorAll(".op");
+  if (theme === "dark") {
+    if (tictacbuttons && tictacOperations) {
+      tictacbuttons.forEach(button => {
+        button.classList.add("darkglass");
+      });
+      tictacOperations.forEach(op => {
+        op.classList.add("darkbtn");
+      });
+    }
+  } else {
+    if (tictacbuttons && tictacOperations) {
+      tictacbuttons.forEach(button => {
+        button.classList.remove("darkglass");
+      });
+      tictacOperations.forEach(op => {
+        op.classList.remove("darkbtn");
+      });
+    }
+  }
 }
 
 export function setParamToDarkTheme(theme){
-   if (theme == "dark") {
-    let windowText = document.querySelector(".window-content *");
-    let paramTitle = document.querySelector(".param-title");
+  let paramWrappers = document.querySelectorAll(".param-wrap");
+  let windowText = document.querySelector("#params-icons");
+  let paramTitle = document.querySelector(".param-title");
 
+  if (theme == "dark") {
     if (windowText && paramTitle) {
-      windowText.style.color = "#f7f7f7";
-      paramTitle.style.color = "#f7f7f7";
-
-      // let paramWrappers = document.querySelector("#time-wrapper");
-      // paramWrappers.style.backgroundColor = "rgba(13, 13, 13, 0.45)";
+      windowText.classList.add("darkcontent");
+      paramTitle.classList.add("darkcontent");
+      console.log("darkcontent");
     }
+    paramWrappers.forEach(wrapper => {
+      wrapper.classList.add("darkparams");
+    });
+  } else {
+    if (windowText && paramTitle) {
+      windowText.classList.remove("darkcontent");
+      paramTitle.classList.remove("darkcontent");
+    }
+    paramWrappers.forEach(wrapper => {
+      wrapper.classList.remove("darkparams");
+    });
   }
 }
 
