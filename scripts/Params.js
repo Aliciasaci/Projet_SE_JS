@@ -225,60 +225,6 @@ export function timeCheckListenners() {
   }
 }
 
-// hourParamBtn.addEventListener("change", function () {
-//   localStorage.setItem("hour-display-check", hourParamBtn.checked);
-//   if (hourParamBtn.checked == true) {
-//     hourNavDisplay.style.display = "block";
-//     hourNavDisplay.nextElementSibling.style.display = "block";
-//   } else {
-//     hourNavDisplay.style.display = "none";
-//     hourNavDisplay.nextElementSibling.style.display = "none";
-//   }
-// });
-// minParamBtn.addEventListener("change", function () {
-//   localStorage.setItem("min-display-check", minParamBtn.checked);
-//   if (minParamBtn.checked == true) {
-//     minNavDisplay.style.display = "block";
-//     minNavDisplay.nextElementSibling.style.display = "block";
-//   } else {
-//     minNavDisplay.style.display = "none";
-//     minNavDisplay.nextElementSibling.style.display = "none";
-//   }
-// });
-// secParamBtn.addEventListener("change", function () {
-//   localStorage.setItem("sec-display-check", secParamBtn.checked);
-//   if (secParamBtn.checked == true) {
-//     secNavDisplay.style.display = "block";
-//   } else {
-//     secNavDisplay.style.display = "none";
-//   }
-// });
-// hourParamBtn.addEventListener("click", function () {
-//   if (hourParamBtn.checked == true) {
-//     hourNavDisplay.style.display = "block";
-//     hourNavDisplay.nextElementSibling.style.display = "block";
-//   } else {
-//     hourNavDisplay.style.display = "none";
-//     hourNavDisplay.nextElementSibling.style.display = "none";
-//   }
-// });
-// minParamBtn.addEventListener("click", function () {
-//   if (minParamBtn.checked == true) {
-//     minNavDisplay.style.display = "block";
-//     minNavDisplay.nextElementSibling.style.display = "block";
-//   } else {
-//     minNavDisplay.style.display = "none";
-//     minNavDisplay.nextElementSibling.style.display = "none";
-//   }
-// });
-// secParamBtn.addEventListener("click", function () {
-//   if (secParamBtn.checked == true) {
-//     secNavDisplay.style.display = "block";
-//   } else {
-//     secNavDisplay.style.display = "none";
-//   }
-// });
-
 //*******CODE DATE */
 
 function getFrenchDay(day) {
