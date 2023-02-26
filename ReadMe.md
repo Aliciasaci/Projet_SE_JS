@@ -9,7 +9,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/Aliciasaci/Projet_SE_JS/">
-    <img src="assets/Screenshot_8.png" alt="Logo" width="80" height="80">
+    <img src="assets/Screenshot_8.png" alt="Logo" width="800" height="80">
   </a>
 
 <h3 align="center">Javascript</h3>
