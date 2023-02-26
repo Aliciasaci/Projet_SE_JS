@@ -91,7 +91,7 @@ window.addEventListener("load", () => {
   });
   
   //*network refresh time
-  localStorage.setItem("refresh-time", 1);
+  localStorage.setItem("refresh-time", 30);
 
   //* Display saved settings of the system
   //* saved theme display
