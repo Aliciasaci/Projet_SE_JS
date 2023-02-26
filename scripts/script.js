@@ -1,443 +1,774 @@
-import { DivisionError } from './ExceptionsClasses.js';
+import { renderCalculatorBody, calculate } from "./Calculatrice.js";
+import {
+  renderVibrationBody,
+  vibrate,
+  renderParamsBody,
+  renderTimeParams,
+  renderDateParams,
+  renderBatteryParams,
+  setLockscreenPassword,
+  renderNetworkParams,
+  displayEtatVibration,
+  displayTimeTopBar,
+  saveCheckboxBatteryState,
+  retrieveCheckboxBatteryState,
+  displayCheckedValues,
+  dateCheckListeners,
+  renderLockscreenParams,
+  lockscreen,
+  latency,
+  startVibrate,
+  displayLatency,
+  timeCheckListenners,
+  renderThemeParams,
+  themeCheckListeners,
+  checkAppTheme,
+} from "./Params.js";
+import {
+  render as renderTicTacToe,
+  init as initTicTacToe,
+} from "./tictactoe.js";
+import { setTheme, setAppsToDarkTheme } from "./Theme.js";
+import {
+  renderClock,
+  openTab,
+  setClock,
+  setDigitalClockTopBar,
+  startPauseStopWatch,
+  reset,
+  lap,
+  startPauseTimer,
+  resetTimer,
+} from "./clock.js";
+import { lockscreenAtStart } from "./Options.js";
 
 //*variables
-const switchModeBtn = document.querySelector("#switch-mode-btn");
-const keys = document.querySelectorAll(".keys input");
-const resultInput = document.querySelector("#result-input");
-const refreshBtn = document.querySelector("#btn-refresh");
 const calculatorIcon = document.querySelector("#calculator-icon");
-const calculatorBody = document.querySelector("#calculator");
 const backgroundWindow = document.querySelector(".window");
 const closeWindowButton = document.querySelector(".fa-xmark");
 const reduceWindowButton = document.querySelector(".fa-minus");
 const paramsIcon = document.querySelector("#params-icon");
-const paramsBody = document.querySelector("#params");
 const calculatorIconSmall = document.querySelector("#calculator-icon-small");
 const paramsIconSmall = document.querySelector("#params-icon-small");
-const operationsPannel = document.querySelector('#operations-pannel');
-const paramVibration = document.querySelector('#params-vibration');
-const calculatorWrapper = document.querySelector('.calculator-wrapper');
-const vibrationWrapper = document.querySelector('#vibration-wrapper');
-const VibrationDisplayBtn = document.querySelector('#vibration-display-btn');
-const VibrationActivateBtn = document.querySelector('#vibration-activate-btn');
-let errorMessage = "";
-let vibrationActivated = true;
+const clockIconSmall = document.querySelector("#clock-icon-small");
+const main = document.querySelector("main");
+const morpionsIconSmall = document.querySelector("#morpions-icon-small");
+const windowContent = document.querySelector(".window-content");
+const morpionIcon = document.querySelector("#tictactoe-icon");
+const clockIcon = document.querySelector("#clock-icon");
+const passwordValue = document.querySelector("#password");
+let batteryNavDisplay = document.querySelector("#battery-nav");
+let vibrationIconOn = document.querySelector("#vibration-icon-on");
+let vibrationIconOff = document.querySelector("#vibration-icon-off");
+const windowBar = document.querySelector(".window-upper-btns");
+const batteryNav = document.querySelector("#battery-nav");
+const hourNav = document.querySelector("#digital-clock-hour");
+const minNav = document.querySelector("#digital-clock-min");
+const secNav = document.querySelector("#digital-clock-sec");
+const navDate = document.querySelector(".dateTime");
 
-function devide(partOne, partTwo) {
-    if (partTwo == 0)
-        throw new DivisionError('Erreur de division par zéro');
-
-    return parseFloat(partOne) / parseFloat(partTwo);
-}
-
-function add(partOne, partTwo) {
-    if (partOne && partTwo)
-        return parseFloat(partOne) + parseFloat(partTwo);
-}
-
-function substract(partOne, partTwo) {
-    if (partOne && partTwo)
-        return parseFloat(partOne) - parseFloat(partTwo);
-}
-
-function multiply(partOne, partTwo) {
-    if (partOne && partTwo)
-        return parseFloat(partOne) * parseFloat(partTwo);
-}
-
-//Fonction qui inverse le signe d'un chiffre/résultat
-function invertSignNumber(number) {
-    if (number)
-        return -number
-}
-
-const operationsKeys = ["+", '-', "/", '*', "=", "+/-"];
-const numbersKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'];
-let operationPartOne = 0;
-let operationPartTwo = 0;
-let output = 0;
-let operator = undefined;
-let nbOperators = 0;
-let nbPoint = 0;
-let resultOfOperation = 0;
-let resetOutput = 0;
-resultInput.value = 0;
+let morpionPanel = null;
+let calculatorPanel = null;
+let paramsPanel = null;
+let clockPanel = null;
+let displayedApp = "";
+let openedApps = [];
+let openedParams = [];
+passwordValue.value = null;
+let currentThemeChoice = null;
 
 // if page fully loaded
-window.addEventListener('load', () => {
+window.addEventListener("load", () => {
+  //*Starting animation
+  const enterBtn = document.querySelector(".open_systeme_button");
 
-    document.querySelectorAll('*')
-  .forEach(element => element.addEventListener('click', e => {
-    console.log('clicked: ', e.target);
-    if(window.navigator.vibrate(200)){
-        console.log("vibrating....");
+  enterBtn.addEventListener("click", function () {
+    //*if lockscreen activated
+    lockscreenAtStart();
+    if (main) {
+      main.style.display = "block";
     }
-  }))
+  });
 
-    //* function to create and set cookies
-    //! le store du theme ne marche pas sur opera
-    function setCookie(cookiName, cookieValue, expireDate) {
-        const d = new Date();
-        d.setTime(d.getTime() + (expireDate * 24 * 60 * 60 * 1000));
-        let expiresAt = "expires=" + d.toUTCString();
-        document.cookie = cookiName + "=" + cookieValue + ";" + expiresAt + ";path=/";
+  //* Display saved settings of the system
+  //* saved theme display
+  saveCheckboxThemeState();
+  retrieveCheckboxThemeState();
+  //* saved battery display
+  retrieveCheckboxBatteryState(batteryNavDisplay);
+
+  //* Setup vibration
+  const allDom = document.querySelector("*");
+  allDom.addEventListener("click", () => {
+    if (localStorage.getItem("vibration-activate-check") == "true") {
+      startVibrate();
     }
 
-    //* function that returns a cookie and it value
-    function getCookie(cookiName) {
-        let cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            let cookie = cookies[i].trim().split('=');
-            if (cookiName == cookie[0]) {
-                return cookie;
-            }
+    displayEtatVibration();
+  });
+
+  //* settings elements to be displayed in top bar
+  //* battery level
+  if (navigator.getBattery) {
+    //* check if the browser supports the Battery Status API
+    navigator.getBattery().then(function (battery) {
+      let level = battery.level * 100; //* get the current battery level and multiply by 100 to get a percentage
+      document.getElementById("battery-level").innerText = level + "%";
+      if (level < 99) {
+        document.getElementById("battery-level").style.color = "yellow";
+      }
+    });
+  }
+
+  /**
+   * * Retrieve the state of the theme checkbox from local storage
+   */
+  function retrieveCheckboxThemeState() {
+    //* retrieve the saved states from session storage
+    let checkbox = document.querySelector("#mode");
+    let savedState = localStorage.getItem(checkbox.id);
+    //* update the checkbox state and set the theme accordingly if theme checkbox is checked
+    if (checkbox.id == "mode") {
+      checkbox.checked = savedState === "true";
+      setTheme(savedState === "true" ? "dark" : "light");
+      if (savedState === "true") {
+        currentThemeChoice = "dark";
+      } else {
+        currentThemeChoice = "light";
+      }
+      setAppsToDarkTheme(currentThemeChoice);
+    } else {
+      checkbox.checked = savedState === "true";
+    }
+  }
+  /**
+   * * Save the state of the theme checkbox to local storage
+   */
+  function saveCheckboxThemeState() {
+    //* get all checkbox elements on the page
+    let checkbox = document.querySelector("#mode");
+    //* add an event listener for the change event to each checkbox
+    checkbox.addEventListener("change", function () {
+      //* get the current state of the checkbox
+      let isChecked = checkbox.checked;
+      //* save the state to session storage using the checkbox's id as the key
+      localStorage.setItem(checkbox.id, isChecked);
+      //* set the theme if theme checkbox is checked
+      if (checkbox.id == "mode" && isChecked == true) {
+        setTheme("dark");
+      } else {
+        setTheme("light");
+      }
+    });
+  }
+
+  function saveCheckboxState() {
+    //* get all checkbox elements on the page
+    let checkboxes = document.querySelectorAll("input[type=checkbox]");
+    //* add an event listener for the change event to each checkbox
+    checkboxes.forEach(function (checkbox) {
+      checkbox.addEventListener("change", function () {
+        let isChecked = checkbox.checked;
+        localStorage.setItem(checkbox.id, isChecked);
+      });
+    });
+
+    //* retrieve the saved states from local storage
+    checkboxes.forEach(function (checkbox) {
+      let savedState = localStorage.getItem(checkbox.id);
+      //* update the checkbox state and set the theme accordingly if theme checkbox is checked
+      if (checkbox.id == "mode") {
+        checkbox.checked = savedState === "true";
+      } else {
+        checkbox.checked = savedState === "true";
+      }
+    });
+  }
+  saveCheckboxState();
+
+  /**
+   * * Elements to be displayed in top bar
+   */
+  //* Display or not date
+  let dayDisplayCheck = localStorage.getItem("date-display-check");
+  if (dayDisplayCheck === "false" || dayDisplayCheck === null) {
+    navDate.innerHTML = "";
+  } else {
+    navDate.innerHTML = displayCheckedValues(
+      localStorage.getItem("day-display-check"),
+      localStorage.getItem("month-display-check"),
+      localStorage.getItem("year-display-check")
+    );
+  }
+  //* Display or not time
+  setDigitalClockTopBar();
+  setInterval(setDigitalClockTopBar, 1000);
+  timeCheckListenners();
+
+  //* Display or not vibration state
+  displayEtatVibration();
+
+  //* Display or not latency
+  latency();
+
+  //*render content of window
+  const renderWindowContent = (content) => {
+    switch (content) {
+      case "tictactoe":
+        windowContent.insertAdjacentHTML("beforeend", renderTicTacToe());
+        initTicTacToe();
+        break;
+
+      case "calculator":
+        windowContent.insertAdjacentHTML("beforeend", renderCalculatorBody());
+        const keys = document.querySelectorAll(".keys input");
+
+        if (keys) {
+          keys.forEach((key) => {
+            key.addEventListener("click", function () {
+              calculate(key);
+            });
+          });
         }
-    }
+        break;
 
-    //* set the theme 
-    function setTheme(theme) {
-        if (theme == "dark") { //dark mode
-            document.body.style.backgroundImage = "url('assets/dark_mode.jpg')";
-            switchModeBtn.style.filter = "invert(100%)";
-            setCookie("theme", "dark", 30)
-        } else if (theme == "light") {        //light mode
-            document.body.style.backgroundImage = "url('assets/light_background_3.jpg')";
-            switchModeBtn.style.filter = "invert(0%)";
-            setCookie("theme", "light", 30)
+      case "clock":
+        windowContent.insertAdjacentHTML("beforeend", renderClock());
+        // define tab buttons
+        let tabClock = document.querySelector("#clock-tab-btn");
+        let tabStopWatch = document.querySelector("#stopwatch-tab-btn");
+        let tabTimer = document.querySelector("#timer-tab-btn");
+        tabClock.addEventListener("click", function (e) {
+          openTab(e, "tab-clock");
+          // define clock
+          setClock();
+          setInterval(setClock, 1000);
+        });
+        tabStopWatch.addEventListener("click", function (e) {
+          openTab(e, "tab-stopwatch");
+          let startPauseBtn = document.querySelector("#start-pause-stopwatch");
+          startPauseBtn.addEventListener("click", function () {
+            startPauseStopWatch();
+          });
+          let resetBtn = document.querySelector("#reset-stopwatch");
+          resetBtn.addEventListener("click", function () {
+            reset();
+          });
+          let lapBtn = document.querySelector("#lap-stopwatch");
+          lapBtn.addEventListener("click", function () {
+            lap();
+          });
+        });
+        tabTimer.addEventListener("click", function (e) {
+          openTab(e, "tab-timer");
+          let idHour = document.querySelector("#timer-hour");
+          idHour.defaultValue = "00";
+          let idMin = document.querySelector("#timer-min");
+          idMin.defaultValue = "00";
+          let idSec = document.querySelector("#timer-sec");
+          idSec.defaultValue = "00";
+          idHour.onclick = function () {
+            idHour.focus();
+            idHour.value = "";
+          };
+          idMin.onclick = function () {
+            idMin.focus();
+            idMin.value = "";
+          };
+          idSec.onclick = function () {
+            idSec.focus();
+            idSec.value = "";
+          };
+
+          let startPauseBtn = document.querySelector("#start-pause-timer");
+          startPauseBtn.addEventListener("click", function () {
+            let hourValue = idHour.value;
+            let minValue = idMin.value;
+            let secValue = idSec.value;
+            console.log(hourValue, minValue, secValue);
+            startPauseTimer(hourValue, minValue, secValue);
+          });
+          let resetBtn = document.querySelector("#reset-timer");
+          resetBtn.addEventListener("click", function () {
+            resetTimer();
+          });
+        });
+        // define default tab to be displayed
+        document.getElementById("clock-tab-btn").click();
+        break;
+
+      case "params":
+        windowContent.insertAdjacentHTML("beforeend", renderParamsBody());
+        break;
+      default:
+    }
+    displayedApp = content;
+    openedApps.push(content);
+    if (currentThemeChoice) {
+      setAppsToDarkTheme(currentThemeChoice);
+    }
+  };
+
+  let drag = false;
+  //*at click on calculator, display modal
+  if (calculatorIcon) {
+    calculatorIcon.addEventListener("mousedown", () => (drag = false));
+    calculatorIcon.addEventListener("mousemove", () => (drag = true));
+
+    calculatorIcon.addEventListener("mouseup", function () {
+      if (drag) {
+        return;
+      } else {
+        if (displayedApp == "calculator") {
+          backgroundWindow.style.display = "block";
+          calculatorPanel.style.display = "flex";
+        } else if (openedApps.includes("calculator")) {
+          backgroundWindow.style.display = "block";
+          calculatorPanel.style.display = "flex";
+          displayedApp = "calculator";
+        } else {
+          renderWindowContent("calculator");
+          checkAppTheme();
+          calculatorPanel = document.querySelector(".calculator-wrapper");
+          backgroundWindow.style.display = "block";
         }
-    }
+      }
+    });
+  }
+  //*at click on morpion, display modal
+  if (morpionIcon) {
+    morpionIcon.addEventListener("mousedown", () => (drag = false));
+    morpionIcon.addEventListener("mousemove", () => (drag = true));
 
-    //* at load, check the cookie variable to set the theme
-    if (getCookie("theme")) {
-        const themeCookie = getCookie("theme");
-        if (themeCookie[1] == undefined || themeCookie == "light") {
-            setTheme("light"); //par défaut, c'est à light
-        } else if (themeCookie[1] == "dark") {
-            setTheme("dark");
+    morpionIcon.addEventListener("mouseup", function () {
+      if (drag) {
+        return;
+      } else {
+        if (displayedApp == "tictactoe") {
+          backgroundWindow.style.display = "block";
+          morpionPanel.style.display = "block";
+        } else if (openedApps.includes("tictactoe")) {
+          backgroundWindow.style.display = "block";
+          morpionPanel.style.display = "block";
+          displayedApp = "tictactoe";
+        } else {
+          renderWindowContent("tictactoe");
+          checkAppTheme();
+          morpionPanel = document.querySelector("#tictac");
+          backgroundWindow.style.display = "block";
         }
-    }
+      }
+    });
+  }
 
-    //* calculator code
-    //*at click on element
-    if (keys) {
-        keys.forEach(key => {
-            key.addEventListener('click', function () {
-                const keyValue = key.value;
-                if (numbersKeys.includes(keyValue)) {//si chiffre 
-                    if (resetOutput == 1) {
-                        output = 0;
-                        resetOutput = 0;
-                    }
-                    if (keyValue == ".") {
-                        if (nbPoint == 0) {
-                            if (nbOperators == 0) {               //si toujours pas d'operateur, on continue de remplir
-                                operationPartOne += keyValue;
-                            }
-                            else {
-                                operationPartTwo += keyValue;
-                            }
-                            output += keyValue;
-                            nbPoint++;
-                        }
-                    }
-                    else {
-                        if (output == 0) {
-                            output = keyValue;
-                            operationPartOne = keyValue;     //construire la partie 1 de l'opération
-                        } else {
-                            if (nbOperators == 0) {               //si toujours pas d'operateur, on continue de remplir
-                                output += keyValue;
-                                operationPartOne += keyValue;
-                            }
-                            else {                               //le cas ou on a déjà un operateur
-                                if (operationPartTwo == 0) {
-                                    const outputLength = output.length;
-                                    if (output.charAt(outputLength - 1) == 0) {
-                                        operationPartTwo = keyValue;
-                                        output[outputLength - 1] = keyValue;
+  //*at click on clock, display modal
+  if (clockIcon) {
+    clockIcon.addEventListener("mousedown", () => (drag = false));
+    clockIcon.addEventListener("mousemove", () => (drag = true));
 
-                                    } else {
-                                        operationPartTwo += keyValue;
-                                        output += keyValue;
-                                    }
-                                } else {
-                                    operationPartTwo += keyValue;
-                                    output += keyValue;
-                                }
-                            }
-                        }
-                    }
-                } else if (operationsKeys.includes(keyValue)) {
-                    if (nbOperators == 0) {             //si aucun opérateur auparavant
-                        if (keyValue != "=" && keyValue != "+/-") {          //vérifier que le premier opérateur saisi n'est pas un =
-                            operator = keyValue;
-                            nbOperators++;
-                            output += operator;
-                        }
-                        else if (keyValue == "+/-") {
-                            operationPartOne = invertSignNumber(operationPartOne);
-                            output = operationPartOne;
-                        }
-                        nbPoint = 0;
-                        resetOutput = 0;
-                    } else {                    //dès qu'un operateur existe, vérifier lequel c'est, et faire l'operétation
-                        const outputLength = output.length;
-                        if (!operationsKeys.includes(output[outputLength - 1])) {
-                            if (keyValue != "+/-") {
-                                switch (operator) {
-                                    case '+':
-                                        resultOfOperation = add(operationPartOne, operationPartTwo);
-                                        break;
-                                    case '-':
-                                        resultOfOperation = substract(operationPartOne, operationPartTwo);
-                                        break;
-                                    case '/':
-                                        try {
-                                            resultOfOperation = devide(operationPartOne, operationPartTwo)
-                                        } catch (error) {
-                                            if (error instanceof DivisionError) {
-                                                errorMessage = "Error";
-                                            } else {
-                                                console.log(error.message);
-                                            }
-                                        }
-                                        break;
-                                    case '*':
-                                        resultOfOperation = multiply(operationPartOne, operationPartTwo);
-                                        break;
-                                }
-                                let listElement = document.createElement('li');   //créer une ligne dans le pannel d'affichage
-                                listElement.innerHTML += output;
-                                operationPartOne = resultOfOperation;
-                                operationPartTwo = 0;
-                                if (keyValue == "=") {
-                                    output = operationPartOne;
-                                    nbOperators = 0;
-                                    listElement.innerHTML += "=";
-                                    listElement.innerHTML += resultOfOperation;
-
-                                    if (errorMessage == 'Error') {
-                                        listElement.innerHTML = errorMessage;
-                                    }
-
-                                    operationsPannel.append(listElement);
-                                    errorMessage = "";
-                                    resetOutput = 1;
-
-                                } else {
-                                    operator = keyValue;
-                                    output = operationPartOne + keyValue;
-                                    resetOutput = 0;
-                                }
-                                nbPoint = 0;
-                            } else {
-                                operationPartTwo = invertSignNumber(operationPartTwo);
-                                output = operationPartOne + operator + operationPartTwo
-                            }
-                        }
-                    }
-                }
-                resultInput.value = output;
-            })
-        })
-    }
-
-    //*at click on calculator, display modal
-    if (calculatorIcon) {
-        calculatorIcon.addEventListener('click', function () {
-            operationsPannel.style.display = "block";
-            calculatorBody.style.display = "block";
-            backgroundWindow.style.display = "block";
-        });
-    }
-
-    //* at click on params, display 
-    if (paramsIcon) {
-        paramsIcon.addEventListener('click', function () {
-            paramsBody.style.display = "block";
-            backgroundWindow.style.display = "block";
-            calculatorWrapper.style.display = "none"
-        });
-    }
-    //* refresh button
-    if (refreshBtn) {
-        refreshBtn.addEventListener('click', function () {
-            operationPartOne = 0;
-            operationPartTwo = 0;
-            output = 0;
-            operator = undefined;
-            nbOperators = 0;
-            resultOfOperation = 0;
-            resultInput.value = 0;
-            operationsPannel.innerHTML = 0;
-        });
-    }
-
-    //* switch theme btn
-    if (switchModeBtn) {
-        let nbClickMode = 0;
-        switchModeBtn.addEventListener('click', function () {
-            if (nbClickMode % 2 == 0) {
-                setTheme("dark");
-            } else {
-                setTheme("light");
-            }
-            nbClickMode++
-        });
-    }
-
-    //* close window and app at clic on x
-    if (closeWindowButton) {
-        closeWindowButton.addEventListener('click', function () {
-            backgroundWindow.style.display = "none";
-            if (calculatorBody.style.display == "block") {
-                if (confirm("êtes-vous sûre de vouloir fermer la fenêtre?")) {
-                    calculatorIconSmall.style.display = "none";
-                    calculatorBody.style.display = "none";
-                    operationsPannel.style.display = "none";
-                    calculatorWrapper.style.display = "none"
-                }
-            }
-
-            if (paramsBody.style.display == "block") {
-                paramsBody.style.display = "none";
-                paramsIconSmall.style.display = "none";
-                operationsPannel.style.display = "none";
-            }
-
-            if (vibrationWrapper.style.display == "block") {
-                vibrationWrapper.style.display = "none";
-            }
-        });
-    }
-
-    //* reduce window and app at clic on -
-    if (reduceWindowButton) {
-        reduceWindowButton.addEventListener('click', function () {
-            backgroundWindow.style.display = "none";
-            if (calculatorBody.style.display == "block") {
-                calculatorBody.style.display = "none";
-                calculatorIconSmall.style.display = "block";
-                operationsPannel.style.display = "none";
-            }
-
-            if (paramsBody.style.display == "block") {
-                paramsBody.style.display = "none";
-                paramsIconSmall.style.display = "block";
-                operationsPannel.style.display = "none";
-            }
-        });
-    }
-
-    //* at click on small icon of calc, display
-    calculatorIconSmall.addEventListener('click', function () {
-        if (calculatorBody.style.display == "none") {
-            backgroundWindow.style.display = "block";
-            calculatorBody.style.display = "block";
+    clockIcon.addEventListener("mouseup", function () {
+      if (drag) {
+        return;
+      } else {
+        if (displayedApp == "clock") {
+          backgroundWindow.style.display = "block";
+          clockPanel.style.display = "block";
+        } else if (openedApps.includes("clock")) {
+          backgroundWindow.style.display = "block";
+          clockPanel.style.display = "block";
+          displayedApp = "clock";
+        } else {
+          renderWindowContent("clock");
+          checkAppTheme();
+          clockPanel = document.querySelector("#clock");
+          backgroundWindow.style.display = "block";
         }
-    })
+      }
+    });
+  }
 
-    //* at click on small icon of calc, display
-    paramsIconSmall.addEventListener('click', function () {
-        if (paramsBody.style.display == "none") {
-            backgroundWindow.style.display = "block";
-            paramsBody.style.display = "block";
+  //*at click on params, display modal
+  if (paramsIcon) {
+    paramsIcon.addEventListener("mousedown", () => (drag = false));
+    paramsIcon.addEventListener("mousemove", () => (drag = true));
+    paramsIcon.addEventListener("mouseup", function () {
+      if (drag) {
+        return;
+      } else {
+        if (displayedApp == "params") {
+          backgroundWindow.style.display = "block";
+          paramsPanel.style.display = "block";
+        } else if (openedApps.includes("params")) {
+          backgroundWindow.style.display = "block";
+          paramsPanel.style.display = "block";
+          displayedApp = "params";
+        } else {
+          renderWindowContent("params");
+          checkAppTheme();
+          paramsPanel = document.querySelector("#params");
+          backgroundWindow.style.display = "block";
+          paramsPanel.style.display = "block";
         }
-    })
+      }
 
-    /**
-     * vibration code
-     */
-    if (paramVibration) {
-        paramVibration.addEventListener('click', function () {
-            paramsBody.style.display = "none";
-            if (vibrationWrapper) {
-                backgroundWindow.append(vibrationWrapper);
-                vibrationWrapper.style.display = "block";
-            }
-            //* Afficher ou non l'état de vibration (vibration activé ou désactivé)
-            if (VibrationDisplayBtn) {
-
-                const vibrationIconOn = document.querySelector("#vibration-icon-on");
-                const vibrationIconOff = document.querySelector("#vibration-icon-off");
-
-                VibrationDisplayBtn.addEventListener('click', function () {
-                    if (vibrationIconOn && vibrationIconOff) {
-                        if (VibrationDisplayBtn.innerHTML == "Masquer") {
-                            //si masquer l'état de vibration, masquer les deux icones;
-                            vibrationIconOn.style.display = "none"
-                            vibrationIconOff.style.display = "none"
-                            VibrationDisplayBtn.innerHTML = "Afficher";
-                            VibrationDisplayBtn.style.background = 'rgb(214, 133, 224, 0.7)';
-                        } else {
-                            //si afficher état de vibration, conditionner sur l'activation de vibration et afficher la bonne icone.
-                            //**Améliorer l'affichage */
-                            if (vibrationActivated == true) {
-                                console.log(vibrationActivated);
-                                vibrationIconOn.style.display = "block"
-                                vibrationIconOff.style.display = "none"
-                            } else {
-                                vibrationIconOff.style.display = "block"
-                                vibrationIconOn.style.display = "none"
-                            }
-                            VibrationDisplayBtn.innerHTML = "Masquer";
-                            VibrationDisplayBtn.style.background = 'rgb(123, 155, 216)';
-                        }
-                    }
+      //* display param options
+      const paramOptions = document.getElementById("params-icons").children;
+      for (const param of paramOptions) {
+        param.addEventListener("click", function () {
+          let paramId = param.getAttribute("id");
+          paramsPanel.style.display = "none";
+          switch (paramId) {
+            case "params-vibration":
+              if (
+                openedParams !== undefined &&
+                openedParams.includes("vibration-wrapper")
+              ) {
+                document.querySelector("#vibration-wrapper").style.display =
+                  "block";
+              } else {
+                windowContent.insertAdjacentHTML(
+                  "beforeend",
+                  renderVibrationBody()
+                );
+                openedParams.push("vibration-wrapper");
+                saveCheckboxState();
+                checkAppTheme();
+                vibrate();
+                const retourBtn = document.querySelector(".retour-btn-vibration")
+                retourBtn.addEventListener("click", function () {
+                  document.querySelector("#vibration-wrapper").style.display =
+                                "none";
+                  document.querySelector("#params").style.display = "block";
                 })
-            }
+              }
+              break;
+            case "params-time":
+              if (
+                openedParams !== undefined &&
+                openedParams.includes("time-wrapper")
+              ) {
+                document.querySelector("#time-wrapper").style.display = "block";
+              } else {
+                windowContent.insertAdjacentHTML(
+                  "beforeend",
+                  renderTimeParams()
+                );
+                saveCheckboxState();
+                checkAppTheme();
+                openedParams.push("time-wrapper");
+                timeCheckListenners();
+                                //**Bouton retour */
+                                const retourBtn = document.querySelector(".retour-btn-time");
+                                retourBtn.addEventListener("click", function () {
+                                  document.querySelector("#time-wrapper").style.display =
+                                    "none";
+                                  document.querySelector("#params").style.display = "block";
+                                });
+              }
+              break;
+            case "params-date":
+              if (
+                openedParams !== undefined &&
+                openedParams.includes("date-wrapper")
+              ) {
+                document.querySelector("#date-wrapper").style.display = "block";
+              } else {
+                windowContent.insertAdjacentHTML(
+                  "beforeend",
+                  renderDateParams()
+                );
+                dateCheckListeners();
+                saveCheckboxState();
+                checkAppTheme();
+                openedParams.push("date-wrapper");
+                const retourBtn = document.querySelector(".retour-btn-date");
+                retourBtn.addEventListener("click", function () {
+                  document.querySelector("#date-wrapper").style.display =
+                    "none";
+                  document.querySelector("#params").style.display = "block";
+                });
+              }
+              break;
+            case "params-battery":
+              if (
+                openedParams !== undefined &&
+                openedParams.includes("battery-wrapper")
+              ) {
+                document.querySelector("#battery-wrapper").style.display =
+                  "block";
+              } else {
+                windowContent.insertAdjacentHTML(
+                  "beforeend",
+                  renderBatteryParams()
+                );
+                checkAppTheme();
+                openedParams.push("battery-wrapper");
+                let checkbox = document.querySelector("#battery-display-check");
+                let batteryNavDisplay = document.querySelector("#battery-nav");
+                saveCheckboxBatteryState(checkbox, batteryNavDisplay);
+                retrieveCheckboxBatteryState(batteryNavDisplay, checkbox);
+                                //**Button de retour */
+                                const retourBtn = document.querySelector(".retour-btn-battery");
+                                retourBtn.addEventListener("click", function () {
+                                  document.querySelector("#battery-wrapper").style.display =
+                                    "none";
+                                  document.querySelector("#params").style.display = "block";
+                                });
+              }
+              break;
+            case "params-network":
+              if (
+                openedParams !== undefined &&
+                openedParams.includes("network-wrapper")
+              ) {
+                document.querySelector("#network-wrapper").style.display =
+                  "block";
+              } else {
+                windowContent.insertAdjacentHTML(
+                  "beforeend",
+                  renderNetworkParams()
+                );
+                latency();
+                saveCheckboxState();
+                checkAppTheme();
+                openedParams.push("network-wrapper");
+                //**Button de retour */
+                const retourBtn = document.querySelector(".retour-btn-network");
+                retourBtn.addEventListener("click", function () {
+                  document.querySelector("#network-wrapper").style.display =
+                    "none";
+                  document.querySelector("#params").style.display = "block";
+                });                
+              }
+              setAppsToDarkTheme(currentThemeChoice);
+              break;
+            case "params-lockscreen":
+              if (
+                openedParams != undefined &&
+                openedParams.includes("lockscreen-wrapper")
+              ) {
+                document.querySelector("#lockscreen-wrapper").style.display =
+                  "block";
+              } else {
+                windowContent.insertAdjacentHTML(
+                  "beforeend",
+                  renderLockscreenParams()
+                );
+                checkAppTheme();
+                if (localStorage.getItem("lockscreen") == "activated") {
+                  document.querySelector(
+                    "#lockscreen-display-check"
+                  ).checked = true;
+                }
+                document
+                  .querySelector("#lockscreen-display-check")
+                  .addEventListener("click", function () {
+                    lockscreen();
+                  });
+                document
+                  .querySelector("#lockscreen-password")
+                  .addEventListener("click", function () {
+                    setLockscreenPassword();
+                  });
 
-            //* Activer ou non le retour haptique de vibration
-            if (VibrationActivateBtn) {
+                openedParams.push("lockscreen-wrapper");
+                //**Button de retour */
+                const retourBtn = document.querySelector(".retour-btn-lockscreen");
+                retourBtn.addEventListener("click", function () {
+                  document.querySelector("#lockscreen-wrapper").style.display =
+                    "none";
+                  document.querySelector("#params").style.display = "block";
+                });                
+              }
+              break;
+            case "params-theme":
+              if (
+                openedParams !== undefined &&
+                openedParams.includes("theme-wrapper")
+              ) {
+                document.querySelector("#theme-wrapper").style.display =
+                  "block";
+              } else {
+                windowContent.insertAdjacentHTML(
+                  "beforeend",
+                  renderThemeParams()
+                );
+                saveCheckboxState();
+                themeCheckListeners();
+                openedParams.push("theme-wrapper");
+                //**Button de retour */
+                const retourBtn = document.querySelector(".retour-btn-theme");
+                retourBtn.addEventListener("click", function () {
+                  document.querySelector("#theme-wrapper").style.display =
+                    "none";
+                  document.querySelector("#params").style.display = "block";
+                });
+              }
+              break;
+          }
+        });
+      }
+    });
+  }
 
-                VibrationActivateBtn.addEventListener('click', function () {
-                    if (VibrationActivateBtn.innerHTML == "Activer") {
-                        if (confirm("Activer le retour haptique de vibration ?")) {
-                            VibrationActivateBtn.innerHTML = "Désactiver";
-                            VibrationActivateBtn.style.background = 'rgb(123, 155, 216)';
-                            vibrationActivated = true;
-                        }
-                    } else {
-                        VibrationActivateBtn.innerHTML = "Activer";
-                        vibrationActivated = false;
-                        VibrationActivateBtn.style.background = 'rgb(214, 133, 224, 0.7)';
-                    }
-                    //activer le retour haptique sur tout le système 
-                    //CODE vibration à chaque clique 
-                    //stocker l'état de vibration à true ou false 
-                })
-            }
-        })
+  //* close window and app at clic on x
+  closeWindowButton.addEventListener("click", function () {
+    backgroundWindow.style.display = "none";
+    let temp;
+    let temp2;
+    if (displayedApp === "tictactoe") {
+      morpionsIconSmall.style.display = "none";
+      displayedApp = "";
+      windowContent.removeChild(morpionPanel);
+      temp = openedApps.filter((app) => app !== "tictactoe");
     }
-})
+    if (displayedApp === "calculator") {
+      calculatorIconSmall.style.display = "none";
+      displayedApp = "";
+      windowContent.removeChild(calculatorPanel);
+      temp = openedApps.filter((app) => app !== "calculator");
+    }
+    if (displayedApp === "clock") {
+      clockIconSmall.style.display = "none";
+      displayedApp = "";
+      windowContent.removeChild(clockPanel);
+      temp = openedApps.filter((app) => app !== "clock");
+    }
+    if (displayedApp === "params") {
+      //close choice password pannel
+      let PasswordChoicePannel = document.querySelector(
+        "#password-choice-pannel"
+      );
+      if (PasswordChoicePannel) {
+        PasswordChoicePannel.style.display = "none";
+      }
 
+      //close domaine ping pannel
+      let domaineToPingPannel = document.querySelector("#server-ping-modal");
+      if (domaineToPingPannel) {
+        domaineToPingPannel.style.display = "none";
+      }
 
+      paramsIconSmall.style.display = "none";
+      displayedApp = "";
+      windowContent.removeChild(paramsPanel);
+      temp = openedApps.filter((app) => app !== "params");
+      if (openedParams !== undefined) {
+        openedParams.forEach((param) => {
+          windowContent.removeChild(document.querySelector(`#${param}`));
+          temp2 = openedParams.filter((param) => param !== param);
+          openedParams = temp2;
+        });
+      }
+    }
+    openedApps = temp;
+  });
 
+  //* reduce window and app at clic on -
+  reduceWindowButton.addEventListener("click", function () {
+    backgroundWindow.style.display = "none";
+    hideDisplayedApp(displayedApp);
+    if (displayedApp === "calculator") {
+      calculatorIconSmall.style.display = "block";
+    }
+    if (displayedApp === "tictactoe") {
+      morpionsIconSmall.style.display = "block";
+    }
+    if (displayedApp === "clock") {
+      clockIconSmall.style.display = "block";
+    }
+    if (displayedApp === "params") {
+      paramsIconSmall.style.display = "block";
+      openedParams.forEach((param) => {
+        document.querySelector(`#${param}`).style.display = "none";
+      });
 
+      let PasswordChoicePannel = document.querySelector(
+        "#password-choice-pannel"
+      );
+      if (PasswordChoicePannel) {
+        PasswordChoicePannel.style.display = "none";
+      }
+    }
+    displayedApp = "";
+  });
 
+  //* at click on small icon of calc, display
+  calculatorIconSmall.addEventListener("click", function () {
+    if (backgroundWindow.style.display === "none") {
+      backgroundWindow.style.display = "block";
+      calculatorPanel.style.display = "flex";
+    } else if (displayedApp !== "calculator") {
+      hideDisplayedApp(displayedApp);
+      calculatorPanel.style.display = "flex";
+    }
+    displayedApp = "calculator";
+  });
 
+  //* at click on small icon of params, display
+  paramsIconSmall.addEventListener("click", function () {
+    if (backgroundWindow.style.display === "none") {
+      backgroundWindow.style.display = "block";
+      paramsPanel.style.display = "block";
+    } else if (displayedApp !== "params") {
+      hideDisplayedApp(displayedApp);
+      paramsPanel.style.display = "block";
+    }
+    displayedApp = "params";
+  });
 
+  //* at click on small icon of clock, display
+  clockIconSmall.addEventListener("click", function () {
+    if (backgroundWindow.style.display === "none") {
+      backgroundWindow.style.display = "block";
+      clockPanel.style.display = "block";
+    } else if (displayedApp !== "clock") {
+      hideDisplayedApp(displayedApp);
+      clockPanel.style.display = "block";
+    }
+    displayedApp = "clock";
+  });
 
+  //* at click on small icon of morpion, display
+  morpionsIconSmall.addEventListener("click", function () {
+    if (backgroundWindow.style.display === "none") {
+      backgroundWindow.style.display = "block";
+      morpionPanel.style.display = "block";
+    } else if (displayedApp !== "tictactoe") {
+      hideDisplayedApp(displayedApp);
+      morpionPanel.style.display = "block";
+    }
+    displayedApp = "tictactoe";
+  });
 
+  const hideDisplayedApp = (displayedApp) => {
+    switch (displayedApp) {
+      case "tictactoe":
+        morpionPanel.style.display = "none";
+        break;
+      case "calculator":
+        calculatorPanel.style.display = "none";
+        break;
+      case "clock":
+        clockPanel.style.display = "none";
+        break;
+      case "params":
+        paramsPanel.style.display = "none";
+      default:
+        break;
+    }
+  };
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+window.addEventListener("beforeunload", () => {
+  function saveCheckboxState() {
+    //* get all checkbox elements on the page
+    let checkboxes = document.querySelectorAll("input[type=checkbox]");
+    //* add an event listener for the change event to each checkbox
+    checkboxes.forEach(function (checkbox) {
+      let isChecked = checkbox.checked;
+      localStorage.setItem(checkbox.id, isChecked);
+    });
+  }
+  saveCheckboxState();
+});
