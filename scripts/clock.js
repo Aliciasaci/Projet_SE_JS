@@ -267,16 +267,22 @@ function updateTimer(duration) {
             alarm.play();
             navigator.vibrate(1000);
             //* Display a notification when the time is over
-            if (!("Notification" in window)) {
-                alert("This browser does not support desktop notification");
-                } else if (Notification.permission === "granted") {
-                        new Notification("Le temps s'est écoulé !");
-                } else if (Notification.permission !== "denied") {
-                    Notification.requestPermission().then((permission) => {
-                    if (permission === "granted") {
-                        new Notification("Le temps s'est écoulé !");
+            if (!('Notification' in window)) {
+                alert('Ce navigateur ne prend pas en charge la notification de bureau');
+            }
+            // Vérifions si les autorisations de notification ont déjà été accordées
+            else if (Notification.permission === 'granted') {
+                // Si tout va bien, créons une notification
+                const notification = new Notification("Le temps s'est écoulé !");
+            }
+            // Sinon, nous devons demander la permission à l'utilisateur
+            else if (Notification.permission !== 'denied') {
+                Notification.requestPermission().then((permission) => {
+                // Si l'utilisateur accepte, créons une notification
+                    if (permission === 'granted') {
+                        const notification = new Notification("Le temps s'est écoulé !")
                     }
-                });
+                })
             }
             document.getElementById("start-pause-timer").innerHTML = "Démarrer";
             status = "PAUSED";
