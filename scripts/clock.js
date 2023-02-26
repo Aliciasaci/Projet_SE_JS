@@ -104,21 +104,29 @@ export function setClock() {
   //* analog clock
   const seconds = now.getSeconds();
   const secondsPosition = (seconds / 60) * 360 + 90;
-  handSecond.style.transform = `rotate(${secondsPosition}deg)`;
+  if (handSecond){
+    handSecond.style.transform = `rotate(${secondsPosition}deg)`;
+  }
 
   const mins = now.getMinutes();
   const minsPosition = (mins / 60) * 360 + (seconds / 60) * 6 + 90;
-  handMin.style.transform = `rotate(${minsPosition}deg)`;
+  if (handMin) {
+    handMin.style.transform = `rotate(${minsPosition}deg)`;
+  }
 
   const hours = now.getHours();
   const hoursPosition = (hours / 12) * 360 + (mins / 60) * 30 + 90;
-  handHour.style.transform = `rotate(${hoursPosition}deg)`;
-
+  if (handHour) {
+    handHour.style.transform = `rotate(${hoursPosition}deg)`;
+  }
+  
+  if (document.getElementById("time-ref")){
   if (hours > 11) {
     document.getElementById("time-ref").innerHTML = "PM";
   } else {
     document.getElementById("time-ref").innerHTML = "AM";
   }
+}
 
   //* call function digital clock
   setDigitalClock(seconds, mins, hours);
@@ -137,8 +145,10 @@ function setDigitalClock(seconds, mins, hours) {
   let secondsText = seconds < 10 ? "0" + seconds : seconds;
 
   let timeText = hoursText + ":" + minsText + ":" + secondsText;
+  if (digitalClock) {
   digitalClock.innerText = timeText;
   digitalClock.textContent = timeText;
+  }
 }
 
 /**
@@ -162,12 +172,14 @@ export function setDigitalClockTopBar() {
   let minText = minsText;
   let secText = secondsText;
 
+  if (digitalClockHour && digitalClockMin && digitalClockSec) {
   digitalClockHour.innerText = hourText;
   digitalClockHour.textContent = hourText;
   digitalClockMin.innerText = minText;
   digitalClockMin.textContent = minText;
   digitalClockSec.innerText = secText;
   digitalClockSec.textContent = secText;
+  }
 }
 
 let startTime;
