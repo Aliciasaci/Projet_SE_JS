@@ -108,7 +108,6 @@ export function vibrate() {
 }
 
 export function startVibrate() {
-  console.log("Vibration");
   window.navigator.vibrate(200);
 }
 
@@ -204,7 +203,6 @@ export function timeCheckListenners() {
 
   if (hourParamCheck) {
     hourParamCheck.addEventListener("change", function () {
-      console.log("test");
       hourDisplay === "true" ? (hourDisplay = "false") : (hourDisplay = "true");
       displayTimeTopBar(hourDisplay, minDisplay, secDisplay);
     });
@@ -517,7 +515,6 @@ export function latency() {
             if (domaineToPing != null) {
               localStorage.setItem("domaine-ping", domaineToPing);
               alert("Nouveau domaine Ã  ping : " + domaineToPing);
-              console.log(domaineToPing);
             }
           });
         }
@@ -553,7 +550,6 @@ export function getNetworkLatency() {
       })
       .catch((error) => {
         localStorage.setItem("domaine-ping", " ");
-        console.error(error);
       });
 
     displayLatency();

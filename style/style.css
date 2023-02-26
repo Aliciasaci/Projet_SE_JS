@@ -514,14 +514,16 @@ body main .window .window-content #tictac {
   height: inherit;
   overflow: hidden;
 }
-body main .window .window-content #tictac .wrapper {
+body main .window .window-content #tictac .twrapper {
   margin-top: 2%;
   font-weight: 700;
   display: flex;
   width: 30rem;
   flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
 }
-body main .window .window-content #tictac .wrapper .score-wrapper {
+body main .window .window-content #tictac .twrapper .score-wrapper {
   width: 80%;
   margin: auto;
   display: flex;
@@ -529,7 +531,7 @@ body main .window .window-content #tictac .wrapper .score-wrapper {
   flex-direction: row;
   white-space: nowrap;
 }
-body main .window .window-content #tictac .wrapper .score-wrapper .score {
+body main .window .window-content #tictac .twrapper .score-wrapper .score {
   color: white;
   font-size: 3vmin;
   text-align: center;
@@ -539,11 +541,11 @@ body main .window .window-content #tictac .wrapper .score-wrapper .score {
   background-color: #0a0027;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
-body main .window .window-content #tictac .wrapper .score-wrapper #scoreTie {
+body main .window .window-content #tictac .twrapper .score-wrapper #scoreTie {
   background-color: white;
   color: #0a0027;
 }
-body main .window .window-content #tictac .wrapper .container {
+body main .window .window-content #tictac .twrapper .container {
   width: 80%;
   height: 80%;
   display: flex;
@@ -553,7 +555,7 @@ body main .window .window-content #tictac .wrapper .container {
   margin-top: 1rem;
   justify-content: center;
 }
-body main .window .window-content #tictac .wrapper .container .button-option {
+body main .window .window-content #tictac .twrapper .container .button-option {
   height: 6rem;
   width: 26%;
   font-size: 8.5vmin;
@@ -561,18 +563,18 @@ body main .window .window-content #tictac .wrapper .container .button-option {
   border-radius: 10px;
   transition: all 0.3s ease-in-out;
 }
-body main .window .window-content #tictac .wrapper .container .button-option:hover {
+body main .window .window-content #tictac .twrapper .container .button-option:hover {
   background: rgba(255, 255, 255, 0.5);
 }
-body main .window .window-content #tictac .wrapper .container .darkglass {
+body main .window .window-content #tictac .twrapper .container .darkglass {
   color: white;
 }
-body main .window .window-content #tictac .wrapper .container .darkglass:hover {
+body main .window .window-content #tictac .twrapper .container .darkglass:hover {
   background-color: transparent;
   background: rgba(28, 21, 37, 0.2);
   border: 1px solid rgba(28, 21, 37, 0.29);
 }
-body main .window .window-content #tictac .wrapper .gamebtn {
+body main .window .window-content #tictac .twrapper .gamebtn {
   display: flex;
   flex-direction: row;
   justify-content: center;

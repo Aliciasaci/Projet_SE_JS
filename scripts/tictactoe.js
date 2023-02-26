@@ -1,7 +1,7 @@
 export const render = () => {
   return `    
   <div id="tictac">      
-      <div class="wrapper">
+      <div class="twrapper">
           <div class="score-wrapper">
               <div class="score" id="scoreX"></div>
               <div class="score" id="scoreTie"></div>
@@ -57,7 +57,7 @@ export const init = () => {
   let scoreXRef = document.getElementById("scoreX");
   let scoreORef = document.getElementById("scoreO");
   let scoreTieRef = document.getElementById("scoreTie");
-  let wrapperRef = document.querySelector(".wrapper");
+  let wrapperRef = document.querySelector(".twrapper");
   let menuRef = document.querySelector(".menu-btn");
 
   //player is either X (true) or O (false)

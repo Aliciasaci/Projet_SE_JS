@@ -319,7 +319,6 @@ function updateTimer(duration) {
       const hours = Math.floor(remainingTime / 3600000);
       const mins = Math.floor((remainingTime % 3600000) / 60000);
       const seconds = Math.floor(((remainingTime % 360000) % 60000) / 1000);
-      console.log(hours, mins, seconds);
       //* Format the hours, minutes, seconds and miliseconds to 2 digits
       document.getElementById("timer-hour").value = hours
         .toString()

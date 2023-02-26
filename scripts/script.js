@@ -287,7 +287,6 @@ window.addEventListener("load", () => {
             let hourValue = idHour.value;
             let minValue = idMin.value;
             let secValue = idSec.value;
-            console.log(hourValue, minValue, secValue);
             startPauseTimer(hourValue, minValue, secValue);
           });
           let resetBtn = document.querySelector("#reset-timer");
@@ -325,10 +324,14 @@ window.addEventListener("load", () => {
           backgroundWindow.style.display = "block";
           calculatorPanel.style.display = "flex";
         } else if (openedApps.includes("calculator")) {
+          showIconSmall(displayedApp);
+          hideDisplayedApp(displayedApp);
           backgroundWindow.style.display = "block";
           calculatorPanel.style.display = "flex";
           displayedApp = "calculator";
         } else {
+          showIconSmall(displayedApp);
+          hideDisplayedApp(displayedApp);
           renderWindowContent("calculator");
           checkAppTheme();
           calculatorPanel = document.querySelector(".calculator-wrapper");
@@ -350,10 +353,14 @@ window.addEventListener("load", () => {
           backgroundWindow.style.display = "block";
           morpionPanel.style.display = "block";
         } else if (openedApps.includes("tictactoe")) {
+          showIconSmall(displayedApp);
+          hideDisplayedApp(displayedApp);
           backgroundWindow.style.display = "block";
           morpionPanel.style.display = "block";
           displayedApp = "tictactoe";
         } else {
+          showIconSmall(displayedApp);
+          hideDisplayedApp(displayedApp);
           renderWindowContent("tictactoe");
           checkAppTheme();
           morpionPanel = document.querySelector("#tictac");
@@ -376,10 +383,14 @@ window.addEventListener("load", () => {
           backgroundWindow.style.display = "block";
           clockPanel.style.display = "block";
         } else if (openedApps.includes("clock")) {
+          showIconSmall(displayedApp);
+          hideDisplayedApp(displayedApp);
           backgroundWindow.style.display = "block";
           clockPanel.style.display = "block";
           displayedApp = "clock";
         } else {
+          showIconSmall(displayedApp);
+          hideDisplayedApp(displayedApp);
           renderWindowContent("clock");
           checkAppTheme();
           clockPanel = document.querySelector("#clock");
@@ -401,10 +412,14 @@ window.addEventListener("load", () => {
           backgroundWindow.style.display = "block";
           paramsPanel.style.display = "block";
         } else if (openedApps.includes("params")) {
+          showIconSmall(displayedApp);
+          hideDisplayedApp(displayedApp);
           backgroundWindow.style.display = "block";
           paramsPanel.style.display = "block";
           displayedApp = "params";
         } else {
+          showIconSmall(displayedApp);
+          hideDisplayedApp(displayedApp);
           renderWindowContent("params");
           checkAppTheme();
           setTheme(currentThemeChoice);
@@ -695,6 +710,21 @@ window.addEventListener("load", () => {
     }
     displayedApp = "";
   });
+
+  function showIconSmall(displayedApp) {
+    if (displayedApp === "calculator") {
+      calculatorIconSmall.style.display = "block";
+    }
+    if (displayedApp === "tictactoe") {
+      morpionsIconSmall.style.display = "block";
+    }
+    if (displayedApp === "clock") {
+      clockIconSmall.style.display = "block";
+    }
+    if (displayedApp === "params") {
+      paramsIconSmall.style.display = "block";
+    }
+  }
 
   //* at click on small icon of calc, display
   calculatorIconSmall.addEventListener("click", function () {

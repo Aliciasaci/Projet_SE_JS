@@ -583,12 +583,14 @@ body {
           height: inherit;
           overflow: hidden;
 
-          .wrapper {
+          .twrapper {
             margin-top: 2%;
             font-weight: 700;
             display: flex;
             width: 30rem;
             flex-direction: column;
+            margin-left: auto;
+            margin-right: auto;
 
             .score-wrapper {
               width: 80%;
