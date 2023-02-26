@@ -1090,6 +1090,24 @@ body #theme-wrapper {
   padding: 2rem;
   height: 28rem;
 }
+
+ @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
+    body #vibration-wrapper,
+body #time-wrapper,
+body #date-wrapper,
+body #battery-wrapper,
+body #network-wrapper,
+body #lockscreen-wrapper,
+body #theme-wrapper {
+  border-radius: 10px;
+  width: 100%;
+  margin: auto;
+  margin-top: 2rem;
+  padding: 2rem;
+  height: 28rem;
+}
+    }
+
 body #vibration-wrapper div,
 body #time-wrapper div,
 body #date-wrapper div,
