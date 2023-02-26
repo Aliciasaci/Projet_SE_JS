@@ -434,6 +434,12 @@ window.addEventListener("load", () => {
                 saveCheckboxState();
                 checkAppTheme();
                 vibrate();
+                const retourBtn = document.querySelector(".retour-btn-vibration")
+                retourBtn.addEventListener("click", function () {
+                  document.querySelector("#vibration-wrapper").style.display =
+                                "none";
+                  document.querySelector("#params").style.display = "block";
+                })
               }
               break;
             case "params-time":
@@ -451,6 +457,13 @@ window.addEventListener("load", () => {
                 checkAppTheme();
                 openedParams.push("time-wrapper");
                 timeCheckListenners();
+                                //**Bouton retour */
+                                const retourBtn = document.querySelector(".retour-btn-time");
+                                retourBtn.addEventListener("click", function () {
+                                  document.querySelector("#time-wrapper").style.display =
+                                    "none";
+                                  document.querySelector("#params").style.display = "block";
+                                });
               }
               break;
             case "params-date":
@@ -468,6 +481,12 @@ window.addEventListener("load", () => {
                 saveCheckboxState();
                 checkAppTheme();
                 openedParams.push("date-wrapper");
+                const retourBtn = document.querySelector(".retour-btn-date");
+                retourBtn.addEventListener("click", function () {
+                  document.querySelector("#date-wrapper").style.display =
+                    "none";
+                  document.querySelector("#params").style.display = "block";
+                });
               }
               break;
             case "params-battery":
@@ -488,6 +507,13 @@ window.addEventListener("load", () => {
                 let batteryNavDisplay = document.querySelector("#battery-nav");
                 saveCheckboxBatteryState(checkbox, batteryNavDisplay);
                 retrieveCheckboxBatteryState(batteryNavDisplay, checkbox);
+                                //**Button de retour */
+                                const retourBtn = document.querySelector(".retour-btn-battery");
+                                retourBtn.addEventListener("click", function () {
+                                  document.querySelector("#battery-wrapper").style.display =
+                                    "none";
+                                  document.querySelector("#params").style.display = "block";
+                                });
               }
               break;
             case "params-network":
@@ -506,6 +532,13 @@ window.addEventListener("load", () => {
                 saveCheckboxState();
                 checkAppTheme();
                 openedParams.push("network-wrapper");
+                //**Button de retour */
+                const retourBtn = document.querySelector(".retour-btn-network");
+                retourBtn.addEventListener("click", function () {
+                  document.querySelector("#network-wrapper").style.display =
+                    "none";
+                  document.querySelector("#params").style.display = "block";
+                });                
               }
               setAppsToDarkTheme(currentThemeChoice);
               break;
@@ -539,6 +572,13 @@ window.addEventListener("load", () => {
                   });
 
                 openedParams.push("lockscreen-wrapper");
+                //**Button de retour */
+                const retourBtn = document.querySelector(".retour-btn-lockscreen");
+                retourBtn.addEventListener("click", function () {
+                  document.querySelector("#lockscreen-wrapper").style.display =
+                    "none";
+                  document.querySelector("#params").style.display = "block";
+                });                
               }
               break;
             case "params-theme":
@@ -556,6 +596,13 @@ window.addEventListener("load", () => {
                 saveCheckboxState();
                 themeCheckListeners();
                 openedParams.push("theme-wrapper");
+                //**Button de retour */
+                const retourBtn = document.querySelector(".retour-btn-theme");
+                retourBtn.addEventListener("click", function () {
+                  document.querySelector("#theme-wrapper").style.display =
+                    "none";
+                  document.querySelector("#params").style.display = "block";
+                });
               }
               break;
           }

@@ -50,11 +50,22 @@ export function setCalcToDarkTheme(theme) {
 
     if (keysInputs && operationsPannel) {
       keysInputs.forEach((key) => {
-        key.style.backgroundColor = "rgba(13, 13, 13, 0.45)";
-        key.style.color = "#FFF";
+        key.classList.add("darkkeys");
       });
-      operationsPannel.style.backgroundColor = "rgba(13, 13, 13, 0.45)";
-      resultInput.style.backgroundColor = "rgba(13, 13, 13, 0.45)";
+      operationsPannel.classList.add("darkoperations");
+      resultInput.classList.add("darkoperations");
+    }
+  } else {
+    let keysInputs = document.querySelectorAll("input");
+    let operationsPannel = document.querySelector("#operations-pannel");
+    let resultInput = document.querySelector("#result-input");
+
+    if (keysInputs && operationsPannel) {
+      keysInputs.forEach((key) => {
+        key.classList.remove("darkkeys");
+      });
+      operationsPannel.classList.remove("darkoperations");
+      resultInput.classList.remove("darkoperations");
     }
   }
 }

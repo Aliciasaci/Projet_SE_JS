@@ -738,6 +738,10 @@ body main .window .window-content .calculator-wrapper #calculator .keys #btn-equ
 body main .window .window-content .calculator-wrapper #calculator .keys #btn-equal:hover {
   background-color: #a2b9e4;
 }
+body main .window .window-content .calculator-wrapper #calculator .keys .darkkeys {
+  background-color: rgba(13, 13, 13, 0.45);
+  color: #FFF;
+}
 body main .window .window-content .calculator-wrapper #operations-pannel {
   height: 21.8rem;
   width: 13rem;
@@ -762,6 +766,9 @@ body main .window .window-content .calculator-wrapper #operations-pannel li {
 }
 body main .window .window-content .calculator-wrapper #operations-pannel:hover {
   background-color: #a2b9e4;
+}
+body main .window .window-content .calculator-wrapper .darkoperations {
+  background-color: rgba(13, 13, 13, 0.45);
 }
 body main .window .window-content #clock .card {
   /* max-width: 500px; */

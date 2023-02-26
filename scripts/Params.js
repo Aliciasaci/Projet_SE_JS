@@ -55,7 +55,7 @@ export function renderParamsBody() {
 export function renderVibrationBody() {
   return `
     <div id="vibration-wrapper" class="param-wrap">
-    <button class="retour-btn">Retour</button>
+    <button class="retour-btn-vibration">Retour</button>
       <h1>Paramètres de vibrations</h1>
       <div class="vibration-param-display">Afficher l'état de vibration
           <input type="checkbox" id="vibration-display-check" name="params" class="param-switch">
@@ -75,9 +75,8 @@ export function renderVibrationBody() {
 
 export function vibrate() {
   const vibrationWrapper = document.querySelector("#vibration-wrapper");
-  const allDom = document.querySelector("*");
-
   if (vibrationWrapper) {
+    
     //*Afficher état vibration
     const VibrationDisplayBtn = document.querySelector(
       "#vibration-display-check"
@@ -143,7 +142,7 @@ export function displayEtatVibration() {
 export function renderTimeParams() {
   return `
     <div id="time-wrapper" class="param-wrap">
-      <button class="retour-btn">Retour</button>
+      <button class="retour-btn-time">Retour</button>
       <h1>Paramètres d'horloge</h1>
       <div class="time-param-display">Afficher l'heure
           <input type="checkbox" id="hour-display-check" name="params" class="param-switch">
@@ -372,7 +371,7 @@ function displayDate(dayCheck, monthCheck, yearCheck) {
 export function renderDateParams() {
   return `
     <div id="date-wrapper" class="param-wrap">
-    <button class="retour-btn">Retour</button>
+    <button class="retour-btn-date">Retour</button>
       <h1>Paramètres de date</h1>
       <div class="date-param-display">Afficher la date
           <input type="checkbox" id="date-display-check" name="params" class="param-switch">
@@ -407,7 +406,7 @@ export function renderDateParams() {
 export function renderBatteryParams() {
   return `
     <div id="battery-wrapper" class="param-wrap">
-    <button class="retour-btn">Retour</button>
+    <button class="retour-btn-battery">Retour</button>
       <h1>Paramètres de batterie</h1>
       <div class="battery-param-display">Afficher la batterie
           <input type="checkbox" id="battery-display-check" name="params" class="param-switch">
@@ -466,7 +465,7 @@ export function retrieveCheckboxBatteryState(batteryNavDisplay, checkbox) {
 export function renderNetworkParams() {
   return `
     <div id="network-wrapper" class="param-wrap">
-    <button class="retour-btn">Retour</button>
+    <button class="retour-btn-network">Retour</button>
       <h1>Paramètres de latence réseau</h1>
       <div class="network-param-display">Afficher la latence réseau
         <input type="checkbox" id="network-display-check" name="params" class="param-switch">
@@ -507,7 +506,7 @@ export function displayLatency() {
 export function latency() {
   let select = document.querySelector(".refresh-time-select");
   let options = document.querySelectorAll(".refresh-time-select option");
-  if (select && options) {
+  if(select && options){
     select.addEventListener("mousedown", function (event) {
       event.stopPropagation();
     });
@@ -522,47 +521,57 @@ export function latency() {
         event.stopPropagation();
       });
     });
+  
   }
-  localStorage.setItem("refresh-time", 1);
+
+  if(localStorage.getItem("interval-network-id"))
+  {
+    let interval = parseInt(localStorage.getItem("interval-network-id"));
+    clearInterval(interval);
+  }
 
   let interval = setInterval(() => {
     getNetworkLatency();
   }, parseInt(localStorage.getItem("refresh-time")) * 1000);
+  localStorage.setItem("interval-network-id", interval);
 
   const refreshTimeSelect = document.querySelector(".refresh-time-select");
-  if (refreshTimeSelect) {
-    console.log(refreshTimeSelect);
+  if(refreshTimeSelect){
     refreshTimeSelect.addEventListener("change", () => {
-      clearInterval(interval);
+      clearInterval(parseInt(localStorage.getItem("interval-network-id")));
       localStorage.setItem("refresh-time", refreshTimeSelect.value);
       interval = setInterval(() => {
         getNetworkLatency();
       }, parseInt(localStorage.getItem("refresh-time")) * 1000);
-    });
+      localStorage.setItem("interval-network-id", interval);
+    }); 
   }
+
 
   let networkCheck = document.querySelector("#network-display-check");
 
-  if (networkCheck) {
+  if(networkCheck)
+  {
     networkCheck.addEventListener("change", () => {
-      localStorage.setItem("network-display-check", networkCheck.checked);
+      localStorage.setItem("network-display-check",networkCheck.checked)
       displayLatency();
-    });
+    }); 
   }
 
   let domaineConfigCheck = document.querySelector("#domain-config-check");
-  if (domaineConfigCheck) {
+  if(domaineConfigCheck)
+  {
     domaineConfigCheck.addEventListener("change", () => {
       if (domaineConfigCheck.checked) {
         document.querySelector("#server-ping-modal").style.display = "flex";
-
+  
         const pingValidateBtn = document.querySelector("#ping-validate-btn");
         if (pingValidateBtn) {
           pingValidateBtn.addEventListener("click", () => {
             let domaineToPing = document.querySelector("#ping-domaine").value;
             if (domaineToPing != null) {
               localStorage.setItem("domaine-ping", domaineToPing);
-              alert("Nouveau domaine à ping : " + domaineToPing);
+              alert("Nouveau domaine Ã  ping : " + domaineToPing);
               console.log(domaineToPing);
             }
           });
@@ -572,6 +581,7 @@ export function latency() {
       }
     });
   }
+
 }
 
 /**
@@ -612,7 +622,7 @@ export function getNetworkLatency() {
 export function renderLockscreenParams() {
   return `
     <div id="lockscreen-wrapper" class="param-wrap">
-    <button class="retour-btn">Retour</button>
+    <button class="retour-btn-lockscreen">Retour</button>
       <h1>Verouillage de l'appareil</h1>
       <div class="lockscreen-param-activate">Activer le verouillage de l'appareil
           <input type="checkbox" id="lockscreen-display-check" name="params" class="param-switch">
@@ -669,7 +679,7 @@ export function setLockscreenPassword() {
 export function renderThemeParams() {
   return `
     <div id="theme-wrapper" class="param-wrap">
-    <button class="retour-btn">Retour</button>
+    <button class="retour-btn-theme">Retour</button>
       <h1>Thème des applications</h1>
       <div class="theme-params-display">Activer le thème sombre de l'application calculatrice
           <input type="checkbox" id="theme-calculatrice-display-check" name="params" class="param-switch">
