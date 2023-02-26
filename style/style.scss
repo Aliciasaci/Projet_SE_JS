@@ -1262,6 +1262,10 @@ body {
     margin-top: 2rem;
     padding: 2rem;
     height: 28rem;
+    
+     @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
+        width: 100%;
+    }
 
     div {
       display: flex;
@@ -1286,6 +1290,7 @@ body {
       &:hover {
         background-color: lighten(rgb(214, 133, 224), 15%);
       }
+      
     }
 
 
