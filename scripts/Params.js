@@ -673,25 +673,25 @@ export function renderThemeParams() {
       <h1>Thème des applications</h1>
       <div class="theme-params-display">Activer le thème sombre de l'application calculatrice
           <input type="checkbox" id="theme-calculatrice-display-check" name="params" class="param-switch">
-          <label for="theme-display-check" class="param-label">
+          <label for="theme-calculatrice-display-check" class="param-label">
               <span class="param-label-background"></span>
           </label>
       </div>
       <div class="theme-params-display">Activer le thème sombre de l'application horloge
           <input type="checkbox" id="theme-clock-display-check" name="params" class="param-switch">
-          <label for="theme-display-check" class="param-label">
+          <label for="theme-clock-display-check" class="param-label">
               <span class="param-label-background"></span>
           </label>
       </div>
       <div class="theme-params-display">Activer le thème sombre de l'application morpion
           <input type="checkbox" id="theme-tictactoe-display-check" name="params" class="param-switch">
-          <label for="theme-display-check" class="param-label">
+          <label for="theme-tictactoe-display-check" class="param-label">
               <span class="param-label-background"></span>
           </label>
       </div>
       <div class="theme-params-display">Activer le thème sombre de l'application paramètres
           <input type="checkbox" id="theme-params-display-check" name="params" class="param-switch">
-          <label for="theme-display-check" class="param-label">
+          <label for="theme-params-display-check" class="param-label">
               <span class="param-label-background"></span>
           </label>
       </div>
