@@ -407,6 +407,7 @@ window.addEventListener("load", () => {
         } else {
           renderWindowContent("params");
           checkAppTheme();
+          setTheme(currentThemeChoice);
           paramsPanel = document.querySelector("#params");
           backgroundWindow.style.display = "block";
           paramsPanel.style.display = "block";
