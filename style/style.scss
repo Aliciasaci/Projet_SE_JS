@@ -1284,6 +1284,10 @@ body {
     margin-top: 2rem;
     padding: 2rem;
     height: 28rem;
+    
+     @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
+        width: 100%;
+    }
 
     div {
       display: flex;
@@ -1309,6 +1313,7 @@ body {
       &:hover {
         background-color: lighten(rgb(214, 133, 224), 15%);
       }
+      
     }
 
 
@@ -1431,6 +1436,11 @@ body {
       background-color: rgba(195, 145, 154, 0.803);
     }
   }
+
+  input[type=text], input[type=button] {
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
+    }
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");

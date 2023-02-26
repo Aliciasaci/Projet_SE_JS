@@ -1108,6 +1108,17 @@ body #theme-wrapper {
   padding: 2rem;
   height: 28rem;
 }
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  body #vibration-wrapper,
+  body #time-wrapper,
+  body #date-wrapper,
+  body #battery-wrapper,
+  body #network-wrapper,
+  body #lockscreen-wrapper,
+  body #theme-wrapper {
+    width: 100%;
+  }
+}
 body #vibration-wrapper div,
 body #time-wrapper div,
 body #date-wrapper div,
@@ -1263,4 +1274,8 @@ body #password-choice-pannel button:hover {
 }
 #server-ping-modal button:hover {
   background-color: rgba(195, 145, 154, 0.803);
+}
+#server-ping-modal input[type=text], #server-ping-modal input[type=button] {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
 }/*# sourceMappingURL=style.css.map */
