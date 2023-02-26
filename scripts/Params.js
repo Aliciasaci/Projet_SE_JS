@@ -1,10 +1,17 @@
+import {
+  setAppsToDarkTheme,
+  setCalcToDarkTheme,
+  setClockToDarkTheme,
+  setParamToDarkTheme,
+  setTicTacToDarkTheme,
+} from "./Theme.js";
 let vibrationActivated = true;
 const backgroundWindow = document.querySelector(".window");
 const paramsBody = document.querySelector("#params");
 let dateDisplay = localStorage.getItem("date-display-check");
 const date = new Date();
 let day = date.getDate();
-let month = date.toLocaleString("fr", { month: "long" });
+let month = date.toLocaleString("fr", { month: "short" });
 let year = date.getFullYear();
 
 export function renderParamsBody() {
@@ -36,7 +43,7 @@ export function renderParamsBody() {
               <img src="assets/params_icons/lock_3.png" />
               <span>Verouillage</span>
           </li>
-          <li>
+          <li id="params-theme">
               <img src="assets/params_icons/dark-mode_3.png" />
               <span>Thèmes</span>
           </li>
@@ -47,7 +54,7 @@ export function renderParamsBody() {
 //*******CODE VIBRATION */
 export function renderVibrationBody() {
   return `
-    <div id="vibration-wrapper">
+    <div id="vibration-wrapper" class="param-wrap">
     <button class="retour-btn">Retour</button>
       <h1>Paramètres de vibrations</h1>
       <div class="vibration-param-display">Afficher l'état de vibration
@@ -135,7 +142,7 @@ export function displayEtatVibration() {
 
 export function renderTimeParams() {
   return `
-    <div id="time-wrapper">
+    <div id="time-wrapper" class="param-wrap">
       <button class="retour-btn">Retour</button>
       <h1>Paramètres d'horloge</h1>
       <div class="time-param-display">Afficher l'heure
@@ -199,7 +206,7 @@ export function timeCheckListenners() {
 
   if (hourParamCheck) {
     hourParamCheck.addEventListener("change", function () {
-      console.log("test")
+      console.log("test");
       hourDisplay === "true" ? (hourDisplay = "false") : (hourDisplay = "true");
       displayTimeTopBar(hourDisplay, minDisplay, secDisplay);
     });
@@ -219,66 +226,85 @@ export function timeCheckListenners() {
     });
   }
 }
-  
-  // hourParamBtn.addEventListener("change", function () {
-  //   localStorage.setItem("hour-display-check", hourParamBtn.checked);
-  //   if (hourParamBtn.checked == true) {
-  //     hourNavDisplay.style.display = "block";
-  //     hourNavDisplay.nextElementSibling.style.display = "block";
-  //   } else {
-  //     hourNavDisplay.style.display = "none";
-  //     hourNavDisplay.nextElementSibling.style.display = "none";
-  //   }
-  // });
-  // minParamBtn.addEventListener("change", function () {
-  //   localStorage.setItem("min-display-check", minParamBtn.checked);
-  //   if (minParamBtn.checked == true) {
-  //     minNavDisplay.style.display = "block";
-  //     minNavDisplay.nextElementSibling.style.display = "block";
-  //   } else {
-  //     minNavDisplay.style.display = "none";
-  //     minNavDisplay.nextElementSibling.style.display = "none";
-  //   }
-  // });
-  // secParamBtn.addEventListener("change", function () {
-  //   localStorage.setItem("sec-display-check", secParamBtn.checked);
-  //   if (secParamBtn.checked == true) {
-  //     secNavDisplay.style.display = "block";
-  //   } else {
-  //     secNavDisplay.style.display = "none";
-  //   }
-  // });
-  // hourParamBtn.addEventListener("click", function () {
-  //   if (hourParamBtn.checked == true) {
-  //     hourNavDisplay.style.display = "block";
-  //     hourNavDisplay.nextElementSibling.style.display = "block";
-  //   } else {
-  //     hourNavDisplay.style.display = "none";
-  //     hourNavDisplay.nextElementSibling.style.display = "none";
-  //   }
-  // });
-  // minParamBtn.addEventListener("click", function () {
-  //   if (minParamBtn.checked == true) {
-  //     minNavDisplay.style.display = "block";
-  //     minNavDisplay.nextElementSibling.style.display = "block";
-  //   } else {
-  //     minNavDisplay.style.display = "none";
-  //     minNavDisplay.nextElementSibling.style.display = "none";
-  //   }
-  // });
-  // secParamBtn.addEventListener("click", function () {
-  //   if (secParamBtn.checked == true) {
-  //     secNavDisplay.style.display = "block";
-  //   } else {
-  //     secNavDisplay.style.display = "none";
-  //   }
-  // });
 
+// hourParamBtn.addEventListener("change", function () {
+//   localStorage.setItem("hour-display-check", hourParamBtn.checked);
+//   if (hourParamBtn.checked == true) {
+//     hourNavDisplay.style.display = "block";
+//     hourNavDisplay.nextElementSibling.style.display = "block";
+//   } else {
+//     hourNavDisplay.style.display = "none";
+//     hourNavDisplay.nextElementSibling.style.display = "none";
+//   }
+// });
+// minParamBtn.addEventListener("change", function () {
+//   localStorage.setItem("min-display-check", minParamBtn.checked);
+//   if (minParamBtn.checked == true) {
+//     minNavDisplay.style.display = "block";
+//     minNavDisplay.nextElementSibling.style.display = "block";
+//   } else {
+//     minNavDisplay.style.display = "none";
+//     minNavDisplay.nextElementSibling.style.display = "none";
+//   }
+// });
+// secParamBtn.addEventListener("change", function () {
+//   localStorage.setItem("sec-display-check", secParamBtn.checked);
+//   if (secParamBtn.checked == true) {
+//     secNavDisplay.style.display = "block";
+//   } else {
+//     secNavDisplay.style.display = "none";
+//   }
+// });
+// hourParamBtn.addEventListener("click", function () {
+//   if (hourParamBtn.checked == true) {
+//     hourNavDisplay.style.display = "block";
+//     hourNavDisplay.nextElementSibling.style.display = "block";
+//   } else {
+//     hourNavDisplay.style.display = "none";
+//     hourNavDisplay.nextElementSibling.style.display = "none";
+//   }
+// });
+// minParamBtn.addEventListener("click", function () {
+//   if (minParamBtn.checked == true) {
+//     minNavDisplay.style.display = "block";
+//     minNavDisplay.nextElementSibling.style.display = "block";
+//   } else {
+//     minNavDisplay.style.display = "none";
+//     minNavDisplay.nextElementSibling.style.display = "none";
+//   }
+// });
+// secParamBtn.addEventListener("click", function () {
+//   if (secParamBtn.checked == true) {
+//     secNavDisplay.style.display = "block";
+//   } else {
+//     secNavDisplay.style.display = "none";
+//   }
+// });
 
 //*******CODE DATE */
 
+function getFrenchDay(day) {
+  switch (day) {
+    case 0:
+      return "Dim.";
+    case 1:
+      return "Lun.";
+    case 2:
+      return "Mar.";
+    case 3:
+      return "Mer.";
+    case 4:
+      return "Jeu.";
+    case 5:
+      return "Ven.";
+    case 6:
+      return "Sam.";
+  }
+}
+
 export function displayCheckedValues(dateCheck, monthCheck, yearCheck) {
-  let a = `${day} `;
+  let dayLetter = getFrenchDay(new Date().getDay());
+  let a = `${dayLetter} ${day} `;
   if (dateCheck === null || dateCheck === "false") a = "";
   let b = `${month} `;
   if (monthCheck === null || monthCheck === "false") b = "";
@@ -345,7 +371,7 @@ function displayDate(dayCheck, monthCheck, yearCheck) {
 
 export function renderDateParams() {
   return `
-    <div id="date-wrapper">
+    <div id="date-wrapper" class="param-wrap">
     <button class="retour-btn">Retour</button>
       <h1>Paramètres de date</h1>
       <div class="date-param-display">Afficher la date
@@ -380,7 +406,7 @@ export function renderDateParams() {
 
 export function renderBatteryParams() {
   return `
-    <div id="battery-wrapper">
+    <div id="battery-wrapper" class="param-wrap">
     <button class="retour-btn">Retour</button>
       <h1>Paramètres de batterie</h1>
       <div class="battery-param-display">Afficher la batterie
@@ -439,7 +465,7 @@ export function retrieveCheckboxBatteryState(batteryNavDisplay, checkbox) {
 //************************CODE LATENCY */
 export function renderNetworkParams() {
   return `
-    <div id="network-wrapper">
+    <div id="network-wrapper" class="param-wrap">
     <button class="retour-btn">Retour</button>
       <h1>Paramètres de latence réseau</h1>
       <div class="network-param-display">Afficher la latence réseau
@@ -481,7 +507,7 @@ export function displayLatency() {
 export function latency() {
   let select = document.querySelector(".refresh-time-select");
   let options = document.querySelectorAll(".refresh-time-select option");
-  if(select && options){
+  if (select && options) {
     select.addEventListener("mousedown", function (event) {
       event.stopPropagation();
     });
@@ -496,7 +522,6 @@ export function latency() {
         event.stopPropagation();
       });
     });
-  
   }
   localStorage.setItem("refresh-time", 1);
 
@@ -505,7 +530,7 @@ export function latency() {
   }, parseInt(localStorage.getItem("refresh-time")) * 1000);
 
   const refreshTimeSelect = document.querySelector(".refresh-time-select");
-  if(refreshTimeSelect){
+  if (refreshTimeSelect) {
     console.log(refreshTimeSelect);
     refreshTimeSelect.addEventListener("change", () => {
       clearInterval(interval);
@@ -513,27 +538,24 @@ export function latency() {
       interval = setInterval(() => {
         getNetworkLatency();
       }, parseInt(localStorage.getItem("refresh-time")) * 1000);
-    }); 
+    });
   }
-
 
   let networkCheck = document.querySelector("#network-display-check");
 
-  if(networkCheck)
-  {
+  if (networkCheck) {
     networkCheck.addEventListener("change", () => {
-      localStorage.setItem("network-display-check",networkCheck.checked)
+      localStorage.setItem("network-display-check", networkCheck.checked);
       displayLatency();
-    }); 
+    });
   }
 
   let domaineConfigCheck = document.querySelector("#domain-config-check");
-  if(domaineConfigCheck)
-  {
+  if (domaineConfigCheck) {
     domaineConfigCheck.addEventListener("change", () => {
       if (domaineConfigCheck.checked) {
         document.querySelector("#server-ping-modal").style.display = "flex";
-  
+
         const pingValidateBtn = document.querySelector("#ping-validate-btn");
         if (pingValidateBtn) {
           pingValidateBtn.addEventListener("click", () => {
@@ -550,8 +572,6 @@ export function latency() {
       }
     });
   }
-
-
 }
 
 /**
@@ -591,7 +611,7 @@ export function getNetworkLatency() {
 //************************CODE LOCKSCREEN */
 export function renderLockscreenParams() {
   return `
-    <div id="lockscreen-wrapper">
+    <div id="lockscreen-wrapper" class="param-wrap">
     <button class="retour-btn">Retour</button>
       <h1>Verouillage de l'appareil</h1>
       <div class="lockscreen-param-activate">Activer le verouillage de l'appareil
@@ -643,5 +663,142 @@ export function setLockscreenPassword() {
         passwordPannel.style.display = "none";
       }
     });
+  }
+}
+
+export function renderThemeParams() {
+  return `
+    <div id="theme-wrapper" class="param-wrap">
+    <button class="retour-btn">Retour</button>
+      <h1>Thème des applications</h1>
+      <div class="theme-params-display">Activer le thème sombre de l'application calculatrice
+          <input type="checkbox" id="theme-calculatrice-display-check" name="params" class="param-switch">
+          <label for="theme-calculatrice-display-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>
+      </div>
+      <div class="theme-params-display">Activer le thème sombre de l'application horloge
+          <input type="checkbox" id="theme-clock-display-check" name="params" class="param-switch">
+          <label for="theme-clock-display-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>
+      </div>
+      <div class="theme-params-display">Activer le thème sombre de l'application morpion
+          <input type="checkbox" id="theme-tictactoe-display-check" name="params" class="param-switch">
+          <label for="theme-tictactoe-display-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>
+      </div>
+      <div class="theme-params-display">Activer le thème sombre de l'application paramètres
+          <input type="checkbox" id="theme-params-display-check" name="params" class="param-switch">
+          <label for="theme-params-display-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>
+      </div>
+    </div>  `;
+}
+
+export function themeCheckListeners() {
+  const themeCalculatriceDisplayCheck = document.querySelector(
+    "#theme-calculatrice-display-check"
+  );
+  const themeClockDisplayCheck = document.querySelector(
+    "#theme-clock-display-check"
+  );
+  const themeTictactoeDisplayCheck = document.querySelector(
+    "#theme-tictactoe-display-check"
+  );
+  const themeParamsDisplayCheck = document.querySelector(
+    "#theme-params-display-check"
+  );
+
+  if (localStorage.getItem("mode") === "true") {
+  }
+
+  const generalTheme = document.querySelector("#mode");
+
+  generalTheme.addEventListener("change", function () {
+    if (generalTheme.checked) {
+      themeCalculatriceDisplayCheck.checked = true;
+      themeClockDisplayCheck.checked = true;
+      themeTictactoeDisplayCheck.checked = true;
+      themeParamsDisplayCheck.checked = true;
+      setCalcToDarkTheme("dark");
+      setClockToDarkTheme("dark");
+      setTicTacToDarkTheme("dark");
+      setParamToDarkTheme("dark");
+    } else {
+      themeCalculatriceDisplayCheck.checked = false;
+      themeClockDisplayCheck.checked = false;
+      themeTictactoeDisplayCheck.checked = false;
+      themeParamsDisplayCheck.checked = false;
+
+      setCalcToDarkTheme("light");
+      setClockToDarkTheme("light");
+      setTicTacToDarkTheme("light");
+      setParamToDarkTheme("light");
+    }
+  });
+
+  checkAppTheme();
+
+  themeCalculatriceDisplayCheck.addEventListener("change", function () {
+    if (themeCalculatriceDisplayCheck.checked) {
+      setCalcToDarkTheme("dark");
+    } else {
+      setCalcToDarkTheme("light");
+    }
+  });
+
+  themeClockDisplayCheck.addEventListener("change", function () {
+    if (themeClockDisplayCheck.checked) {
+      setClockToDarkTheme("dark");
+    } else {
+      setClockToDarkTheme("light");
+    }
+  });
+
+  themeTictactoeDisplayCheck.addEventListener("change", function () {
+    if (themeTictactoeDisplayCheck.checked) {
+      setTicTacToDarkTheme("dark");
+    } else {
+      setTicTacToDarkTheme("light");
+    }
+  });
+
+  themeParamsDisplayCheck.addEventListener("change", function () {
+    if (themeParamsDisplayCheck.checked) {
+      setParamToDarkTheme("dark");
+    } else {
+      setParamToDarkTheme("light");
+    }
+  });
+}
+
+export function checkAppTheme() {
+  let calcTheme = localStorage.getItem("theme-calculatrice-display-check");
+  let clockTheme = localStorage.getItem("theme-clock-display-check");
+  let tictactoeTheme = localStorage.getItem("theme-tictactoe-display-check");
+  let paramsTheme = localStorage.getItem("theme-params-display-check");
+
+  if (calcTheme === "true") {
+    setCalcToDarkTheme("dark");
+  } else {
+    setCalcToDarkTheme("light");
+  }
+  if (clockTheme === "true") {
+    setClockToDarkTheme("dark");
+  } else {
+    setClockToDarkTheme("light");
+  }
+  if (tictactoeTheme === "true") {
+    setTicTacToDarkTheme("dark");
+  } else {
+    setTicTacToDarkTheme("light");
+  }
+  if (paramsTheme === "true") {
+    setParamToDarkTheme("dark");
+  } else {
+    setParamToDarkTheme("light");
   }
 }
