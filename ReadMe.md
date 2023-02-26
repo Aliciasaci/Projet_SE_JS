@@ -2,11 +2,6 @@
 
 <a name="readme-top"></a>
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-
 
 
 <!-- PROJECT LOGO -->
@@ -14,7 +9,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/Aliciasaci/Projet_SE_JS/">
-    <img src="readme/logo.png" alt="Logo" width="80" height="80">
+    <img src="assets/Screenshot_8.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Javascript</h3>
@@ -111,7 +106,7 @@ Le projet javascript est utilisable comme un système d'exploitation classique.
 [stars-url]: https://github.com/Aliciasaci/Projet_SE_JS/stargazers
 [issues-shield]: https://img.shields.io/github/issues/Aliciasaci/Projet_SE_JS/.svg?style=for-the-badge
 [issues-url]: https://github.com/Aliciasaci/Projet_SE_JS/issues
-[product-screenshot]: readme/screenshotJS.png
+[product-screenshot]: assets/jsapp.png
 [Javascript-img]: https://img.shields.io/badge/-Javascript-F7DF1E?logo=javascript&logoColor=white&style=for-the-badge
 [HTML-img]: https://img.shields.io/badge/-html-E34F26?logo=html5&logoColor=white&style=for-the-badge
 [CSS-img]: https://img.shields.io/badge/-CSS-1572B6?logo=css3&logoColor=white&style=for-the-badge
