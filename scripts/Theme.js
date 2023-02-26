@@ -42,25 +42,24 @@ export function setAppsToDarkTheme(theme) {
   setParamToDarkTheme(theme);
 }
 
-export function setCalcToDarkTheme(theme){
+export function setCalcToDarkTheme(theme) {
   if (theme == "dark") {
     let keysInputs = document.querySelectorAll("input");
     let operationsPannel = document.querySelector("#operations-pannel");
     let resultInput = document.querySelector("#result-input");
 
     if (keysInputs && operationsPannel) {
-      keysInputs.forEach(key =>{
+      keysInputs.forEach((key) => {
         key.style.backgroundColor = "rgba(13, 13, 13, 0.45)";
         key.style.color = "#FFF";
-      })
+      });
       operationsPannel.style.backgroundColor = "rgba(13, 13, 13, 0.45)";
       resultInput.style.backgroundColor = "rgba(13, 13, 13, 0.45)";
     }
   }
 }
 
-
-export function setClockToDarkTheme(theme){
+export function setClockToDarkTheme(theme) {
   if (theme == "dark") {
     let card = document.querySelector(".card");
     let digitalClockText = document.querySelector("#digital-clock");
@@ -72,31 +71,31 @@ export function setClockToDarkTheme(theme){
   }
 }
 
-export function setTicTacToDarkTheme(theme){
+export function setTicTacToDarkTheme(theme) {
   let tictacbuttons = document.querySelectorAll(".button-option");
   let tictacOperations = document.querySelectorAll(".op");
   if (theme === "dark") {
     if (tictacbuttons && tictacOperations) {
-      tictacbuttons.forEach(button => {
+      tictacbuttons.forEach((button) => {
         button.classList.add("darkglass");
       });
-      tictacOperations.forEach(op => {
+      tictacOperations.forEach((op) => {
         op.classList.add("darkbtn");
       });
     }
   } else {
     if (tictacbuttons && tictacOperations) {
-      tictacbuttons.forEach(button => {
+      tictacbuttons.forEach((button) => {
         button.classList.remove("darkglass");
       });
-      tictacOperations.forEach(op => {
+      tictacOperations.forEach((op) => {
         op.classList.remove("darkbtn");
       });
     }
   }
 }
 
-export function setParamToDarkTheme(theme){
+export function setParamToDarkTheme(theme) {
   let paramWrappers = document.querySelectorAll(".param-wrap");
   let windowText = document.querySelector("#params-icons");
   let paramTitle = document.querySelector(".param-title");
@@ -107,7 +106,7 @@ export function setParamToDarkTheme(theme){
       paramTitle.classList.add("darkcontent");
       console.log("darkcontent");
     }
-    paramWrappers.forEach(wrapper => {
+    paramWrappers.forEach((wrapper) => {
       wrapper.classList.add("darkparams");
     });
   } else {
@@ -115,9 +114,8 @@ export function setParamToDarkTheme(theme){
       windowText.classList.remove("darkcontent");
       paramTitle.classList.remove("darkcontent");
     }
-    paramWrappers.forEach(wrapper => {
+    paramWrappers.forEach((wrapper) => {
       wrapper.classList.remove("darkparams");
     });
   }
 }
-

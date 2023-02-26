@@ -1,4 +1,10 @@
-import { setAppsToDarkTheme, setCalcToDarkTheme, setClockToDarkTheme, setParamToDarkTheme, setTicTacToDarkTheme } from "./Theme.js";
+import {
+  setAppsToDarkTheme,
+  setCalcToDarkTheme,
+  setClockToDarkTheme,
+  setParamToDarkTheme,
+  setTicTacToDarkTheme,
+} from "./Theme.js";
 let vibrationActivated = true;
 const backgroundWindow = document.querySelector(".window");
 const paramsBody = document.querySelector("#params");
@@ -200,7 +206,7 @@ export function timeCheckListenners() {
 
   if (hourParamCheck) {
     hourParamCheck.addEventListener("change", function () {
-      console.log("test")
+      console.log("test");
       hourDisplay === "true" ? (hourDisplay = "false") : (hourDisplay = "true");
       displayTimeTopBar(hourDisplay, minDisplay, secDisplay);
     });
@@ -220,61 +226,60 @@ export function timeCheckListenners() {
     });
   }
 }
-  
-  // hourParamBtn.addEventListener("change", function () {
-  //   localStorage.setItem("hour-display-check", hourParamBtn.checked);
-  //   if (hourParamBtn.checked == true) {
-  //     hourNavDisplay.style.display = "block";
-  //     hourNavDisplay.nextElementSibling.style.display = "block";
-  //   } else {
-  //     hourNavDisplay.style.display = "none";
-  //     hourNavDisplay.nextElementSibling.style.display = "none";
-  //   }
-  // });
-  // minParamBtn.addEventListener("change", function () {
-  //   localStorage.setItem("min-display-check", minParamBtn.checked);
-  //   if (minParamBtn.checked == true) {
-  //     minNavDisplay.style.display = "block";
-  //     minNavDisplay.nextElementSibling.style.display = "block";
-  //   } else {
-  //     minNavDisplay.style.display = "none";
-  //     minNavDisplay.nextElementSibling.style.display = "none";
-  //   }
-  // });
-  // secParamBtn.addEventListener("change", function () {
-  //   localStorage.setItem("sec-display-check", secParamBtn.checked);
-  //   if (secParamBtn.checked == true) {
-  //     secNavDisplay.style.display = "block";
-  //   } else {
-  //     secNavDisplay.style.display = "none";
-  //   }
-  // });
-  // hourParamBtn.addEventListener("click", function () {
-  //   if (hourParamBtn.checked == true) {
-  //     hourNavDisplay.style.display = "block";
-  //     hourNavDisplay.nextElementSibling.style.display = "block";
-  //   } else {
-  //     hourNavDisplay.style.display = "none";
-  //     hourNavDisplay.nextElementSibling.style.display = "none";
-  //   }
-  // });
-  // minParamBtn.addEventListener("click", function () {
-  //   if (minParamBtn.checked == true) {
-  //     minNavDisplay.style.display = "block";
-  //     minNavDisplay.nextElementSibling.style.display = "block";
-  //   } else {
-  //     minNavDisplay.style.display = "none";
-  //     minNavDisplay.nextElementSibling.style.display = "none";
-  //   }
-  // });
-  // secParamBtn.addEventListener("click", function () {
-  //   if (secParamBtn.checked == true) {
-  //     secNavDisplay.style.display = "block";
-  //   } else {
-  //     secNavDisplay.style.display = "none";
-  //   }
-  // });
 
+// hourParamBtn.addEventListener("change", function () {
+//   localStorage.setItem("hour-display-check", hourParamBtn.checked);
+//   if (hourParamBtn.checked == true) {
+//     hourNavDisplay.style.display = "block";
+//     hourNavDisplay.nextElementSibling.style.display = "block";
+//   } else {
+//     hourNavDisplay.style.display = "none";
+//     hourNavDisplay.nextElementSibling.style.display = "none";
+//   }
+// });
+// minParamBtn.addEventListener("change", function () {
+//   localStorage.setItem("min-display-check", minParamBtn.checked);
+//   if (minParamBtn.checked == true) {
+//     minNavDisplay.style.display = "block";
+//     minNavDisplay.nextElementSibling.style.display = "block";
+//   } else {
+//     minNavDisplay.style.display = "none";
+//     minNavDisplay.nextElementSibling.style.display = "none";
+//   }
+// });
+// secParamBtn.addEventListener("change", function () {
+//   localStorage.setItem("sec-display-check", secParamBtn.checked);
+//   if (secParamBtn.checked == true) {
+//     secNavDisplay.style.display = "block";
+//   } else {
+//     secNavDisplay.style.display = "none";
+//   }
+// });
+// hourParamBtn.addEventListener("click", function () {
+//   if (hourParamBtn.checked == true) {
+//     hourNavDisplay.style.display = "block";
+//     hourNavDisplay.nextElementSibling.style.display = "block";
+//   } else {
+//     hourNavDisplay.style.display = "none";
+//     hourNavDisplay.nextElementSibling.style.display = "none";
+//   }
+// });
+// minParamBtn.addEventListener("click", function () {
+//   if (minParamBtn.checked == true) {
+//     minNavDisplay.style.display = "block";
+//     minNavDisplay.nextElementSibling.style.display = "block";
+//   } else {
+//     minNavDisplay.style.display = "none";
+//     minNavDisplay.nextElementSibling.style.display = "none";
+//   }
+// });
+// secParamBtn.addEventListener("click", function () {
+//   if (secParamBtn.checked == true) {
+//     secNavDisplay.style.display = "block";
+//   } else {
+//     secNavDisplay.style.display = "none";
+//   }
+// });
 
 //*******CODE DATE */
 
@@ -502,7 +507,7 @@ export function displayLatency() {
 export function latency() {
   let select = document.querySelector(".refresh-time-select");
   let options = document.querySelectorAll(".refresh-time-select option");
-  if(select && options){
+  if (select && options) {
     select.addEventListener("mousedown", function (event) {
       event.stopPropagation();
     });
@@ -517,7 +522,6 @@ export function latency() {
         event.stopPropagation();
       });
     });
-  
   }
   localStorage.setItem("refresh-time", 1);
 
@@ -526,7 +530,7 @@ export function latency() {
   }, parseInt(localStorage.getItem("refresh-time")) * 1000);
 
   const refreshTimeSelect = document.querySelector(".refresh-time-select");
-  if(refreshTimeSelect){
+  if (refreshTimeSelect) {
     console.log(refreshTimeSelect);
     refreshTimeSelect.addEventListener("change", () => {
       clearInterval(interval);
@@ -534,27 +538,24 @@ export function latency() {
       interval = setInterval(() => {
         getNetworkLatency();
       }, parseInt(localStorage.getItem("refresh-time")) * 1000);
-    }); 
+    });
   }
-
 
   let networkCheck = document.querySelector("#network-display-check");
 
-  if(networkCheck)
-  {
+  if (networkCheck) {
     networkCheck.addEventListener("change", () => {
-      localStorage.setItem("network-display-check",networkCheck.checked)
+      localStorage.setItem("network-display-check", networkCheck.checked);
       displayLatency();
-    }); 
+    });
   }
 
   let domaineConfigCheck = document.querySelector("#domain-config-check");
-  if(domaineConfigCheck)
-  {
+  if (domaineConfigCheck) {
     domaineConfigCheck.addEventListener("change", () => {
       if (domaineConfigCheck.checked) {
         document.querySelector("#server-ping-modal").style.display = "flex";
-  
+
         const pingValidateBtn = document.querySelector("#ping-validate-btn");
         if (pingValidateBtn) {
           pingValidateBtn.addEventListener("click", () => {
@@ -571,8 +572,6 @@ export function latency() {
       }
     });
   }
-
-
 }
 
 /**
@@ -714,7 +713,6 @@ export function themeCheckListeners() {
   );
 
   if (localStorage.getItem("mode") === "true") {
-    
   }
 
   const generalTheme = document.querySelector("#mode");
@@ -722,19 +720,19 @@ export function themeCheckListeners() {
   generalTheme.addEventListener("change", function () {
     if (generalTheme.checked) {
       themeCalculatriceDisplayCheck.checked = true;
-    themeClockDisplayCheck.checked = true;
-    themeTictactoeDisplayCheck.checked = true;
-    themeParamsDisplayCheck.checked = true;
+      themeClockDisplayCheck.checked = true;
+      themeTictactoeDisplayCheck.checked = true;
+      themeParamsDisplayCheck.checked = true;
       setCalcToDarkTheme("dark");
       setClockToDarkTheme("dark");
       setTicTacToDarkTheme("dark");
       setParamToDarkTheme("dark");
     } else {
       themeCalculatriceDisplayCheck.checked = false;
-    themeClockDisplayCheck.checked = false;
-    themeTictactoeDisplayCheck.checked = false;
-    themeParamsDisplayCheck.checked = false;
-      
+      themeClockDisplayCheck.checked = false;
+      themeTictactoeDisplayCheck.checked = false;
+      themeParamsDisplayCheck.checked = false;
+
       setCalcToDarkTheme("light");
       setClockToDarkTheme("light");
       setTicTacToDarkTheme("light");
