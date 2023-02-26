@@ -25,7 +25,7 @@
     <a href="https://github.com/Aliciasaci/Projet_SE_JS/"><strong>Explorez la doc »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/Aliciasaci/Projet_SE_JS/">Aperçu</a> <!-- TODO !-->
+    <a href="https://mwaa.netlify.app/">Aperçu</a>
     ·
     <a href="https://github.com/Aliciasaci/Projet_SE_JS/issues">Reporter un bug</a>
     ·
@@ -60,7 +60,7 @@
 
 ## À propos du projet
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com) <!-- TODO !-->
+[![Product Name Screen Shot][product-screenshot]](https://mwaa.netlify.app/)
 
 Le projet Javascript est un système d'exploitation utilisable sur ordinateur, tablette et téléphone. Il inclut quatre applications :
 - Une calculatrice
