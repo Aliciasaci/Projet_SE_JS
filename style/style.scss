@@ -842,7 +842,14 @@ body {
                   background-color: lighten(rgb(123, 155, 216), 10%);
                 }
               }
+
+              .darkkeys {
+                background-color: rgba(13,13,13,0.45);
+                color: #FFF;
+              }
             }
+
+
           }
 
           #operations-pannel {
@@ -870,6 +877,10 @@ body {
             &:hover {
               background-color: lighten(rgb(123, 155, 216), 10%);
             }
+          }
+
+          .darkoperations {
+            background-color: rgba(13,13,13,0.45);
           }
         }
 
