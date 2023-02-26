@@ -607,9 +607,6 @@ export function getNetworkLatency() {
         localStorage.setItem("latency", latency);
       })
       .catch((error) => {
-        alert(
-          "Une erreur est parvenue :( 1. Assuez-vous que votre nom de domaine est bien correcte 2. Des problèmes de permissions peuvent être à l'origin du problème "
-        );
         localStorage.setItem("domaine-ping", " ");
         console.error(error);
       });
