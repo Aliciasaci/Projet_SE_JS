@@ -109,7 +109,6 @@ export function vibrate() {
 
 export function startVibrate() {
   console.log("Vibration");
-  navigator.vibrate(200);
   window.navigator.vibrate(200);
 }
 
