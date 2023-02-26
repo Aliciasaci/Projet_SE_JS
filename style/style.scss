@@ -1411,6 +1411,11 @@ body {
       background-color: rgba(195, 145, 154, 0.803);
     }
   }
+
+  input[type=text], input[type=button] {
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
+    }
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");

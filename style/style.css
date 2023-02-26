@@ -1253,4 +1253,8 @@ body #password-choice-pannel button:hover {
 }
 #server-ping-modal button:hover {
   background-color: rgba(195, 145, 154, 0.803);
+}
+#server-ping-modal input[type=text], #server-ping-modal input[type=button] {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
 }/*# sourceMappingURL=style.css.map */
