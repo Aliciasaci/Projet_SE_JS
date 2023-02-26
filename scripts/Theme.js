@@ -4,6 +4,8 @@ export function setTheme(theme) {
   let windowUpperBar = document.querySelector(".window-upper-btns");
   let startingPage = document.querySelector("#starting-page");
   let windowReduceBtn = document.querySelector(".fa-minus");
+  let paramtitle = document.querySelector(".param-title");
+  let paramsicons = document.querySelector(".params-icon");
 
   if (theme == "dark") {
     //*dark mode
@@ -20,6 +22,15 @@ export function setTheme(theme) {
       windowReduceBtn.style.color = "#FFF";
     }
 
+    if (paramtitle) {
+      paramtitle.style.color = "#FFF";
+    }
+
+    if (paramsicons) {
+      paramsicons.style.color = "#FFF";
+    }
+
+
     document.body.style.backgroundImage = "url('assets/bg_9.jpg')";
   } else if (theme == "light") {
     //*light mode
@@ -28,6 +39,14 @@ export function setTheme(theme) {
 
     if (windowUpperBar) {
       windowUpperBar.style.backgroundColor = "rgba(255, 255, 255, 0.7)";
+    }
+
+    if (paramtitle) {
+      paramtitle.style.color = "#000";
+    }
+
+    if (paramsicons) {
+      paramsicons.style.color = "#000";
     }
 
     document.body.style.backgroundImage = "url('assets/bg_6.jpg')";
@@ -77,7 +96,15 @@ export function setClockToDarkTheme(theme) {
 
     if (card && digitalClockText) {
       card.style.backgroundColor = "rgba(13, 13, 13, 0.45)";
-      digitalClockText.style.color = "#FFF";
+      digitalClockText.style.color = "rgba(255, 255, 255, 0.75)";
+    }
+  } else {
+    let card = document.querySelector(".card");
+    let digitalClockText = document.querySelector("#digital-clock");
+
+    if (card && digitalClockText) {
+      card.style.backgroundColor = "rgba(255, 255, 255, 0.45)";
+      digitalClockText.style.color = "rgba(0,0,0,0.7)";
     }
   }
 }
@@ -115,7 +142,6 @@ export function setParamToDarkTheme(theme) {
     if (windowText && paramTitle) {
       windowText.classList.add("darkcontent");
       paramTitle.classList.add("darkcontent");
-      console.log("darkcontent");
     }
     paramWrappers.forEach((wrapper) => {
       wrapper.classList.add("darkparams");

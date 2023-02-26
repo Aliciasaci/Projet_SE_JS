@@ -89,6 +89,9 @@ window.addEventListener("load", () => {
       main.style.display = "block";
     }
   });
+  
+  //*network refresh time
+  localStorage.setItem("refresh-time", 30);
 
   //* Display saved settings of the system
   //* saved theme display
@@ -103,7 +106,6 @@ window.addEventListener("load", () => {
     if (localStorage.getItem("vibration-activate-check") == "true") {
       startVibrate();
     }
-
     displayEtatVibration();
   });
 
@@ -405,6 +407,7 @@ window.addEventListener("load", () => {
         } else {
           renderWindowContent("params");
           checkAppTheme();
+          setTheme(currentThemeChoice);
           paramsPanel = document.querySelector("#params");
           backgroundWindow.style.display = "block";
           paramsPanel.style.display = "block";
