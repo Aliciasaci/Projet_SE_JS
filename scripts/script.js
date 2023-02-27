@@ -23,6 +23,7 @@ import {
   renderThemeParams,
   themeCheckListeners,
   checkAppTheme,
+  tictactoeVibration,
 } from "./Params.js";
 import {
   render as renderTicTacToe,

@@ -5,6 +5,7 @@ import {
   setParamToDarkTheme,
   setTicTacToDarkTheme,
 } from "./Theme.js";
+import { setTicTacToeVibration } from "./tictactoe.js";
 let vibrationActivated = true;
 const backgroundWindow = document.querySelector(".window");
 const paramsBody = document.querySelector("#params");
@@ -99,6 +100,7 @@ export function renderVibrationBody() {
 
 export function vibrate() {
   const vibrationWrapper = document.querySelector("#vibration-wrapper");
+  const window = document.querySelector(".window");
   if (vibrationWrapper) {
     
     //*Afficher état vibration
@@ -124,6 +126,7 @@ export function vibrate() {
             "vibration-activate-check",
             VibrationActivateCheck.checked
           );
+          tictactoeVibration();
           displayEtatVibration();
         });
       }
@@ -156,6 +159,25 @@ export function displayEtatVibration() {
         vibrationIconOn.style.display = "none";
       }
     }
+  }
+}
+
+export function tictactoeVibration() {
+  const vibrationWrapper = document.querySelector("#vibration-wrapper");
+  if (vibrationWrapper) {
+    const vibrationGlobalCheck = document.querySelector("#vibration-activate-check");
+    const vibrationTictacCheck = document.querySelector("#vibration-tictac-check");
+
+    vibrationGlobalCheck.addEventListener("change", function () {
+      vibrationTictacCheck.checked = vibrationGlobalCheck.checked;
+      localStorage.setItem("vibration-tictac-check", vibrationTictacCheck.checked);
+      setTicTacToeVibration(vibrationTictacCheck.checked);
+    });
+
+    vibrationTictacCheck.addEventListener("change", function () {
+      localStorage.setItem("vibration-tictac-check", vibrationTictacCheck.checked);
+      setTicTacToeVibration(vibrationTictacCheck.checked);
+    });
   }
 }
 
