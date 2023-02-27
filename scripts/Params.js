@@ -407,6 +407,44 @@ export function renderBatteryParams() {
   `;
 }
 
+export function displayBatteryLevel(battery) {
+  let level = battery.level * 100;
+  localStorage.setItem("battery-level", level);
+  document.getElementById("battery-level").innerHTML = `${level}%`;
+}
+
+export function displayBatteryChargingState(battery) {
+  // create icon state
+  let iconCharge = document.createElement("i");
+  // remove previous icon state when charging state change from true to false or vice versa
+  let icon = document.getElementById("battery-charging-state");
+  icon.innerHTML = "";
+
+  // get charging state
+  let chargingState = battery.charging;
+  // if true display charging icon
+  if (chargingState === true) {
+    let classList = "fa-bolt";
+    iconCharge.classList.add("fas", classList);
+    document.getElementById("battery-charging-state").appendChild(iconCharge);
+  } else if (chargingState === false) { // if false display battery level icon
+    let batteryLevel = localStorage.getItem("battery-level");
+    if (batteryLevel <= 100) {
+      let classList = "fa-battery-full";
+      iconCharge.classList.add("fas", classList);
+      document.getElementById("battery-charging-state").appendChild(iconCharge);
+    } else if (batteryLevel >= 50) {
+      let classList = "fa-battery-half";
+      iconCharge.classList.add("fas", classList);
+      document.getElementById("battery-charging-state").appendChild(iconCharge);
+    } else {
+      let classList = "fa-battery-quarter";
+      iconCharge.classList.add("fas", classList);
+      document.getElementById("battery-charging-state").appendChild(iconCharge);
+    }
+  }
+}
+
 /**
  * * Save the state of the checkbox for battery settings in the local storage
  * @param {boolean} checkbox

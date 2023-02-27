@@ -202,3 +202,23 @@ document.addEventListener("mousedown", function (event) {
     dragElement.style.top = newY + "px";
   }
 });
+
+export function notification(message) {
+  if (!("Notification" in window)) {
+    alert("Ce navigateur ne prend pas en charge la notification de bureau");
+  }
+  // Vérifions si les autorisations de notification ont déjà été accordées
+  else if (Notification.permission === "granted") {
+    // Si tout va bien, créons une notification
+    const notification = new Notification(message);
+  }
+  // Sinon, nous devons demander la permission à l'utilisateur
+  else if (Notification.permission !== "denied") {
+    Notification.requestPermission().then((permission) => {
+      // Si l'utilisateur accepte, créons une notification
+      if (permission === "granted") {
+        const notification = new Notification(message);
+      }
+    });
+  }
+}
