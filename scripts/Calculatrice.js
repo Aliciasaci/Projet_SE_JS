@@ -89,7 +89,9 @@ export function calculate(key) {
   const keyValue = key.value;
 
   resultInput.value = 0;
-
+  if(localStorage.getItem("vibration-calc-check") == "true"){
+    window.navigator.vibrate(1000);
+  }
   if (numbersKeys.includes(keyValue)) {
     //si chiffre
     if (resetOutput == 1) {
