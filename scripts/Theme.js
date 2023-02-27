@@ -93,18 +93,22 @@ export function setClockToDarkTheme(theme) {
   if (theme == "dark") {
     let card = document.querySelector(".card");
     let digitalClockText = document.querySelector("#digital-clock");
+    let stopWatchText = document.querySelector(".time-display");
 
-    if (card && digitalClockText) {
+    if (card && digitalClockText && stopWatchText) {
       card.style.backgroundColor = "rgba(13, 13, 13, 0.45)";
       digitalClockText.style.color = "rgba(255, 255, 255, 0.75)";
+      stopWatchText.style.color = "rgba(255, 255, 255, 0.75)";
     }
   } else {
     let card = document.querySelector(".card");
     let digitalClockText = document.querySelector("#digital-clock");
+    let stopWatchText = document.querySelector(".time-display");
 
-    if (card && digitalClockText) {
+    if (card && digitalClockText ) {
       card.style.backgroundColor = "rgba(255, 255, 255, 0.45)";
       digitalClockText.style.color = "rgba(0,0,0,0.7)";
+      stopWatchText.style.color = "rgba(0,0,0,0.7)";
     }
   }
 }

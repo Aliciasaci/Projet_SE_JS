@@ -986,6 +986,9 @@ body main .window .window-content #clock .card .stopwatch-lap {
   height: 100%;
   margin: 3em;
 }
+body main .window .window-content #clock .card .lap-item {
+  padding-right: 1rem;
+}
 body main .window .window-content #clock .card .darkbtn {
   background-color: rgb(41, 34, 156);
   color: white;
