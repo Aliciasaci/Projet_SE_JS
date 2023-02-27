@@ -85,10 +85,10 @@ function parseJsonFileToLocalStorage(file) {
     const content = readerEvent.target.result;
     const parsedParams = JSON.parse(content);
     if (typeof parsedParams !== "object") {
-      alert("Le fichier n'est pas valide");
+      alert("Le fichier n'est pas valide 🤭");
       return;
     } else if (('mode' in parsedParams) === false) {
-      alert("Le fichier n'est pas valide");
+      alert("Le fichier n'est pas valide 🤭");
       return;
     }
     localStorage.clear();
