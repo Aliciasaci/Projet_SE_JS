@@ -127,6 +127,7 @@ export function vibrate() {
             VibrationActivateCheck.checked
           );
           tictactoeVibration();
+          calculatorVibration();
           displayEtatVibration();
         });
       }
@@ -180,6 +181,25 @@ export function tictactoeVibration() {
     });
   }
 }
+
+
+export function calculatorVibration() {
+  const vibrationWrapper = document.querySelector("#vibration-wrapper");
+  if (vibrationWrapper) {
+    const vibrationGlobalCheck = document.querySelector("#vibration-activate-check");
+    const vibrationCalcCheck = document.querySelector("#vibration-calc-check");
+
+    vibrationGlobalCheck.addEventListener("change", function () {
+      vibrationCalcCheck.checked = vibrationGlobalCheck.checked;
+      localStorage.setItem("vibration-calc-check", vibrationCalcCheck.checked);
+    });
+
+    vibrationCalcCheck.addEventListener("change", function () {
+      localStorage.setItem("vibration-calc-check", vibrationCalcCheck.checked);
+    });
+  }
+}
+
 
 //*******CODE TIME */
 
