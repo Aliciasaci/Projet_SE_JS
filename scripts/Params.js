@@ -389,11 +389,6 @@ export function displayBatteryLevel(battery) {
   let level = battery.level * 100;
   localStorage.setItem("battery-level", level);
   document.getElementById("battery-level").innerHTML = `${level}%`;
-  if (level <= 20) {
-    document.getElementById("battery-level").style.color = "yellow";
-  } else {
-    document.getElementById("battery-level").style.color = "white";
-  }
 }
 
 export function displayBatteryChargingState(battery) {

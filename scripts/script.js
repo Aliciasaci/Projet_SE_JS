@@ -41,7 +41,7 @@ import {
   startPauseTimer,
   resetTimer,
 } from "./clock.js";
-import { lockscreenAtStart } from "./Options.js";
+import { lockscreenAtStart, notification } from "./Options.js";
 
 //*variables
 const calculatorIcon = document.querySelector("#calculator-icon");
@@ -115,6 +115,13 @@ window.addEventListener("load", () => {
 if (navigator.getBattery) {
     navigator.getBattery().then(function (battery) {
         displayBatteryLevel(battery);
+        let batteryLevel = localStorage.getItem("battery-level");
+        if (batteryLevel < 20) {
+            document.getElementById("battery-level").style.color = "yellow";
+            notification("Battérie failbe ! Veuillez recharger votre appareil");
+        } else {
+            document.getElementById("battery-level").style.color = "white";
+        }
         displayBatteryChargingState(battery);
 
         battery.addEventListener("levelchange", function () {
