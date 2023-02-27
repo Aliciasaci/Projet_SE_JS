@@ -5,6 +5,7 @@ import {
   setParamToDarkTheme,
   setTicTacToDarkTheme,
 } from "./Theme.js";
+import { setTicTacToeVibration } from "./tictactoe.js";
 let vibrationActivated = true;
 const backgroundWindow = document.querySelector(".window");
 const paramsBody = document.querySelector("#params");
@@ -99,6 +100,7 @@ export function renderVibrationBody() {
 
 export function vibrate() {
   const vibrationWrapper = document.querySelector("#vibration-wrapper");
+  const window = document.querySelector(".window");
   if (vibrationWrapper) {
     
     //*Afficher état vibration
@@ -124,6 +126,7 @@ export function vibrate() {
             "vibration-activate-check",
             VibrationActivateCheck.checked
           );
+          tictactoeVibration();
           displayEtatVibration();
         });
       }
@@ -156,6 +159,25 @@ export function displayEtatVibration() {
         vibrationIconOn.style.display = "none";
       }
     }
+  }
+}
+
+export function tictactoeVibration() {
+  const vibrationWrapper = document.querySelector("#vibration-wrapper");
+  if (vibrationWrapper) {
+    const vibrationGlobalCheck = document.querySelector("#vibration-activate-check");
+    const vibrationTictacCheck = document.querySelector("#vibration-tictac-check");
+
+    vibrationGlobalCheck.addEventListener("change", function () {
+      vibrationTictacCheck.checked = vibrationGlobalCheck.checked;
+      localStorage.setItem("vibration-tictac-check", vibrationTictacCheck.checked);
+      setTicTacToeVibration(vibrationTictacCheck.checked);
+    });
+
+    vibrationTictacCheck.addEventListener("change", function () {
+      localStorage.setItem("vibration-tictac-check", vibrationTictacCheck.checked);
+      setTicTacToeVibration(vibrationTictacCheck.checked);
+    });
   }
 }
 
@@ -383,6 +405,44 @@ export function renderBatteryParams() {
       </div>
     </div>
   `;
+}
+
+export function displayBatteryLevel(battery) {
+  let level = battery.level * 100;
+  localStorage.setItem("battery-level", level);
+  document.getElementById("battery-level").innerHTML = `${level}%`;
+}
+
+export function displayBatteryChargingState(battery) {
+  // create icon state
+  let iconCharge = document.createElement("i");
+  // remove previous icon state when charging state change from true to false or vice versa
+  let icon = document.getElementById("battery-charging-state");
+  icon.innerHTML = "";
+
+  // get charging state
+  let chargingState = battery.charging;
+  // if true display charging icon
+  if (chargingState === true) {
+    let classList = "fa-bolt";
+    iconCharge.classList.add("fas", classList);
+    document.getElementById("battery-charging-state").appendChild(iconCharge);
+  } else if (chargingState === false) { // if false display battery level icon
+    let batteryLevel = localStorage.getItem("battery-level");
+    if (batteryLevel <= 100) {
+      let classList = "fa-battery-full";
+      iconCharge.classList.add("fas", classList);
+      document.getElementById("battery-charging-state").appendChild(iconCharge);
+    } else if (batteryLevel >= 50) {
+      let classList = "fa-battery-half";
+      iconCharge.classList.add("fas", classList);
+      document.getElementById("battery-charging-state").appendChild(iconCharge);
+    } else {
+      let classList = "fa-battery-quarter";
+      iconCharge.classList.add("fas", classList);
+      document.getElementById("battery-charging-state").appendChild(iconCharge);
+    }
+  }
 }
 
 /**

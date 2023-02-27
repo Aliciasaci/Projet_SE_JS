@@ -39,7 +39,7 @@ export const render = () => {
 };
 
 let darkMode = false;
-const switchModeBtn = document.querySelector("#switch-mode-btn");
+let appVibration = false;
 let scoreboard = {
   player: 0,
   computer: 0,
@@ -192,6 +192,9 @@ export const init = () => {
   };
 
   const tieFunc = () => {
+    if (appVibration) {
+      window.navigator.vibrate(1000);
+    }
     showPopup();
     msgRef.innerHTML = "&#x1F975; <br> Match nul !";
     localStorage.setItem("scoreboard", JSON.stringify(scoreboard));
@@ -207,7 +210,9 @@ export const init = () => {
 
       if (el1 === el2 && el2 === el3 && el1 !== "") {
         //phone vibration
-        window.navigator.vibrate(1000);
+        if (appVibration) {
+          window.navigator.vibrate(1000);
+        }
         if (el1 === "X") {
           scoreboard.player++;
           winner = "X";
@@ -333,3 +338,7 @@ export const init = () => {
 
   generateChoice();
 };
+
+export function setTicTacToeVibration(vibrationStatus) {
+  vibrationStatus ? (appVibration = true) : (appVibration = false);
+}

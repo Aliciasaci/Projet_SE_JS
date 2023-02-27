@@ -182,7 +182,7 @@ body header nav #right-menu-btns li {
 body header nav #right-menu-btns li img {
   width: 100%;
 }
-body header nav #right-menu-btns .dateTime {
+body header nav #right-menu-btns .dateTime, body header nav #right-menu-btns .battery-nav {
   white-space: nowrap;
   font-size: 0.9rem;
 }
