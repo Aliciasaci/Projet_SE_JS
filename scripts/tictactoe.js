@@ -38,8 +38,6 @@ export const render = () => {
     `;
 };
 
-let darkMode = false;
-let appVibration = false;
 let scoreboard = {
   player: 0,
   computer: 0,
@@ -192,7 +190,7 @@ export const init = () => {
   };
 
   const tieFunc = () => {
-    if (appVibration) {
+    if (localStorage.getItem("vibration-tictac-check") === "true") {
       window.navigator.vibrate(1000);
     }
     showPopup();
@@ -210,7 +208,7 @@ export const init = () => {
 
       if (el1 === el2 && el2 === el3 && el1 !== "") {
         //phone vibration
-        if (appVibration) {
+        if (localStorage.getItem("vibration-tictac-check") === "true") {
           window.navigator.vibrate(1000);
         }
         if (el1 === "X") {
@@ -338,7 +336,3 @@ export const init = () => {
 
   generateChoice();
 };
-
-export function setTicTacToeVibration(vibrationStatus) {
-  vibrationStatus ? (appVibration = true) : (appVibration = false);
-}

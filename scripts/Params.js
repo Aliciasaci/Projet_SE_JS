@@ -5,7 +5,6 @@ import {
   setParamToDarkTheme,
   setTicTacToDarkTheme,
 } from "./Theme.js";
-import { setTicTacToeVibration } from "./tictactoe.js";
 let vibrationActivated = true;
 const backgroundWindow = document.querySelector(".window");
 const paramsBody = document.querySelector("#params");
@@ -49,7 +48,48 @@ export function renderParamsBody() {
               <span>Thèmes</span>
           </li>
       </ul>
+      <div class="import-export">
+          <button id="import-btn">Importer vos paramètres</button>
+          <button id="export-btn">Exporter vos paramètres</button>
+      </div>
     </div>`;
+}
+
+export function exportAllLocalStorageToJsonFile() {
+    const dataStr =
+      "data:text/json;charset=utf-8," +
+      encodeURIComponent(JSON.stringify(localStorage));
+    const downloadAnchorNode = document.createElement("a");
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", `${day}${date.getMonth() + 1}${year}_params.json`);
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+}
+
+export function importAllLocalStorageFromJsonFile() {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "application/json";
+    input.onchange = (event) => {
+      const file = event.target.files[0];
+      parseJsonFileToLocalStorage(file);
+    };
+    input.click();
+}
+
+function parseJsonFileToLocalStorage(file) {
+  const reader = new FileReader();
+  reader.readAsText(file, "UTF-8");
+  reader.onload = (readerEvent) => {
+    const content = readerEvent.target.result;
+    localStorage.clear();
+    const parsedParams = JSON.parse(content);
+    for (let key in parsedParams) {
+      localStorage.setItem(key, parsedParams[key]);
+    }
+    location.reload();
+  };
 }
 
 //*******CODE VIBRATION */
@@ -171,12 +211,10 @@ export function tictactoeVibration() {
     vibrationGlobalCheck.addEventListener("change", function () {
       vibrationTictacCheck.checked = vibrationGlobalCheck.checked;
       localStorage.setItem("vibration-tictac-check", vibrationTictacCheck.checked);
-      setTicTacToeVibration(vibrationTictacCheck.checked);
     });
 
     vibrationTictacCheck.addEventListener("change", function () {
       localStorage.setItem("vibration-tictac-check", vibrationTictacCheck.checked);
-      setTicTacToeVibration(vibrationTictacCheck.checked);
     });
   }
 }
