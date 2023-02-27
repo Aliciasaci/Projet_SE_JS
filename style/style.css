@@ -1099,6 +1099,28 @@ body #params #params-icons li img {
 body #params #params-icons li img:hover {
   cursor: pointer;
 }
+body #params .import-export {
+  display: flex;
+  justify-content: space-evenly;
+}
+body #params .import-export button {
+  background: rgba(214, 133, 224, 0.7);
+  border-radius: 99px;
+  box-sizing: border-box;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 18px;
+  z-index: 1;
+  border: 0;
+  width: 8rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-weight: 800;
+}
+body #params .import-export button:hover {
+  background-color: #ebc2f0;
+}
 body #vibration-wrapper,
 body #time-wrapper,
 body #date-wrapper,

@@ -1274,6 +1274,32 @@ body {
         }
       }
     }
+
+    .import-export {
+      display: flex;
+      justify-content: space-evenly;
+      
+      button {
+        background: rgb(214, 133, 224, 0.7);
+        border-radius: 99px;
+        box-sizing: border-box;
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 10px 18px;
+        z-index: 1;
+        border: 0;
+        width: 8rem;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        font-weight: 800;
+  
+        &:hover {
+          background-color: lighten(rgb(214, 133, 224), 15%);
+        }
+        
+      }
+    }
   }
 
   #vibration-wrapper,

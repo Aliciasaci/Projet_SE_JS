@@ -24,6 +24,8 @@ import {
   checkAppTheme,
   displayBatteryLevel,
   displayBatteryChargingState,
+  exportAllLocalStorageToJsonFile,
+  importAllLocalStorageFromJsonFile,
 } from "./Params.js";
 import {
   render as renderTicTacToe,
@@ -644,6 +646,14 @@ if (navigator.getBattery) {
           }
         });
       }
+      const importbtn = document.querySelector("#import-btn");
+      importbtn.addEventListener("click", function () {
+        importAllLocalStorageFromJsonFile();
+      });
+      const exportbtn = document.querySelector("#export-btn");
+      exportbtn.addEventListener("click", function () {
+        exportAllLocalStorageToJsonFile();
+      });
     });
   }
 
