@@ -9,7 +9,6 @@ import {
   setLockscreenPassword,
   renderNetworkParams,
   displayEtatVibration,
-  displayTimeTopBar,
   saveCheckboxBatteryState,
   retrieveCheckboxBatteryState,
   displayCheckedValues,
@@ -23,6 +22,8 @@ import {
   renderThemeParams,
   themeCheckListeners,
   checkAppTheme,
+  displayBatteryLevel,
+  displayBatteryChargingState
 } from "./Params.js";
 import {
   render as renderTicTacToe,
@@ -109,18 +110,23 @@ window.addEventListener("load", () => {
     displayEtatVibration();
   });
 
-  //* settings elements to be displayed in top bar
-  //* battery level
-  if (navigator.getBattery) {
-    //* check if the browser supports the Battery Status API
+//* settings elements to be displayed in top bar
+//* battery level and charging state
+if (navigator.getBattery) {
     navigator.getBattery().then(function (battery) {
-      let level = battery.level * 100; //* get the current battery level and multiply by 100 to get a percentage
-      document.getElementById("battery-level").innerText = level + "%";
-      if (level < 99) {
-        document.getElementById("battery-level").style.color = "yellow";
-      }
+        displayBatteryLevel(battery);
+        displayBatteryChargingState(battery);
+
+        battery.addEventListener("levelchange", function () {
+            displayBatteryLevel(battery);
+        });
+
+        battery.addEventListener("chargingchange", function () {
+            displayBatteryChargingState(battery);
+        });
     });
-  }
+}
+
 
   /**
    * * Retrieve the state of the theme checkbox from local storage
