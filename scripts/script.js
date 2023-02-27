@@ -422,7 +422,12 @@ window.addEventListener("load", () => {
           hideDisplayedApp(displayedApp);
           renderWindowContent("params");
           checkAppTheme();
-          setTheme(currentThemeChoice);
+          let mode = localStorage.getItem("mode");
+          if (mode === "false") {
+            setTheme("light");
+          } else {
+            setTheme("dark");
+          }
           paramsPanel = document.querySelector("#params");
           backgroundWindow.style.display = "block";
           paramsPanel.style.display = "block";

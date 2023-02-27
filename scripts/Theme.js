@@ -5,7 +5,7 @@ export function setTheme(theme) {
   let startingPage = document.querySelector("#starting-page");
   let windowReduceBtn = document.querySelector(".fa-minus");
   let paramtitle = document.querySelector(".param-title");
-  let paramsicons = document.querySelector(".params-icon");
+  let paramsicons = document.querySelector("#params-icons");
 
   if (theme == "dark") {
     //*dark mode
@@ -135,22 +135,12 @@ export function setTicTacToDarkTheme(theme) {
 
 export function setParamToDarkTheme(theme) {
   let paramWrappers = document.querySelectorAll(".param-wrap");
-  let windowText = document.querySelector("#params-icons");
-  let paramTitle = document.querySelector(".param-title");
 
   if (theme == "dark") {
-    if (windowText && paramTitle) {
-      windowText.classList.add("darkcontent");
-      paramTitle.classList.add("darkcontent");
-    }
     paramWrappers.forEach((wrapper) => {
       wrapper.classList.add("darkparams");
     });
   } else {
-    if (windowText && paramTitle) {
-      windowText.classList.remove("darkcontent");
-      paramTitle.classList.remove("darkcontent");
-    }
     paramWrappers.forEach((wrapper) => {
       wrapper.classList.remove("darkparams");
     });
