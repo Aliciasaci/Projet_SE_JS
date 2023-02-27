@@ -69,6 +69,30 @@ export function renderVibrationBody() {
               <span class="param-label-background"></span>
           </label>
       </div>
+      <div class="vibration-param-display">Retours haptique de vibration pour l'application calculatrice
+          <input type="checkbox" id="vibration-calc-check" name="params" class="param-switch">
+          <label for="vibration-calc-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>
+      </div>
+      <div class="vibration-param-display">Retours haptique de vibration pour l'application horloge
+          <input type="checkbox" id="vibration-clock-check" name="params" class="param-switch">
+          <label for="vibration-clock-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>
+      </div>
+      <div class="vibration-param-display">Retours haptique de vibration pour l'application morpion
+          <input type="checkbox" id="vibration-tictac-check" name="params" class="param-switch">
+          <label for="vibration-tictac-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>
+      </div>
+      <div class="vibration-param-display">Retours haptique de vibration pour l'application paramètres
+          <input type="checkbox" id="vibration-param-check" name="params" class="param-switch">
+          <label for="vibration-param-check" class="param-label">
+              <span class="param-label-background"></span>
+          </label>
+      </div>
     </div>
   `;
 }
