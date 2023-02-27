@@ -83,8 +83,15 @@ function parseJsonFileToLocalStorage(file) {
   reader.readAsText(file, "UTF-8");
   reader.onload = (readerEvent) => {
     const content = readerEvent.target.result;
-    localStorage.clear();
     const parsedParams = JSON.parse(content);
+    if (typeof parsedParams !== "object") {
+      alert("Le fichier n'est pas valide");
+      return;
+    } else if (('mode' in parsedParams) === false) {
+      alert("Le fichier n'est pas valide");
+      return;
+    }
+    localStorage.clear();
     for (let key in parsedParams) {
       localStorage.setItem(key, parsedParams[key]);
     }
