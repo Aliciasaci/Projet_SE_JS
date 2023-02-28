@@ -647,6 +647,7 @@ export function renderNetworkParams() {
 }
 
 export function displayLatency() {
+  let networkStateChecked = localStorage.getItem("network-display-check");
   if (networkStateChecked == "true") {
     document.querySelector("#network-latency").innerHTML =
       localStorage.getItem("latency") + "ms";
