@@ -17,8 +17,6 @@ import {
   lockscreen,
   latency,
   startVibrate,
-  displayLatency,
-  timeCheckListenners,
   renderThemeParams,
   themeCheckListeners,
   checkAppTheme,
@@ -26,6 +24,8 @@ import {
   displayBatteryChargingState,
   exportAllLocalStorageToJsonFile,
   importAllLocalStorageFromJsonFile,
+  saveCheckboxTimeState,
+  retrieveCheckBoxTimeState,
 } from "./Params.js";
 import {
   render as renderTicTacToe,
@@ -61,14 +61,10 @@ const morpionIcon = document.querySelector("#tictactoe-icon");
 const clockIcon = document.querySelector("#clock-icon");
 const passwordValue = document.querySelector("#password");
 let batteryNavDisplay = document.querySelector("#battery-nav");
-let vibrationIconOn = document.querySelector("#vibration-icon-on");
-let vibrationIconOff = document.querySelector("#vibration-icon-off");
-const windowBar = document.querySelector(".window-upper-btns");
-const batteryNav = document.querySelector("#battery-nav");
-const hourNav = document.querySelector("#digital-clock-hour");
-const minNav = document.querySelector("#digital-clock-min");
-const secNav = document.querySelector("#digital-clock-sec");
 const navDate = document.querySelector(".dateTime");
+let hourNavDisplay = document.querySelector("#digital-clock-hour");
+let minNavDisplay = document.querySelector("#digital-clock-min");
+let secNavDisplay = document.querySelector("#digital-clock-sec");
 
 let morpionPanel = null;
 let calculatorPanel = null;
@@ -102,6 +98,7 @@ window.addEventListener("load", () => {
   retrieveCheckboxThemeState();
   //* saved battery display
   retrieveCheckboxBatteryState(batteryNavDisplay);
+  retrieveCheckBoxTimeState(hourNavDisplay, minNavDisplay, secNavDisplay);
 
   //* Setup vibration
   const allDom = document.querySelector("*");
@@ -220,7 +217,7 @@ if (navigator.getBattery) {
   //* Display or not time
   setDigitalClockTopBar();
   setInterval(setDigitalClockTopBar, 1000);
-  timeCheckListenners();
+  // timeCheckListeners();
 
   //* Display or not vibration state
   displayEtatVibration();
@@ -494,14 +491,26 @@ if (navigator.getBattery) {
                 saveCheckboxState();
                 checkAppTheme();
                 openedParams.push("time-wrapper");
-                timeCheckListenners();
-                                //**Bouton retour */
-                                const retourBtn = document.querySelector(".retour-btn-time");
-                                retourBtn.addEventListener("click", function () {
-                                  document.querySelector("#time-wrapper").style.display =
-                                    "none";
-                                  document.querySelector("#params").style.display = "block";
-                                });
+                // timeCheckListeners();
+                let checkboxHour = document.querySelector("#hour-display-check");
+                let checkboxMin = document.querySelector("#min-display-check");
+                let checkboxSec = document.querySelector("#sec-display-check");
+
+                let hourNavDisplay = document.querySelector("#digital-clock-hour");
+                let minNavDisplay = document.querySelector("#digital-clock-min");
+                let secNavDisplay = document.querySelector("#digital-clock-sec");
+
+                saveCheckboxTimeState(checkboxHour, checkboxMin, checkboxSec, hourNavDisplay, minNavDisplay, secNavDisplay);
+                retrieveCheckBoxTimeState(hourNavDisplay, minNavDisplay, secNavDisplay, checkboxHour, checkboxMin, checkboxSec);
+
+
+                //**Bouton retour */
+                const retourBtn = document.querySelector(".retour-btn-time");
+                retourBtn.addEventListener("click", function () {
+                  document.querySelector("#time-wrapper").style.display =
+                    "none";
+                  document.querySelector("#params").style.display = "block";
+                });
               }
               break;
             case "params-date":
@@ -545,13 +554,13 @@ if (navigator.getBattery) {
                 let batteryNavDisplay = document.querySelector("#battery-nav");
                 saveCheckboxBatteryState(checkbox, batteryNavDisplay);
                 retrieveCheckboxBatteryState(batteryNavDisplay, checkbox);
-                                //**Button de retour */
-                                const retourBtn = document.querySelector(".retour-btn-battery");
-                                retourBtn.addEventListener("click", function () {
-                                  document.querySelector("#battery-wrapper").style.display =
-                                    "none";
-                                  document.querySelector("#params").style.display = "block";
-                                });
+                //**Button de retour */
+                const retourBtn = document.querySelector(".retour-btn-battery");
+                retourBtn.addEventListener("click", function () {
+                  document.querySelector("#battery-wrapper").style.display =
+                    "none";
+                  document.querySelector("#params").style.display = "block";
+                });
               }
               break;
             case "params-network":

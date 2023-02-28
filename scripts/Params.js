@@ -300,63 +300,96 @@ export function renderTimeParams() {
   `;
 }
 
-export function displayTimeTopBar(hourDisplay, minDisplay, secDisplay) {
-  const hourNavDisplay = document.querySelector("#digital-clock-hour");
-  const minNavDisplay = document.querySelector("#digital-clock-min");
-  const secNavDisplay = document.querySelector("#digital-clock-sec");
+export function saveCheckboxTimeState(checkboxHour, checkboxMin, checkboxSec, hourNavDisplay, minNavDisplay, secNavDisplay) {
+  checkboxHour.addEventListener("change", function () {
+    localStorage.setItem("hour-display-check", checkboxHour.checked);
+    if (checkboxHour.checked == true) {
+      hourNavDisplay.style.display = "block";
+      hourNavDisplay.nextElementSibling.style.display = "block";
+    } else {
+      hourNavDisplay.style.display = "none";
+      hourNavDisplay.nextElementSibling.style.display = "none";
+    }
+  });
 
-  if (hourDisplay == "true") {
+  checkboxMin.addEventListener("change", function () {
+    localStorage.setItem("min-display-check", checkboxMin.checked);
+    if (checkboxMin.checked == true) {
+      minNavDisplay.style.display = "block";
+      minNavDisplay.nextElementSibling.style.display = "block";
+    } else {
+      minNavDisplay.style.display = "none";
+      minNavDisplay.nextElementSibling.style.display = "none";
+    }
+  });
+
+  checkboxSec.addEventListener("change", function () {
+    localStorage.setItem("sec-display-check", checkboxSec.checked);
+    if (checkboxSec.checked == true) {
+      secNavDisplay.style.display = "block";
+    } else {
+      secNavDisplay.style.display = "none";
+    }
+  });
+}
+
+export function retrieveCheckBoxTimeState(hourNavDisplay, minNavDisplay, secNavDisplay, checkboxHour, checkboxMin, checkboxSec) {
+  let savedStateHour = localStorage.getItem("hour-display-check");
+  let savedStateMin = localStorage.getItem("min-display-check");
+  let savedStateSec = localStorage.getItem("sec-display-check");
+
+  if (savedStateHour == null) {
+    localStorage.setItem("hour-display-check", "true");
+  }
+
+  if (localStorage.getItem("hour-display-check") == "true") {
+    if (checkboxHour) {
+      checkboxHour.checked = true;
+    }
     hourNavDisplay.style.display = "block";
     hourNavDisplay.nextElementSibling.style.display = "block";
   } else {
+    if (checkboxHour) {
+      checkboxHour.checked = false;
+    }
     hourNavDisplay.style.display = "none";
     hourNavDisplay.nextElementSibling.style.display = "none";
   }
 
-  if (minDisplay == "true") {
+  if (savedStateMin == null) {
+    localStorage.setItem("min-display-check", "true");
+  }
+
+  if (localStorage.getItem("min-display-check") == "true") {
+    if (checkboxMin) {
+      checkboxMin.checked = true;
+    }
     minNavDisplay.style.display = "block";
     minNavDisplay.nextElementSibling.style.display = "block";
   } else {
+    if (checkboxMin) {
+      checkboxMin.checked = false;
+    }
     minNavDisplay.style.display = "none";
     minNavDisplay.nextElementSibling.style.display = "none";
   }
 
-  if (secDisplay == "true") {
+  if (savedStateSec == null) {
+    localStorage.setItem("sec-display-check", "true");
+  }
+
+  if (localStorage.getItem("sec-display-check") == "true") {
+    if (checkboxSec) {
+      checkboxSec.checked = true;
+    }
     secNavDisplay.style.display = "block";
   } else {
+    if (checkboxSec) {
+      checkboxSec.checked = false;
+    }
     secNavDisplay.style.display = "none";
   }
-}
 
-export function timeCheckListenners() {
-  const hourParamCheck = document.querySelector("#hour-display-check");
-  const minParamCheck = document.querySelector("#min-display-check");
-  const secParamCheck = document.querySelector("#sec-display-check");
-
-  let hourDisplay = localStorage.getItem("hour-display-check");
-  let minDisplay = localStorage.getItem("min-display-check");
-  let secDisplay = localStorage.getItem("sec-display-check");
-
-  if (hourParamCheck) {
-    hourParamCheck.addEventListener("change", function () {
-      hourDisplay === "true" ? (hourDisplay = "false") : (hourDisplay = "true");
-      displayTimeTopBar(hourDisplay, minDisplay, secDisplay);
-    });
-  }
-
-  if (minParamCheck) {
-    minParamCheck.addEventListener("change", function () {
-      minDisplay === "true" ? (minDisplay = "false") : (minDisplay = "true");
-      displayTimeTopBar(hourDisplay, minDisplay, secDisplay);
-    });
-  }
-
-  if (secParamCheck) {
-    secParamCheck.addEventListener("change", function () {
-      secDisplay === "true" ? (secDisplay = "false") : (secDisplay = "true");
-      displayTimeTopBar(hourDisplay, minDisplay, secDisplay);
-    });
-  }
 }
 
 //*******CODE DATE */
@@ -559,7 +592,10 @@ export function saveCheckboxBatteryState(checkbox, batteryNavDisplay) {
  */
 export function retrieveCheckboxBatteryState(batteryNavDisplay, checkbox) {
   let savedState = localStorage.getItem("checkbox-battery");
-  if (savedState == "true") {
+  if (savedState == null) {
+    localStorage.setItem("checkbox-battery", "true");
+  }
+  if (localStorage.getItem("checkbox-battery") == "true") {
     if (checkbox) {
       checkbox.checked = true;
     }
@@ -611,8 +647,7 @@ export function renderNetworkParams() {
 }
 
 export function displayLatency() {
-  let displayActivated = localStorage.getItem("network-display-check");
-  if (displayActivated == "true") {
+  if (networkStateChecked == "true") {
     document.querySelector("#network-latency").innerHTML =
       localStorage.getItem("latency") + "ms";
   } else {
@@ -670,8 +705,9 @@ export function latency() {
   if(networkCheck)
   {
     networkCheck.addEventListener("change", () => {
-      localStorage.setItem("network-display-check",networkCheck.checked)
-      displayLatency();
+      localStorage.setItem("network-display-check", networkCheck.checked)
+      let networkStateChecked = localStorage.getItem("network-display-check");
+      displayLatency(networkStateChecked);
     }); 
   }
 
