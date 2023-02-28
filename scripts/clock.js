@@ -291,7 +291,9 @@ function updateTimer(duration) {
       window.clearInterval(timerInterval);
       //* Play the alarm sound when the time is over
       alarm.play();
-      navigator.vibrate(1000);
+      if (localStorage.getItem("vibration-clock-check") === "true") {
+        window.navigator.vibrate(1000);
+      }
       //* Display a notification when the time is over
       if (!("Notification" in window)) {
         alert("Ce navigateur ne prend pas en charge la notification de bureau");

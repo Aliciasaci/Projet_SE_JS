@@ -169,13 +169,16 @@ export function vibrate() {
       //*Activer la vibration
       if (VibrationActivateCheck) {
         VibrationActivateCheck.addEventListener("change", function () {
+          let stateGlobalChecked = VibrationActivateCheck.checked;
           localStorage.setItem(
             "vibration-activate-check",
             VibrationActivateCheck.checked
           );
-          tictactoeVibration();
-          calculatorVibration();
-          displayEtatVibration();
+          tictactoeVibration(stateGlobalChecked);
+          calculatorVibration(stateGlobalChecked);
+          displayEtatVibration(stateGlobalChecked);
+          clockVibration(stateGlobalChecked);
+          paramVibration(stateGlobalChecked);
         });
       }
     }
@@ -210,17 +213,14 @@ export function displayEtatVibration() {
   }
 }
 
-export function tictactoeVibration() {
+export function tictactoeVibration(stateGlobalChecked) {
   const vibrationWrapper = document.querySelector("#vibration-wrapper");
   if (vibrationWrapper) {
-    const vibrationGlobalCheck = document.querySelector("#vibration-activate-check");
     const vibrationTictacCheck = document.querySelector("#vibration-tictac-check");
 
-    vibrationGlobalCheck.addEventListener("change", function () {
-      vibrationTictacCheck.checked = vibrationGlobalCheck.checked;
-      localStorage.setItem("vibration-tictac-check", vibrationTictacCheck.checked);
-    });
-
+    vibrationTictacCheck.checked = stateGlobalChecked;
+    localStorage.setItem("vibration-tictac-check", vibrationTictacCheck.checked);
+    
     vibrationTictacCheck.addEventListener("change", function () {
       localStorage.setItem("vibration-tictac-check", vibrationTictacCheck.checked);
     });
@@ -228,19 +228,44 @@ export function tictactoeVibration() {
 }
 
 
-export function calculatorVibration() {
+export function calculatorVibration(stateGlobalChecked) {
   const vibrationWrapper = document.querySelector("#vibration-wrapper");
   if (vibrationWrapper) {
-    const vibrationGlobalCheck = document.querySelector("#vibration-activate-check");
     const vibrationCalcCheck = document.querySelector("#vibration-calc-check");
-
-    vibrationGlobalCheck.addEventListener("change", function () {
-      vibrationCalcCheck.checked = vibrationGlobalCheck.checked;
-      localStorage.setItem("vibration-calc-check", vibrationCalcCheck.checked);
-    });
-
+   
+    vibrationCalcCheck.checked = stateGlobalChecked;
+    localStorage.setItem("vibration-calc-check", vibrationCalcCheck.checked);
+   
     vibrationCalcCheck.addEventListener("change", function () {
       localStorage.setItem("vibration-calc-check", vibrationCalcCheck.checked);
+    });
+  }
+}
+
+export function clockVibration(stateGlobalChecked) {
+  const vibrationWrapper = document.querySelector("#vibration-wrapper");
+  if (vibrationWrapper) {
+    const vibrationClockCheck = document.querySelector("#vibration-clock-check");
+
+    vibrationClockCheck.checked = stateGlobalChecked;
+    localStorage.setItem("vibration-clock-check", vibrationClockCheck.checked);
+   
+    vibrationClockCheck.addEventListener("change", function () {
+      localStorage.setItem("vibration-clock-check", vibrationClockCheck.checked);
+    });
+  }
+}
+
+export function paramVibration(stateGlobalChecked) {
+  const vibrationWrapper = document.querySelector("#vibration-wrapper");
+  if (vibrationWrapper) {
+    const vibrationParamCheck = document.querySelector("#vibration-param-check");
+
+    vibrationParamCheck.checked = stateGlobalChecked;
+    localStorage.setItem("vibration-param-check", vibrationParamCheck.checked);
+   
+    vibrationParamCheck.addEventListener("change", function () {
+      localStorage.setItem("vibration-param-check", vibrationParamCheck.checked);
     });
   }
 }
