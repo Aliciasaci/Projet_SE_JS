@@ -413,72 +413,192 @@ function getFrenchDay(day) {
   }
 }
 
-export function displayCheckedValues(dateCheck, monthCheck, yearCheck) {
+export function displayDate() {
   let dayLetter = getFrenchDay(new Date().getDay());
-  let a = `${dayLetter} ${day} `;
-  if (dateCheck === null || dateCheck === "false") a = "";
-  let b = `${month} `;
-  if (monthCheck === null || monthCheck === "false") b = "";
+  let a = `${dayLetter} ${day}`;
+  let b = `${month}`;
   let c = `${year}`;
-  if (yearCheck === null || yearCheck === "false") c = "";
-  return `${a}${b}${c}`;
+
+  let dayNavDisplay = document.getElementById("date-day");
+  let monthNavDisplay = document.getElementById("date-month");
+  let yearNavDisplay = document.getElementById("date-year");
+
+  dayNavDisplay.innerHTML = a;
+  monthNavDisplay.innerHTML = b;
+  yearNavDisplay.innerHTML = c;
 }
 
-export function dateCheckListeners() {
-  const dayCheck = document.querySelector("#day-display-check");
-  const monthCheck = document.querySelector("#month-display-check");
-  const yearCheck = document.querySelector("#year-display-check");
+export function saveCheckBoxDateState(checkboxDate, checkboxDay, checkboxMonth, checkboxYear, dateNavDisplay, dayNavDisplay, monthNavDisplay, yearNavDisplay) {
+  checkboxDate.addEventListener("change", function () {
+    localStorage.setItem("date-display-check", checkboxDate.checked);
+    if (checkboxDate.checked == true) {
+      dateNavDisplay.style.display = "flex";
+    } else {
+      dateNavDisplay.style.display = "none";
+    }
+  });
 
-  let dayDisplay = localStorage.getItem("day-display-check");
-  let monthDisplay = localStorage.getItem("month-display-check");
-  let yearDisplay = localStorage.getItem("year-display-check");
+  checkboxDay.addEventListener("change", function () {
+    localStorage.setItem("day-display-check", checkboxDay.checked);
+    if (checkboxDay.checked == true) {
+      dayNavDisplay.style.display = "block";
+    } else {
+      dayNavDisplay.style.display = "none";
+    }
+  });
 
-  if (dayCheck) {
-    dayCheck.addEventListener("change", function () {
-      dayDisplay === "true" ? (dayDisplay = "false") : (dayDisplay = "true");
-      displayDate(dayDisplay, monthDisplay, yearDisplay);
-    });
+  checkboxMonth.addEventListener("change", function () {
+    localStorage.setItem("month-display-check", checkboxMonth.checked);
+    if (checkboxMonth.checked == true) {
+      monthNavDisplay.style.display = "block";
+    } else {
+      monthNavDisplay.style.display = "none";
+    }
+  });
+
+  checkboxYear.addEventListener("change", function () {
+    localStorage.setItem("year-display-check", checkboxYear.checked);
+    if (checkboxYear.checked == true) {
+      yearNavDisplay.style.display = "block";
+    } else {
+      yearNavDisplay.style.display = "none";
+    }
+  });
+}
+
+export function retrieveCheckBoxDateState(dateNavDisplay, dayNavDisplay, monthNavDisplay, yearNavDisplay, checkboxDate, checkboxDay, checkboxMonth, checkboxYear) {
+  let savedStateDate = localStorage.getItem("date-display-check");
+  let savedStateDay = localStorage.getItem("day-display-check");
+  let savedStateMonth = localStorage.getItem("month-display-check");
+  let savedStateYear = localStorage.getItem("year-display-check");
+
+  if (savedStateDate == null) {
+    localStorage.setItem("date-display-check", "true");
   }
-  if (monthCheck) {
-    monthCheck.addEventListener("change", function () {
-      monthDisplay === "true"
-        ? (monthDisplay = "false")
-        : (monthDisplay = "true");
-      displayDate(dayDisplay, monthDisplay, yearDisplay);
-    });
-  }
-  if (yearCheck) {
-    yearCheck.addEventListener("change", function () {
-      yearDisplay === "true" ? (yearDisplay = "false") : (yearDisplay = "true");
-      displayDate(dayDisplay, monthDisplay, yearDisplay);
-    });
+
+  if (localStorage.getItem("date-display-check") == "true") {
+    if (checkboxDate) {
+      checkboxDate.checked = true;
+    }
+    dateNavDisplay.style.display = "flex";
+  } else {
+    if (checkboxDate) {
+      checkboxDate.checked = false;
+    }
+    dateNavDisplay.style.display = "none";
   }
 
-  const dateCheck = document.querySelector("#date-display-check");
-  const dateField = document.querySelector(".dateTime");
+  if (savedStateDay == null) {
+    localStorage.setItem("day-display-check", "true");
+  }
 
-  if (dateCheck) {
-    dateCheck.addEventListener("change", function () {
-      if (dateDisplay === "false" || dateDisplay === null) {
-        dateDisplay === "true"
-          ? (dateDisplay = "false")
-          : (dateDisplay = "true");
-        displayDate(dayDisplay, monthDisplay, yearDisplay);
-      } else {
-        dateField.innerHTML = "";
-        dateDisplay === "true"
-          ? (dateDisplay = "false")
-          : (dateDisplay = "true");
-      }
-    });
+  if (localStorage.getItem("day-display-check") == "true") {
+    if (checkboxDay) {
+      checkboxDay.checked = true;
+    }
+    dayNavDisplay.style.display = "block";
+  } else {
+    if (checkboxDay) {
+      checkboxDay.checked = false;
+    }
+    dayNavDisplay.style.display = "none";
+  }
+
+  if (savedStateMonth == null) {
+    localStorage.setItem("month-display-check", "true");
+  }
+
+  if (localStorage.getItem("month-display-check") == "true") {
+    if (checkboxMonth) {
+      checkboxMonth.checked = true;
+    }
+    monthNavDisplay.style.display = "block";
+  } else {
+    if (checkboxMonth) {
+      checkboxMonth.checked = false;
+    }
+    monthNavDisplay.style.display = "none";
+  }
+
+  if (savedStateYear == null) {
+    localStorage.setItem("year-display-check", "true");
+  }
+
+  if (localStorage.getItem("year-display-check") == "true") {
+    if (checkboxYear) {
+      checkboxYear.checked = true;
+    }
+    yearNavDisplay.style.display = "block";
+  } else {
+    if (checkboxYear) {
+      checkboxYear.checked = false;
+    }
+    yearNavDisplay.style.display = "none";
   }
 }
 
-function displayDate(dayCheck, monthCheck, yearCheck) {
-  const dateField = document.querySelector(".dateTime");
-  if (dateDisplay === "true")
-    dateField.innerHTML = displayCheckedValues(dayCheck, monthCheck, yearCheck);
-}
+  
+
+    
+
+// export function dateCheckListeners() {
+//   const dayCheck = document.querySelector("#day-display-check");
+//   const monthCheck = document.querySelector("#month-display-check");
+//   const yearCheck = document.querySelector("#year-display-check");
+
+//   let dayDisplay = localStorage.getItem("day-display-check");
+//   let monthDisplay = localStorage.getItem("month-display-check");
+//   let yearDisplay = localStorage.getItem("year-display-check");
+
+//   if (dayCheck) {
+//     dayCheck.addEventListener("change", function () {
+//       dayDisplay === "true" ? (dayDisplay = "false") : (dayDisplay = "true");
+//       displayDate(dayDisplay, monthDisplay, yearDisplay);
+//     });
+//   }
+//   if (monthCheck) {
+//     monthCheck.addEventListener("change", function () {
+//       monthDisplay === "true"
+//         ? (monthDisplay = "false")
+//         : (monthDisplay = "true");
+//       displayDate(dayDisplay, monthDisplay, yearDisplay);
+//     });
+//   }
+//   if (yearCheck) {
+//     yearCheck.addEventListener("change", function () {
+//       yearDisplay === "true" ? (yearDisplay = "false") : (yearDisplay = "true");
+//       displayDate(dayDisplay, monthDisplay, yearDisplay);
+//     });
+//   }
+
+//   const dateCheck = document.querySelector("#date-display-check");
+//   const dateField = document.querySelector(".dateTime");
+
+//   if (dateCheck) {
+//     dateCheck.addEventListener("change", function () {
+//       if (dateDisplay === "false" || dateDisplay === null) {
+//         dateDisplay === "true"
+//           ? (dateDisplay = "false")
+//           : (dateDisplay = "true");
+//         displayDate(dayDisplay, monthDisplay, yearDisplay);
+//       } else {
+//         dateField.innerHTML = "";
+//         dateDisplay === "true"
+//           ? (dateDisplay = "false")
+//           : (dateDisplay = "true");
+//       }
+//     });
+//   }
+// }
+
+// function displayDate(dayCheck, monthCheck, yearCheck) {
+//   const dateField = document.querySelector(".dateTime");
+//   let dateDisplay = localStorage.getItem("date-display-check");
+//   if (dateDisplay === null) {
+//     dateField.innerHTML = displayCheckedValues("true", "true", "true");
+//   } else if (dateDisplay === "true")
+//     dateField.innerHTML = displayCheckedValues(dayCheck, monthCheck, yearCheck);
+// }
 
 export function renderDateParams() {
   return `
@@ -552,7 +672,7 @@ export function displayBatteryChargingState(battery) {
     document.getElementById("battery-charging-state").appendChild(iconCharge);
   } else if (chargingState === false) { // if false display battery level icon
     let batteryLevel = localStorage.getItem("battery-level");
-    if (batteryLevel <= 100) {
+    if (batteryLevel == 100) {
       let classList = "fa-battery-full";
       iconCharge.classList.add("fas", classList);
       document.getElementById("battery-charging-state").appendChild(iconCharge);
@@ -560,7 +680,7 @@ export function displayBatteryChargingState(battery) {
       let classList = "fa-battery-half";
       iconCharge.classList.add("fas", classList);
       document.getElementById("battery-charging-state").appendChild(iconCharge);
-    } else {
+    } else if (batteryLevel <= 20) {
       let classList = "fa-battery-quarter";
       iconCharge.classList.add("fas", classList);
       document.getElementById("battery-charging-state").appendChild(iconCharge);
@@ -724,7 +844,7 @@ export function latency() {
             let domaineToPing = document.querySelector("#ping-domaine").value;
             if (domaineToPing != null) {
               localStorage.setItem("domaine-ping", domaineToPing);
-              alert("Nouveau domaine Ã  ping : " + domaineToPing);
+              alert("Nouveau domaine à ping : " + domaineToPing);
             }
           });
         }

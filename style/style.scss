@@ -204,6 +204,10 @@ body {
           font-size: 0.9rem;
         }
 
+        .dateTime {
+          display: flex;
+        }
+
         #vibration-icon-on,
         #vibration-icon-off {
           //par défaut, la vibration est désactivée et est non affichée
@@ -1082,7 +1086,7 @@ body {
               }
             }
 
-            .digital-clock-display {
+            .digital-clock-display, .dateTime {
               font-size: 40px;
               position: relative;
               display: flex;
@@ -1091,6 +1095,10 @@ body {
             }
 
             li > div.digital-clock-display {
+              font-size: 15px;
+            }
+
+            li > div.dateTime {
               font-size: 15px;
             }
 
