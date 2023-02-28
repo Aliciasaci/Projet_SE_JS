@@ -199,7 +199,8 @@ body {
           }
         }
 
-        .dateTime, .battery-nav {
+        .dateTime,
+        .battery-nav {
           white-space: nowrap;
           font-size: 0.9rem;
         }
@@ -583,6 +584,11 @@ body {
           height: inherit;
           overflow: hidden;
 
+          @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
+            width: 100%;
+            margin-top: 3rem;
+          }
+
           .twrapper {
             margin-top: 2%;
             font-weight: 700;
@@ -591,6 +597,10 @@ body {
             flex-direction: column;
             margin-left: auto;
             margin-right: auto;
+
+            @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
+              width: 100%;
+            }
 
             .score-wrapper {
               width: 80%;
@@ -629,6 +639,10 @@ body {
               margin-top: 1rem;
               justify-content: center;
 
+              @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
+                width: 100%;
+              }
+
               .button-option {
                 height: 6rem;
                 width: 26%;
@@ -662,6 +676,9 @@ body {
               margin: auto;
               margin-top: 1rem;
               transition: all 0.3s ease-in-out;
+              @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
+                width: 100%;
+              }
             }
           }
 
@@ -699,12 +716,12 @@ body {
               border: 1px solid white;
               background: rgba(255, 255, 255, 0.3);
             }
-        
+
             .darkbtn {
               background-color: #0a0027;
               color: white;
             }
-        
+
             .darkbtn:hover {
               background-color: transparent;
               background: rgba(28, 21, 37, 0.2);
@@ -749,12 +766,12 @@ body {
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.438);
             backdrop-filter: blur(5px);
           }
-      
+
           .darkbtn {
             background-color: #0a0027;
             color: white;
           }
-      
+
           .darkbtn:hover {
             background-color: transparent;
             background: rgba(28, 21, 37, 0.2);
@@ -850,26 +867,23 @@ body {
               }
 
               .darkkeys {
-                background-color: rgba(13,13,13,0.45);
-                color: #FFF;
+                background-color: rgba(13, 13, 13, 0.45);
+                color: #fff;
               }
 
               .darkkeys:hover {
-                background-color: rgba(13,13,13,0.65);
+                background-color: rgba(13, 13, 13, 0.65);
               }
             }
-
-
           }
 
           #operations-pannel {
             @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
               margin: auto;
-              height: 5rem;
+              height: 8rem;
               margin-top: 1rem;
               width: 20rem;
               overflow: scroll;
-              
             }
 
             height: $operations-pannel-height;
@@ -891,8 +905,8 @@ body {
           }
 
           .darkoperations {
-            background-color: rgba(13,13,13,0.45);
-            color: #FFF;
+            background-color: rgba(13, 13, 13, 0.45);
+            color: #fff;
           }
         }
 
@@ -1278,7 +1292,7 @@ body {
     .import-export {
       display: flex;
       justify-content: space-evenly;
-      
+
       button {
         background: rgb(214, 133, 224, 0.7);
         border-radius: 99px;
@@ -1293,11 +1307,10 @@ body {
         cursor: pointer;
         transition: all 0.3s ease-in-out;
         font-weight: 800;
-  
+
         &:hover {
           background-color: lighten(rgb(214, 133, 224), 15%);
         }
-        
       }
     }
   }
@@ -1316,9 +1329,9 @@ body {
     margin-top: 2rem;
     padding: 2rem;
     height: 28rem;
-    
-     @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
-        width: 100%;
+
+    @media only screen and (min-device-width: $min-small-screen) and (max-device-width: $max-small-screen) {
+      width: 100%;
     }
 
     div {
@@ -1345,9 +1358,7 @@ body {
       &:hover {
         background-color: lighten(rgb(214, 133, 224), 15%);
       }
-      
     }
-
 
     select {
       font-size: 12px;
@@ -1469,10 +1480,11 @@ body {
     }
   }
 
-  input[type=text], input[type=button] {
+  input[type="text"],
+  input[type="button"] {
     -webkit-appearance: none;
     -webkit-border-radius: 0;
-    }
+  }
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");

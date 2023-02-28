@@ -182,7 +182,8 @@ body header nav #right-menu-btns li {
 body header nav #right-menu-btns li img {
   width: 100%;
 }
-body header nav #right-menu-btns .dateTime, body header nav #right-menu-btns .battery-nav {
+body header nav #right-menu-btns .dateTime,
+body header nav #right-menu-btns .battery-nav {
   white-space: nowrap;
   font-size: 0.9rem;
 }
@@ -514,6 +515,12 @@ body main .window .window-content #tictac {
   height: inherit;
   overflow: hidden;
 }
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  body main .window .window-content #tictac {
+    width: 100%;
+    margin-top: 3rem;
+  }
+}
 body main .window .window-content #tictac .twrapper {
   margin-top: 2%;
   font-weight: 700;
@@ -522,6 +529,11 @@ body main .window .window-content #tictac .twrapper {
   flex-direction: column;
   margin-left: auto;
   margin-right: auto;
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  body main .window .window-content #tictac .twrapper {
+    width: 100%;
+  }
 }
 body main .window .window-content #tictac .twrapper .score-wrapper {
   width: 80%;
@@ -555,6 +567,11 @@ body main .window .window-content #tictac .twrapper .container {
   margin-top: 1rem;
   justify-content: center;
 }
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  body main .window .window-content #tictac .twrapper .container {
+    width: 100%;
+  }
+}
 body main .window .window-content #tictac .twrapper .container .button-option {
   height: 6rem;
   width: 26%;
@@ -583,6 +600,11 @@ body main .window .window-content #tictac .twrapper .gamebtn {
   margin: auto;
   margin-top: 1rem;
   transition: all 0.3s ease-in-out;
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  body main .window .window-content #tictac .twrapper .gamebtn {
+    width: 100%;
+  }
 }
 body main .window .window-content #tictac button:hover {
   cursor: pointer;
@@ -746,7 +768,7 @@ body main .window .window-content .calculator-wrapper #calculator .keys #btn-equ
 }
 body main .window .window-content .calculator-wrapper #calculator .keys .darkkeys {
   background-color: rgba(13, 13, 13, 0.45);
-  color: #FFF;
+  color: #fff;
 }
 body main .window .window-content .calculator-wrapper #calculator .keys .darkkeys:hover {
   background-color: rgba(13, 13, 13, 0.65);
@@ -763,7 +785,7 @@ body main .window .window-content .calculator-wrapper #operations-pannel {
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   body main .window .window-content .calculator-wrapper #operations-pannel {
     margin: auto;
-    height: 5rem;
+    height: 8rem;
     margin-top: 1rem;
     width: 20rem;
     overflow: scroll;
@@ -778,7 +800,7 @@ body main .window .window-content .calculator-wrapper #operations-pannel:hover {
 }
 body main .window .window-content .calculator-wrapper .darkoperations {
   background-color: rgba(13, 13, 13, 0.45);
-  color: #FFF;
+  color: #fff;
 }
 body main .window .window-content #clock .card {
   /* max-width: 500px; */
@@ -1302,7 +1324,8 @@ body #password-choice-pannel button:hover {
 #server-ping-modal button:hover {
   background-color: rgba(195, 145, 154, 0.803);
 }
-#server-ping-modal input[type=text], #server-ping-modal input[type=button] {
+#server-ping-modal input[type=text],
+#server-ping-modal input[type=button] {
   -webkit-appearance: none;
   -webkit-border-radius: 0;
 }/*# sourceMappingURL=style.css.map */
