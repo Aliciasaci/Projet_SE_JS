@@ -31,7 +31,7 @@ export function setTheme(theme) {
     }
 
 
-    document.body.style.backgroundImage = "url('assets/bg_9.jpg')";
+    document.body.style.backgroundImage = "url('assets/bg_7.jpg')";
   } else if (theme == "light") {
     //*light mode
     window.removeAttribute("class");
