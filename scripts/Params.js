@@ -537,69 +537,6 @@ export function retrieveCheckBoxDateState(dateNavDisplay, dayNavDisplay, monthNa
   }
 }
 
-  
-
-    
-
-// export function dateCheckListeners() {
-//   const dayCheck = document.querySelector("#day-display-check");
-//   const monthCheck = document.querySelector("#month-display-check");
-//   const yearCheck = document.querySelector("#year-display-check");
-
-//   let dayDisplay = localStorage.getItem("day-display-check");
-//   let monthDisplay = localStorage.getItem("month-display-check");
-//   let yearDisplay = localStorage.getItem("year-display-check");
-
-//   if (dayCheck) {
-//     dayCheck.addEventListener("change", function () {
-//       dayDisplay === "true" ? (dayDisplay = "false") : (dayDisplay = "true");
-//       displayDate(dayDisplay, monthDisplay, yearDisplay);
-//     });
-//   }
-//   if (monthCheck) {
-//     monthCheck.addEventListener("change", function () {
-//       monthDisplay === "true"
-//         ? (monthDisplay = "false")
-//         : (monthDisplay = "true");
-//       displayDate(dayDisplay, monthDisplay, yearDisplay);
-//     });
-//   }
-//   if (yearCheck) {
-//     yearCheck.addEventListener("change", function () {
-//       yearDisplay === "true" ? (yearDisplay = "false") : (yearDisplay = "true");
-//       displayDate(dayDisplay, monthDisplay, yearDisplay);
-//     });
-//   }
-
-//   const dateCheck = document.querySelector("#date-display-check");
-//   const dateField = document.querySelector(".dateTime");
-
-//   if (dateCheck) {
-//     dateCheck.addEventListener("change", function () {
-//       if (dateDisplay === "false" || dateDisplay === null) {
-//         dateDisplay === "true"
-//           ? (dateDisplay = "false")
-//           : (dateDisplay = "true");
-//         displayDate(dayDisplay, monthDisplay, yearDisplay);
-//       } else {
-//         dateField.innerHTML = "";
-//         dateDisplay === "true"
-//           ? (dateDisplay = "false")
-//           : (dateDisplay = "true");
-//       }
-//     });
-//   }
-// }
-
-// function displayDate(dayCheck, monthCheck, yearCheck) {
-//   const dateField = document.querySelector(".dateTime");
-//   let dateDisplay = localStorage.getItem("date-display-check");
-//   if (dateDisplay === null) {
-//     dateField.innerHTML = displayCheckedValues("true", "true", "true");
-//   } else if (dateDisplay === "true")
-//     dateField.innerHTML = displayCheckedValues(dayCheck, monthCheck, yearCheck);
-// }
-
 export function renderDateParams() {
   return `
     <div id="date-wrapper" class="param-wrap">
@@ -672,11 +609,11 @@ export function displayBatteryChargingState(battery) {
     document.getElementById("battery-charging-state").appendChild(iconCharge);
   } else if (chargingState === false) { // if false display battery level icon
     let batteryLevel = localStorage.getItem("battery-level");
-    if (batteryLevel == 100) {
+    if (batteryLevel <= 100) {
       let classList = "fa-battery-full";
       iconCharge.classList.add("fas", classList);
       document.getElementById("battery-charging-state").appendChild(iconCharge);
-    } else if (batteryLevel >= 50) {
+    } else if (batteryLevel <= 50) {
       let classList = "fa-battery-half";
       iconCharge.classList.add("fas", classList);
       document.getElementById("battery-charging-state").appendChild(iconCharge);
@@ -767,6 +704,7 @@ export function renderNetworkParams() {
 }
 
 export function displayLatency() {
+  let networkStateChecked = localStorage.getItem("network-display-check");
   if (networkStateChecked == "true") {
     document.querySelector("#network-latency").innerHTML =
       localStorage.getItem("latency") + "ms";
