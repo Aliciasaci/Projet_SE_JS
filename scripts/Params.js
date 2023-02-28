@@ -552,11 +552,11 @@ export function displayBatteryChargingState(battery) {
     document.getElementById("battery-charging-state").appendChild(iconCharge);
   } else if (chargingState === false) { // if false display battery level icon
     let batteryLevel = localStorage.getItem("battery-level");
-    if (batteryLevel == 100) {
+    if (batteryLevel <= 100) {
       let classList = "fa-battery-full";
       iconCharge.classList.add("fas", classList);
       document.getElementById("battery-charging-state").appendChild(iconCharge);
-    } else if (batteryLevel >= 50) {
+    } else if (batteryLevel <= 50) {
       let classList = "fa-battery-half";
       iconCharge.classList.add("fas", classList);
       document.getElementById("battery-charging-state").appendChild(iconCharge);
