@@ -135,12 +135,6 @@ export function renderVibrationBody() {
               <span class="param-label-background"></span>
           </label>
       </div>
-      <div class="vibration-param-display">Retours haptique de vibration pour l'application paramètres
-          <input type="checkbox" id="vibration-param-check" name="params" class="param-switch">
-          <label for="vibration-param-check" class="param-label">
-              <span class="param-label-background"></span>
-          </label>
-      </div>
     </div>
   `;
 }
