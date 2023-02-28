@@ -49,7 +49,6 @@
           <li>
             <img src="assets/icons/vibration_off.svg" id="vibration-icon-off" style="width:70%"/>
           </li>
-          <!-- <li><img src="assets/icons/signal.svg" /></li> -->
           <li><span id="network-latency"></span></li>
           <li>
             <div id="battery-nav" class="battery-nav">
@@ -65,7 +64,13 @@
               <span id="digital-clock-sec"></span>
             </div>
           </li>
-          <li class="dateTime"></li>
+          <li>
+            <div id="date-nav" class="dateTime">
+              <span id="date-day" style="padding-right: 0.5rem;"></span>
+              <span id="date-month" style="padding-right: 0.5rem;"></span>
+              <span id="date-year"></span>
+            </div>
+          </li>
         </ul>
       </nav>
       <!-- Mode switch -->
@@ -74,7 +79,6 @@
         <span class="mode-label-background"></span>
       </label>
 
-      <!-- <a href="Sujet.pdf">Sujet</a> -->
     </header>
     <main>
       <div id="app_list">
@@ -107,7 +111,8 @@
 
       <div id="password-choice-pannel" class="center">
         <h3>Configurer le mot de passe de verouillage</h3>
-        <input
+        <input 
+          type="password"
           id="password"
           placeholder="saisir mot de passe"
           name="password"

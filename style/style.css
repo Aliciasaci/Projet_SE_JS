@@ -187,6 +187,9 @@ body header nav #right-menu-btns .battery-nav {
   white-space: nowrap;
   font-size: 0.9rem;
 }
+body header nav #right-menu-btns .dateTime {
+  display: flex;
+}
 body header nav #right-menu-btns #vibration-icon-on,
 body header nav #right-menu-btns #vibration-icon-off {
   display: none;
@@ -956,7 +959,7 @@ body main .window .window-content #clock .card .analog-clock .line .sub {
   z-index: 0;
   left: 49%;
 }
-body main .window .window-content #clock .card .digital-clock-display {
+body main .window .window-content #clock .card .digital-clock-display, body main .window .window-content #clock .card .dateTime {
   font-size: 40px;
   position: relative;
   display: flex;
@@ -964,6 +967,9 @@ body main .window .window-content #clock .card .digital-clock-display {
   color: gray;
 }
 body main .window .window-content #clock .card li > div.digital-clock-display {
+  font-size: 15px;
+}
+body main .window .window-content #clock .card li > div.dateTime {
   font-size: 15px;
 }
 body main .window .window-content #clock .card .stopwatch-btn {

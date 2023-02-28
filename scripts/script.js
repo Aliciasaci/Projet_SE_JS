@@ -11,8 +11,7 @@ import {
   displayEtatVibration,
   saveCheckboxBatteryState,
   retrieveCheckboxBatteryState,
-  displayCheckedValues,
-  dateCheckListeners,
+  displayDate,
   renderLockscreenParams,
   lockscreen,
   latency,
@@ -26,6 +25,8 @@ import {
   importAllLocalStorageFromJsonFile,
   saveCheckboxTimeState,
   retrieveCheckBoxTimeState,
+  saveCheckBoxDateState,
+  retrieveCheckBoxDateState,
 } from "./Params.js";
 import {
   render as renderTicTacToe,
@@ -65,6 +66,10 @@ const navDate = document.querySelector(".dateTime");
 let hourNavDisplay = document.querySelector("#digital-clock-hour");
 let minNavDisplay = document.querySelector("#digital-clock-min");
 let secNavDisplay = document.querySelector("#digital-clock-sec");
+let dateNavDisplay = document.querySelector("#date-nav");
+let dayNavDisplay = document.querySelector("#date-day");
+let monthNavDisplay = document.querySelector("#date-month");
+let yearNavDisplay = document.querySelector("#date-year");
 
 let morpionPanel = null;
 let calculatorPanel = null;
@@ -99,6 +104,7 @@ window.addEventListener("load", () => {
   //* saved battery display
   retrieveCheckboxBatteryState(batteryNavDisplay);
   retrieveCheckBoxTimeState(hourNavDisplay, minNavDisplay, secNavDisplay);
+  retrieveCheckBoxDateState(dateNavDisplay, dayNavDisplay, monthNavDisplay, yearNavDisplay);
 
   //* Setup vibration
   const allDom = document.querySelector("*");
@@ -204,20 +210,12 @@ if (navigator.getBattery) {
    * * Elements to be displayed in top bar
    */
   //* Display or not date
-  let dayDisplayCheck = localStorage.getItem("date-display-check");
-  if (dayDisplayCheck === "false" || dayDisplayCheck === null) {
-    navDate.innerHTML = "";
-  } else {
-    navDate.innerHTML = displayCheckedValues(
-      localStorage.getItem("day-display-check"),
-      localStorage.getItem("month-display-check"),
-      localStorage.getItem("year-display-check")
-    );
-  }
+  displayDate();
+
+  
   //* Display or not time
   setDigitalClockTopBar();
   setInterval(setDigitalClockTopBar, 1000);
-  // timeCheckListeners();
 
   //* Display or not vibration state
   displayEtatVibration();
@@ -491,7 +489,6 @@ if (navigator.getBattery) {
                 saveCheckboxState();
                 checkAppTheme();
                 openedParams.push("time-wrapper");
-                // timeCheckListeners();
                 let checkboxHour = document.querySelector("#hour-display-check");
                 let checkboxMin = document.querySelector("#min-display-check");
                 let checkboxSec = document.querySelector("#sec-display-check");
@@ -524,7 +521,6 @@ if (navigator.getBattery) {
                   "beforeend",
                   renderDateParams()
                 );
-                dateCheckListeners();
                 saveCheckboxState();
                 checkAppTheme();
                 openedParams.push("date-wrapper");
@@ -534,6 +530,19 @@ if (navigator.getBattery) {
                     "none";
                   document.querySelector("#params").style.display = "block";
                 });
+
+                let checkboxDate = document.querySelector("#date-display-check");
+                let checkboxDay = document.querySelector("#day-display-check");
+                let checkboxMonth = document.querySelector("#month-display-check");
+                let checkboxYear = document.querySelector("#year-display-check");
+
+                let dateNavDisplay = document.querySelector("#date-nav");
+                let dayNavDisplay = document.querySelector("#date-day");
+                let monthNavDisplay = document.querySelector("#date-month");
+                let yearNavDisplay = document.querySelector("#date-year");
+
+                saveCheckBoxDateState(checkboxDate, checkboxDay, checkboxMonth, checkboxYear, dateNavDisplay, dayNavDisplay, monthNavDisplay, yearNavDisplay);
+                retrieveCheckBoxDateState(dateNavDisplay, dayNavDisplay, monthNavDisplay, yearNavDisplay, checkboxDate, checkboxDay, checkboxMonth, checkboxYear);
               }
               break;
             case "params-battery":
